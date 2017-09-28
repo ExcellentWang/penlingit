@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper">
+    <select id="getDeviceError" parameterType="Integer" resultType="com.ontheroad.pojo.TerminalDevice.DeviceError">
+        SELECT * FROM tb_device_error
+        WHERE equipment_id = #{equipment_id}
+        LIMIT 1
+    </select>
+    <insert id="setDeviceError" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceError">
+        REPLACE INTO tb_device_error(
+        equipment_id, water_tank, cold_water_in, hot_water_in,
+        mixer_temp, mixer_comm, buffer_in, water_out,
+        ac_power, battery_volt, battery_temp, updated_at
+        ) VALUES (
+        #{equipment_id}, #{water_tank}, #{cold_water_in}, #{hot_water_in},
+        #{mixer_temp}, #{mixer_comm}, #{buffer_in}, #{water_out},
+        #{ac_power}, #{battery_volt}, #{battery_temp}, #{updated_at}
+        )
+    </insert>
+</mapper>

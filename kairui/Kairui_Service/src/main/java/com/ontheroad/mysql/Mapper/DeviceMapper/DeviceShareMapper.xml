@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper">
+    <resultMap id="deviceShareMap" type="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        <id column="equipment_id" property="equipment_id"/>
+        <result property="equipmentName" column="equipmentName"/>
+        <result property="equipmentNum" column="equipmentNum"/>
+        <collection property="deviceShares" column="share_id" ofType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+            <id property="share_user_id" column="share_user_id"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+
+    <select id="findDeviceShares" resultMap="deviceShareMap" parameterType="Integer">
+        SELECT
+            e.equipment_id,
+            e.equipmentNum,
+            e.equipmentName,
+            s.share_id,
+            s.share_user_id,
+            s.remark
+        FROM
+            tb_equipment e
+            LEFT JOIN tb_user_share s ON e.equipment_id = s.equipment_id
+        WHERE e.equipment_id = #{equipment_id}
+        AND s.status = 1
+        ORDER BY e.equipment_id
+    </select>
+
+    <select id="findSharesOfDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceShare" parameterType="Integer">
+        SELECT * FROM tb_user_share s
+        left join tb_user u on s.share_user_id = u.user_id
+        WHERE s.equipment_id = #{equipment_id}
+        AND s.status = 1
+    </select>
+
+    <select id="findUserDevices" parameterType="Integer" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        select * from tb_user_share s
+        left join tb_equipment e on e.equipment_id = s.equipment_id
+        where s.share_user_id = #{share_user_id}
+        and s.status = 0
+    </select>
+
+    <select id="findShare" parameterType="map" resultType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        select * from tb_user_share
+		where equipment_id = #{equipment_id}
+		and status = 0
+   </select>
+
+    <select id="findSharedDevices" parameterType="map" resultType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        select * from tb_user_share
+        where equipment_id = #{equipment_id}
+        and share_user_id = #{share_user_id}
+        and status = 1
+    </select>
+
+    <select id="findDeviceOwner" parameterType="Integer" resultType="Integer">
+        SELECT share_user_id from tb_user_share
+        where equipment_id = #{equipment_id}
+        and status = 0
+        limit 1
+    </select>
+
+
+    <insert id="insertDeviceShare" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        insert into tb_user_share(share_user_id,equipment_id,authority,remark,`status`)
+        VALUE (#{share_user_id},#{equipment_id},#{authority},#{remark},#{status})
+   </insert>
+
+
+    <delete id="deleteDevice" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        delete from tb_user_share
+        where share_user_id=#{user_id}
+        and   equipment_id = #{equipment_id}
+        and status = 0
+    </delete>
+
+    <delete id="deleteDeviceShare" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        delete from tb_user_share
+        where share_user_id=#{share_user_id}
+        and   equipment_id = #{equipment_id}
+        and status = 1
+    </delete>
+
+</mapper>

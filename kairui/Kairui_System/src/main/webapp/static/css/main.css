@@ -1,0 +1,20 @@
+@charset "utf-8";/* CSS Document */
+*{margin:0;padding:0}
+body{font-family: "Microsoft YaHei" ! important;}
+.north-panel{height:90px;}
+.north-top{position:relative;height:64px;background: #18AE81;}
+.north-top .logo{position:absolute;left:20px;width:450px;height:64px;line-height:64px;color:#f5f5f5;font-size:18px;font-weight:bold;background: url(../images/logo.png) no-repeat left center;padding-left: 55px;}
+.north-top .top-ico{float: right;height: 64px;line-height: 64px;font-size:15px;color:#fff;border-left: 1px solid #178866;padding:0 20px 0px 50px;}
+.north-top .top-ico.home{background: url(../images/m_home.png) no-repeat 10px center;cursor: pointer;}
+.north-top .top-ico.user{background: url(../images/m_user.png) no-repeat 20px center;padding-left: 65px;}
+.north-top .top-ico.password{background: url(../images/m_pwd.png) no-repeat 10px center;cursor: pointer;}
+.north-top .top-ico.logout{background: url(../images/m_logout.png) no-repeat 10px center;cursor: pointer;}
+
+.west-panel{position:relative;width:176px;}
+#footer{text-align:center;color:#fff;height:36px;line-height:36px;font-size:13px; background: #3186E6;}
+/*修正样式*/
+.layout-panel-west{position:relative;width:200px;overflow-x: hidden;}
+.panel-body{/*background:#F1F9F9;*/border:0;overflow:hidden;}
+.panel-header{position:relative;width:176px;height:29px;padding:0;display: none;/*border-left:0;margin-left:3px;*/}
+.tabs-panels{height:100%}
+/*.tabs-header-noborder{border-top:1px solid #95b8e7}*/

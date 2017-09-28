@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.AppMapper.CustomerserviceMapper">
+
+    
+   <select id="getCustomerList" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
+            select c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName from tb_customerservice c
+			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+			where c.user_id = #{user_id}
+            ORDER BY c.createTime DESC
+
+   </select>
+
+    <select id="getCustomerListByDevice" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
+        select c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName from tb_customerservice c
+        LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+        where e.equipment_id = #{equipment_id}
+        ORDER BY c.createTime DESC
+
+    </select>
+   
+   
+   <select id="getCustomerDetail" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
+            select c.*,e.equipmentName,e.equipmentNum,e.type from tb_customerservice c
+			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+			where c.customer_id = #{customer_id} 
+   </select>
+
+    <select id="getPics" parameterType="Integer" resultType="com.ontheroad.pojo.user.Customerpicture">
+        SELECT * from tb_customerpicture
+        where customer_id = #{customer_id}
+    </select>
+   
+   
+   <insert id="insertCustomer" parameterType = "com.ontheroad.pojo.user.Customerservice">
+           <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="customer_id">
+              SELECT LAST_INSERT_ID() as id
+           </selectKey>
+   
+           insert into tb_customerservice(equipment_id,user_id,equipmentNum,repairType,phenomenon,appointmentTime,area,address,
+           phone,status,createTime,orderNum)
+           values(#{equipment_id},#{user_id},#{equipmentNum},#{repairType},#{phenomenon},#{appointmentTime},
+           #{area},#{address},#{phone},#{status},#{createTime},#{orderNum})
+   </insert>
+   
+   
+   
+   <insert id="insertPicture" parameterType = "java.util.List">
+           <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="customerPicture_id">
+              SELECT LAST_INSERT_ID() as id
+           </selectKey> 
+           insert into tb_customerpicture(customer_id, pictureAddress) values
+           <foreach collection ="list" item="pl" index= "index" separator =",">
+               (#{pl.customer_id}, #{pl.pictureAddress})
+           </foreach >
+   </insert>
+
+    <insert id="insertSinglePicture" parameterType="com.ontheroad.pojo.user.Customerpicture">
+        INSERT INTO tb_customerpicture(customer_id, pictureAddress) values
+        (#{customer_id}, #{pictureAddress})
+    </insert>
+
+    <delete id="deleteCustomerDetail" parameterType="com.ontheroad.pojo.user.Customerservice">
+        DELETE FROM tb_customerservice where customer_id = #{customer_id}
+    </delete>
+   
+   <!-- <update id="submitGuaranteeDetail"  parameterType="com.ontheroad.pojo.user.Guarantee">
+       UPDATE tb_guarantee set equipment_id = #{equipment_id},user_id = #{user_id},buyTime = #{buyTime},guaranteeTime = #{guaranteeTime},
+       phone = #{phone},area = #{area},address = #{address},invoice = #{invoice},status = #{status},remark = #{remark}      
+	   where guarantee_id = #{guarantee_id} 
+   </update> -->
+   
+   
+   
+</mapper>

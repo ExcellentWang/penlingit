@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.AppMapper.GuaranteeMapper">
+
+    <select id="getGuaranteeDetail" parameterType="map" resultType="com.ontheroad.pojo.user.Guarantee">
+        SELECT
+          g.*,
+          e.type as deviceType from tb_guarantee g
+        LEFT JOIN tb_equipment e on e.equipment_id = g.equipment_id
+        WHERE g.equipment_id = #{equipment_id}
+   </select>
+
+    <update id="submitGuaranteeDetail" parameterType="com.ontheroad.pojo.user.Guarantee">
+       UPDATE tb_guarantee set buyTime = #{buyTime}, user_id = #{user_id},
+       phone = #{phone},area = #{area},address = #{address},invoice = #{invoice},status = #{status}
+	   where guarantee_id = #{guarantee_id} 
+   </update>
+
+
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper">
+
+   
+   <!-- <insert id="insertAppUser" parameterType="com.ontheroad.pojo.user.User">
+           insert into tb_user(username,password,sex,phone,headPortrait,registerTime,loginTime,phoneModel,appVersion) 
+           values(#{username},#{password},#{sex},#{phone},#{headPortrait},#{registerTime},#{loginTime},#{phoneModel},#{appVersion})                     
+   </insert>
+   
+   
+   <select id="findUserByPhone" parameterType="map" resultType="com.ontheroad.pojo.user.User">
+         select * from tb_user
+         where phone = #{phone}
+   </select>
+ -->
+
+    <select id="getAllDevices" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        SELECT e.*, u.phone AS userTelephone, es.workStatus, es.firmware_version, es.last_active_at FROM tb_equipment e
+        LEFT JOIN tb_equipmentstatus es ON es.equipment_id = e.equipment_id
+        LEFT JOIN tb_user_share us ON us.equipment_id = e.equipment_id
+        LEFT JOIN tb_user u ON u.user_id = us.share_user_id
+        WHERE us.status = 0
+    </select>
+ 
+ 
+   <select id="findUserListByUserId" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+		select t.*,s.workStatus,s.temperature,o.appointment_temperature,h.status from tb_equipment t
+		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
+		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
+        LEFT JOIN tb_user_share h ON  t.equipment_id = h.equipment_id
+		where t.equipment_id in (
+		 select equipment_id from tb_user_share
+		  where h.share_user_id = #{userId}
+		)
+        GROUP BY t.equipment_id		
+   </select>
+   
+   
+    <select id="getDeviceDetailById" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        select t.*,s.workStatus,s.temperature, s.volume, s.backlight, o.appointment_temperature, g.status AS guaranteeStatus
+        from tb_equipment t
+		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
+		LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
+		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
+        where t.equipment_id = #{equipment_id}
+   </select>
+   
+    <select id="findDeviceByNum" parameterType="java.lang.String"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        select * from tb_equipment
+        where equipmentNum = #{equipmentNum}
+   </select>
+
+    <select id="findDeviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
+        SELECT * FROM tb_remind
+        WHERE equipment_id = #{equipment_id}
+    </select>
+   
+   
+   <update id="deviceBroadcast" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+         update tb_equipmentstatus set 
+         voicebroadcast = #{voicebroadcast},
+         volume = #{volume} 
+         where equipment_id = #{equipment_id}
+   </update>
+   
+   <update id="deviceBacklight" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+         update tb_equipmentstatus set 
+         backlight = #{backlight}
+         where equipment_id = #{equipment_id}
+   </update>
+   
+   <update id="deviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
+         update tb_remind SET 
+	     warn_type = #{warn_type},water_warn_status = #{water_warn_status},water_under = #{water_under},
+	     under_temperature = #{under_temperature},under_times = #{under_times},water_hight = #{water_hight},
+		 hight_temperature = #{hight_temperature},hight_times = #{hight_times}
+		 where equipment_id = #{equipment_id}
+   </update>
+
+   <update id="deviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+        update tb_equipment_appointment SET
+		user_id = #{user_id}, effluent_speed = #{effluent_speed},time = #{time},
+		children_status = #{children_status},appointment_temperature = #{appointment_temperature},effluent_type = #{effluent_type},
+		effluent_amount = #{effluent_amount},effluent_time = #{effluent_time}, effluent_way = #{effluent_way}
+		where equipment_id = #{equipment_id}
+   </update>
+    <update id="updateDevice" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        UPDATE tb_equipment
+        INNER JOIN tb_equipmentstatus ON tb_equipmentstatus.equipment_id = tb_equipment.equipment_id
+        SET tb_equipment.type = #{type},
+            tb_equipmentstatus.voicebroadcast = #{voicebroadcast},
+            tb_equipmentstatus.volume = #{volume},
+            tb_equipmentstatus.backlight = #{backlight},
+            tb_equipmentstatus.ip = #{ip},
+            tb_equipmentstatus.port = #{port}
+        WHERE tb_equipment.equipment_id = #{equipment_id}
+    </update>
+    <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        UPDATE tb_equipment
+        SET equipmentName = #{equipmentName}
+        WHERE equipment_id = #{equipment_id}
+    </update>
+
+    <select id="findAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+        SELECT * FROM tb_equipment_appointment
+        WHERE equipment_id = #{equipment_id}
+        LIMIT 1
+    </select>
+    
+	<select id="repairStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="int">
+        SELECT count(*) FROM tb_customerservice
+        WHERE equipment_id = #{equipment_id} and status!=2
+        
+    </select>
+    
+    <update id="updateDeviceWorkingStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        UPDATE tb_equipmentstatus
+        SET workStatus = #{workStatus}
+        WHERE equipment_id = #{equipment_id}
+    </update>
+
+</mapper>

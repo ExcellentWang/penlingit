@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper">
+    
+   <select id="getInformationTypeList"   resultType="com.ontheroad.pojo.Information.userInformation">
+        select i.*,d.information_name as typeName from tb_information i
+        LEFT JOIN information_datatype d on i.informationType = d.information_type 
+   </select>
+   
+   
+   <update id="updateInformationStatus" parameterType="com.ontheroad.pojo.Information.Information">
+       update tb_information set isNew = 0
+       where id = #{id}
+   </update>
+   
+   
+   <select id="getNewsInformationList" resultType="com.ontheroad.pojo.Information.NewsInformation">
+      select * from tb_newsInformation 
+      ORDER BY createTime DESC
+   </select> 
+    
+    
+   <select id="getDeviceInformationList" resultType="com.ontheroad.pojo.Information.Deviceinformation">
+      select * from tb_deviceInformation where  is_delete=0
+      ORDER BY time DESC
+   </select>
+
+    <select id="getInformationList" resultType="com.ontheroad.pojo.Information.Information" parameterType="map">
+        select i.*,d.information_name typeName from tb_information i
+        LEFT JOIN information_datatype d on d.information_type = i.informationType
+        WHERE 1=1 
+        and is_delete=0
+        <if test="user_id !='' and user_id !=null ">
+         and i.user_id = #{user_id}
+         </if>
+          <if test="informationType !='' and informationType !=null ">
+         AND i.informationType = #{informationType} 
+         </if>
+    </select>
+
+    <select id="getSlides" resultType="com.ontheroad.pojo.Information.Slideshow">
+        SELECT * FROM tb_slideshow ORDER BY createTime DESC
+    </select>
+
+    <select id="getNews" resultType="com.ontheroad.pojo.Information.NewsInformation">
+        select * from tb_newsInformation
+        WHERE id=#{news_id}
+    </select>
+	<select id="getInformationIsNew" resultType="com.ontheroad.pojo.Information.userInformation">
+       SELECT tb.id as information_id,tb.*,d.information_name as typeName FROM `tb_information`  tb 
+        LEFT JOIN information_datatype d on tb.informationType = d.information_type 
+       WHERE informationType=#{informationType}  and user_id=#{user_id} ORDER BY id DESC LIMIT 1
+   		
+    </select>
+	<update id="clearInformations" parameterType="com.ontheroad.pojo.Information.Information">
+       update tb_information ti set is_delete = 1
+       where ti.user_id = #{user_id}
+        <if test="information_id !='' and information_id !=null ">
+        and ti.id=#{information_id}
+        </if>
+        <if test="informationType !='' and informationType !=null ">
+         and ti.informationType=#{informationType}
+        </if>
+         
+   </update>
+   
+    <select id="allInformationsNum" parameterType="com.ontheroad.pojo.Information.Information" resultType="map">
+       SELECT (SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =1)AS type1num,
+		(SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =2)AS type2num,
+		(SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =3)AS type3num,
+		(SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =4)AS type4num
+    </select>
+    
+    <update id="setInformationIsRead" parameterType="com.ontheroad.pojo.Information.Information">
+       update tb_information ti set isNew = 0
+       where ti.user_id = #{user_id}
+        <if test="information_id !='' and information_id !=null ">
+        and ti.id=#{information_id}
+        </if>
+         
+   </update>
+</mapper>

@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+.trend_box{background: url(../images/main_bg.jpg);background-size: 100% auto;padding: 20px 0;}
+
+.trend_top{}
+
+.swiper_top{}
+.trend_main{margin-top: 20px;}
+
+.swiper_top .swiper-slide{text-align: center;color: #fff;font-size: 12px;}
+.swiper_top span{display: block;width: 32px;height: 32px;border-radius: 100%;background: rgba(255,255,255,0.5);overflow: hidden;margin: 0 auto;margin-bottom: 5px;}
+.swiper_top span i{display: block;width: 32px;height: 32px;margin: 0 auto;background-size: 32px auto;}
+.swiper_top .top1 span i{background-image: url(../images/icon1.png);}
+.swiper_top .top2 span i{background-image: url(../images/icon2.png);}
+.swiper_top .top3 span i{background-image: url(../images/icon3.png);}
+.swiper_top .top4 span i{background-image: url(../images/icon4.png);}
+.swiper_top .top5 span i{background-image: url(../images/icon5.png);}
+.swiper_top .top6 span i{background-image: url(../images/icon6.png);}
+.swiper_top .top7 span i{background-image: url(../images/icon7.png);}
+.swiper_top .top8 span i{background-image: url(../images/icon8.png);}
+.swiper_top .top9 span i{background-image: url(../images/icon9.png);}
+.swiper_top .top10 span i{background-image: url(../images/icon10.png);}
+.swiper_top .top11 span i{background-image: url(../images/icon11.png);}
+.swiper_top .top12 span i{background-image: url(../images/icon12.png);}
+.swiper_top .top13 span i{background-image: url(../images/icon13.png);}
+
+
+.swiper_top .active-nav span{background: rgba(0,255,114,1)}
+.swiper_top .swiper-slide.active-nav{color: #00ff72;}
+
+
+.chart_top{text-align: center;width: 198px;height: 198px;margin: 0 auto;position: relative;}
+
+.chart_top h6{display: inline-block;height: 20px;line-height: 20px;background: #ffac1c;padding: 0 5px;border-radius: 20px;font-size: 13px;color: #fff;font-weight: normal;min-width:100px;}
+.chart_top h2{color: #fff;font-size: 60px;line-height: 60px;margin-top: 10px;margin-bottom: 5px;}
+.chart_top h3,.chart_top h4{color: #b0adbf;font-size: 12px;}
+.chart_top h4{margin-top: 10px;}
+
+
+.chart_top .chart_text{position: absolute;/*top: 50%;left: 50%;margin-left: -60px;margin-top: -70px;*/width:100%;height:188px;padding-top:28px}
+.chart_top .chart_box{width: 100%}
+
+.chart_main{padding: 0 10px;margin-top: 42px;}
+.chart_main_box{position: relative;}
+
+.transparent_box1,.transparent_box2,.transparent_box3{border-radius: 10px;}
+
+.transparent_box1{width: 80%;min-height: 80px;position: absolute;top: 0;left: 10%;background: rgba(255,255,255,0.3);z-index: 2;}
+.transparent_box2{width: 90%;min-height: 80px;position: absolute;top: 6px;left: 5%;background: rgba(255,255,255,0.8);z-index: 3;}
+.transparent_box3{width: 100%;position: relative;top: 12px;left: 0;background: rgba(255,255,255,1);z-index: 4;padding-top: 50px;height: auto;overflow: hidden;}
+
+.user_img{position: absolute;z-index: 5;width: 68px;height: 68px;top: -28px;left: 50%;margin-left: -34px;border-radius: 100%;overflow: hidden;}
+.user_img img{display: block;width: 100%;}
+
+.trend_item{}
+.trend_item .item_top{margin: 0 10px;height: 22px;line-height: 22px;margin-bottom: 5px;}
+.trend_item .item_top i{display: block;float: left;width: 22px;height: 22px;background-size: 22px auto;margin-right: 10px;}
+.trend_item .item_top h2{font-size: 14px;color: #222;}
+
+.trend_item .item_main{margin: 0 10px 10px;}
+
+
+
+.history_trend .item_top i{background-image: url(../images/history_trend.png);}
+.trend_analyze .item_top i{background-image: url(../images/trend_analyze.png);}
+.trend_analyze .item_main p{font-size: 14px;color: #999;text-indent: 2em;}
+
+

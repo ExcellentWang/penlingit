@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   
+	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/context/spring-task-3.2.xsd">
+	<!-- aop -->
+    <context:property-placeholder  location="classpath:jdbc.properties" />
+ 	<!--自动扫描加载， 服务器端过滤有@RemoteService注解的类-->
+	<context:component-scan base-package="com.ontheroad">
+		<context:exclude-filter type="annotation" expression="org.springframework.remoting.service.annotation.RemoteService" />
+	</context:component-scan>
+    <context:annotation-config />  
+	
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message/exception</value>
+				<value>config</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--mina配置 -->
+	<bean id="defaultLocalAddress" class="java.net.InetSocketAddress">
+		<constructor-arg index="0" value="10024"></constructor-arg>
+	</bean>
+	<bean id="minaServerHandler" class="com.ontheroad.mysql.socketUtil.MinaServerHandler" />
+	<bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
+	<bean id="loggingFilter" class="org.apache.mina.filter.logging.LoggingFilter" />
+	<bean id="mdcInjectionFilter" class="org.apache.mina.filter.logging.MdcInjectionFilter">
+		<constructor-arg value="remoteAddress" />
+	</bean>
+	<bean id="codecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+		<constructor-arg>
+			<bean class="com.ontheroad.mysql.socketUtil.DeviceMessageCodecFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="filterChainBuilder"
+		  class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">
+		<property name="filters">
+			<map>
+				<entry key="executor" value-ref="executorFilter" />
+				<entry key="mdcInjectionFilter" value-ref="mdcInjectionFilter" />
+				<entry key="codecFilter" value-ref="codecFilter" />
+				<entry key="loggingFilter" value-ref="loggingFilter" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="minaAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+		  init-method="bind" destroy-method="unbind">
+		<property name="defaultLocalAddress" ref="defaultLocalAddress"/>
+		<property name="reuseAddress" value="true" />
+		<property name="handler" ref="minaServerHandler" />
+		<property name="filterChainBuilder" ref="filterChainBuilder" />
+	</bean>
+
+	<import resource="applicationContext_datasource_kamailio.xml"/>
+	<import resource="applicationContext-MemCached.xml"/>
+	<import resource="applicationContext-Task.xml"/>
+
+	<aop:aspectj-autoproxy/>
+</beans>

@@ -1,0 +1,147 @@
+@charset "utf-8";
+body{ margin:0 auto; padding:0px; font-size:12px;font-family: "Microsoft YaHei" ! important; /*text-align:center; */min-width: 320px; max-width: 640px;}
+p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,form,fieldset,legend,input,select,textarea,button,th,td,menu,article,pre,xmp,plaintext,listing{margin:0;padding:0;}
+pre,xmp,plaintext,listing{white-space:normal;}
+article,aside,dialog,figure,footer,header,hgroup,nav,section,select,time{display:block;}
+h1,h2,h3,h4,h5,h6,input,select,button,label{font-size:100%;font-weight:100;vertical-align:middle;}
+ul,dl,ol{list-style:none;}
+i,em{font-style: normal;}
+b{font-weight: normal;}
+img,fieldset,input[type="submit"]{border:none;}
+input{outline:none;background:transparent;vertical-align:top;}
+table{border-collapse:collapse;border-spacing:0;}
+button{cursor:pointer;border:none;}
+textarea{word-wrap:break-word;resize:none;}
+/* 去除IE下拉菜单箭头 */
+select::-ms-expand{display:none;}
+/* 去除IE下radio、checkbox默认样式 */
+::-ms-check{display:none;}
+/* 去除输入框、文本域默认边框和IOS4下的内阴影 */
+input, textarea, select{-webkit-appearance:none;border:none;outline:none;}
+/* 设置Gecko内核下输入框属性placeholder中值的文件颜色 */
+input:-moz-placeholder{color:#C4C4C4;}
+/* 设置webkit内核下输入框属性placeholder中值的文件颜色 */
+::-webkit-input-placeholder{color:#C4C4C4;}
+/* 设置webkit内核下文字大小不小于12px */
+html,body{-webkit-text-size-adjust:none;/*height:100%;*/}
+/* 禁止长按链接、按钮、输入框出现系统默认弹框菜单 */
+a,button,input{-webkit-touch-callout:none;outline:none;}
+a{text-decoration:none;-webkit-touch-callout:none; color: #666;}
+*{-webkit-tap-highlight-color:rgba(255,0,0,0);font-family: "Microsoft YaHei" ! important;}
+*{box-sizing:border-box;}
+a,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,th,td,menu,article,pre,xmp,plaintext,listing,em,span,i,b{-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;}
+
+body{ background:#f7f7f7;font-family: Helvetica,STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial;}
+.table{ display: table;}
+.cell{ display: table-cell; vertical-align: middle;}
+
+
+/*向右链接箭头*/
+.into{ position: relative;}
+.into:after{content:""; top:50%; margin-top:-7px; position:absolute;right:10px; width:8px; height:14px;background-image: url(../images/ico_into.png);background-repeat: no-repeat;background-position: right center;background-size: 8px auto;}
+.into2{ position: relative;}
+.into2:after{content:""; top:50%; margin-top:-9px; position:absolute;right:10px; width:12px; height:18px;background-image: url(../images/ico_into2.png);background-repeat: no-repeat;background-position: right center;background-size: 12px auto;}
+
+/*1px边框*/
+.bboth{background-image: url(../images/solid_t.png),url(../images/solid_b.png);background-repeat: repeat-x;background-position:top,bottom;background-size: 1px auto;}
+.ball{background-image: url(../images/solid_t.png),url(../images/solid_r.png),url(../images/solid_b.png),url(../images/solid_l.png);background-repeat: repeat-x,repeat-y,repeat-x,repeat-y;background-position:top,right,bottom,left;background-size: 1px auto;}
+.bt{background-image: url(../images/solid_t.png);background-repeat: repeat-x;background-position: top;
+    background-size: 1px auto;}
+.br{background-image: url(../images/solid_r.png);background-repeat: repeat-y;background-position: right;
+    background-size: 1px auto;}
+.bb{background-image: url(../images/solid_b.png);background-repeat: repeat-x;background-position: bottom;   background-size: 1px auto;}
+.bl{background-image: url(../images/solid_l.png);background-repeat: repeat-y;background-position: left; background-size: 1px auto;}
+
+@-webkit-keyframes zoomIn{
+0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}
+50%{opacity:1}}
+@keyframes zoomIn{
+0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);-ms-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}
+50%{opacity:1}}
+
+.zoomIn{-webkit-animation: zoomIn 0.5s ease;animation: zoomIn 0.5s ease;}
+/*弹出框样式*/
+.window_box{display:none;text-align: center;}
+.shade{ position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color: rgba(0,0,0,.5); z-index: 10;}
+.hint{position: fixed; top: 50%;transform:translateY(-50%);-webkit-transform:translateY(-50%);width: 300px; left:50%; margin-left: -150px; z-index: 15;}
+.hint .cc{ width: 100%; background: #fff; border-radius: 3px; -moz-border-radius: 3px; min-height: 180px; position: relative;}
+.hint h2{padding: 13px 0; font-size: 18px; font-weight: normal;color:#333;}
+.hint p{ font-size: 14px; color: #333; padding: 25px 23px 0;}
+.hint .message_w{display: -webkit-box;-webkit-box-orient: horizontal;-webkit-box-pack: center;-webkit-box-align: center;line-height: 25px;height: 140px;}
+.hint .message_w p{margin:0 10px;padding:0 25px 0;}
+.hint .tip_cont{height: auto;overflow: hidden;padding-bottom: 54px;text-align: left;}
+.hint .tip_cont p{margin:10px;padding:0;color: #666;font-size: 13px;}
+.hint .tip_cont .form_p{background-color: #fff; height: 30px; line-height:28px; position: relative; padding-left:50px;color: #333;}
+.hint .tip_cont .form_p.ma{padding-right:90px;}
+.hint .tip_cont .form_p span{position: absolute;left:0;top:0;line-height: 31px;}
+.hint .tip_cont .form_p input{ width: 100%;border:1px solid #ddd;height: 30px;color: #333;padding:5px;border-radius: 0;}
+.hint .tip_cont .form_p .msgs{position: absolute;right:0; top:0;border-radius:20px;height: 30px;line-height: 30px;color:#fff;width:80px;text-align:center;background: #52D069;}
+.hint .tip_cont .form_p .msgs.grey{color:#666;background-color: #eee;}
+.hint .nick_txt{height: auto;overflow: hidden;padding:15px 0;text-align: left;}
+.hint .nick_txt p{margin:10px;padding:0;color: #666;font-size: 13px;}
+.hint .nick_txt .form_p{background-color: #fff; height: 30px; line-height:28px; position: relative;color: #333;padding:0 20px;}
+.hint .nick_txt .form_p input{ width: 100%;border:1px solid #ddd;height: 30px;color: #333;padding:5px;border-radius: 0;}
+
+.hint .btn{ height: 44px; width: 100%; position: absolute; left: 0; bottom: 0;display: -webkit-box;}
+.hint .btn a{height: 44px; line-height: 44px;-webkit-box-flex:1.0;box-flex:1.0;display: block;font-size: 16px; color: #52D069;}
+.hint .btn a.close{ background-image: url(../images/solid_l.png);background-repeat: repeat-y;background-position: right; background-size: 1px auto; color:#666;}
+.hint .btn a:active{background-color: #f2f2f2;}
+.infobox,.bankbox,.paypwdbox,.payerrorbox{display: none;}
+.hint p.payerror{font-size: 16px;padding-top: 55px;}
+.leader_cont{display: block;padding:22px 20px 0;font-size: 15px;text-align:left;color:#666;}
+.leader_cont input{width: 100%;border:1px solid #eee;height:40px;padding:0 10px;font-size: 15px;border-radius: 0;}
+
+.boteasein{
+  -webkit-animation: boteasein 0.5s ease;
+  animation: boteasein 0.5s ease;
+}
+@-webkit-keyframes boteasein{
+  0%{ -webkit-transform: translateY(200px); opacity: 0;}
+  100%{ -webkit-transform: translateY(0px); opacity: 1;}
+}
+@keyframes boteasein{
+  0%{ transform: translateY(200px); opacity: 0;}
+  100%{ transform: translateY(0px); opacity: 1;}
+}
+
+.box_404{text-align: center;font-size: 14px;line-height: 30px;color: #666;padding:190px 0 0 20px; background: url(../images/404.png) no-repeat center top; background-size: auto 190px;margin-top: 20px;}
+.box_404 a{color: #ff6767;display: inline-block;margin: 0 2px;}
+
+.userlink{display: block;position: fixed;left:10px;bottom:60px; width: 48px;height: 48px;background:url(../images/center.png) no-repeat center center; background-size: 48px auto;border-radius: 50%; z-index:5;}
+
+.paypwd-btn,.payerror-btn{display: block;font-size: 20px;margin-bottom: 10px;}
+
+/*提现明细为空*/
+.empty{ padding-top: 102px; width: 100%;padding-bottom: 40px;text-align: center; }
+.empty img{ width: 75%;}
+.empty p{ padding-top: 26px; font-size: 15px; color: #666;}
+
+footer{display: block;position:fixed;left:0;bottom:20px;right:0;text-align: center;font-size: 14px;color: #666;}
+header{position: fixed;left:0;top:0;right:0;background-color:#52D069;height: 48px;line-height: 48px;text-align: center;color: #fff;font-size: 16px;z-index: 10;}
+header a.back_a{display: inline-block;background: url(../images/back.png) no-repeat 10px center;width:42px; height: 48px;background-size: 26px 26px;position: absolute;left: 0;top:0;}
+header select{margin: 0 auto;display: inline-block;border:none;color:#fff;background:#52D069 url(../images/ico.png) no-repeat right center;background-size:8px 5px;padding: 0 10px 0 0 ;position: relative;top:-2px;}
+header button{background: none;border:none;color: #fff;position: absolute;right:10px;top:0;height: 48px; width: 60px;text-align: right;}
+
+.etips{font-size: 14px;text-align: center;position: fixed;bottom: 55px;left:10px;right:10px;opacity: 0;z-index:1000}
+.etips span{color: #fff;padding: 10px;border-radius: 3px;background: rgba(0, 0, 0, .75);display: inline-block;min-width:120px;}
+.animated{-webkit-animation: bounceInUp 2s ease;animation-name: bounceInUp 2s ease;-webkit-animation-fill-mode: both;animation-fill-mode: both;}
+@-webkit-keyframes bounceInUp{0%, 20%, 30%, 50%, 90%, 100%{-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);}
+0%{opacity: 0;-webkit-transform: translate3d(0, 75px, 0);transform: translate3d(0, 75px, 0);}
+10%{opacity: 0;-webkit-transform: translate3d(0, 75px, 0);transform: translate3d(0, 75px, 0);}
+20%{opacity: 1;-webkit-transform: translate3d(0, -10px, 0);transform: translate3d(0, -10px, 0);}
+50%{opacity: 1;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}
+90%{opacity: 1;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}
+100%{opacity: 0;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}}
+@keyframes bounceInUp{0%, 20%, 30%, 50%, 90%, 100%{-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);}
+0%{opacity: 0;-webkit-transform: translate3d(0, 75px, 0);transform: translate3d(0, 75px, 0);}
+10%{opacity: 0;-webkit-transform: translate3d(0, 75px, 0);transform: translate3d(0, 75px, 0);}
+20%{opacity: 1;-webkit-transform: translate3d(0, -10px, 0);transform: translate3d(0, -10px, 0);}
+50%{opacity: 1;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}
+90%{opacity: 1;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}
+100%{opacity: 0;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}}
+
+.none_box{display: block;clear: both;width:320px;text-align: center;font-size: 16px;color: #999;margin:15% auto 40px;}
+.none_box img{ width: 75%;margin:0 auto 10px;}
+
+/*验证码变灰*/
+.form_p .msgs.grey{color:#666;background-color: #f7f7f7;}

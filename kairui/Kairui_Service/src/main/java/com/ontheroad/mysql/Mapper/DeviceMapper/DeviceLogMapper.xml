@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceLogMapper">
+    <resultMap id="deviceLogMap" type="com.ontheroad.pojo.TerminalDevice.DeviceLog">
+        <id column="id" property="id"/>
+        <result column="device_id" property="deviceID"/>
+        <result column="device_type" property="deviceType"/>
+        <result column="command" property="command" />
+        <result column="args" property="args" />
+        <result column="raw" property="raw" />
+        <result column="created_at" property="createdAt" />
+        <result column="ip" property="ip" />
+        <result column="port" property="port" />
+        <result column="direction" property="direction" />
+    </resultMap>
+
+    <select id="getDeviceLogs" resultMap="deviceLogMap">
+        SELECT  * FROM device_logs ORDER BY id DESC LIMIT 100;
+    </select>
+
+
+    <select id="getLastDeviceLog" resultMap="deviceLogMap" parameterType="java.lang.String">
+        SELECT * FROM device_logs
+        WHERE device_id = #{device_id}
+        ORDER BY id DESC LIMIT 1;
+    </select>
+
+    <insert id="insertDeviceLog" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceLog">
+        INSERT INTO device_logs(device_id, device_type, command, args, raw, created_at, ip, port, direction)
+        VALUES(#{deviceID}, #{deviceType}, #{command}, #{args}, #{raw}, #{createdAt}, #{ip}, #{port}, #{direction})
+    </insert>
+</mapper>

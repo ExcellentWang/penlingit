@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.ontheroad.web,com.ontheroad.controller"/>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                <property name="features">
+                    <util:list>
+                        <value>WriteDateUseDateFormat</value>
+                    </util:list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <mvc:default-servlet-handler/>
+    
+    <mvc:interceptors>
+            <!-- 可配置多个 -->
+           <!--  mvc:mapping 拦截所有的请求
+            mvc:exclude-mapping 这些请求不拦截 -->
+            <mvc:interceptor>
+                <mvc:mapping path="/**"/>  
+                <mvc:exclude-mapping path="/test" />
+                <mvc:exclude-mapping path="/admin/**" />
+                <mvc:exclude-mapping path="/static/**" />
+                <mvc:exclude-mapping path="/app/user/appUserRegister" /> 
+                <mvc:exclude-mapping path="/app/user/appUserLogin" /> 
+                <mvc:exclude-mapping path="/app/user/appUserGetVerificationCode" />
+                <mvc:exclude-mapping path="/app/user/appUserForgetPassword" />
+                <mvc:exclude-mapping path="/app/user/getEULA" />
+                <mvc:exclude-mapping path="/log/**" />
+                <mvc:exclude-mapping path="/app/update" />
+                <mvc:exclude-mapping path="/information/getNewsList" />
+                <bean class="com.ontheroad.web.filter.TokenFilter" />
+            </mvc:interceptor>
+            <!--<mvc:interceptor>-->
+                <!--<mvc:mapping path="/admin/**" />-->
+                <!--<mvc:exclude-mapping path="/admin/login" />-->
+                <!--<bean class="com.ontheroad.web.filter.AdminLoginFilter" />-->
+            <!--</mvc:interceptor>-->
+    </mvc:interceptors>
+    
+    
+    
+   <!--  <mvc:interceptors>
+		<bean id="privilegeInterceptor" class="com.bh.core.PrivilegeInterceptor">
+			<property name="excludes">
+				<set>
+					<value>/login</value>
+					<value>/login/validateUser</value>
+					<value>/login/signout</value>
+					<value>/webservice/getDeviceConfigure</value>
+					<value>/webservice/getAttackTask</value>
+					<value>/webservice/getVersion</value>
+					<value>/webservice/downloadVersion</value>
+					<value>/webservice/downloadVersionByName</value>
+					<value>/webservice/downloadVersion250ByName</value>
+					<value>/webservice/setDeviceInfo</value>
+					<value>/webservice/getMainView</value>
+					<value>/webservice/getMacBytime</value>
+					<value>/webservice/upload</value>
+					<value>/wifi/dev/test</value>
+				</set>
+			</property>
+			<property name="commons">
+				<set>
+					<value>/prompt</value>
+					<value>/main/index</value>
+					<value>/main/desktop</value>
+					<value>/main/grid/index</value>
+					<value>/main/grid/data-list</value>
+					<value>/main/dev/index</value>
+					<value>/main/dev/data-list</value>
+					<value>/main/dev/dev-add</value>
+					<value>/main/dev/devAdd</value>							
+				</set>
+			</property>
+		</bean>
+	</mvc:interceptors> -->
+
+
+
+
+
+    <!-- All views are JSPs loaded from /WEB-INF/views -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="exceptionResolver" class="com.ontheroad.exception.DefaultExceptionResolver"/>
+
+    <!--<aop:config proxy-target-class="true">-->
+        <!--<aop:pointcut id="controllerMethodPointcut" expression="execution(* com.ontheroad.controller..*(..)) and @annotation(org.springframework.web.bind.annotation.RequestMapping)"/>-->
+        <!--<aop:advisor advice-ref="validateInterceptor" pointcut-ref="controllerMethodPointcut" />-->
+    <!--</aop:config>-->
+</beans>

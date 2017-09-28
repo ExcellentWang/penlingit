@@ -1,0 +1,54 @@
+@charset "utf-8";
+/*菜单树组件样式*/
+.west-menu{width:200px;}
+.menu-up{position:absolute;top:6px;left:10px;background:url(../images/mainbgs1.png) no-repeat -52px 0px;width:16px;height:16px;cursor:pointer;}
+.menu-down{position:absolute;top:6px;left:30px;background:url(../images/mainbgs1.png) no-repeat -68px 0px;width:16px;height:16px;cursor:pointer;}
+.west-menu-content{position:relative;width:220px;}
+.west-menu-content ul{list-style:none}
+.west-menu-content ul .one-li{position:relative;float:left;}
+.one-li-div{position:relative;height:48px;line-height: 48px;cursor:pointer;margin-left:20px;}
+.one-li-div:hover .one-left-title{color: #fff;}
+.one-left-title{line-height:36px;color:#f5f5f5;font-weight:normal;font-size:14px;margin-left:30px;}
+.one-left-icon{position:absolute;top:10px;*top:7px;left:-6px;width:24px;height:24px;}
+.oneMenuSelected #oneMenuIcon-1{background: url(../images/nav_ico1.png) no-repeat 0 0;}
+.oneMenuSelected #oneMenuIcon-2{background: url(../images/nav_ico2.png) no-repeat 0 0;}
+.oneMenuSelected #oneMenuIcon-3{background: url(../images/nav_ico3.png) no-repeat 0 0;}
+.oneMenuSelected #oneMenuIcon-4{background: url(../images/nav_ico4.png) no-repeat 0 0;}
+.oneMenuSelected #oneMenuIcon-5{background: url(../images/nav_ico5.png) no-repeat 0 0;}
+.oneMenuSelected #oneMenuIcon-6{background: url(../images/nav_ico6.png) no-repeat 0 0;}
+.oneMenuSelected .one-left-title{color: #fff}
+#oneMenuIcon-1{background: url(../images/nav_ico1.png) no-repeat -24px 0;}
+#oneMenuIcon-2{background: url(../images/nav_ico2.png) no-repeat -24px 0;}
+#oneMenuIcon-3{background: url(../images/nav_ico3.png) no-repeat -24px 0;}
+#oneMenuIcon-4{background: url(../images/nav_ico4.png) no-repeat -24px 0;}
+#oneMenuIcon-5{background: url(../images/nav_ico5.png) no-repeat -24px 0;}
+#oneMenuIcon-6{background: url(../images/nav_ico6.png) no-repeat -24px 0;}
+.one-right-icon-add{position:absolute;top:17px;*top:14px;right:30px;background:url(../images/mainbgs1.png) no-repeat -25px 0px;width:12px;height:12px;}
+.one-right-icon-minus{position:absolute;top:17px;*top:14px;right:33px;background:url(../images/mainbgs1.png) no-repeat -12px 0px;width:12px;height:12px;}
+.two-ul{position:relative;*position:static;background:#18ae81;display: none;}
+.tow-ul-background{display: none;}
+.two-ul li{position:relative;cursor:pointer;color:#fff; height:48px;line-height: 48px;font-size:16px;}
+.two-ul .selected,.two-ul li:hover{background:#18ae81;/*border-right:5px solid #01CBBF;*/}
+.two-left-icon{position:absolute;top:11px;left:15px;background:url(../images/mainbgs1.png) no-repeat -35px 0px;width:6px;height:11px;}
+.two-left-title{line-height:28px;font-size:14px;margin-left:50px;}
+/*菜单树组件样式*/
+/*图片拖动组件样式*/
+.imgUl{position:relative; margin:10px auto;}
+.imgUl li{float:left; list-style:none; margin:10px; z-index:1;}
+.imgUl li:hover{cursor:move}
+.imgUl li img{width:100%;height:100%}
+.imgUl .active {border:1px dashed red;}
+/*图片拖动组件样式*/
+/*绑定用户组件样式*/
+.oneLi{margin:10px 0}
+.firstLetter{position:relative;margin:10px 0 0 24px;width:150px;height:30px;line-height:30px;color:#fff;background:#03C5C4;text-align:center;}
+.userDiv{width:790px;margin-left:24px;position:relative;background:#f7f7f7;}
+.letterDiv{position:absolute;left:0;top:5px;color:#fff;font-size:25px;font-weight:600;background:#03C5C4;width:30px;height:30px;text-align:center;line-height:30px;}
+.twoUl{position:absolute;left:40px;top:0px;width:700px;line-height:40px;color:#478c87;font-weight:600;background:#f7f7f7;}
+.twoUl li{position:relative;float:left;padding-left:5px;width:135px;height:40px;line-height:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bindUser{position:absolute;top:3px;left:80px;}
+.bindUser a{line-height:28px;color:#15428b;text-decoration:none;}
+.bindUser a:hover{color:red;}
+.search-text{position:absolute;left:180px;top:2px;width:500px;border:1px solid #95b8e7;border-radius:5px;font-size:14px;padding-left:5px;font-size:18px;height:25px;line-height:25px;}
+.search-text:focus{border:1px solid #95b8e7;box-shadow: 0 0 3px 0 #95b8e7;padding-left:5px;}
+/*绑定用户组件样式*/

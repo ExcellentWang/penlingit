@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.TestMapper">
+
+   <!-- 插入关键字 -->
+   <insert id="insertUser" parameterType="com.ontheroad.pojo.TestUser">
+           insert into tb_user(username,password) values(#{username},#{password})
+         
+          <!-- insert into test(username,passWord) values(#{username},#{password}) --> 
+   </insert>
+</mapper>

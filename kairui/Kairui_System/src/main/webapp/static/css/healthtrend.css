@@ -1,0 +1,6 @@
+.searchTable select {width: auto;}
+.searchTable td:nth-child(2n-1) {width:auto; padding-left:10px;}
+#grid{width: 100%;font-size: 12px; border:1px solid #999; border-collapse:collapse; margin-bottom:20px; color:#666;}
+#grid td{border:1px solid #ddd; text-align: center;padding:10px 0;}
+.hui{background:#fff;}
+#grid td.content{text-align: left; line-height:1.5em;padding:8px 15px; width:85%;}

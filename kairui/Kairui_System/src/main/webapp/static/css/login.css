@@ -1,0 +1,23 @@
+@charset "utf-8";
+*{margin:0;padding:0;}
+html{ width: 100%; height: 100%;}
+body{background:url(../images/log_bg.jpg) no-repeat center top;background-size:cover;overflow:hidden;font-family: "Microsoft YaHei" ! important; width: 100%; height: 100%;}
+.content{width:400px;height:460px;position:absolute;left:50%;top:50%;margin-left:-200px;margin-top:-230px;}
+.login-div{width:400px;height:460px;position: relative;}
+.login-title{position:absolute;top:0px;left:0;width:100%; height: 128px;background: url(../images/login_tit.png) no-repeat center center;}
+.login-btn{background: #26af86;width:362px;height:64px;text-align:center;line-height:64px;position:absolute;top:360px;right:18px;cursor:pointer;color: #fff;border-radius: 3px;font-size:18px;}
+.login-btn:hover{opacity: .75;}
+.copyright{position:absolute;bottom:40px;left:0; width: 100%;text-align:center;color:#fff;font-size:13px;}
+.errorMessages{position:absolute;bottom:-30px;left:0;color:#ff0;width:100%;text-align:center;font-size:16px;}
+.form_ipt{position: absolute;left:20px;top: 180px; width:360px; height: 100px;}
+.form_ipt p{width:358px;height: 64px;border-radius: 3px;border: 1px solid #3b7161;background:url(../images/ipt_bg.png) repeat center top;margin-bottom: 25px;position: relative;overflow: hidden;}
+.form_ipt p input{border:none; background: none;outline: none; width:283px; padding:18px 0 18px 75px; height: 28px; line-height: 28px;font-size:18px;color:#F2F2F4;font-family: "Microsoft YaHei" ! important; }
+.form_ipt p i{position: absolute;left:15px;top: 15px;border-right:1px solid #ddd; width:45px; height: 34px;}
+.form_ipt p i.user{background: url(../images/user.png) no-repeat center left;}
+.form_ipt p i.pwd{background: url(../images/pwd.png) no-repeat center left;}
+input:-webkit-autofill { 
+-webkit-box-shadow: 0 0 0px 1000px #fff inset; box-shadow: 0 0 0px 1000px #fff inset; -moz-box-shadow: 0 0 0px 1000px #fff inset; 
+}
+
+.log_img{display: block;background: url(../images/log_logo.png) no-repeat center center;width: 100%;height:82px;}
+.log_title{margin: 20px 0 30px;text-align: center;font-size:28px; color: #fff;}

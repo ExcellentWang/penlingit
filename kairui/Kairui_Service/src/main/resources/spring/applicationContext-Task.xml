@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+    <task:annotation-driven executor="penlinSystemExecutor" scheduler="penlinSystemShcheduler"/>
+    <task:executor id="penlinSystemExecutor" pool-size="1" />
+    <task:scheduler id="penlinSystemShcheduler" pool-size="1"/>
+
+     <!--<task:scheduled-tasks>-->
+        <!--<task:scheduled ref="businessTask" method="sendDataEmail"	cron=" 0 0 1-23 * * ?" />-->
+        <!--<task:scheduled ref="activityTask" method="activityRemindFat"	cron=" 0 30 8 * * ?" />-->
+        <!--<task:scheduled ref="activityTask" method="activityRemindEarly"	cron=" 0 0/5 5-10 * * ?" />-->
+        <!--<task:scheduled ref="machineTask" method="setMachineBoot"	cron=" 0 10 0/1 * * ?" />-->
+
+        <!--同步测量排行数据-->
+        <!-- <task:scheduled ref="businessTask" method="updateRankData" cron=" 0 10 0 * * ?"/> -->
+        <!--数据统计定时器   ??-->
+        <!-- <task:scheduled ref="dataAnalysisTask" method="dataStatistics" cron=" 0 1 0/1 * * ?"/> -->
+        <!--.net商户数据统计定时器-->
+        <!-- <task:scheduled ref="dataAnalysisTask" method="businessDataStatistics" cron=" 0 5 0 * * ?"/> -->
+        <!--统计店铺测量数据-->
+        <!-- <task:scheduled ref="businessTask" method="updateShopTestCount" cron=" 0 15 0 * * ?"/> -->
+        <!--统计前一天的数据-->
+        <!-- <task:scheduled ref="balanceDataReportTask" method="dataStatistics" cron=" 0 20 0 * * ?"/> -->
+        <!--结算早起活动奖金,20点结算-->
+     <!--    <task:scheduled ref="activityTask" method="distributionOne" cron=" 0 0 20 * * ?"/> -->
+        <!--结算增重/减重活动奖金,23点结算-->
+       <!--  <task:scheduled ref="activityTask" method="distributionTwo" cron=" 0 0 23 * * ?"/> -->
+        <!--转移上一期活动没有完成的到本期排行帮-->
+        <!-- <task:scheduled ref="balanceRankingTask" method="transferDate" cron=" 0 0 2 1 * ?"/> -->
+        <!--上期排行榜第一名生产领奖信息-->
+        <!-- <task:scheduled ref="balanceRankingTask" method="setPrizeReceive" cron=" 0 0 12 1 * ?"/> -->
+     <!--</task:scheduled-tasks>-->
+</beans>

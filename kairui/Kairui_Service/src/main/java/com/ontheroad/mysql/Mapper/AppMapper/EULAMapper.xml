@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.Mapper.AppMapper.EULAMapper">
+    <insert id="insertEULA" parameterType="com.ontheroad.pojo.user.EULA">
+        insert INTO tb_eula(id, title, content, address, createTime)
+        values(#{id}, #{title}, #{content}, #{address}, #{createTime})
+    </insert>
+
+    <select id="getEULA" resultType="com.ontheroad.pojo.user.EULA">
+        select * from tb_eula ORDER BY id DESC LIMIT 1;
+    </select>
+
+    <update id="updateEULA"  parameterType="com.ontheroad.pojo.user.EULA">
+        UPDATE tb_eula set title = #{title}, content = #{content}, address = #{address}, createTime = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>
