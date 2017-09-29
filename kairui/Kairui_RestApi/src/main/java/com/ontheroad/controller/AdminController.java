@@ -32,9 +32,9 @@ public class AdminController {
         return "admin/login";
     }
 
-    @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginProcess")
     public String loginProcess(HttpSession session, AdminLogin login) {
-        Admin admin = adminService.login(login);
+    	AdminLogin admin = adminService.login(login);
         if(admin == null) {
             return "admin/login";
         }

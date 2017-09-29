@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:property-placeholder  location="classpath:config.properties" />
+
+	<!-- 扫描包com.cttr下所有的JAVABEAN,并且过滤掉@Controller注解的类 -->
+	<context:component-scan base-package="com.ontheroad">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+	<!-- spring 国际化支持
+	 详见：http://www.xdemo.org/spring-i18n/ 
+	 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="messages"/> 
+	</bean>
+
+	<!--<bean id="validateInterceptor" class="com.ontheroad.web.filter.TitanValidateInterceptor"/>-->
+	<!-- 加载jar【spring-remoting-plugin.jar】中的配置文件 -->
+	<import resource="classpath:META-INF/spring/applicationContext-remoting.xml" />
+	<import resource="applicationContext-MemCached.xml"/>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="20971520"/>
+	</bean>
+</beans>

@@ -4,5 +4,5 @@ import com.ontheroad.pojo.Admin.Admin;
 import com.ontheroad.pojo.Admin.AdminLogin;
 
 public interface AdminMapper {
-    Admin login(AdminLogin login);
+	AdminLogin login(AdminLogin login);
 }

@@ -6,5 +6,5 @@ import org.springframework.remoting.service.annotation.RemoteService;
 
 @RemoteService
 public interface AdminService {
-    Admin login(AdminLogin login);
+	AdminLogin login(AdminLogin login);
 }
