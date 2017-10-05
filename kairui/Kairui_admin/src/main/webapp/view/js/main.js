@@ -232,8 +232,17 @@ $(function() {
 		"menuName": "设备管理",
 		"sysMenuList": [{
 			"menuName": "设备列表",
-			"url": "./Modal/task/myTask/index.html"
-		}]
+			"url": "./Modal/device/devicelist/index.html"
+		},
+		{
+			"menuName": "设备异常日志",
+			"url": "./Modal/device/deviceerror/index.html"
+		},
+		{
+			"menuName": "设备类型管理",
+			"url": "./Modal/device/devicetype/index.html"
+		}
+		]
 	}
 
 	]);
