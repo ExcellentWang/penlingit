@@ -1,4 +1,4 @@
-/*package com.ontheroad.mysql.system.service;
+package com.ontheroad.mysql.system.service;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -94,4 +94,4 @@ public class DictCache {
 		return dictDetail.getDetailValue().toString();
 	}
 
-}*/
+}

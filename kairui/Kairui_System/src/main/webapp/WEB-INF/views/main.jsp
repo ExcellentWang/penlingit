@@ -54,7 +54,7 @@
     }
 
     function openTab(menuId) {
-        $.post(ctx + "/system/prg/menu/getMenu", {"menuId": menuId},
+        $.post(ctx + "system/prg/menu/getMenu", {"menuId": menuId},
             function (msg) {
                 var url = ctx + msg.menuUrl;
                 var text = msg.menuName;
@@ -157,10 +157,10 @@
         document.location.reload();
     }
     function logout() {
-        window.location.href = ctx + '/security/logout';
+        window.location.href = ctx + 'security/logout';
     }
     function changePasWord() {
-        $.dialog.open(ctx + '/index/password', {
+        $.dialog.open(ctx + 'index/password', {
             lock: true,
             width: 600,
             height: 220
@@ -168,6 +168,7 @@
     }
 
     function openChildTab(url, menuId, text) {
+    	console.log(1)
         var opts = {
             title: text,
             tabId: 'menu' + menuId,

@@ -15,6 +15,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.user.User;
 import com.ontheroad.service.DeviceService.DeviceService;
+import com.ontheroad.utils.WebUtil;
 
 @RestController
 @RequestMapping("/device")
@@ -30,17 +31,17 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 	@RequestMapping(value = "/deviceList")
-    public Map<Object,Object> regist(User user) {
+    public Map<Object,Object> regist(TerminalDevice terminalDevice) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return deviceService.getUserDevice(user);      	        	        	
-        } catch (Exception e) {
+        try {	 
+        	return deviceService.getDevicesByExample( terminalDevice);
+        } catch (Exception e) {	
             e.printStackTrace();
             map.put("code", BaseConstant.appUserErrorStatus);
     		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
+    		map.put("totalItem",null);
+    		map.put("data", null);
             return map;
         }
     }

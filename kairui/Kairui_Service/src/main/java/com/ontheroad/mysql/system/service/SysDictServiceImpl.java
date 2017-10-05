@@ -1,4 +1,4 @@
-/*package com.ontheroad.mysql.system.service;
+package com.ontheroad.mysql.system.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -64,4 +64,3 @@ public class SysDictServiceImpl extends BaseServiceImpl<SysDict, Long> implement
 		return DictCache.getDetailValue(dictName, detailName);
 	}
 }
-*/

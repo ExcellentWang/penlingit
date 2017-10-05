@@ -30,9 +30,9 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 	<div class="icon">
 		<ul>
 	   		<li><a href="#" onclick="showDetailAdd();"><span class="menu1"></span>添加</a></li>
-	   		<li><a href="#" onclick="showEdit('/system/prg/detail/showEdit','detailId',600,260);"><span class="menu13"></span>修改</a></li>
+	   		<li><a href="#" onclick="showEdit('system/prg/detail/showEdit','detailId',600,260);"><span class="menu13"></span>修改</a></li>
 	   		<li><a href="#" onclick="removeRow('detailId');"><span class="menu11"></span>删除</a></li>
-	   		<li><a href="${ctx}/system/prg/dict/init"><span class="menu6"></span>返回</a></li>
+	   		<li><a href="${ctx}system/prg/dict/init"><span class="menu6"></span>返回</a></li>
 		</ul>
 	</div>
 </div>
@@ -42,7 +42,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 <script type="text/javascript">
 $(function() {
 	$('#grid').datagrid({   
-	    url:'${ctx}/system/prg/detail/list?dictId=${dictId}', 
+	    url:'${ctx}system/prg/detail/list?dictId=${dictId}', 
 	    pageSize :10,
 		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
 		striped : true,
@@ -59,7 +59,7 @@ $(function() {
 	}); 
 });
 function showDetailAdd(){
-	$.dialog.open(ctx+'/system/prg/detail/showAdd?dictId=+${dictId}', {
+	$.dialog.open(ctx+'system/prg/detail/showAdd?dictId=+${dictId}', {
 		lock: true,
 		width:600,
 		height:230

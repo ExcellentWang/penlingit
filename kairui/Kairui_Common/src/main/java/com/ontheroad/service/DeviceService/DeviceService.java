@@ -59,4 +59,11 @@ public interface DeviceService {
 	Map<Object, Object> getAllDevices();
 	
 	Map<Object, Object> repairStatus(Integer equipment_id);
+	
+	/**
+	 * 通过条件获取设备列表
+	 * @param TerminalDevice
+	 * @return
+	 */
+	Map<Object, Object> getDevicesByExample(TerminalDevice TerminalDevice);
 }

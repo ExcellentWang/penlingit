@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@ include file="/WEB-INF/views/system/taglibs.jsp" %>
+    <%@ include file="/WEB-INF/viewssystem/taglibs.jsp" %>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
@@ -116,7 +116,7 @@
                 for (var i = 0; i < selections.length; i++) {
                     ids.push(selections[i][deleteId]);
                 }
-                $.post(ctx + '/system/prg/user/initPwd', {"ids": ids.toString()}, function (data) {
+                $.post(ctx + 'system/prg/user/initPwd', {"ids": ids.toString()}, function (data) {
                     if (data.success) {
                         $("#grid").datagrid('reload');
                         $.messager.show({

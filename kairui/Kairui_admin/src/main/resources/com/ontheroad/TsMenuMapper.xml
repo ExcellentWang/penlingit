@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.dao.TsMenuMapper">
+  <resultMap id="BaseResultMap" type="com.ontheroad.entity.TsMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_desc" jdbcType="VARCHAR" property="menuDesc" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="menu_type" jdbcType="INTEGER" property="menuType" />
+    <result column="menu_status" jdbcType="INTEGER" property="menuStatus" />
+    <result column="menu_level" jdbcType="INTEGER" property="menuLevel" />
+    <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="menu_order" jdbcType="INTEGER" property="menuOrder" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, menu_name, menu_desc, menu_url, parent_id, menu_type, menu_status, menu_level, 
+    menu_icon, create_time, update_time, menu_order
+  </sql>
+  <select id="selectByExample" parameterType="com.ontheroad.entity.TsMenuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_s_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_s_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_s_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ontheroad.entity.TsMenuExample">
+    delete from t_s_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ontheroad.entity.TsMenu">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_s_menu (menu_name, menu_desc, menu_url, 
+      parent_id, menu_type, menu_status, 
+      menu_level, menu_icon, create_time, 
+      update_time, menu_order)
+    values (#{menuName,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{menuType,jdbcType=INTEGER}, #{menuStatus,jdbcType=INTEGER}, 
+      #{menuLevel,jdbcType=INTEGER}, #{menuIcon,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{menuOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ontheroad.entity.TsMenu">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_s_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="menuDesc != null">
+        menu_desc,
+      </if>
+      <if test="menuUrl != null">
+        menu_url,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="menuStatus != null">
+        menu_status,
+      </if>
+      <if test="menuLevel != null">
+        menu_level,
+      </if>
+      <if test="menuIcon != null">
+        menu_icon,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="menuOrder != null">
+        menu_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null">
+        #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="menuStatus != null">
+        #{menuStatus,jdbcType=INTEGER},
+      </if>
+      <if test="menuLevel != null">
+        #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="menuIcon != null">
+        #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuOrder != null">
+        #{menuOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ontheroad.entity.TsMenuExample" resultType="java.lang.Integer">
+    select count(*) from t_s_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_s_menu
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuName != null">
+        menu_name = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuDesc != null">
+        menu_desc = #{record.menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuUrl != null">
+        menu_url = #{record.menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuType != null">
+        menu_type = #{record.menuType,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuStatus != null">
+        menu_status = #{record.menuStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuLevel != null">
+        menu_level = #{record.menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuIcon != null">
+        menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.menuOrder != null">
+        menu_order = #{record.menuOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_s_menu
+    set id = #{record.id,jdbcType=INTEGER},
+      menu_name = #{record.menuName,jdbcType=VARCHAR},
+      menu_desc = #{record.menuDesc,jdbcType=VARCHAR},
+      menu_url = #{record.menuUrl,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      menu_type = #{record.menuType,jdbcType=INTEGER},
+      menu_status = #{record.menuStatus,jdbcType=INTEGER},
+      menu_level = #{record.menuLevel,jdbcType=INTEGER},
+      menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      menu_order = #{record.menuOrder,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ontheroad.entity.TsMenu">
+    update t_s_menu
+    <set>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null">
+        menu_desc = #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuType != null">
+        menu_type = #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="menuStatus != null">
+        menu_status = #{menuStatus,jdbcType=INTEGER},
+      </if>
+      <if test="menuLevel != null">
+        menu_level = #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="menuIcon != null">
+        menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuOrder != null">
+        menu_order = #{menuOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ontheroad.entity.TsMenu">
+    update t_s_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_desc = #{menuDesc,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      menu_type = #{menuType,jdbcType=INTEGER},
+      menu_status = #{menuStatus,jdbcType=INTEGER},
+      menu_level = #{menuLevel,jdbcType=INTEGER},
+      menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      menu_order = #{menuOrder,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 用户拥有菜单 -->
+   <select id="getMenusUser" parameterType="com.ontheroad.entity.TsMenuExample" resultType="java.lang.Integer">
+    SELECT m.* FROM t_s_menu m 
+LEFT JOIN `t_s_role_menu` rm ON rm.`menu_id`=m.`id`
+LEFT JOIN `t_s_role` r ON r.`id`=rm.`role_id`
+LEFT JOIN `t_s_role_user` ru ON ru.`role_id`=r.`id`
+LEFT JOIN `t_s_user` u ON u.`user_id`=ru.`user_id`
+WHERE u.user_id=#{userId}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

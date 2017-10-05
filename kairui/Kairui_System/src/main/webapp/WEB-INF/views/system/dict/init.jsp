@@ -28,8 +28,8 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 	<div class="om-panel-header">字典管理列表</div>
 	<div class="icon">
 		<ul>
-    		<li><a href="#" onclick="showAdd('/system/prg/dict/showAdd',600,230);"><span class="menu1"></span>添加</a></li>
-    		<li><a href="#" onclick="showEdit('/system/prg/dict/showEdit','dictId',600,230);"><span class="menu13"></span>修改</a></li>
+    		<li><a href="#" onclick="showAdd('system/prg/dict/showAdd',600,230);"><span class="menu1"></span>添加</a></li>
+    		<li><a href="#" onclick="showEdit('system/prg/dict/showEdit','dictId',600,230);"><span class="menu13"></span>修改</a></li>
     		<li><a href="#" onclick="removeRow('dictId');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
@@ -53,7 +53,7 @@ $(function() {
 	                 {width : '100',title : '状态',field : 'dictStatus',sortable:true,formatter:function(v,r){return JSON.parse('${statusMap}')[v]}},
 	                 {width : '150',title : '修改时间',field : 'updateTime',sortable:true},
 	                 {width : '50',title : '操作',field : 'action',sortable:true,formatter:function(value,row){
-	                	 return '<a href="<c:url value='/system/prg/detail/init'/>?dictId='+row.dictId+'"><img border=0 src="<c:url value='/static/images/childs.gif'/>" /></a>';
+	                	 return '<a href="<c:url value='system/prg/detail/init'/>?dictId='+row.dictId+'"><img border=0 src="<c:url value='/static/images/childs.gif'/>" /></a>';
 	    			 }
 	    			}]]
 	}); 

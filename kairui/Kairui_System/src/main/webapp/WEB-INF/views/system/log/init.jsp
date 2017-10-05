@@ -54,7 +54,7 @@ $(function() {
 	}); 
 });
 function exportExcel(){
-	window.location.href = ctx + '/system/prg/log/exportExcel';
+	window.location.href = ctx + 'system/prg/log/exportExcel';
 }
 
 </script>

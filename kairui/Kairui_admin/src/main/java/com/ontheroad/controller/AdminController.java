@@ -29,7 +29,7 @@ public class AdminController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin() {
-        return "admin/login";
+        return "index";
     }
 
     @RequestMapping(value = "/loginProcess")

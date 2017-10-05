@@ -52,7 +52,7 @@ function loadMenuTree(){
 }
 
 function openTab(menuId){
-	$.post(ctx+"/system/prg/menu/getMenu", {"menuId":menuId},
+	$.post(ctx+"system/prg/menu/getMenu", {"menuId":menuId},
 	   function(msg){
 			var url = ctx+msg.menuUrl;
 			var text = msg.menuName;

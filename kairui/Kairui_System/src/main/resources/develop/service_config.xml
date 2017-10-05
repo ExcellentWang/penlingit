@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <service_config>
 	<path>
-		<remoteServerUrl>http://127.0.0.1:9999/Kairui_Service/remoting/</remoteServerUrl>
+		<remoteServerUrl>http://127.0.0.1:9988/Kairui_Service/remoting/</remoteServerUrl>
 	</path>
 	<webservice>
 		<httpClientPolicy>

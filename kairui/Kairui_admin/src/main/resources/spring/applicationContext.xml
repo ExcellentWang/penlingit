@@ -1,25 +1,87 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="  
+          http://www.springframework.org/schema/beans  
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+          http://www.springframework.org/schema/context  
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+          http://www.springframework.org/schema/mvc      
+          http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd  
+          http://www.springframework.org/schema/util   
+          http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+          ">
 	<context:property-placeholder  location="classpath:config.properties" />
 
 	<!-- 扫描包com.cttr下所有的JAVABEAN,并且过滤掉@Controller注解的类 -->
 	<context:component-scan base-package="com.ontheroad">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
 	</context:component-scan>
-	<!-- spring 国际化支持
-	 详见：http://www.xdemo.org/spring-i18n/ 
-	 -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames" value="messages"/> 
+	    <!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="kamailioTransactionManager" />
+		<!-- 配置druid数据源 -->
+	<bean id="kamailiodataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	      <!-- 基本属性 url、user、password -->
+	      <property name="url" value="${jdbc.url}" />
+	      <property name="username" value="${jdbc.username}" />
+	      <property name="password" value="${jdbc.password}" />
+	
+	      <!-- 配置初始化大小、最小、最大 -->
+	      <property name="initialSize" value="1" />
+	      <property name="minIdle" value="1" /> 
+	      <property name="maxActive" value="150" />
+	
+	      <!-- 配置获取连接等待超时的时间 -->
+	      <property name="maxWait" value="60000" />
+	
+	      <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+	      <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	
+	      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+	      <property name="minEvictableIdleTimeMillis" value="300000" />
+	
+	      <property name="validationQuery" value="SELECT 'x'" />
+	      <property name="testWhileIdle" value="true" />
+	      <property name="testOnBorrow" value="false" />
+	      <property name="testOnReturn" value="false" />
+	      
+	      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+	      <property name="poolPreparedStatements" value="false" />
+	      <property name="filters" value="stat" />
+	</bean> 
+    
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="kamailiodataSource" />
+		<property name="mapperLocations" value="classpath:com/ontheroad/*.xml"></property>
 	</bean>
-
-	<!--<bean id="validateInterceptor" class="com.ontheroad.web.filter.TitanValidateInterceptor"/>-->
-	<!-- 加载jar【spring-remoting-plugin.jar】中的配置文件 -->
+	<!--数据源事物管理 -->
+	<bean id="kamailioTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="kamailiodataSource" /> 
+        <qualifier value="core" />  
+	</bean>
+	
+	<!--调用.ENT库丁洋编程式事务 -->
+	<bean id="transactionTemplate"  class="org.springframework.transaction.support.TransactionTemplate">  
+        <property name="transactionManager">  <ref local="kamailioTransactionManager" />  
+        </property>  
+        <!--ISOLATION_DEFAULT 表示由使用的数据库决定  -->  
+        <property name="isolationLevelName" value="ISOLATION_DEFAULT"/>  
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+        <!-- <property name="timeout" value="30"/> -->  
+    </bean>
+    
+	<bean id="mapperScannerConfigurer" class="org.mybatis.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="basePackage" value="com.ontheroad.dao" />
+	</bean>
+	
+	
+    
 	<import resource="classpath:META-INF/spring/applicationContext-remoting.xml" />
 	<import resource="applicationContext-MemCached.xml"/>
 

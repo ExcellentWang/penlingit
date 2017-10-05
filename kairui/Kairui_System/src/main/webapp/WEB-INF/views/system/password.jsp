@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file="/WEB-INF/views/system/taglibs.jsp" %>
+<%@ include file="/WEB-INF/viewssystem/taglibs.jsp" %>
 <html>
 <head> <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

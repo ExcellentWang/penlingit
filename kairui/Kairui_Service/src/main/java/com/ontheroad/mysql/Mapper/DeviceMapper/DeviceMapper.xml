@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper">
-
    
-   <!-- <insert id="insertAppUser" parameterType="com.ontheroad.pojo.user.User">
-           insert into tb_user(username,password,sex,phone,headPortrait,registerTime,loginTime,phoneModel,appVersion) 
-           values(#{username},#{password},#{sex},#{phone},#{headPortrait},#{registerTime},#{loginTime},#{phoneModel},#{appVersion})                     
-   </insert>
-   
-   
-   <select id="findUserByPhone" parameterType="map" resultType="com.ontheroad.pojo.user.User">
-         select * from tb_user
-         where phone = #{phone}
-   </select>
- -->
-
     <select id="getAllDevices" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
         SELECT e.*, u.phone AS userTelephone, es.workStatus, es.firmware_version, es.last_active_at FROM tb_equipment e
         LEFT JOIN tb_equipmentstatus es ON es.equipment_id = e.equipment_id
@@ -119,5 +106,14 @@
         SET workStatus = #{workStatus}
         WHERE equipment_id = #{equipment_id}
     </update>
+    
+    <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+        select * from tb_equipment
+        where  1=1
+     <!--    <if test="TerminalDevice.equipmentNum!=null and TerminalDevice.equipmentNum!=''">
+        	 equipmentNum = #{equipmentNum}
+        </if>  -->
+       
+    </select>
 
 </mapper>

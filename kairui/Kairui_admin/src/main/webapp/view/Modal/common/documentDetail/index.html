@@ -1,0 +1,265 @@
+<style>
+    .image{ cursor: pointer; }
+</style>
+<link rel="stylesheet" href="../../../common/plugs/ztree/css/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" href="../../../common/plugs/video/css/video-js.min.css">
+<link rel="stylesheet" href="../../../common/plugs/viewer/css/viewer.min.css">
+<link rel="stylesheet" href="../../../css/main.css" />
+
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">目录结构</h3>
+            </div>
+            <div style="height: calc(100% - 40px); overflow: auto;" class="panel-body">
+                <div class="row">
+                    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                        <button type="button" class="btn btn-primary btn-xs" id="downLoad"><span>打包下载</span>
+                        </button>
+                    </div>
+                </div>
+                <ul id="tree" class="ztree"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-18 col-sm-18 col-md-18 col-lg-18">
+        <div class="panel panel-default" style="height: calc(100% - 40px); overflow-y: scroll;">
+            <div class="panel-heading">
+                <h3 class="panel-title">图片列表</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#thumbnail" data-toggle="tab">缩略图</a></li>
+                    <li><a href="#imageList" data-toggle="tab">上传文件</a></li>
+                </ul>
+                <div class="tab-content">
+                    <p></p>
+                    <div id="thumbnail" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 text-right">
+                                <button type="button" class="btn btn-primary btn-sm hide" id="bankview"><span>标示为银行可见</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled" id="moveImage"><span>移动图片</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled hidden" id="delImage"><span>删除文件</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm hidden" id="removed"><span>查看已删除影像</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled hidden" id="sendBanck"><span>标识为银行文件</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled hidden" id="signDatum"><span>标识为审核资料</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled hidden" id="sendContract"><span>资产分发可见</span> </button>
+                                <button type="button" class="btn btn-primary btn-sm disabled" id="btnPrint"><span>打印图片</span> </button>
+                            </div>
+                        </div>
+                        <div id="documentList"></div>
+                    </div>
+                    <div id="imageList" class="tab-pane">
+                        <button type="button" class="btn btn-primary btn-sm disabled hide" id="upImage"><span>上传图片</span>
+                        </button>
+                        <input id="upImageInput" type="file" name="files[]" accept="image/*" multiple class="hide">
+                        <button type="button" class="btn btn-primary btn-sm hide" id="upMovie"><span>上传视频</span>
+                        </button>
+                        <input id="upMovieInput" type="file" name="FileInputStream" class="hide">
+                        <button type="button" class="btn btn-primary btn-sm hide" id="upload"><span>开始上传</span>
+                        </button>
+                        <form class="form-horizontal">
+                            <table id="fileList" class="table">
+                                <thead>
+                                <tr>
+                                    <th>文件</th>
+                                    <th>文件名</th>
+                                    <th>文件大小</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 hide" id="upLoanAmountDiv">
+        <div class="ibox float-e-margins">
+            <form id="upLoanAmountForm" class="form-horizontal ibox-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">提额校验</h3>
+                    </div>
+                    <div class="panel-body">
+						<fieldset id="checkHouse" class = "hide">
+                        <div class="form-group form-group-sm">
+                            <div class="input-tip">
+                                <label class="col-md-3 col-xs-3 col-sm-3 control-label">房产证明：</label>
+                                <div class="col-md-5 cl-sm-5 col-xs-5">
+                                    <select name="houseCheckResult" id= "houseCheckResult" class="form-control">
+                                        <option value="">--请选择--</option>
+                                        <option value="1">通过</option>
+                                        <option value="0">不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 control-label">备注：</label>
+                            <div class="col-xs-13 col-sm-13 col-md-13 col-lg-13">
+		      			<textarea class="form-control" rows="3" name="houseCheckNote"></textarea>
+                            </div>
+                        </div>
+                        </fieldset>
+						<fieldset id="checkFund" class = "hide">
+                        <div class="form-group form-group-sm">
+                            <div class="input-tip">
+                                <label class="col-md-3 col-xs-3 col-sm-3 control-label">公积金/社保证明：</label>
+                                <div class="col-md-5 cl-sm-5 col-xs-5">
+                                    <select name="fundCheckResult" id= "fundCheckResult" class="form-control">
+                                        <option value="">--请选择--</option>
+                                        <option value="1">通过</option>
+                                        <option value="0">不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 control-label">备注：</label>
+                            <div class="col-xs-13 col-sm-13 col-md-13 col-lg-13">
+		      			<textarea class="form-control" rows="3" name="fundCheckNote"></textarea>
+                            </div>
+                        </div>
+                        </fieldset>
+		                <div class="form-group form-group-sm">
+		                    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 text-right">
+		                        <button type="button" class="btn btn-primary" id="check-btn-save">
+		                            <span>保存</span>
+		                        </button>
+		                    </div>
+		                </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row hide" id="bankMain" >
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default" style="height: calc(100% - 40px); overflow-y: scroll;">
+            <div class="panel-heading">
+                <h3 class="panel-title">银行资料</h3>
+            </div>
+            <div class="panel-body">
+                <ul id="bankTree" class="ztree"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-18 col-sm-18 col-md-18 col-lg-18">
+        <div class="panel panel-default" style="height: calc(100% - 40px); overflow-y: scroll;">
+            <div class="panel-heading">
+                <h3 class="panel-title">已选图片</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row text-right col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                    <button type="button" class="btn btn-primary btn-sm " id="deleteImage"><span>移出</span> </button>
+                </div>
+                <div id="bankdocumentList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="currencyNote" class="hide">
+    <div class=" row form-group form-group-sm">
+        <div class="input-tip">
+            <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">备注：</label>
+            <div class="col-xs-13 col-sm-13 col-md-13 col-lg-13">
+                <textarea class="form-control" rows="3" name="currencyNote"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" text-right">
+            <button type="button" class="btn btn-primary" id="currencySave">
+                <span>保存</span>
+        </div>
+    </div>
+</div>
+<div class="row" id="checkData">
+    <div class="form-group form-group-sm">
+        <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="">核对结果:</label>
+        <div class="col-sm-11 col-xs-11 col-md-11">
+            <div>
+                <div class="checkbox-inline">
+                    <input type="radio" name="documentCheckStatus" value="1" checked> 待核对&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="checkbox-inline">
+                    <input type="radio" name="documentCheckStatus" value="2"> 有误&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="checkbox-inline">
+                    <input type="radio" name="documentCheckStatus" value="3"> 无误&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10 col-xs-10 col-md-10">
+            <div class="btn btn-primary btn-sm" id="subTree">&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+    </div>
+</div>
+
+<div id="replayFile" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" aria-hidden="true" type="button" class="close">&times;</button>
+                <h4 class="modal-title">恢复文件</h4>
+            </div>
+            <div class="modal-body">
+                <h4>确定恢复文件？？</h4>
+            </div>
+            <div class="modal-footer">
+                <button id="replay" type="button" class="btn btn-info">确定</button>
+                <button data-dismiss="modal" class="btn btn-default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="targetDir" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" aria-hidden="true" type="button" class="close">&times;</button>
+                <h4 class="modal-title">移动到</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="targetTree" class="ztree"></ul>
+            </div>
+            <div class="modal-footer">
+                <button id="targetSure" class="btn btn-info disabled">确定</button>
+                <button data-dismiss="modal" class="btn btn-default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delDocument" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" aria-hidden="true" type="button" class="close">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <h4>确定删除当前文件？</h4>
+            </div>
+            <div class="modal-footer">
+                <button id="delSure" class="btn btn-info">确定</button>
+                <button data-dismiss="modal" class="btn btn-default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.modal -->
+<script src="../../../common/js/LocalResizeIMG.js"></script>
+<script src="../../../common/plugs/jquery-ajaxfileupload/jquery.ajaxfileupload.js"></script>
+<script src="../../../common/plugs/video/js/video.min.js"></script>
+<script src="../../../common/plugs/viewer/js/viewer.js"></script>
+<script src="../../../common/plugs/ztree/js/jquery.ztree.core-3.5.min.js"></script>
+<script src="../../../common/plugs/ztree/js/jquery.ztree.excheck-3.5.min.js"></script>
+<script src="../../../js/common/documentDetail/index.js"></script>

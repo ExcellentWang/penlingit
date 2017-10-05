@@ -33,8 +33,8 @@
 	<div class="om-panel-header">用户管理列表</div>
 	<div class="icon">
 		<ul>
-    		<li><a href="#" onclick="showAdd('/system/prg/user/showAdd',600,250);"><span class="menu1"></span>添加</a></li>
-    		<li><a href="#" onclick="showEdit('/system/prg/user/showEdit','userId',600,250);"><span class="menu13"></span>修改</a></li>
+    		<li><a href="#" onclick="showAdd('system/prg/user/showAdd',600,250);"><span class="menu1"></span>添加</a></li>
+    		<li><a href="#" onclick="showEdit('system/prg/user/showEdit','userId',600,250);"><span class="menu13"></span>修改</a></li>
     		<li><a href="#" onclick="removeRow('id');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>

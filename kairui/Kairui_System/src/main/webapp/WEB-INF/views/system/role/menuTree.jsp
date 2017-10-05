@@ -26,7 +26,7 @@
 $(function(){
   	$(".treeDiv").css("height","420px");  
     $('#navtree').tree({   
-	    url:ctx+'/system/prg/menu/tree',
+	    url:ctx+'system/prg/menu/tree',
 	    checkbox:true,
 	    cascadeCheck: false,
 	    onLoadSuccess:function(){

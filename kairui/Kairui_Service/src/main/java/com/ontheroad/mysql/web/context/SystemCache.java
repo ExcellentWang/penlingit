@@ -1,4 +1,4 @@
-/*package com.ontheroad.mysql.web.context;
+package com.ontheroad.mysql.web.context;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 
 import com.ontheroad.system.entity.SysDetail;
 
-*//**
+/**
  * 系统缓存操作类
- *//*
+ */
 public class SystemCache {
 	private static Logger log = Logger.getLogger(SystemCache.class);
 	public static final String CACHE_DICT = "CACHE_DICT";
@@ -35,4 +35,3 @@ public class SystemCache {
 	  
 
 }
-*/

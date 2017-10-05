@@ -5,6 +5,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DeviceMapper {
 
@@ -44,5 +45,12 @@ public interface DeviceMapper {
 	DeviceRemind findDeviceRemind(TerminalDevice t);
 	
 	int repairStatus(Integer eqiupment_id);
+	
+	/**
+	 * 通过条件获取设备列表
+	 * @param TerminalDevice
+	 * @return
+	 */
+	List<TerminalDevice> getDevicesByExample(TerminalDevice TerminalDevice);
 
 }

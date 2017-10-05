@@ -1,8 +1,8 @@
-/*package com.ontheroad.mysql.web.context;
+package com.ontheroad.mysql.web.context;
 
-*//**
+/**
  * 缓存操作工厂类
- *//*
+ */
 public class OscacheFactory {
     private static OscacheFactory instance;
     private static Object lock = new Object();
@@ -21,22 +21,22 @@ public class OscacheFactory {
         return instance;
     }
 
-    *//**
+    /**
      * 缓存一个对象
      *
      * @param key
      * @param value
-     *//*
+     */
     public void putObject(String key, Object value) {
         oscacheExtends.put(key, value);
     }
 
-    *//**
+    /**
      * 获取一个对象
      *
      * @param key
      * @return
-     *//*
+     */
     public Object getObject(String key) {
         try {
             return oscacheExtends.get(key);
@@ -46,21 +46,20 @@ public class OscacheFactory {
         }
     }
 
-    *//**
+    /**
      * 删除一个对象
      *
      * @param key
-     *//*
+     */
     public void removeObject(String key) {
         oscacheExtends.remove(key);
     }
 
-    *//**
+    /**
      * 删除所有对象
-     *//*
+     */
     public void removeAllNews() {
         oscacheExtends.removeAll();
     }
 
 }
-*/

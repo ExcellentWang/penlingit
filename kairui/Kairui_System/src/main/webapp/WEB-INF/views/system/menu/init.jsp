@@ -38,7 +38,7 @@
 		<div class="icon" style="right:200px;">
 			<ul>
 	    		<li><a href="#" onclick="showMenuAdd();"><span class="menu1"></span>添加</a></li>
-	    		<li><a href="#" onclick="showEdit('/system/prg/menu/showEdit','menuId',600,240);"><span class="menu13"></span>修改</a></li>
+	    		<li><a href="#" onclick="showEdit('system/prg/menu/showEdit','menuId',600,240);"><span class="menu13"></span>修改</a></li>
 	    		<li><a href="#" onclick="removeRow('menuId');"><span class="menu11"></span>删除</a></li>
 			</ul>
 		</div>
@@ -114,7 +114,7 @@ function showMenuAdd(){
 			else if(msg.menuType==3){			
 				$.messager.alert('提示:','不能在功能按钮上添加菜单！');  
 			}else{
-				showAdd('/system/prg/menu/showAdd?menuPid='+menuPid,600,220);
+				showAdd('system/prg/menu/showAdd?menuPid='+menuPid,600,220);
 			}
       }, "json");
 }
