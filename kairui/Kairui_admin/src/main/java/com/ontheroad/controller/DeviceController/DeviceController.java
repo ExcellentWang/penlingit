@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ontheroad.entity.equipmentDatatype;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
-import com.ontheroad.pojo.user.User;
+import com.ontheroad.service.IDeviceService;
 import com.ontheroad.service.DeviceService.DeviceService;
-import com.ontheroad.utils.WebUtil;
 
 @RestController
 @RequestMapping("/device")
@@ -24,7 +24,9 @@ public class DeviceController extends BaseConstant{
 	
 	@Autowired
     private DeviceService deviceService;
-
+	
+	@Autowired
+	private IDeviceService iDeviceService;
 	/**
 	 * 
 	 * 获取用户设备列表  2017.7.19
@@ -359,6 +361,36 @@ public class DeviceController extends BaseConstant{
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
 			return deviceService.repairStatus(terminalDevice.getEquipment_id());
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("code", BaseConstant.appUserErrorStatus);
+			map.put("msg", "服务器异常");
+			map.put("extra",null);
+			map.put("resultMap", null);
+			return map;
+		}
+	}
+	
+	/**
+	 * 
+	* 
+	* @Description: 添加设备类型
+	* @param terminalDevice
+	* @return  
+	* Map<Object,Object>   
+	* @throws
+	 */
+	@RequestMapping(value = "/addDeviceType")
+	public Map<Object, Object> addDeviceType(equipmentDatatype equipmentDatatype) {
+		//返回前端map
+		Map<Object,Object> map = new HashMap<Object,Object>();
+		try {
+			iDeviceService.addDeviceType(equipmentDatatype);
+			map.put("resultMap", null);
+			map.put("code", BaseConstant.appUserSuccessStatus);
+			map.put("msg", "添加成功");
+			map.put("extra", null);
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("code", BaseConstant.appUserErrorStatus);

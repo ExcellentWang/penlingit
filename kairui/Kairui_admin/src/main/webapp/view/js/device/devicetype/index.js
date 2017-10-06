@@ -48,7 +48,19 @@ $("#btn-search").click(function () {
 });
 //添加设备类型
 $("#addDeviceType").click(function(){
-	$("#myModal").modal("show")
+	$("#myModal").modal("show");
+	$("#addDeviceType1").click(function(){
+		$.ajax({
+			  url: "/device/addDeviceType",
+			  data: $("#typeForm").values(),
+			  success: function(){
+				  tip({
+					  content:"添加成功！"
+				  })
+				  $("#myModal").modal("hide");
+			  }
+			});
+	})
 })
 
 

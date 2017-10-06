@@ -66,4 +66,5 @@ public interface DeviceService {
 	 * @return
 	 */
 	Map<Object, Object> getDevicesByExample(TerminalDeviceVo TerminalDevice);
+	
 }
