@@ -17,4 +17,10 @@
         #{ac_power}, #{battery_volt}, #{battery_temp}, #{updated_at}
         )
     </insert>
+     <select id="getDeviceErrorList" parameterType="Integer" resultType="com.ontheroad.pojo.TerminalDevice.DeviceError">
+	SELECT * FROM tb_device_error tde
+	left join tb_equipment te on te.equipment_id=tde.equipment_id
+	LEFT JOIN `tb_user` tu
+	ON te.`user_id` = tu.`user_id`
+    </select>
 </mapper>

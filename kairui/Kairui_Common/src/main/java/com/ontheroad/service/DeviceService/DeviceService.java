@@ -4,6 +4,7 @@ import com.ontheroad.pojo.TerminalDevice.*;
 import com.ontheroad.pojo.user.User;
 import org.springframework.remoting.service.annotation.RemoteService;
 
+import java.util.List;
 import java.util.Map;
 
 @RemoteService
@@ -66,5 +67,11 @@ public interface DeviceService {
 	 * @return
 	 */
 	Map<Object, Object> getDevicesByExample(TerminalDeviceVo TerminalDevice);
+	
+	/**
+	 * 设备异常日志列表
+	 * @return
+	 */
+	List<DeviceError> getDeviceErrorList();
 	
 }

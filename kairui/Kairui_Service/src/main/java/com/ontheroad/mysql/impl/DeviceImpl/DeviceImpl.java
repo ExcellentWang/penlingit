@@ -667,4 +667,9 @@ public class DeviceImpl implements DeviceService {
 		map.put("totalItem",ls.size() );
 		return map;
 	}
+
+	@Override
+	public List<DeviceError> getDeviceErrorList() {
+		return deviceErrorMapper.getDeviceErrorList();
+	}
 }

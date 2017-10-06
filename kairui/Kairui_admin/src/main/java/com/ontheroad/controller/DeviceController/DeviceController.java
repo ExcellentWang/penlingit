@@ -315,11 +315,15 @@ public class DeviceController extends BaseConstant{
 
 
 	@RequestMapping(value = "/getDeviceError", method = RequestMethod.POST)
-	public Map<Object, Object> getDeviceError(Integer equipment_id) {
+	public Map<Object, Object> getDeviceError() {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
-			return deviceService.getDeviceError(equipment_id);
+			map.put("code", BaseConstant.appUserErrorStatus);
+			map.put("msg", "成功");
+			map.put("extra",null);
+			map.put("data", deviceService.getDeviceErrorList());
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("code", BaseConstant.appUserErrorStatus);
