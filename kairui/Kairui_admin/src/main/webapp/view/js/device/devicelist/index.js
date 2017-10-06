@@ -7,7 +7,7 @@ table_1 = function (params) {
 };
 
 
-var handle_1, handle_2, tableEvent_1, tableEvent_2, handle_3, handle_4 ,handle_5;
+var handle_1, handle_2, tableEvent_1, tableEvent_2, handle_3, handle_4 ,handle_5,workStatus;
 
 tableEvent_1 = {
     "click .taskType": function (e, a, item, index) {
@@ -26,19 +26,9 @@ handle_1 = function (value, row, index) {
     return ["<a class='taskType' href='javascript:;'>" + row.currentNodeName + "</a>"].join("");
 };
 
-handle_2 = function (value, row, index) {
-    return ["<a class='info' href='javascript:;'>查看详情</a>"].join("");
-};
-
-
-
-handle_4 = function (value, row, index) {
-    if (value == "" || value == null) {
-        return "--";
-    } else {
-        return value;
-    }
-};
+workStatus=function(value, row, index){
+	return ["在线","在线","在线","在线","离线"][value]
+}
 
 
 

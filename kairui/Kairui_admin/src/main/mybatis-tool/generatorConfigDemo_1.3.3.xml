@@ -4,35 +4,31 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-    <classPathEntry location="mysql-connector-java-5.1.18.jar"/>
+    <classPathEntry location="D:\mysql-connector-java-5.1.30.jar"/>
     <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
-        <commentGenerator type="org.mybatis.generator.internal.CGWCommentGenerator">
-            <property name="suppressDate" value="false"/>
-            <property name="suppressAllComments" value="false"/>
-            <property name="addRemarkComments" value="false"/>
-        </commentGenerator>
+     
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.10.13.6:3306/cls"
-                        userId="root" password="123456">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://106.14.173.153:3306/penlinsystem"
+                        userId="root" password="30bac9801b">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="test.model"
-                            targetProject="/liusr/generate/model/">
+        <javaModelGenerator targetPackage="com.ontheroad.entity"
+                            targetProject="Kairui_admin">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="test.mapper"
-                         targetProject="/liusr/generate/mapper/">
+        <sqlMapGenerator targetPackage="com.ontheroad"
+                         targetProject="Kairui_admin/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao"
-                             targetProject="/liusr/generate/dao/">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ontheroad.dao"
+                             targetProject="Kairui_admin">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -44,9 +40,9 @@
             <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="document_deliver" domainObjectName="DocumentDeliver">
+        <table tableName="equipment_datatype" domainObjectName="equipmentDatatype">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="equipment_type" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
         <!--<table tableName="loan_info_view" domainObjectName="LoanInfoView">-->
         <!--<property name="enableCountByExample" value="false"/>-->
