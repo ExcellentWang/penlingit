@@ -3,6 +3,7 @@ package com.ontheroad.mysql.Mapper.DeviceMapper;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,6 @@ public interface DeviceMapper {
 	 * @param TerminalDevice
 	 * @return
 	 */
-	List<TerminalDevice> getDevicesByExample(TerminalDevice TerminalDevice);
+	List<TerminalDevice> getDevicesByExample(TerminalDeviceVo terminalDeviceVo);
 
 }

@@ -30,13 +30,7 @@ handle_2 = function (value, row, index) {
     return ["<a class='info' href='javascript:;'>查看详情</a>"].join("");
 };
 
-handle_3 = function (value, row, index) {
-    if (value == "" || value == null) {
-        return "流程结束";
-    } else {
-        return value;
-    }
-};
+
 
 handle_4 = function (value, row, index) {
     if (value == "" || value == null) {

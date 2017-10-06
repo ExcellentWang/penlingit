@@ -107,13 +107,21 @@
         WHERE equipment_id = #{equipment_id}
     </update>
     
-    <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select * from tb_equipment
-        where  1=1
-     <!--    <if test="TerminalDevice.equipmentNum!=null and TerminalDevice.equipmentNum!=''">
-        	 equipmentNum = #{equipmentNum}
-        </if>  -->
-       
+    <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo">
+	SELECT
+	*
+	FROM
+	tb_equipment te
+	LEFT JOIN `tb_user` tu
+	ON te.`user_id` =
+	tu.`user_id`
+	WHERE 1 = 1
+	<if test="equipmentNum!=null and equipmentNum!=''">
+		and te.equipmentNum = #{equipmentNum}
+	</if> 
+    <if test="phone!=null and phone!=''">
+		and tu.phone = #{phone}
+	</if> 
     </select>
 
 </mapper>

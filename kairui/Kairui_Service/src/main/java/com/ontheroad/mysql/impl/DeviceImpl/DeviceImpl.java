@@ -658,9 +658,9 @@ public class DeviceImpl implements DeviceService {
 	}
 
 	@Override
-	public Map<Object, Object> getDevicesByExample(TerminalDevice TerminalDevice) {
+	public Map<Object, Object> getDevicesByExample(TerminalDeviceVo vo) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		List<TerminalDevice> ls=deviceMapper.getDevicesByExample(TerminalDevice);
+		List<TerminalDevice> ls=deviceMapper.getDevicesByExample(vo);
 		map.put("data", ls);
 		map.put("code", BaseConstant.appUserSuccessStatus);
 		map.put("msg", "发送成功");

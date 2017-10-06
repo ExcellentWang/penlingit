@@ -13,6 +13,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import com.ontheroad.pojo.user.User;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.utils.WebUtil;
@@ -31,11 +32,11 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 	@RequestMapping(value = "/deviceList")
-    public Map<Object,Object> regist(TerminalDevice terminalDevice) {
+    public Map<Object,Object> regist(TerminalDeviceVo vo) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
         try {	 
-        	return deviceService.getDevicesByExample( terminalDevice);
+        	return deviceService.getDevicesByExample( vo);
         } catch (Exception e) {	
             e.printStackTrace();
             map.put("code", BaseConstant.appUserErrorStatus);
