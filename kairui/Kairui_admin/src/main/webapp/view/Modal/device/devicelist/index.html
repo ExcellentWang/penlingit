@@ -65,7 +65,7 @@
           <div class="ibox-content">
             <div class="tab-content">
 			       <p></p>
-              <div id="todo" class="tab-pane active">
+              <div  class="tab-pane active">
                 <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
                   <thead>
                     <tr>
@@ -78,7 +78,7 @@
                       <th data-field="" >固件版本</th>
                        <th data-field="" >最近一次心跳时间</th>
                        <th data-field="binded_at" >绑定时间</th>
-                       <th data-field="" >操作</th>
+                       <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
                     </tr>
                   </thead>
                 </table>
@@ -90,11 +90,211 @@
       </div>
     </div>
   </div>
+<!--设置使用记录间隔时间  -->
+<div class="modal fade" id="useUpTimeModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >设置使用记录间隔时间
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip text-center">								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="useUpTime" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">秒</label>
+							</div>
+						</div>						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+<!-- 心跳间隔modal -->
+<div class="modal fade" id="xintiao" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >设置心跳上传间隔时间
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip text-center">								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="xintiao" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">分钟</label>
+							</div>
+						</div>						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+<!--文本信息下发  -->
+<div class="modal fade" id="wenbenDown" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >文本信息下发
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip text-center">								
+								<div class="col-md-21">
+									<textarea  name="wenbenDown" placeholder="请输入文本信息" class="form-control" rows="3" cols="40"></textarea>
+								</div>
+							</div>
+						</div>						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
 
-  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="doneTaskHandle">
-    <div class="modal-dialog">
-    </div>
-  </div>
+<!-- 固件升级 -->
+<div class="modal fade" id="upgu" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >固件升级
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+						<div class="col-md-11">
+							<select class="form-control " name="" >
+								<option>--请选择固件版本--</option>
+							</select>
+							</div>
+						</div>						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+<!--温度计，流量计校准  -->
+<div class="modal fade" id="wendu" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >温度计、流量计校准
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">热水偏差 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：-5.0---5.0</label>
+							</div>
+						</div>	
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">进水偏差 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：-5.0---5.0</label>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">出水偏差 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：-5.0---5.0</label>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">混水偏差 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：-5.0---5.0</label>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">混水阀 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：-5---5</label>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip ">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label ">流量系数 </label>								
+								<div class="col-xs-5 col-sm-5 col-md-5 ">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+								<label class="col-xs-8 col-sm-8 col-md-8 control-label ">取值范围：1-999</label>
+							</div>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
 </body>
 <script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
 <script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>

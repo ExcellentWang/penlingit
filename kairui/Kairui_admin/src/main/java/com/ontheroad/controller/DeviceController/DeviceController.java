@@ -1,5 +1,7 @@
 package com.ontheroad.controller.DeviceController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -262,7 +264,7 @@ public class DeviceController extends BaseConstant{
 	 * 
 	 */
 	
-	@RequestMapping(value = "/deviceSendInstruction", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceSendInstruction")
     public Map<Object,Object> deviceSendInstruction(String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -404,4 +406,32 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
+	
+	/**
+	 * 设备对时
+	 * @param instructions
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/deviceDuiShi")
+    public Map<Object,Object> deviceDuiShi(String equipmentNum) {
+		//返回前端map
+	    Map<Object,Object> map = new HashMap<Object,Object>(); 
+        try {
+        	
+        	//<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,OR>
+        	String instructions=equipmentNum+":xtds,052,"+
+        	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,").format(new Date())+
+        	"OR>";       	
+        	return deviceService.deviceSendInstruction(instructions);         	
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", BaseConstant.appUserErrorStatus);
+    		map.put("msg", "服务器异常");
+    		map.put("extra",null);
+    		map.put("resultMap", null);
+            return map;
+        }
+    }
+
 }
