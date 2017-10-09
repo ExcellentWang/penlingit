@@ -316,7 +316,7 @@ public class DeviceController extends BaseConstant{
 	}
 
 
-	@RequestMapping(value = "/getDeviceError", method = RequestMethod.POST)
+	@RequestMapping(value = "/getDeviceError")
 	public Map<Object, Object> getDeviceError() {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();

@@ -201,6 +201,7 @@ public class DeviceMessageHandler {
                     reply(session, rep);
                     break;
                 case "scyc": // 上传异常
+                	logger.info("app上传异常------------");
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
@@ -234,6 +235,8 @@ public class DeviceMessageHandler {
                     err.setAc_power(Integer.parseInt((String) args[13]));
                     err.setBattery_volt(Integer.parseInt((String) args[14]));
                     err.setBattery_temp(Integer.parseInt((String) args[15]));
+                    //设备id
+                    err.setEquipment_id(device.getEquipment_id());
                     deviceErrorMapper.setDeviceError(err);
                     break;
                 case "akgapp": // app禁用
