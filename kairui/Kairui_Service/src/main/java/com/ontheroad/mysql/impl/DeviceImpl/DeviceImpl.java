@@ -427,6 +427,7 @@ public class DeviceImpl implements DeviceService {
 				// find device session
 				String session_device_id = (String)session.getAttribute("device_id");
 				String session_device_type = (String)session.getAttribute("device_type");
+				logger.info("在线的设备---------------------------"+session_device_id);
 				if(StringUtils.isEmpty(session_device_id)) {
 					continue;
 				}
