@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../../common/css/style.min.css"/>
     <link rel="stylesheet" href="../../../common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
     <link rel="stylesheet" href="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.css">
-    <title>设备列表</title>
+    <title>设备入库</title>
   </head>
 </html>
 <body class="gray-bg">
@@ -19,10 +19,16 @@
       <div class="col-xs-24 col-sm-24 col-md-24">
         <div class="ibox float-e-margins">
           <div class="ibox-content">
+           <p>
+			    	<div class="col-xs-24 col-sm-24 col-md-24 text-right">
+                  <button type="button" class="btn btn-primary" id="addDeviceType" modal="enter" ><span class=" "></span><span>&nbsp;导入设备&nbsp;</span>
+                  </button>
+                </div>
+			    </p>
             <form class="form-horizontal" id="taskForm">
               <div class="form-group form-group-sm">
                 <div class="input-tip">
-                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">绑定日期：</label>
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">产品类型：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
                     <input type="text" name="" placeholder="" class="form-control">
                   </div>
@@ -43,12 +49,7 @@
                     <input type="text" name="equipmentNum" placeholder="" class="form-control">
                   </div>
                 </div>
-                <div class="input-tip">
-                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">绑定手机号：</label>
-                  <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input type="text" name="phone" placeholder="" class="form-control">
-                  </div>
-                </div>
+             
               </div>
               <div class="form-group form-group-sm">
                 <div class="col-xs-24 col-sm-24 col-md-24 text-center">
@@ -65,16 +66,15 @@
           <div class="ibox-content">
             <div class="tab-content">
 			       <p></p>
-              <div id="todo" class="tab-pane active">
+              <div  class="tab-pane active">
                 <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
                   <thead>
                     <tr>
-                     <th data-field="updated_at">记录时间</th>
-                      <th data-field="">城市</th>
                       <th data-field="equipmentNum">设备编号</th>
-                      <th data-field="type" >设备类型</th>
-                      <th data-field="phone">绑定手机号</th>
-                       <th data-field="errorEvent">异常事件</th>
+                      <th data-field="">产品类型类型</th>
+                      <th data-field="type" data-formatter="deviceType">设备类型</th>
+                      <th data-field="created_at">入库时间</th>
+                     
                     </tr>
                   </thead>
                 </table>
@@ -87,10 +87,7 @@
     </div>
   </div>
 
-  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="doneTaskHandle">
-    <div class="modal-dialog">
-    </div>
-  </div>
+
 </body>
 <script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
 <script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
@@ -104,6 +101,6 @@
   $("head").append([
     '<script src="../../../common/js/URL.js"><\/script>',
     '<script src="../../../common/js/iframeCommon.js"><\/script>',
-    '<script src="../../../js/device/deviceerror/index.js"><\/script>'
+    '<script src="../../../js/device/deviceadd/index.js"><\/script>'
   ].join(""));
 </script>

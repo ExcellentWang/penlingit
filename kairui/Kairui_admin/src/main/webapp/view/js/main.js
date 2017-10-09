@@ -241,6 +241,10 @@ $(function() {
 		{
 			"menuName": "设备类型管理",
 			"url": "./Modal/device/devicetype/index.html"
+		},
+		{
+			"menuName": "设备入库",
+			"url": "./Modal/device/deviceadd/index.html"
 		}
 		]
 	}

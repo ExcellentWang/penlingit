@@ -7,7 +7,7 @@ table_1 = function (params) {
 };
 
 
-var handle,tableEvent,workStatus;
+var handle,tableEvent,workStatus,deviceType;
 
 tableEvent = {
 	//系统对时
@@ -92,6 +92,11 @@ handle = function (value, row, index) {
 
 workStatus=function(value, row, index){
 	return ["在线","在线","在线","在线","离线"][value]
+}
+
+deviceType=function(value, row, index){
+	
+	return ["燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
 }
 
 $("#btn-search").click(function () {
