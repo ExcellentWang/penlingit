@@ -32,13 +32,7 @@ workStatus=function(value, row, index){
 
 
 
-$("#org").getOrg();
-$("#ftCode").flowGet();
-$(document).on("change", "#ftCode", function() {
-    var flowValue = $(this).find("option:selected").val();
-    $("#flowNode").getFlowNode(flowValue);
-    return;
-});
+
 $("#btn-search").click(function () {
     $("#table1").bootstrapTable("refresh", {url: "..."});
 });

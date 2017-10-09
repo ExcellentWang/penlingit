@@ -670,7 +670,7 @@ public class DeviceImpl implements DeviceService {
 	}
 
 	@Override
-	public List<DeviceError> getDeviceErrorList() {
-		return deviceErrorMapper.getDeviceErrorList();
+	public List<DeviceVo> getDeviceErrorList(DeviceVo vo) {
+		return deviceErrorMapper.getDeviceErrorList(vo);
 	}
 }

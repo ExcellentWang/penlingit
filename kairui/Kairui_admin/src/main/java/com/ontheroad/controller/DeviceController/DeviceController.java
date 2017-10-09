@@ -3,6 +3,7 @@ package com.ontheroad.controller.DeviceController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ontheroad.entity.equipmentDatatype;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
+import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.DeviceShare;
+import com.ontheroad.pojo.TerminalDevice.DeviceVo;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import com.ontheroad.service.IDeviceService;
@@ -317,14 +320,18 @@ public class DeviceController extends BaseConstant{
 
 
 	@RequestMapping(value = "/getDeviceError")
-	public Map<Object, Object> getDeviceError() {
+	public Map<Object, Object> getDeviceError(DeviceVo vo) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
+			List<DeviceVo> ls=deviceService.getDeviceErrorList(vo);
+			for (DeviceVo deviceVo : ls) {				
+				deviceVo.setErrorEventV();
+			}
 			map.put("code", BaseConstant.appUserErrorStatus);
 			map.put("msg", "成功");
-			map.put("extra",null);
-			map.put("data", deviceService.getDeviceErrorList());
+			map.put("totalItem",ls.size());
+			map.put("data",ls);
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();

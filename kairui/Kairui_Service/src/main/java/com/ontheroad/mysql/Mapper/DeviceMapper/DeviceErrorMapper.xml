@@ -17,10 +17,19 @@
         #{ac_power}, #{battery_volt}, #{battery_temp}, #{updated_at}
         )
     </insert>
-     <select id="getDeviceErrorList" parameterType="Integer" resultType="com.ontheroad.pojo.TerminalDevice.DeviceError">
+     <select id="getDeviceErrorList" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceVo" resultType="com.ontheroad.pojo.TerminalDevice.DeviceVo">
 	SELECT * FROM tb_device_error tde
 	left join tb_equipment te on te.equipment_id=tde.equipment_id
 	LEFT JOIN `tb_user` tu
 	ON te.`user_id` = tu.`user_id`
+	left join equipment_datatype ed on ed.equipment_type=te.type
+	WHERE 1 = 1
+	
+	<if test="equipmentNum!=null and equipmentNum!=''">
+		and te.equipmentNum = #{equipmentNum}
+	</if> 
+    <if test="phone!=null and phone!=''">
+		and tu.phone = #{phone}
+	</if> 
     </select>
 </mapper>

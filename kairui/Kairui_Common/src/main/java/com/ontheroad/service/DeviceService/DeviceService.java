@@ -72,6 +72,6 @@ public interface DeviceService {
 	 * 设备异常日志列表
 	 * @return
 	 */
-	List<DeviceError> getDeviceErrorList();
+	List<DeviceVo> getDeviceErrorList(DeviceVo vo);
 	
 }
