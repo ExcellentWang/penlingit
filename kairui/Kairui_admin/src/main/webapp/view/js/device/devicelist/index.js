@@ -40,7 +40,7 @@ tableEvent = {
     	var instructions;
     	$("#xintiao").modal("show")   	
     	$("#confirm").unbind("click").click(function () { 
-    		instructions=item.equipmentNum+":xtset,037,"
+    		instructions="<"+item.equipmentNum+":xtset,037,"
     			+handeltime($("[name='xintiao']").val())
     			+",OR>";
     		console.log("instructions--"+instructions)
@@ -52,7 +52,7 @@ tableEvent = {
     	var instructions;
     	$("#useUpTimeModal").modal("show")   	
     	$("#confirm").unbind("click").click(function () {  	
-    		instructions=item.equipmentNum+":scjg,032,00"
+    		instructions="<"+item.equipmentNum+":scjg,032,00"
 			+handeltime($("[name='useUpTime']").val())
 			+",OR>";
     		console.log("使用记录间隔"+instructions)
@@ -75,7 +75,7 @@ tableEvent = {
     	$("#wenbenDown").modal("show") 
     	$("#confirm").unbind("click").click(function () { 
     		//<LDCT01201704230001:stxt,128,01，0xaa,-------0xbb,OR>
-    		instructions=item.equipmentNum+":stxt,128,01"
+    		instructions="<"+item.equipmentNum+":stxt,128,01"
 			+$("[name='wenbenDown']").val()
 			+",OR>";
     		sendOrder(instructions)
