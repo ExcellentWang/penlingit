@@ -9,6 +9,7 @@ a{text-decoration:underline;}
 a:hover{text-decoration:underline;color:red;cursor:pointer}
 #detailTitle{color:red}
 </style>
+
 </head>
 <body>
 <div id="toolbar">
@@ -37,7 +38,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 	</div>
 </div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+<table id="grid" data-options="fit:true,border:false" class="table"></table>
 </body>
 <script type="text/javascript">
 $(function() {
