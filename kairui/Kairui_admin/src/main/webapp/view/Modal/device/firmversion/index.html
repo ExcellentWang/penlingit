@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../../common/plugs/bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../../common/css/style.min.css"/>
+    <link rel="stylesheet" href="../../../common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
+    <link rel="stylesheet" href="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.css">
+    <title>固件版本</title>
+  </head>
+</html>
+<body class="gray-bg">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+           <p>
+			    	<div class="col-xs-24 col-sm-24 col-md-24 text-right">
+                  <button type="button" class="btn btn-primary" id="addDevice" modal="enter" ><span class=" "></span><span>&nbsp;添加固件版本&nbsp;</span>
+                  </button>
+                </div>
+			    </p>
+            <form class="form-horizontal" id="taskForm">
+              <div class="form-group form-group-sm">
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">产品类型：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" name="product" placeholder="" class="form-control">
+                  </div>
+                </div>
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">设备类型：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <select name="type" class="form-control" id="org">
+                      <option value="">--请选择--</option>
+                      <option value="01">燃气热水器</option>
+                      <option value="02">储水式电热水器</option>
+                      <option value="03">空气能热水器</option>
+                      <option value="04">壁挂炉</option>
+                      <option value="05">太阳能</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                  <button type="button" class="btn btn-primary" id="btn-search" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
+                  </button>
+                  <button type="button" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <div class="tab-content">
+			       <p></p>
+              <div  class="tab-pane active">
+                <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
+                  <thead>
+                    <tr>
+                      <th data-field="product">产品类型类型</th>
+                      <th data-field="type" data-formatter="deviceType">设备类型</th>
+                      <th data-field="">版本号</th>
+                      <th data-field="">安装包地址</th>
+                      <th data-field="">固件说明</th>
+                      <th data-field="">操作</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              </div>
+            <div id="toolbar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	<!--添加设备  -->
+	<form id="deviceForm">
+	<div class="modal fade" id="addDeviceModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >添加固件版本
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+						<div class="input-tip">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label">产品类型：</label>
+							<div class="col-xs-10 col-sm-10 col-md-10">
+								<select class="form-control" name="product" >
+									<option>--请选择产品类型--</option>
+									<option>智能喷淋系统</option>
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label">设备类型：</label>
+								<div class="col-xs-10 col-sm-10 col-md-10" >
+									<select name="type" class="form-control" >
+										<option value="">--请选择--</option>
+										<option value="01">燃气热水器</option>
+										<option value="02">储水式电热水器</option>
+										<option value="03">空气能热水器</option>
+										<option value="04">壁挂炉</option>
+										<option value="05">太阳能</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label">固件版本号：</label>
+								<div class="col-xs-10 col-sm-10 col-md-10">
+									<input type="text" name="" placeholder="" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row text-center">
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label">上传固件：</label>
+								<div class="col-xs-10 col-sm-10 col-md-10">
+									<button type="button" class="btn btn-primary">选择文件</button>
+								</div>
+							</div>
+						</div>
+							<div class="form-group form-group-sm row text-center">
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label">固件说明：</label>
+								<div class="col-xs-10 col-sm-10 col-md-10">
+									<input type="text" name="" placeholder="" class="form-control" >
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		</form>
+</body>
+<script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
+<script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
+<script src="../../../common/plugs/layer/layer.js?rev=8962f047eeb03c06cf8200de1bf8ab99"></script>
+<script src="../../../common/js/mock.js"></script>
+<script src="../../../common/js/jquery.values.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $("head").append([
+    '<script src="../../../common/js/URL.js"><\/script>',
+    '<script src="../../../common/js/iframeCommon.js"><\/script>',
+    '<script src="../../../js/device/deviceadd/index.js"><\/script>'
+  ].join(""));
+</script>

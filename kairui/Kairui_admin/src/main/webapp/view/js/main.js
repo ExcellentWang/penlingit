@@ -245,6 +245,10 @@ $(function() {
 		{
 			"menuName": "设备入库",
 			"url": "./Modal/device/deviceadd/index.html"
+		},
+		{
+			"menuName": "固件版本",
+			"url": "./Modal/device/firmversion/index.html"
 		}
 		]
 	}
@@ -304,6 +308,6 @@ $(function() {
 		  }); 
 	});
 	// 报表菜单加载
-	var hrefs = $("#side-menu").find("li"); console.log(hrefs);
+	var hrefs = $("#side-menu").find("li");
 });
 
