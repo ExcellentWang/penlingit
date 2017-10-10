@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysUserMapper">
+    
+    <!--根据ID查询  -->
+    <select id="getSysuserByid" parameterType="Integer" resultType="com.ontheroad.system.entity.SysUser">
+     	select tsu.real_name from T_S_USER tsu where tsu.user_id=#{senderId}
+    </select>
+    
+    <select id="findModelsByCondition4UserRole" parameterType="Integer"
+	resultType="hashmap">
+	SELECT
+	t1.`user_id`,
+	t1.`user_name`,
+	t1.`user_order`,
+	t1.`user_type`,
+	t1.`user_status`,
+	t1.`user_pwd`,
+	t1.`create_time`,
+	t1.`update_time`,
+	t1.`real_name`,
+	t1.`EMAIL`,
+	t1.`MOBILE`,
+	t1.`SEX`,
+	t3.`role_id`,
+	t3.`role_name`,
+	t3.`role_desc`,
+	t3.`role_order`,
+	t3.`role_type`,
+	t3.`role_status`,
+	t3.`create_time`,
+	t3.`update_time`,
+	t3.`province`,
+	t3.`bz`,
+	t3.`ext1`,
+	t3.`ext2`
+	FROM `penlinsystem`.`t_s_user` t1
+	left join `penlinsystem`.`t_s_role_user` t2 on t1.user_id = t2.user_id
+	left join `penlinsystem`.`t_s_role` t3 on t2.role_id = t3.role_id
+	<where>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( notUserId )">
+				  AND t1.USER_ID != #{notUserId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userId )">
+				AND t1.user_id = #{userId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userName )">
+				AND t1.user_name = #{userName}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userNameLike )">
+				AND t1.user_name like '%${userNameLike}%'
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userOrder )">
+				AND t1.user_order = #{userOrder}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userType )">
+				AND t1.user_type = #{userType}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userStatus )">
+				AND t1.user_status = #{userStatus}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userPwd )">
+				AND t1.user_pwd = #{userPwd}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[t1.create_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[t1.create_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+		 	<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeStart )">
+				AND  <![CDATA[t1.update_time >= date_format(#{updateTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeEnd )">
+				AND  <![CDATA[t1.update_time <= date_format(#{updateTimeEnd},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if> 
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( realName )">
+				AND t1.real_name like '%${realName}%'
+			</if>
+		</where>
+
+</select>
+    
+    
+    
+	<sql id="Model_Where_Clause">
+		<where>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( notUserId )">
+				  AND USER_ID != #{notUserId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userId )">
+				AND user_id = #{userId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userName )">
+				AND user_name = #{userName}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userNameLike )">
+				AND user_name like '%${userNameLike}%'
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userOrder )">
+				AND user_order = #{userOrder}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userType )">
+				AND user_type = #{userType}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userStatus )">
+				AND user_status = #{userStatus}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( userPwd )">
+				AND user_pwd = #{userPwd}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[create_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[create_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+		 	<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeStart )">
+				AND  <![CDATA[update_time >= date_format(#{updateTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeEnd )">
+				AND  <![CDATA[update_time <= date_format(#{updateTimeEnd},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if> 
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( realName )">
+				AND real_name like '%${realName}%'
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

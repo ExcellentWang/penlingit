@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysMenuMapper">
+	<sql id="Model_Where_Clause">
+		<where>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( notMenuId )">
+				AND MENU_ID != #{notMenuId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( pMenuId )">
+				and MENU_ID = #{pMenuId}
+				or menu_pid = #{pMenuId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuNameLike )">
+				AND MENU_NAME like '%${menuNameLike}%'
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuId )">
+				AND menu_id = #{menuId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuName )">
+				AND menu_name = #{menuName}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuDesc )">
+				AND menu_desc = #{menuDesc}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuUrl )">
+				AND menu_url = #{menuUrl}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuPid )">
+				AND menu_pid = #{menuPid}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuType )">
+				AND menu_type = #{menuType}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuStatus )">
+				AND menu_status = #{menuStatus}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuLevel )">
+				AND menu_level = #{menuLevel}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuIcon )">
+				AND menu_icon = #{menuIcon}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[create_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[create_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+		 	<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeStart )">
+				AND  <![CDATA[update_time >= date_format(#{updateTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeEnd )">
+				AND  <![CDATA[update_time <= date_format(#{updateTimeEnd},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if> 
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( menuOrder )">
+				AND menu_order = #{menuOrder}
+			</if>
+		</where>
+	</sql>
+	<delete id="deleteByCondition"  parameterType="java.util.Map" >
+		 delete from  T_S_MENU
+		 <include refid="Model_Where_Clause" />
+	</delete> 
+	<select id="getAllMenus" parameterType="Long" resultMap="result_ResultMap_SysMenu">
+		select  distinct  t1.MENU_ID, MENU_NAME, MENU_DESC, MENU_URL, MENU_PID,MENU_TYPE,MENU_STATUS, MENU_LEVEL, MENU_ICON, CREATE_TIME,
+		           UPDATE_TIME,MENU_ORDER  
+		   from T_S_MENU t1, T_S_ROLE_USER t2, T_S_ROLE_MENU t3
+		where  menu_status=1  and  t2.user_id = #{userId}
+		  and t2.role_id =t3.role_id
+          and t3.menu_id=t1.menu_id 
+           order by t1.menu_order asc		
+	</select>
+</mapper>

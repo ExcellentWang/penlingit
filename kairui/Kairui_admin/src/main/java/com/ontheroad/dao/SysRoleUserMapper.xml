@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysRoleUserMapper">
+
+	<sql id="Model_Where_Clause" >
+		<where>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( roleUserId )">
+				  AND role_user_id = #{roleUserId}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( userId )">
+				  AND user_id = #{userId}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( roleId )">
+				  AND role_id = #{roleId}
+			</if>
+		</where>
+	</sql>
+	
+	<delete id="deleteByCondition"  parameterType="java.util.Map" >
+		 delete from  T_S_ROLE_USER
+		 <include refid="Model_Where_Clause" />
+	</delete> 
+</mapper>

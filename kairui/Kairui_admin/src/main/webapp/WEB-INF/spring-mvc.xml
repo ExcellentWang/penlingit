@@ -54,11 +54,30 @@
     </mvc:interceptors>
 
     <!-- All views are JSPs loaded from /WEB-INF/views -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- <bean
+	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/view/" />
+	<property name="suffix" value=".html" />
+	<property name="order" value="1" />
+</bean> -->
+
+	 <bean id="htmlviewResolver"  
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+        <property name="viewClass" value="com.ontheroad.core.util.HtmlResourceView"/>
+        <property name="order" value="0" />
         <property name="prefix" value="/WEB-INF/view/"/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".html" />  
+        <property name="contentType" value="text/html;charset=UTF-8"></property>  
     </bean>
 
+	<!-- All views are JSPs loaded from /WEB-INF/views -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+    
     <bean id="exceptionResolver" class="com.ontheroad.exception.DefaultExceptionResolver"/>
 	<mvc:resources mapping="/view/**" location="/view/"/>
     <!--<aop:config proxy-target-class="true">-->

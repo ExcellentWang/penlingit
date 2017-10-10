@@ -229,6 +229,30 @@ initMenu = function(data) {
 
 $(function() {
 	initMenu([{
+		"menuName": "系统设置",
+		"sysMenuList": [{
+			"menuName": "用户角色管理",
+			"url": "./Modal/task/userManage/system/role/init.jsp"
+		},{
+			"menuName": "系统用户管理",
+			"url": "./Modal/task/userManage/system/user/init.jsp"
+		},{
+			"menuName": "系统参数配置",
+			"url": "./Modal/task/userManage/system/dict/init.jsp"
+		},{
+			"menuName": "用户协议",
+			"url": "./Modal/task/userManage/system/yhxy/init.jsp"
+		},{
+			"menuName": "常见问题管理",
+			"url": "./Modal/task/userManage/system/yhwt/init.jsp?dictId=6"
+		},{
+			"menuName": "修改登录密码",
+			"url": "./Modal/task/userManage/system/password.jsp"
+		},{
+			"menuName": "操作日志",
+			"url": "./Modal/task/userManage/system/log/init.jsp"
+		}]
+	},{
 		"menuName": "设备管理",
 		"sysMenuList": [{
 			"menuName": "设备列表",

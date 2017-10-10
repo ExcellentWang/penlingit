@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysDetailMapper">
+
+	<sql id="Model_Where_Clause">
+		<where>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( notDetailId )">
+				AND detail_id != #{notDetailId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailNameLike )">
+				AND DETAIL_NAME like '%${detailNameLike}%'
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailId )">
+				AND detail_id = #{detailId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( dictId )">
+				AND dict_id = #{dictId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailName )">
+				AND detail_name = #{detailName}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailValue )">
+				AND detail_value = #{detailValue}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailDesc )">
+				AND detail_desc = #{detailDesc}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( detailStatus )">
+				AND detail_status = #{detailStatus}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[create_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[create_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+		 	<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeStart )">
+				AND  <![CDATA[update_time >= date_format(#{updateTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeEnd )">
+				AND  <![CDATA[update_time <= date_format(#{updateTimeEnd},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if> 
+		</where>
+	</sql>
+
+	<delete id="deleteByCondition" parameterType="java.util.Map">
+		delete from T_S_DETAIL
+		<include refid="Model_Where_Clause" />
+	</delete>
+</mapper>
