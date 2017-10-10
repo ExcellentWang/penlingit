@@ -74,4 +74,11 @@ public interface DeviceService {
 	 */
 	List<DeviceVo> getDeviceErrorList(DeviceVo vo);
 	
+	/**
+	 * 添加设备
+	 * @param device
+	 */
+	void insert(TerminalDevice device);
+	
+	
 }

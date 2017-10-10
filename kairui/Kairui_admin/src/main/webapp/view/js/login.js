@@ -1,18 +1,4 @@
 $(function() {
-	$.ajax({
-		url: interUrl.basic + interUrl.user.getUser,
-		type: "POST",
-		dataType: "json",
-		success: function(data, textStatus, jqXHR) {
-			if (typeof data === "string") {
-				data = JSON.parse(data);
-			}
-			if (data.code === 10000) {
-				return location.href = "./main.html";
-			}
-		}
-	}); 
-
 	if ($.cookie('userName') == 'null') {
 		var name = '';
 	} else {

@@ -21,7 +21,7 @@
           <div class="ibox-content">
            <p>
 			    	<div class="col-xs-24 col-sm-24 col-md-24 text-right">
-                  <button type="button" class="btn btn-primary" id="addDeviceType" modal="enter" ><span class=" "></span><span>&nbsp;导入设备&nbsp;</span>
+                  <button type="button" class="btn btn-primary" id="addDevice" modal="enter" ><span class=" "></span><span>&nbsp;导入设备&nbsp;</span>
                   </button>
                 </div>
 			    </p>
@@ -30,14 +30,19 @@
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">产品类型：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input type="text" name="" placeholder="" class="form-control">
+                    <input type="text" name="product" placeholder="" class="form-control">
                   </div>
                 </div>
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">设备类型：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
-                    <select name="" class="form-control" id="org">
+                    <select name="type" class="form-control" id="org">
                       <option value="">--请选择--</option>
+                      <option value="01">燃气热水器</option>
+                      <option value="02">储水式电热水器</option>
+                      <option value="03">空气能热水器</option>
+                      <option value="04">壁挂炉</option>
+                      <option value="05">太阳能</option>
                     </select>
                   </div>
                 </div>
@@ -71,7 +76,7 @@
                   <thead>
                     <tr>
                       <th data-field="equipmentNum">设备编号</th>
-                      <th data-field="">产品类型类型</th>
+                      <th data-field="product">产品类型类型</th>
                       <th data-field="type" data-formatter="deviceType">设备类型</th>
                       <th data-field="created_at">入库时间</th>
                      
@@ -86,8 +91,52 @@
       </div>
     </div>
   </div>
-
-
+	<!--添加设备  -->
+	<form id="deviceForm">
+	<div class="modal fade" id="addDeviceModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >导入设备
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm row text-center">
+						<div class="input-tip">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label">产品类型：</label>
+							<div class="col-xs-10 col-sm-10 col-md-10">
+								<select class="form-control" name="product" >
+									<option>--请选择产品类型--</option>
+									<option>智能喷淋系统</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group form-group-sm row text-center">
+						<div class="input-tip">
+							<label class="col-xs-5 col-sm-5 col-md-5 control-label">设备编号：</label>
+							<div class="col-xs-10 col-sm-10 col-md-10">
+								<input type="text" name="equipmentNum" placeholder=""
+									class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		</form>
 </body>
 <script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
 <script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>

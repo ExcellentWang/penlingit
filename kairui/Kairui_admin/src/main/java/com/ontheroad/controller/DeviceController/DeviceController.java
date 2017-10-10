@@ -440,5 +440,49 @@ public class DeviceController extends BaseConstant{
             return map;
         }
     }
+	
+	/**
+	 * 
+	* 
+	* @Description: 添加设备
+	* @param terminalDevice
+	* @return  
+	* Map<Object,Object>   
+	* @throws
+	 */
+	@RequestMapping(value = "/addDevice")
+	public Map<Object, Object> addDevice(TerminalDevice device) {
+		//返回前端map
+		Map<Object,Object> map = new HashMap<Object,Object>();
+		try {
+			//验证
+			TerminalDeviceVo vo=new TerminalDeviceVo();
+			vo.setEquipmentNum(device.getEquipmentNum());
+			map=deviceService.getDevicesByExample(vo);
+			List<TerminalDeviceVo> vos=(List<TerminalDeviceVo>)map.get("data");
+			if(vos.size()>0){
+				map.put("code", 10001);
+				map.put("msg", "已添加");
+				map.put("extra",null);
+				map.put("resultMap", null);
+				return map;
+			}
+			device.setType(device.getEquipmentNum().substring(4,6));
+			device.setCreated_at(new Date());
+			deviceService.insert(device);
+			map.put("resultMap", null);
+			map.put("code", BaseConstant.appUserSuccessStatus);
+			map.put("msg", "添加成功");
+			map.put("extra", null);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("code", BaseConstant.appUserErrorStatus);
+			map.put("msg", "服务器异常");
+			map.put("extra",null);
+			map.put("resultMap", null);
+			return map;
+		}
+	}
 
 }
