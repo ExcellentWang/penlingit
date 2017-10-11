@@ -35,6 +35,13 @@ public class FirmVersionController {
 	@RequestMapping("/selectFirmVersionExample")
 	public String select(FirmVersion firmVersion){
 		List<FirmVersion> ls=firmVersionService.selectByExample(firmVersion);
-		return WebUtil.getSuccessJson(ls);
+		return WebUtil.getSuccessJson("", ls, ls.size());
+	}
+	
+	@ResponseBody
+	@RequestMapping("/delFirmVersionExample")
+	public String del(Long id){
+		firmVersionService.del(id);
+		return WebUtil.getSuccessJson();
 	}
 }
