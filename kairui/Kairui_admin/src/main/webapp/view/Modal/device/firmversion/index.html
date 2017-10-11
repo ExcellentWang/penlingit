@@ -84,7 +84,7 @@
     </div>
   </div>
 	<!--添加设备  -->
-	<form id="deviceForm">
+	<form id="deviceForm" action="/addFirmVersion" method="post"  enctype="multipart/form-data">
 	<div class="modal fade" id="addDeviceModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -126,7 +126,7 @@
 							<div class="input-tip">
 								<label class="col-xs-5 col-sm-5 col-md-5 control-label">固件版本号：</label>
 								<div class="col-xs-10 col-sm-10 col-md-10">
-									<input type="text" name="" placeholder="" class="form-control">
+									<input type="text" name="version" placeholder="" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -134,7 +134,8 @@
 							<div class="input-tip">
 								<label class="col-xs-5 col-sm-5 col-md-5 control-label">上传固件：</label>
 								<div class="col-xs-10 col-sm-10 col-md-10">
-									<button type="button" class="btn btn-primary">选择文件</button>
+									<!-- <button type="button" class="btn btn-primary">选择文件</button> -->
+									<input type="file" name="file">
 								</div>
 							</div>
 						</div>
@@ -142,7 +143,7 @@
 							<div class="input-tip">
 								<label class="col-xs-5 col-sm-5 col-md-5 control-label">固件说明：</label>
 								<div class="col-xs-10 col-sm-10 col-md-10">
-									<input type="text" name="" placeholder="" class="form-control" >
+									<input type="text" name="remark" placeholder="" class="form-control" >
 								</div>
 							</div>
 						</div>
@@ -150,7 +151,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消
 						</button>
-						<button type="button" class="btn btn-primary" id="confirm">
+						<button type="submit" class="btn btn-primary" id="confirm">
 							确认</button>
 					</div>
 				</div>
