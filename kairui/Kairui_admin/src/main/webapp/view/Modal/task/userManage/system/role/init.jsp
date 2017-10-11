@@ -56,7 +56,7 @@ $(function() {
 	$('#grid').datagrid({   
 	    url:'/Kairui_admin/system/role/list', 
 	    pageSize :10,
-		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
+		pageList : [ 10, 30, 40, 50, 100, 200,   500, 1000 ],
 		striped : true,
 		//rownumbers : true,
 		pagination : true,
@@ -68,7 +68,7 @@ $(function() {
 	                 {width : '150',title : '角色描述',field : 'roleDesc'},
 	                 {width : '80',title : '状态',field : 'roleStatus',formatter:function(v,r){return JSON.parse(JSON.parse(jsonStr)["statusMap"])[v]}},
 /* 	                 {width : '50',title : '排序',field : 'roleOrder'}, */
-	                 {width : '100',title : '创建时间',field : 'createTime'},
+	                 {width : '150',title : '创建时间',field : 'createTime'},
 	                 {width : '200',title : '操作',field : 'opt',formatter:function(v,r){ var roleId = r.roleId;var roleStatus = r.roleStatus; return '<a href="javascript:showEdit(\'/system/role/showEdit\',\'roleId\',600,270);" >编辑</a>'+'&nbsp&nbsp'+'<a href="javascript:bindMenu();" >分配权限</a>'+'&nbsp&nbsp'+'<a href="javascript:disableRole('+roleId+','+roleStatus+');" >角色停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'roleId\',\'/Kairui_admin/system/role/delete\');" >删除</a>'}}
 					]
 	    		]

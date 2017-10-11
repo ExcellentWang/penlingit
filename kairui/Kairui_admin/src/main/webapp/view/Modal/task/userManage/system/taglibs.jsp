@@ -25,7 +25,14 @@
 <link href="${css}/jquery.extend.self.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="${js}/jquery.extend.self.js?version=${jsVersion}"></script>
 
-<%--     <meta name="/viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<%-- <link href="${js}/jquery-easyui-1.5.3/themes/insdep/easyui.css" rel="stylesheet" type="text/css"> --%>
+<%-- <link href="${js}/jquery-easyui-1.5.3/themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+<link href="${js}/jquery-easyui-1.5.3/themes/insdep/insdep_tables.css" rel="stylesheet" type="text/css"> --%>
+
+<%-- <script type="text/javascript" src="${js}/jquery-easyui-1.5.3/themes/insdep/jquery.insdep-extend.min.js"></script> --%>
+
+   <%--  <meta name="/viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="${view}/view/common/plugs/bootstrap-3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${view}/view/common/css/style.min.css"/>
     <link rel="stylesheet" href="${view}/view/common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
@@ -42,6 +49,10 @@
 <script>
     ctx = '${ctx}';
     console.log("<%=basePath %>");
+    $("head").append([
+        '<script src="${view}/view/common/js/URL.js"><\/script>',
+        '<script src="${view}/view/common/js/iframeCommon.js"><\/script>'
+      ].join(""));
     //session 失效跳转
    /*  $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",

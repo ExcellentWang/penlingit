@@ -8,9 +8,9 @@
   border-radius: 0 0 0 0;
 }
 .panel-header,
-.panel-body {
+.panel-body {/*
   border-width: 1px;
-  border-style: solid;
+  border-style: solid;*/
 }
 .panel-header {
   padding: 5px;
@@ -109,7 +109,7 @@
 }
 .panel-header,
 .panel-body {
-  border-color: #D4D4D4;
+  /*border-color: #D4D4D4;*/
 }
 .panel-header {
   background-color: #F2F2F2;
@@ -121,7 +121,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#F2F2F2,GradientType=0);
 }
 .panel-body {
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   color: #333;
   font-size: 12px;
 }

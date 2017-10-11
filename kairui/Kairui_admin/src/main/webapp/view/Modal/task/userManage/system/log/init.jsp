@@ -37,7 +37,7 @@ $(function() {
 	$('#grid').datagrid({   
 	    url:'/Kairui_admin/system/log/list', 
 	    pageSize :10,
-		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 800, 500 ],
+		pageList : [100, 200, 300, 400, 500, 1000 ],
 		striped : true,
 		rownumbers : true,
 		pagination : true,

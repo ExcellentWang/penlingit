@@ -40,7 +40,7 @@
 	</div>
 </div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+<table id="grid" data-options="fit:true,border:false" class="table"></table>
 </body>
 <script type="text/javascript">
 $(function() {
@@ -61,7 +61,7 @@ $(function() {
 	$('#grid').datagrid({   
 	    url:'/Kairui_admin/system/user/list', 
 	    pageSize :10,
-		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
+		pageList : [10, 20, 200, 300, 1000, 1000, 1000 ],
 		striped : true,
 		//rownumbers : true,
 		pagination : true,
