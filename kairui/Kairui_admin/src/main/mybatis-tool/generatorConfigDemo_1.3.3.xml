@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-    <classPathEntry location="D:\mysql-connector-java-5.1.30.jar"/>
+    <classPathEntry location="D:\mysql-connector-java-5.1.13.jar"/>
     <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
      
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/penlinsystem"
-                        userId="root" password="123456">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://106.14.173.153:3306/penlinsystem"
+                        userId="root" password="30bac9801b">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -40,9 +40,9 @@
             <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="equipment_datatype" domainObjectName="equipmentDatatype">
+        <table tableName="firm_version" domainObjectName="FirmVersion">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="equipment_type" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
         <!--<table tableName="loan_info_view" domainObjectName="LoanInfoView">-->
         <!--<property name="enableCountByExample" value="false"/>-->
