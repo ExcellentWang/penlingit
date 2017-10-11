@@ -673,4 +673,10 @@ public class DeviceImpl implements DeviceService {
 	public List<DeviceVo> getDeviceErrorList(DeviceVo vo) {
 		return deviceErrorMapper.getDeviceErrorList(vo);
 	}
+
+	@Override
+	public void insert(TerminalDevice device) {
+		deviceMapper.insert(device);
+		
+	}
 }

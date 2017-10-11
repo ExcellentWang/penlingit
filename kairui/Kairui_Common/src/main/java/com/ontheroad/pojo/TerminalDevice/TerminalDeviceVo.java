@@ -50,8 +50,18 @@ public class TerminalDeviceVo  implements Serializable{
 	  * 是否有进行中的售后
 	  */
 	 private boolean isProcessRepair;
+	 private String product;
 	 
 	 
+	 
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
 	public int getEquipment_id() {
 		return equipment_id;
 	}

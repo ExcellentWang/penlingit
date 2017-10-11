@@ -61,8 +61,20 @@ public class TerminalDevice implements Serializable{
 	  */
 	 private boolean isProcessRepair;
 	 
+	 /**
+	  * 产品类型
+	  */
+	 private String product;
 
 	
+
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
+	}
 
 	public boolean isProcessRepair() {
 		return isProcessRepair;
