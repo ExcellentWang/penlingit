@@ -15,22 +15,41 @@ tableEvent = {
     	var instructions;
     	//获取用户指令
     	oppSureModal("确定所选设备时间校准为服务器时间？");
-    	 $("#sureOption").unbind("click").click(function () { 
+    	 $("#sureOption").unbind("click").click(function () {
+    		 $("#sureModal").modal('hide')
     		 $.ajax({
     				url:"/device/deviceDuiShi",
     				data:{
     					"equipmentNum":item.equipmentNum
     				},
-    				success:function(){
-    					
+    				success:function(item){
+    					if(item.code==0){
+    						tip({
+    							content:"操作成功！"
+    						})
+    					}else{
+    						tip({
+    							content:item.msg
+    						})
+    					}
     				}
     			})
     	 })
     },
+    //温度计，流量计校准
     "click .wendu": function (e, a, item, index) {
     	var instructions;
     	$("#wendu").modal("show")   	
-    	$("#confirm").unbind("click").click(function () {  	    		
+    	$("#con").unbind("click").click(function () {	
+    		$("#wendu").modal('hide')
+    		instructions="<"+item.equipmentNum+":wcal,058,"
+			+$("[name='re1']").val()+","
+			+$("[name='re2']").val()+","
+			+$("[name='re3']").val()+","
+			+$("[name='re4']").val()+","
+			+$("[name='re5']").val()+","
+			+$("[name='re6']").val()+","
+			+"3950,OR>";
     		sendOrder(instructions)
     	})
     },
@@ -39,7 +58,8 @@ tableEvent = {
     	console.log(item.equipmentNum)
     	var instructions;
     	$("#xintiao").modal("show")   	
-    	$("#confirm").unbind("click").click(function () { 
+    	$("#xinConfirm").unbind("click").click(function () {
+    		$("#xintiao").modal('hide')
     		instructions="<"+item.equipmentNum+":xtset,037,"
     			+handeltime($("[name='xintiao']").val())
     			+",OR>";
@@ -51,7 +71,8 @@ tableEvent = {
     "click .useUpTime": function (e, a, item, index) {
     	var instructions;
     	$("#useUpTimeModal").modal("show")   	
-    	$("#confirm").unbind("click").click(function () {  	
+    	$("#confirm").unbind("click").click(function () {
+    		$("#useUpTimeModal").modal('hide')
     		instructions="<"+item.equipmentNum+":scjg,032,00"
 			+handeltime($("[name='useUpTime']").val())
 			+",OR>";
@@ -109,8 +130,16 @@ function sendOrder(instructions){
 		data:{
 			"instructions":instructions
 		},
-		success:function(){
-			
+		success:function(item){
+			if(item.code==0){
+				tip({
+					content:"操作成功！"
+				})
+			}else{
+				tip({
+					content:item.msg
+				})
+			}
 		}
 	})
 }

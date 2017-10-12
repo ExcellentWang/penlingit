@@ -68,10 +68,10 @@
                     <tr>
                       <th data-field="product">产品类型类型</th>
                       <th data-field="type" data-formatter="deviceType">设备类型</th>
-                      <th data-field="">版本号</th>
-                      <th data-field="">安装包地址</th>
-                      <th data-field="">固件说明</th>
-                      <th data-field="">操作</th>
+                      <th data-field="version">版本号</th>
+                      <th data-field="firmUrl">安装包地址</th>
+                      <th data-field="remark">固件说明</th>
+                      <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
                     </tr>
                   </thead>
                 </table>
@@ -83,7 +83,7 @@
       </div>
     </div>
   </div>
-	<!--添加设备  -->
+	<!--固件上传  -->
 	<form id="deviceForm" action="/addFirmVersion" method="post"  enctype="multipart/form-data">
 	<div class="modal fade" id="addDeviceModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -151,7 +151,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消
 						</button>
-						<button type="submit" class="btn btn-primary" id="confirm">
+						<button type="button" class="btn btn-primary" id="confirm">
 							确认</button>
 					</div>
 				</div>
@@ -173,6 +173,6 @@
   $("head").append([
     '<script src="../../../common/js/URL.js"><\/script>',
     '<script src="../../../common/js/iframeCommon.js"><\/script>',
-    '<script src="../../../js/device/deviceadd/index.js"><\/script>'
+    '<script src="../../../js/device/firmversion/index.js"><\/script>'
   ].join(""));
 </script>

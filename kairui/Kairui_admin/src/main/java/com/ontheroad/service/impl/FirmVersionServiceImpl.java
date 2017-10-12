@@ -24,4 +24,9 @@ public class FirmVersionServiceImpl implements FirmVersionService {
 		return firmVersionMapper.selectByExample(example);
 	}
 
+	@Override
+	public void del(Long id) {
+		firmVersionMapper.deleteByPrimaryKey(id);
+	}
+
 }
