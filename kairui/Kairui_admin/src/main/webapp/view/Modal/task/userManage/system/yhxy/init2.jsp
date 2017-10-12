@@ -10,31 +10,22 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 #detailTitle{color:red}
 </style>
 </head>
-<body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-      <div class="col-xs-24 col-sm-24 col-md-24">
-        <div class="ibox float-e-margins">
-          <div class="ibox-content">
-            <form class="form-horizontal" id="list" action="list">
-              <div class="form-group form-group-sm">
-                
-              </div>
-              <div class="form-group form-group-sm">
-               
-              </div>
-              <div class="form-group form-group-sm">
-               
-                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
-                 
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-         <div class="ibox-content">
-        <div class="operate">
-	<div class="om-panel-header"></div>
+<body>
+<div id="toolbar">
+<!-- <form id="list" action="list">
+<div id="search" class="easyui-panel" title="查询条件" data-options="fit:true,collapsible:true,border:0"> 
+  <table class="searchTable">
+	<tr>
+		<td>用户协议名称：</td>
+		<td><input type="text" id="dictName" name="dictName"></td>
+		<td><button id="queryBtn" type="button" class="button">查询</button></td>
+		<td><button id="clearBtn" type="button" class="button">清空</button></td>
+	</tr>
+   </table>
+</div>
+</form> -->
+<div class="operate">
+	<div class="om-panel-header">用户协议管理列表</div>
 	<div class="icon">
 		<ul>
     		<li><a href="#" onclick="showEdit('/system/dict/showEditYhxy','dictId',600,230);"><span class="menu13"></span>修改</a></li>
@@ -42,10 +33,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 	</div>
 </div>
 </div>
-                <table id="grid" data-options=""></table>
-      </div>
-    </div>
-  </div>
+<table id="grid" data-options="fit:true,border:false"></table>
 </body>
 <script type="text/javascript">
 $(function() {

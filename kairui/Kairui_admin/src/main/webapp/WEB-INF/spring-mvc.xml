@@ -52,6 +52,13 @@
                 <!--<bean class="com.ontheroad.web.filter.AdminLoginFilter" />-->
             <!--</mvc:interceptor>-->
     </mvc:interceptors>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/**"/>
+            <bean class="com.ontheroad.web.interceptor.OpLogInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- All views are JSPs loaded from /WEB-INF/views -->
     <!-- <bean

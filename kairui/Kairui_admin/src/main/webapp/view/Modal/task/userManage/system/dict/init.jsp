@@ -10,22 +10,41 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 #detailTitle{color:red}
 </style>
 </head>
-<body>
-<div id="toolbar">
-<form id="list" action="list">
-<div id="search" class="easyui-panel" title="查询条件" data-options="fit:true,collapsible:true,border:0"> 
-  <table class="searchTable">
-	<tr>
-		<td>字典名称：</td>
-		<td><input type="text" id="dictName" name="dictName"></td>
-		<td><button id="queryBtn" type="button" class="button">查询</button></td>
-		<td><button id="clearBtn" type="button" class="button">清空</button></td>
-	</tr>
-   </table>
-</div>
-</form>
-<div class="operate">
-	<div class="om-panel-header">字典管理列表</div>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <form class="form-horizontal" id="list" action="list">
+			<input type="hidden" id="dictId" name="dictId" value="${dictId}">
+              <div class="form-group form-group-sm">
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">字典名称：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" id="dictName" name="dictName" placeholder="" class="form-control">
+                  </div>
+                </div>
+              
+              </div>
+              <div class="form-group form-group-sm">
+                
+              </div>
+              <div class="form-group form-group-sm">
+
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                  <button type="button" class="btn btn-primary" id="queryBtn" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
+                  </button>
+                  <button type="button"  id="clearBtn" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+         <div class="ibox-content">
+        <div class="operate">
+	<div class="om-panel-header"></div>
 	<div class="icon">
 		<ul>
     		<li><a href="#" onclick="showAdd('/system/dict/showAdd',600,230);"><span class="menu1"></span>添加</a></li>
@@ -35,16 +54,19 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 	</div>
 </div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+                <table id="grid" data-options="" class="table"></table>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
 $(function() {
 	$('#grid').datagrid({   
 	    url:'/Kairui_admin/system/dict/list', 
 	    pageSize :10,
-		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 1000, 1000 ],
+		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
 		striped : true,
-		//rownumbers : true,
+
 		pagination : true,
 		toolbar : '#toolbar',
 	    columns : [[ {width : '50', field : 'ck',checkbox:true},

@@ -1345,7 +1345,7 @@
 
 .datagrid .datagrid-pager {
 	display: block;
-	margin: 0;
+	margin: 1px 0 0 0;
 	border-width: 1px 0 0 0;
 	border-style: solid;
 }
@@ -1357,8 +1357,9 @@
 .datagrid-header {
 	overflow: hidden;
 	cursor: default;
-	border-width: 0 0 1px 0;
+	border-width: 1px 0 1px 0;
 	border-style: solid;
+	-webkit-border-radius: 4px;
 }
 /*.datagrid-header-inner{float: left;width: 10000px;}*/
 .datagrid-header-row, .datagrid-row {
@@ -1366,10 +1367,11 @@
 }
 
 .datagrid-header td, .datagrid-body td, .datagrid-footer td {
-	border-width: 0 1px 1px 0;
+	border-width: 0 1px 1px 1px;
 	border-style: dotted;
 	margin: 0;
 	padding: 6px 0;
+	-webkit-border-radius: 4px;
 }
 
 .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber,
@@ -1381,7 +1383,6 @@
 	overflow: hidden;
 	height: 18px;
 	line-height: 18px;
-	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 }
 
@@ -1390,8 +1391,7 @@
 }
 
 .datagrid-header .datagrid-cell span {
-	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .datagrid-cell-group {
@@ -1406,10 +1406,11 @@
 }
 
 .datagrid-body {
-	margin: 0;
+	margin: 0 0 10px 0;
 	padding: 0;
-	overflow: auto;
+	/* overflow: auto; */
 	zoom: 1;
+	height:auto;
 }
 
 .datagrid-view1 .datagrid-body-inner {
@@ -1511,12 +1512,12 @@
 }
 
 .datagrid-header, .datagrid-td-rownumber {
-	background-color: #efefef;
+	/* background-color: #efefef;
 	background: -webkit-linear-gradient(top, #F9F9F9 0, #efefef 100%);
 	background: -moz-linear-gradient(top, #F9F9F9 0, #efefef 100%);
 	background: -o-linear-gradient(top, #F9F9F9 0, #efefef 100%);
 	background: linear-gradient(to bottom, #F9F9F9 0, #efefef 100%);
-	background-repeat: repeat-x;
+	background-repeat: repeat-x; */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,
 		endColorstr=#efefef, GradientType=0);
 }

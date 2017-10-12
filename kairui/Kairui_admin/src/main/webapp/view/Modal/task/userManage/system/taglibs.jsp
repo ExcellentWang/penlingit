@@ -32,7 +32,7 @@
 
 <%-- <script type="text/javascript" src="${js}/jquery-easyui-1.5.3/themes/insdep/jquery.insdep-extend.min.js"></script> --%>
 
-   <%--  <meta name="/viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="/viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="${view}/view/common/plugs/bootstrap-3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${view}/view/common/css/style.min.css"/>
     <link rel="stylesheet" href="${view}/view/common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
@@ -44,7 +44,7 @@
 <script src="${view}/view/common/js/jquery.values.js"></script>
 <script src="${view}/view/common/plugs/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script src="${view}/view/common/plugs/bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
-<script src="${view}/view/common/plugs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script> --%>
+<script src="${view}/view/common/plugs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 
 <script>
     ctx = '${ctx}';

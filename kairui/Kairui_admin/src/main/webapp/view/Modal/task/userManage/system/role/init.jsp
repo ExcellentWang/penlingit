@@ -5,25 +5,50 @@
 <head> <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<body>
-<div id="toolbar">
-<form id="list" action="list">
-<div id="search" class="easyui-panel" title="查询条件" data-options="fit:true,collapsible:true,border:0"> 
-  <table class="searchTable">
-		<tr>
-			<td>角色名称：</td>
-			<td><input type="text" id="roleName" name="roleName"></td>
-			<td>修改时间：</td>
-			<td><input id="updateTimeStart" name="updateTimeStart" type="datetime" class="easyui-datebox"></input>
-				至 <input id="updateTimeEnd" name="updateTimeEnd" type="datetime" class="easyui-datebox"/>
-			<td><button id="queryBtn" type="button" class="button">查询</button></td>
-			<td><button id="clearBtn" type="button" class="button">清空</button></td>
-		</tr>
-	   </table>
-</div>
-</form>
-<div class="operate">
-	<div class="om-panel-header">角色管理列表</div>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <form class="form-horizontal" id="list" action="list">
+              <div class="form-group form-group-sm">
+                
+              </div>
+              <div class="form-group form-group-sm">
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">角色名称：</label>
+                 <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" id="roleName" name="roleName" placeholder="" class="form-control">
+                  </div>
+                </div>
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">创建时间：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input id="updateTimeStart" name="updateTimeStart" type="datetime" placeholder="" class="form-control easyui-datebox"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+               <div class="input-tip">
+                 <label class="col-xs-3 col-sm-3 col-md-3 control-label">结束时间：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+					 <input id="updateTimeEnd" name="updateTimeEnd"  type="datetime" placeholder="" class="form-control easyui-datebox"/>
+                  </div>
+                 </div>
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                  <button type="button" class="btn btn-primary" id="queryBtn" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
+                  </button>
+                  <button type="button"  id="clearBtn" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+         <div class="ibox-content">
+        <div class="operate">
+	<div class="om-panel-header"></div>
 	<div class="icon">
 		<ul>
     		<li><a href="#" onclick="showAdd('/system/role/showAdd',600,240);"><span class="menu1"></span>添加</a></li>
@@ -35,7 +60,10 @@
 	</div>
 </div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+                <table id="grid" data-options=""></table>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
 var jsonStr="";

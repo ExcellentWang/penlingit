@@ -5,50 +5,76 @@
 <head> <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<body>
-<div id="toolbar">
-	<form id="list" action="list">
-	<div id="search" class="easyui-panel" title="查询条件" data-options="fit:true,collapsible:true,border:0"> 
-	  <table class="searchTable">
-		<tr>
-			<td>访问人：</td>
-			<td><input type="text" id="userName" name="userName"></td>
-			<td>访问IP：</td>
-			<td><input type="text" id="userIp" name="userIp"></td>
-			<td><button id="queryBtn" type="button" class="button">查询</button></td>
-			<td><button id="clearBtn" type="button" class="button">清空</button></td>
-		</tr>
-	   </table>
-	</div>
-	</form>
-	<div class="operate">
-		<div class="om-panel-header">系统日志管理列表</div>
-		<div class="icon">
-			<ul>
-				<li style="display:none"><a href="#" onclick="exportExcel();"><span class="menu2"></span>导出</a></li>
-			</ul>
-		</div>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <form class="form-horizontal" id="list" action="list">
+			<input type="hidden" id="dictId" name="dictId" value="${dictId}">
+              <div class="form-group form-group-sm">
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">访问人：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" id="userName" name="userName" placeholder="" class="form-control">
+                  </div>
+                </div>
+              
+			  <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">访问IP：</label>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" id="userIp" name="userIp" placeholder="" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+                
+              </div>
+              <div class="form-group form-group-sm">
+
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                  <button type="button" class="btn btn-primary" id="queryBtn" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
+                  </button>
+                  <button type="button"  id="clearBtn" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+         <div class="ibox-content">
+        <div class="operate">
+	<div class="om-panel-header"></div>
+	<div class="icon">
+		<ul>
+    		
+		</ul>
 	</div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+</div>
+                <table id="grid" data-options="" class="table"></table>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
 $(function() {
 	$('#grid').datagrid({   
 	    url:'/Kairui_admin/system/log/list', 
 	    pageSize :10,
-		pageList : [100, 200, 300, 400, 500, 1000 ],
+		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 800, 500 ],
 		striped : true,
 		rownumbers : true,
 		pagination : true,
 		singleSelect : true,
 		toolbar : '#toolbar',
-	    columns : [[{title : '访问人',field:'userName',width:120}, 
+	    columns : [[{title : '访问人',field:'userName',width:80}, 
                     {title : '访问IP', field : 'userIp',width:150}, 
                     {title : '访问时间', field : 'logTime',width:150} , 
-                    {title : '耗时', field : 'processTime',width:100} ,
-                    {title : '访问URL',field:'actionUrl',width:300},
-                    {title : '描述',field:'logDesc',width:600}
+                    {title : '耗时', field : 'processTime',width:50} ,
+                    {title : '访问URL',field:'actionUrl',width:400},
+                    {title : '描述',field:'logDesc',width:400}
                    ]
 	    		]
 	}); 

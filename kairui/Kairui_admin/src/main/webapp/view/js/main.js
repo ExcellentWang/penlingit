@@ -235,7 +235,7 @@ $(function() {
 			"url": "./Modal/task/userManage/system/role/init.jsp"
 		},{
 			"menuName": "系统用户管理",
-			"url": "./Modal/task/userManage/system/user/init.jsp"
+			"url": "./Modal/task/userManage/system/user/inittest.jsp"
 		},{
 			"menuName": "系统参数配置",
 			"url": "./Modal/task/userManage/system/dict/init.jsp"

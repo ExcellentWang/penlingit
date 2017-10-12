@@ -16,21 +16,44 @@ String dictId = request.getParameter("dictId");
 request.setAttribute("dictId", dictId);
 
 %>
-<body>
-<div id="toolbar">
-
-<div class="operate">
-	<div class="om-panel-header">常见问题管理</div>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <form class="form-horizontal" id="list" action="list">
+              <div class="form-group form-group-sm">
+                
+              </div>
+              <div class="form-group form-group-sm">
+               
+              </div>
+              <div class="form-group form-group-sm">
+               
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                 
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+         <div class="ibox-content">
+        <div class="operate">
+	<div class="om-panel-header"></div>
 	<div class="icon">
 		<ul>
-	   		<li><a href="#" onclick="showDetailAdd();"><span class="menu1"></span>添加</a></li>
+    		<li><a href="#" onclick="showDetailAdd();"><span class="menu1"></span>添加</a></li>
 	   		<li><a href="#" onclick="showEdit('/system/detail/showEditYhwt','detailId',600,260);"><span class="menu13"></span>修改</a></li>
 	   		<li><a href="#" onclick="removeRow('detailId','/Kairui_admin/system/detail/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>
 </div>
-<table id="grid" data-options="fit:true,border:false"></table>
+                <table id="grid" data-options=""></table>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
 $(function() {

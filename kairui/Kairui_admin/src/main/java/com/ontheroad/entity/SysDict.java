@@ -5,7 +5,7 @@ import org.mybatis.annotation.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(pkId = "dictId", tabName = "t_s_dict")
+@Table(pkId = "dictId", tabName = "t_penlin_dict")
 public class SysDict implements Serializable{
 
 	private static final long serialVersionUID = -6501133005725185907L;
