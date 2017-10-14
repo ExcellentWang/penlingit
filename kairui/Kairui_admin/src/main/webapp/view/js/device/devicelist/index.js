@@ -42,7 +42,7 @@ tableEvent = {
     	$("#wendu").modal("show")   	
     	$("#con").unbind("click").click(function () {	
     		$("#wendu").modal('hide')
-    		instructions=item.equipmentNum+":wcal,058,"
+    		instructions=item.equipmentNum+":wcal,len,"
 			+$("[name='re1']").val()+","
 			+$("[name='re2']").val()+","
 			+$("[name='re3']").val()+","
@@ -60,9 +60,8 @@ tableEvent = {
     	$("#xintiao").modal("show")   	
     	$("#xinConfirm").unbind("click").click(function () {
     		$("#xintiao").modal('hide')
-    		instructions="<"+item.equipmentNum+":xtset,037,"
-    			+handeltime($("[name='xintiao']").val())
-    			+",OR>";
+    		instructions=item.equipmentNum+":xtset,len,"
+    			+handeltime($("[name='xintiao']").val());
     		console.log("instructions--"+instructions)
     		sendOrder(instructions);
     	})
@@ -73,9 +72,8 @@ tableEvent = {
     	$("#useUpTimeModal").modal("show")   	
     	$("#confirm").unbind("click").click(function () {
     		$("#useUpTimeModal").modal('hide')
-    		instructions="<"+item.equipmentNum+":scjg,032,00"
+    		instructions=item.equipmentNum+":scjg,len,00"
 			+handeltime($("[name='useUpTime']").val())
-			+",OR>";
     		console.log("使用记录间隔"+instructions)
     		sendOrder(instructions)
     	})

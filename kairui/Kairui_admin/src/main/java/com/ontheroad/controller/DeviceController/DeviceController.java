@@ -329,11 +329,14 @@ public class DeviceController extends BaseConstant{
 		str = Integer.toHexString(sub).toUpperCase();
 		str = str.substring(str.length() - 2);
 		String result="<"+old+","+str+">";
+		//计算命令长度
+		//两位
+		result=result.replace("len","0"+String.valueOf(result.length()));
 		return result;
 	}
 	public static void main(String[] args) {
-		System.out.println(new DeviceController().getValidate("LDCT01201704230001:roty,032"));
-		
+		System.out.println(new DeviceController().getValidate("LDCT01201704230001:xtds,len,2017,10,14,10,45,56"));
+//		System.out.println("<LDCT01201704230001:wcal,058,1,1,1,1,1,4,3950,E0>".substring(26, 28));
 	}
 	/**
 	 * 获取分享列表
@@ -479,7 +482,7 @@ public class DeviceController extends BaseConstant{
         try {
         	
         	//<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,OR>
-        	String instructions=equipmentNum+":xtds,052,"+
+        	String instructions=equipmentNum+":xtds,len,"+
         	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss").format(new Date());
         	//指令的校验位处理
         	System.out.println(getValidate(instructions));
