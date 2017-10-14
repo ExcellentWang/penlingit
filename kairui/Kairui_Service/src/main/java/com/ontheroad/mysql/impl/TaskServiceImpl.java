@@ -7,6 +7,8 @@ import com.ontheroad.mysql.socketUtil.MinaServerHandler;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.service.TaskService;
+import com.ontheroad.service.DeviceService.DeviceService;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.mina.core.session.IoSession;
 import org.joda.time.DateTime;
@@ -29,6 +31,8 @@ public class TaskServiceImpl implements TaskService {
     private DeviceMapper deviceMapper;
     @Autowired
     private DeviceLogMapper deviceLogMapper;
+    @Autowired
+    private DeviceService deviceService;
 
     @Scheduled(cron = "0 0 3 * * *")
     @Override
@@ -63,6 +67,7 @@ public class TaskServiceImpl implements TaskService {
         List<TerminalDevice> devices = deviceMapper.getAllDevices();
         Date now = Calendar.getInstance().getTime();
         for(TerminalDevice t: devices) {
+        	//设备在线离线状态
             DeviceLog lastlog = deviceLogMapper.getLastDeviceLog(t.getEquipmentNum().split("LDCT01")[1]);
             if(lastlog == null || (now.getTime() - lastlog.getCreatedAt().getTime()) > 1000 * 180) {
                 t.setWorkStatus(4);
@@ -71,13 +76,16 @@ public class TaskServiceImpl implements TaskService {
             	 t.setWorkStatus(0);
             }
             deviceMapper.updateDeviceWorkingStatus(t);
+            //设备固件版本
+            String instructions="<"+t.getEquipmentNum()+":verx,032,OR>";
+            deviceService.deviceSendInstruction(instructions);
         }
         logger.info("定时任务结束-------------------");
     }
 
     @Override
     public void syncWeather() {
-
+    	
     }
   
 }
