@@ -74,11 +74,12 @@ public class TaskServiceImpl implements TaskService {
                 logger.info("------------------------------更新设备"+t.getEquipmentNum().split("LDCT01")[1]+"为离线状态");
             }else{
             	 t.setWorkStatus(0);
+            	//设备固件版本
+                 String instructions="<"+t.getEquipmentNum()+":verx,032,OR>";
+                 deviceService.deviceSendInstruction(instructions);
             }
             deviceMapper.updateDeviceWorkingStatus(t);
-            //设备固件版本
-            String instructions="<"+t.getEquipmentNum()+":verx,032,OR>";
-            deviceService.deviceSendInstruction(instructions);
+            
         }
         logger.info("定时任务结束-------------------");
     }

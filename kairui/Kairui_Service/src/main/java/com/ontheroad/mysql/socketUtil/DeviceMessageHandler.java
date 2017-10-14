@@ -102,7 +102,6 @@ public class DeviceMessageHandler {
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
             device.setPort(String.valueOf(addr.getPort()));
-
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
                     rep = new DeviceMessage(
