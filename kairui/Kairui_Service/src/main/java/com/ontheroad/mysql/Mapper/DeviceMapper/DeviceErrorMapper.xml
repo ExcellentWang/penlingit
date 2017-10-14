@@ -34,6 +34,8 @@
 	<if test="type!=null and type!=''">
 		and te.type = #{type}
 	</if> 
-	 
+	 <if test="binded_at_a!=null">
+		and date(te.binded_at) = date(#{binded_at_a,jdbcType=TIMESTAMP})  
+	</if> 
     </select>
 </mapper>

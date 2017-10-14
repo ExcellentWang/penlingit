@@ -53,4 +53,9 @@ $("#addDevice").click(function(){
 		$("#table1").bootstrapTable("refresh", {url: "..."});
 	})
 })
+var deviceType
+deviceType=function(value, row, index){
+	
+	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
+}
 

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ontheroad.entity.equipmentDatatype;
@@ -22,6 +23,7 @@ import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import com.ontheroad.service.IDeviceService;
 import com.ontheroad.service.DeviceService.DeviceService;
+import com.ontheroad.utils.MapUtil;
 
 @RestController
 @RequestMapping("/device")
@@ -470,11 +472,39 @@ public class DeviceController extends BaseConstant{
 	}
 	
 	/**
+	 * 
+	* 
+	* @Description: 删除设备类型
+	* @param terminalDevice
+	* @return  
+	* Map<Object,Object>   
+	* @throws
+	 */
+	@RequestMapping(value = "/delDeviceType")
+	public Map<Object, Object> delDeviceType(Integer equipmentType) {
+		//返回前端map
+		return iDeviceService.delDeviceType(equipmentType);
+	}
+	
+	/**
+	 * 
+	* 
+	* @Description: 查询设备类型单个
+	* @param terminalDevice
+	* @return  
+	* Map<Object,Object>   
+	* @throws
+	 */
+	@RequestMapping(value = "/selectDeviceTypeId")
+	public Map<Object, Object> selectDeviceTypeId(Integer equipmentType) {
+		//返回前端map
+		return MapUtil.getSuccessJson(iDeviceService.selectDeviceTypeId(equipmentType));
+	}
+	/**
 	 * 设备对时
 	 * @param instructions
 	 * @return
 	 */
-	
 	@RequestMapping(value = "/deviceDuiShi")
     public Map<Object,Object> deviceDuiShi(String equipmentNum) {
 		//返回前端map

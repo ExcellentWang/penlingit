@@ -126,8 +126,8 @@
 	<if test="type!=null and type!=''">
 		and te.type = #{type}
 	</if> 
-	<if test="binded_at_a!=null and binded_at_a!=''">
-		and te.binded_at = #{binded_at_a, jdbcType=TIMESTAMP}
+	<if test="binded_at_a!=null">
+		and date(te.binded_at) = date(#{binded_at_a,jdbcType=TIMESTAMP})  
 	</if> 
     </select>
     <insert id="insert" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

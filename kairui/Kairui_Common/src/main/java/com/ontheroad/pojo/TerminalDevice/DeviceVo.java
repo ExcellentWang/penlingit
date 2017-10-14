@@ -3,6 +3,8 @@ package com.ontheroad.pojo.TerminalDevice;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DeviceVo implements Serializable {
 	private String phone;
 	private String equipmentNum; // 设备编号
@@ -22,7 +24,19 @@ public class DeviceVo implements Serializable {
 	private Date updated_at;//绑定时间
 	private String errorEvent;//异常事件
 	private String equipment_name;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	private Date binded_at_a;
 	
+	 
+	public Date getBinded_at_a() {
+		return binded_at_a;
+	}
+
+
+	public void setBinded_at_a(Date binded_at_a) {
+		this.binded_at_a = binded_at_a;
+	}
+
 
 	public String getEquipment_name() {
 		return equipment_name;

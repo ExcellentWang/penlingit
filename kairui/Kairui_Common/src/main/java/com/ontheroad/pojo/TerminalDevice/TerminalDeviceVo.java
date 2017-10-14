@@ -56,9 +56,6 @@ public class TerminalDeviceVo  implements Serializable{
 	 @DateTimeFormat(pattern = "yyyy-MM-dd") 
 	 private Date binded_at_a;
 	 
-	 
-	 
-	 
 	public Date getBinded_at_a() {
 		return binded_at_a;
 	}

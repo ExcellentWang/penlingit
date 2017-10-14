@@ -29,10 +29,10 @@
                 <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
                   <thead>
                     <tr>
-                      <th data-field="equipmentType" data-formatter="deviceType">设备类型</th>
+                      <th data-field="equipmentName" >设备类型</th>
                       <th data-field="period">保修期(年)</th>
                        <th data-field="remark">型号说明</th>
-                        <th data-field="">操作</th>
+                        <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
                     </tr>
                   </thead>
                 </table>
@@ -57,7 +57,7 @@
 						<div class="form-group form-group-sm row">
 							<div class="input-tip">
 								<label class="col-xs-5 col-sm-5 col-md-5 control-label">产品类型：</label>
-								<div class="col-xs-5 col-sm-5 col-md-5">
+								<div class="col-xs-15 col-sm-15 col-md-15">
 									<select name="productName" class="form-control" id="org">
 										<option value="">--请选择--</option>
 										<option >智能喷淋系统</option>
@@ -67,6 +67,7 @@
 						</div>
 
 						<div class="form-group form-group-sm row">
+						<input type="hidden" name="equipmentType" >
 							<div class="input-tip">
 								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">类型名称：</label>
 								<div class="col-xs-15 col-sm-15 col-md-15 ">

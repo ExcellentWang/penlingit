@@ -7,20 +7,67 @@ table_1 = function (params) {
 };
 
 
-var handle_1, handle_2, tableEvent_1, tableEvent_2, handle_3, handle_4 ,handle_5;
+var handle,tableEvent;
 
-tableEvent_1 = {
-    "click .taskType": function (e, a, item, index) {
-    	
-    }
+handle = function (value, row, index) {
+	var modifyMenu = "<li><a class='del'>删除</a></li>";
+    return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='update'>修改</a></li>", modifyMenu, "</ul>", "</div>"].join("");
 };
 
-tableEvent_2 = {
-    "click .info": function (e, a, item, index) {
-    	
-    }
+tableEvent = {
+	"click .update" : function(e, a, item, index) {
+		$("#myModal").modal("show");
+		$.ajax({
+	 			url: "/device/selectDeviceTypeId",
+	 			data: {
+	 				"equipmentType":item.equipmentType
+	 			},
+	 			success: function(item){
+	 				$("#typeForm").values(item.data)
+	 			}
+	 		});
+		$("#addDeviceType1").html("修改")
+		$("#addDeviceType1").click(function(){
+		$.ajax({
+			  url: "/device/addDeviceType",
+			  data: $("#typeForm").values(),
+			  success: function(){
+				  $("#table1").bootstrapTable("refresh", {url: "..."});
+				  tip({
+					  content:"修改成功！"
+				  })
+				  $("#myModal").modal("hide");
+				  
+			  }
+			});
+	})
+		
+	},
+	"click .del" : function(e, a, item, index) {
+		oppSureModal("确定删除该设备类型？");
+   	 	$("#sureOption").unbind("click").click(function () {
+   	 		$.ajax({
+   	 			url: "/device/delDeviceType",
+   	 			data: {
+   	 				"equipmentType":item.equipmentType
+   	 			},
+   	 			success: function(item){
+   	 				$("#table1").bootstrapTable("refresh", {url: "..."});
+   	 				if(item.code!=0){
+	   	 				tip({
+	   	 					content:item.msg
+	   	 				})
+   	 				}else{
+	   	 				tip({
+	   	 					content:"删除成功！"
+	   	 				})
+   	 				}
+   	 				$("#sureModal").modal('hide')
+   	 			}
+   	 		});
+   	 	})
+	}
 };
-
 
 var deviceType
 deviceType=function(value, row, index){
