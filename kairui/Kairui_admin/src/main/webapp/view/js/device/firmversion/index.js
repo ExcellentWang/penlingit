@@ -41,16 +41,31 @@ $("#addDevice").click(function(){
 	$("#addDeviceModal").modal("show")
 	$("#confirm").unbind("click").click(function () { 
 		$("#addDeviceModal").modal("hide")
-	/*	$.ajax({
+		 var formData = new FormData();
+         formData.append("file", document.getElementById("file").files[0]); 
+         formData.append("product", $("#product").val()); 
+         formData.append("type", $("#type").val()); 
+         formData.append("version", $("[name='version']").val()); 
+         formData.append("remark", $("[name='remark']").val()); 
+		console.log(formData)
+		$.ajax({
 			url:"/addFirmVersion",
-			data:$.extend($("#deviceForm").values(),{"file":$("[name='file']").get(0).files[0]}),
-			type:"post",
+			data:$.extend(formData,$("#deviceForm").values()),
+			type: "POST",
+            /**
+            *必须false才会自动加上正确的Content-Type
+            */
+            contentType: false,
+            /**
+            * 必须false才会避开jQuery对 formdata 的默认处理
+            * XMLHttpRequest会对 formdata 进行正确的处理
+            */
+            processData: false,
 			success:function(){
-
+				$("#table1").bootstrapTable("refresh", {url: "..."});
 			}
-		})*/
-		$("#deviceForm").submit();
-		$("#table1").bootstrapTable("refresh", {url: "..."});
+		})
+		
 	})
 })
 var deviceType

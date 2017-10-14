@@ -191,7 +191,7 @@ public class DeviceMessage {
 
     public static void main(String[] args) {
     	//
-        String m1_s = "<LDCT01201704230001:wcal,058,+4.0,-1.2,-1.3,0.3,-1,0052,3950,OR>";
+        String m1_s = "<LDCT01201704230001:wcal,063,-1.0,-1.0,-1.0,-1.0,1,998,3950,7E>";
         DeviceMessage m1 = new DeviceMessage(m1_s);
         System.out.println(m1.toString());
         String m1_s2 = "<<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,91>";

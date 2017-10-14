@@ -263,6 +263,10 @@ $(function() {
 			"url": "./Modal/device/deviceerror/index.html"
 		},
 		{
+			"menuName": "用水量/节水量统计",
+			"url": "./Modal/device/deviceusewater/index.html"
+		},
+		{
 			"menuName": "设备类型管理",
 			"url": "./Modal/device/devicetype/index.html"
 		},
