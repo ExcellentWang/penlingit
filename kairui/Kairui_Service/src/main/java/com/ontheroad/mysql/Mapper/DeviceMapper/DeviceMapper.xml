@@ -80,7 +80,8 @@
             tb_equipmentstatus.volume = #{volume},
             tb_equipmentstatus.backlight = #{backlight},
             tb_equipmentstatus.ip = #{ip},
-            tb_equipmentstatus.port = #{port}
+            tb_equipmentstatus.port = #{port},
+            tb_equipment.firm_version=#{firm_version}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

@@ -54,7 +54,7 @@ public class TerminalDevice implements Serializable{
 	 private Date binded_at;
 	 private String last_active_at;
 
-	 private String firmware_version;
+	 private String firm_version;
 	 
 	 /**
 	  * 是否有进行中的售后
@@ -301,12 +301,18 @@ public class TerminalDevice implements Serializable{
 		this.last_active_at = last_active_at;
 	}
 
-	public String getFirmware_version() {
-		return firmware_version;
+	public String getFirm_version() {
+		return firm_version;
 	}
 
-	public void setFirmware_version(String firmware_version) {
-		this.firmware_version = firmware_version;
+	public void setFirm_version(String firm_version) {
+		this.firm_version = firm_version;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 	 
 }

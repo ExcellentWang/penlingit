@@ -262,6 +262,19 @@ public class DeviceMessageHandler {
                     device.setWorkStatus(val.equals("00")?0:3);
                     deviceMapper.updateDevice(device);
                     break;
+                case "verx": // 固件版本
+//                    rep = new DeviceMessage(
+//                            deviceMessage.getDeviceType(),
+//                            deviceMessage.getDeviceID(),
+//                            "akgapp",
+//                            new ArrayList<>(Arrays.asList("OK"))
+//                    );
+//                    reply(session, rep);
+                	String firmVersion=deviceMessage.getArgs().get(0);
+                	 device.setFirm_version(firmVersion);
+                     deviceMapper.updateDevice(device);
+                     logger.info("--------------------固件版本被更新------- "+firmVersion);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
