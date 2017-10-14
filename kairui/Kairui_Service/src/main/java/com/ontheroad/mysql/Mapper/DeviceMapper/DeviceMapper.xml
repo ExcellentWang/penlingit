@@ -126,9 +126,9 @@
 	<if test="type!=null and type!=''">
 		and te.type = #{type}
 	</if> 
-	<!-- <if test="product!=null and product!=''">
-		and te.product like '%#{product}%'
-	</if>  -->
+	<if test="binded_at_a!=null and binded_at_a!=''">
+		and te.binded_at = #{binded_at_a, jdbcType=TIMESTAMP}
+	</if> 
     </select>
     <insert id="insert" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
      <selectKey keyProperty="equipment_id" order="AFTER" resultType="java.lang.Integer">

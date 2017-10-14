@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Guarantee;
 
@@ -51,9 +53,20 @@ public class TerminalDeviceVo  implements Serializable{
 	  */
 	 private boolean isProcessRepair;
 	 private String product;
+	 @DateTimeFormat(pattern = "yyyy-MM-dd") 
+	 private Date binded_at_a;
 	 
 	 
 	 
+	 
+	public Date getBinded_at_a() {
+		return binded_at_a;
+	}
+
+	public void setBinded_at_a(Date binded_at_a) {
+		this.binded_at_a = binded_at_a;
+	}
+
 	public String getProduct() {
 		return product;
 	}

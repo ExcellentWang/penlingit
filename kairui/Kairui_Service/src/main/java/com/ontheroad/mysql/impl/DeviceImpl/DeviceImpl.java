@@ -54,6 +54,7 @@ public class DeviceImpl implements DeviceService {
 
 	@Autowired
 	private MemCachedClient memCachedClient;
+	
 
 	private static final Logger logger = Logger.getLogger(DeviceImpl.class);
 
@@ -679,4 +680,6 @@ public class DeviceImpl implements DeviceService {
 		deviceMapper.insert(device);
 		
 	}
+
+	
 }

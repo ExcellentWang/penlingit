@@ -31,5 +31,9 @@
     <if test="phone!=null and phone!=''">
 		and tu.phone = #{phone}
 	</if> 
+	<if test="type!=null and type!=''">
+		and te.type = #{type}
+	</if> 
+	 
     </select>
 </mapper>

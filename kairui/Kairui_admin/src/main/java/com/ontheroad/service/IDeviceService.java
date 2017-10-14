@@ -1,5 +1,7 @@
 package com.ontheroad.service;
 
+import java.util.List;
+
 import com.ontheroad.entity.equipmentDatatype;
 
 public interface IDeviceService {
@@ -8,4 +10,10 @@ public interface IDeviceService {
 	 * @param equipmentDatatype
 	 */
 	void addDeviceType(equipmentDatatype equipmentDatatype);
+	
+	/**
+	 * 设备类型查询
+	 * @param device
+	 */
+	List<equipmentDatatype> selectAllDeviceType();
 }

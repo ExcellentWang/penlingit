@@ -53,7 +53,32 @@ public class DeviceController extends BaseConstant{
             return map;
         }
     }
-	
+	/**
+	 * 
+	 * 设备类型查询
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/deviceTypeList")
+    public Map<Object,Object> deviceTypeList() {
+		//返回前端map
+	    Map<Object,Object> map = new HashMap<Object,Object>(); 
+        try {	 
+        	List<equipmentDatatype> ls=iDeviceService.selectAllDeviceType();
+        	map.put("code", BaseConstant.appUserSuccessStatus);
+     		map.put("msg", "获取成功");
+     		map.put("totalItem",ls.size());
+     		map.put("data", ls);
+        	return map;
+        } catch (Exception e) {	
+            e.printStackTrace();
+            map.put("code", BaseConstant.appUserErrorStatus);
+    		map.put("msg", "服务器异常");
+    		map.put("totalItem",null);
+    		map.put("data", null);
+            return map;
+        }
+    }
 	/**
 	 * 绑定设备 2017. 7.21
 	 * 
@@ -273,8 +298,7 @@ public class DeviceController extends BaseConstant{
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
         try {	      
         	//指令的校验位处理
-        	instructions="<"+instructions+","+getValidate(instructions)+">";
-        	return deviceService.deviceSendInstruction(instructions);      	        	        	
+        	return deviceService.deviceSendInstruction(getValidate(instructions));      	        	        	
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", BaseConstant.appUserErrorStatus);
@@ -295,15 +319,21 @@ public class DeviceController extends BaseConstant{
 	* @data 2017年10月13日 下午5:14:09
 	 */
 	public String getValidate(String str) {
-//		 String str = "LDCT01201704230001:rdev,038,01,OK";
-	        char[] chars = str.toCharArray();
-	        int sub = 0;
-	        for(int i = 0; i < chars.length; i++){
-	            sub += (int)chars[i];
-	        }
-	        str = Integer.toHexString(sub).toUpperCase();
-	        str = str.substring(str.length()-2);
-			return str;
+		String old = str;
+		str=str+",";
+		char[] chars = str.toCharArray();
+		int sub = 0;
+		for (int i = 0; i < chars.length; i++) {
+			sub += (int) chars[i];
+		}
+		str = Integer.toHexString(sub).toUpperCase();
+		str = str.substring(str.length() - 2);
+		String result="<"+old+","+str+">";
+		return result;
+	}
+	public static void main(String[] args) {
+		System.out.println(new DeviceController().getValidate("LDCT01201704230001:roty,032"));
+		
 	}
 	/**
 	 * 获取分享列表
@@ -452,8 +482,8 @@ public class DeviceController extends BaseConstant{
         	String instructions=equipmentNum+":xtds,052,"+
         	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss").format(new Date());
         	//指令的校验位处理
-        	instructions="<"+instructions+","+getValidate(instructions)+">";
-        	return deviceService.deviceSendInstruction(instructions);         	
+        	System.out.println(getValidate(instructions));
+        	return deviceService.deviceSendInstruction(getValidate(instructions));         	
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", BaseConstant.appUserErrorStatus);

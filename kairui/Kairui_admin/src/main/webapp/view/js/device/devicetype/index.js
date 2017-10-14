@@ -3,7 +3,7 @@ var table_1, table_2;
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
 		isProcessed: false
-	}), "device/deviceList");
+	}), "device/deviceTypeList");
 };
 
 
@@ -22,27 +22,12 @@ tableEvent_2 = {
 };
 
 
-handle_1 = function (value, row, index) {
-    return ["<a class='taskType' href='javascript:;'>" + row.currentNodeName + "</a>"].join("");
-};
+var deviceType
+deviceType=function(value, row, index){
+	
+	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value]
+}
 
-handle_4 = function (value, row, index) {
-    if (value == "" || value == null) {
-        return "--";
-    } else {
-        return value;
-    }
-};
-
-
-
-$("#org").getOrg();
-$("#ftCode").flowGet();
-$(document).on("change", "#ftCode", function() {
-    var flowValue = $(this).find("option:selected").val();
-    $("#flowNode").getFlowNode(flowValue);
-    return;
-});
 $("#btn-search").click(function () {
     $("#table1").bootstrapTable("refresh", {url: "..."});
 });
@@ -54,13 +39,14 @@ $("#addDeviceType").click(function(){
 			  url: "/device/addDeviceType",
 			  data: $("#typeForm").values(),
 			  success: function(){
+				  $("#table1").bootstrapTable("refresh", {url: "..."});
 				  tip({
 					  content:"添加成功！"
 				  })
 				  $("#myModal").modal("hide");
+				  
 			  }
 			});
 	})
 })
-
 
