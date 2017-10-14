@@ -449,9 +449,10 @@ public class DeviceController extends BaseConstant{
         try {
         	
         	//<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,OR>
-        	String instructions="<"+equipmentNum+":xtds,052,"+
-        	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,").format(new Date())+
-        	"OR>";       	
+        	String instructions=equipmentNum+":xtds,052,"+
+        	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss").format(new Date());
+        	//指令的校验位处理
+        	instructions="<"+instructions+","+getValidate(instructions)+">";
         	return deviceService.deviceSendInstruction(instructions);         	
         } catch (Exception e) {
             e.printStackTrace();
