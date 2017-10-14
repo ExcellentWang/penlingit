@@ -55,7 +55,16 @@ public class TerminalDeviceVo  implements Serializable{
 	 private String product;
 	 @DateTimeFormat(pattern = "yyyy-MM-dd") 
 	 private Date binded_at_a;
+	 private String product_name;
 	 
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
 	public Date getBinded_at_a() {
 		return binded_at_a;
 	}

@@ -16,7 +16,7 @@ tableEvent = {
 	    	//获取用户指令
 	    	oppSureModal("确定删除该固件？");
 	    	 $("#sureOption").unbind("click").click(function () {
-	    		 $("#addDeviceModal").modal("hide")
+	    		 $("#sureModal").modal('hide')
 	    		 $.ajax({
 	    				url:"/delFirmVersionExample",
 	    				data:{
