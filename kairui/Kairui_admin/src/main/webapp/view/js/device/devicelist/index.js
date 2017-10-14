@@ -42,14 +42,14 @@ tableEvent = {
     	$("#wendu").modal("show")   	
     	$("#con").unbind("click").click(function () {	
     		$("#wendu").modal('hide')
-    		instructions="<"+item.equipmentNum+":wcal,058,"
+    		instructions=item.equipmentNum+":wcal,058,"
 			+$("[name='re1']").val()+","
 			+$("[name='re2']").val()+","
 			+$("[name='re3']").val()+","
 			+$("[name='re4']").val()+","
 			+$("[name='re5']").val()+","
 			+$("[name='re6']").val()+","
-			+"3950,OR>";
+			+"3950";
     		sendOrder(instructions)
     	})
     },

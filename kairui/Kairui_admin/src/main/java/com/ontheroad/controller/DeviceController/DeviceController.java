@@ -271,7 +271,9 @@ public class DeviceController extends BaseConstant{
     public Map<Object,Object> deviceSendInstruction(String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
+        try {	      
+        	//指令的校验位处理
+        	instructions="<"+instructions+","+getValidate(instructions)+">";
         	return deviceService.deviceSendInstruction(instructions);      	        	        	
         } catch (Exception e) {
             e.printStackTrace();
@@ -282,7 +284,27 @@ public class DeviceController extends BaseConstant{
             return map;
         }
     }
-
+	/**
+	 * 
+	* @Description:  获取校验位
+	* @param str
+	* @return   
+	* String  
+	* @throws 
+	* @author
+	* @data 2017年10月13日 下午5:14:09
+	 */
+	public String getValidate(String str) {
+//		 String str = "LDCT01201704230001:rdev,038,01,OK";
+	        char[] chars = str.toCharArray();
+	        int sub = 0;
+	        for(int i = 0; i < chars.length; i++){
+	            sub += (int)chars[i];
+	        }
+	        str = Integer.toHexString(sub).toUpperCase();
+	        str = str.substring(str.length()-2);
+			return str;
+	}
 	/**
 	 * 获取分享列表
 	 */
@@ -427,7 +449,7 @@ public class DeviceController extends BaseConstant{
         try {
         	
         	//<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,OR>
-        	String instructions=equipmentNum+":xtds,052,"+
+        	String instructions="<"+equipmentNum+":xtds,052,"+
         	new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,").format(new Date())+
         	"OR>";       	
         	return deviceService.deviceSendInstruction(instructions);         	
