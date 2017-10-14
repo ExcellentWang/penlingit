@@ -446,7 +446,7 @@ public class DeviceImpl implements DeviceService {
 					log.setDeviceType(msg.getDeviceType());
 					log.setCommand(msg.getCommandType());
 					log.setArgs(org.apache.commons.lang3.StringUtils.join(msg.getArgs(), ","));
-					log.setRaw(instructions);
+					log.setRaw(msg.toString());
 					log.setCreatedAt(Calendar.getInstance().getTime());
 
 					deviceLogMapper.insertDeviceLog(log);

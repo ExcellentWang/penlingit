@@ -161,7 +161,8 @@ public class DeviceMessage {
             // 2017,05,02,20,12,38       : args
             // 91                        : checksum
 
-            Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\w+]*),(\\w{2})(?=>)");
+            Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
+            		+ "),(\\w{2})(?=>)");
             Matcher matcher = pattern.matcher(messageString);
 
             if(!matcher.find()) {
@@ -189,29 +190,12 @@ public class DeviceMessage {
 
 
     public static void main(String[] args) {
-        String m1_s = "<LDCT01201704230001:xtpc,032,C2>";
-        String m2_s = "<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,91>";
-
+    	//
+        String m1_s = "<LDCT01201704230001:wcal,058,+4.0,-1.2,-1.3,0.3,-1,0052,3950,OR>";
         DeviceMessage m1 = new DeviceMessage(m1_s);
-        System.out.println(m1.toString().equals(m1_s));
-        System.out.println(m1.getDeviceID().equals("201704230001"));
-
-        DeviceMessage m2 = new DeviceMessage(m2_s);
-        System.out.println(m2.getDeviceID().equals("201704230001"));
-
-        DeviceMessage m3 = new DeviceMessage("01", "201704230001", "roty");
-        System.out.println(m3.toString().equals("<LDCT01201704230001:roty,032,D1>"));
-
-
-        // <LDCT01201704230001:romd,051,01,00,00000,004,OK,71>
-        ArrayList<String> arg = new ArrayList<>();
-        arg.add("01");
-        arg.add("00");
-        arg.add("00000");
-        arg.add("004");
-        arg.add("OK");
-
-        DeviceMessage m4 = new DeviceMessage("01", "201704230001", "romd", arg);
-        System.out.println(m4.toString().equals("<LDCT01201704230001:romd,051,01,00,00000,004,OK,71>"));
+        System.out.println(m1.toString());
+        String m1_s2 = "<<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,91>";
+        DeviceMessage m12 = new DeviceMessage(m1_s2);
+        System.out.println(m12.toString());
     }
 }
