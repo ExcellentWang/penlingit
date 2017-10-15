@@ -18,9 +18,7 @@ retprotUrl = [];
 
 cache = {};
 
-cardType = function(v) {
-	return ['', '身份证', '军官证', '侨胞证', '外籍人士'][v] || "";
-};
+
 
 $.fn.nameValues = function() {
 	var arg;
@@ -57,125 +55,8 @@ toggleTopNav = function(){
 	$("#content-main").css(o); 
 }
 
-swpImage = function(o) {
-	if(o.title){ $("#dirTitle").text(o.title); }
-	return $.ajax({
-		url: interUrl.basic + interUrl.gr.getPhoto,
-		type: 'POST',
-		data: {
-			loanApplyId: o.loanApplyId,
-			dirId: o.dirId,
-			fileNamespace: o.fileNamespace,
-			releventFlow: o['releventFlow'],
-			releventFlowNode: o['releventFlowNode']
-		},
-		success: function(res) {
-			  var arr = [], _index = 0, ref = res.data.loanDocumentList, results = [];
-			  for (k = j = 0, len = ref.length; j < len; k = ++j) {
-				i = ref[k];
-				arr.push(i.filePath);
-				if (i.id === o.id) {
-				  results.push(_index = k);
-				} else {
-				  results.push(void 0);
-				}
-			  }
-			  allImg = res.data.loanDocumentList;
-			  switchImage(arr, _index, 1);
-			  recordDocQuery = function(ids) {
-				  var obj = {}, ids = ids.split(",");
-				  for(var i=0; i< allImg.length; i++){
-					  for(var j=0; j< ids.length; j++){
-						  if(allImg[i].id == ids[j]){
-							  if(!obj[allImg[i].dirId]){obj[allImg[i].dirId] = []};
-							  obj[allImg[i].dirId].push(ids[j]); 
-						  } 
-					  }
-				  }
-				  for(item in obj){
-					  $.ajax({
-						  url: interUrl.basic + interUrl.gr.recordDocQueryHistory,
-						  type: "post",
-						  data: {
-							  loanApplyId: o.loanApplyId,
-							  dirId: item,
-							  fileNamespace: o.fileNamespace,
-							  releventFlow: o['releventFlow'],
-							  releventFlowNode: o['releventFlowNode'],
-							  docIds: obj[item].join(",")
-						  },
-						  success: function(res){ 
-							  if(res.code == 20000){return comn.tip({content: res.message || "<code>" + o.url + "</code><br /> 接口异常！！！"})};
-							  if(typeof(o.callback == "function")){ 
-								  imgIds = [];
-								  o.callback(ids.join(","));
-							  } 
-						  }
-					  });
 
-				  
-				  }
 
-			  }
-			if(res.data.loanDocumentList[_index].hasRead == 1){ imgIds.push(res.data.loanDocumentList[_index].id); }
-			toVal = function(dirId){
-				var dirId = dirId || allImg[_index].dirId;
-				$("#guarantor")[0].innerHTML = "暂无数据!";
-				if(res.data && res.data.photoInfo && res.data.photoInfo[dirId].Guarantor_Info){
-					$.each(res.data.photoInfo[dirId].Guarantor_Info, function(i, item){
-						$("#guarantor").append($("#guarantorTPL").html()).children().eq(i).nameValues(item); 
-					});
-				}
-				if (res.data.photoInfo && res.data.photoInfo[dirId].Customer_Info) {
-					$(".customer").show().nameValues(res.data.photoInfo[dirId].Customer_Info);
-				}else{
-					$(".customer").hide();
-				}
-				if (res.data.photoInfo && res.data.photoInfo[dirId].Spouse_Info) {
-					$(".spouse").show().nameValues(res.data.photoInfo[dirId].Spouse_Info);
-				}else{
-					$(".spouse").hide();
-				}
-				if ((ref2 = res.data.photoInfo) != null ? ref2.Credit_Info : void 0) {
-					$(".coBank").show().nameValues(res.data.photoInfo[dirId].Credit_Info);
-				} else {
-					$(".coBank").hide();
-				} 
-			}
-			toVal();
-
-			/*
-			 *   参数1：图片列表
-			 *   参数2：显示图片下标
-			 *   参数3：是否显示图片信息(1显示、2不显示)
-			 */
-			/*
-			 switchImage(['http://zacdn.cgw360.com/cgw360/cls/loan/2cf1539f-a554-4085-acb2-aac5ad6a08e4.png','http://zacdn.cgw360.com/cgw360/cls/loan/6eaec911-ba58-4992-88c6-45a75d58e2f1.png','http://zacdn.cgw360.com/cgw360/cls/loan/a661304c-753b-4a4d-a058-77d7fbacee83.png','http://zacdn.cgw360.com/cgw360/cls/loan/f432845b-3706-4712-8179-2db073658153.png'], 2, 1);
-			*/
-		}
-	});
-};
-
-function switchImage(arr, _index, type){
-	if(type == 1){
-		$("#picInfo")[0].className = "col-md-8";
-		$("#picImage")[0].className = "col-md-16"
-	}else{
-		$("#picInfo")[0].className = "hide";
-		$("#picImage")[0].className = "col-md-24"
-	}
-	$("#imageSwitch").modal("show")
-	$.openPhotoGallery(arr, _index);
-}
-
-function curImg(index) { 
-	if(index){
-		$("#curImg").text(index) 
-	}else{
-		return parseInt($("#curImg").text());
-	}
-}
-function totalImg(total) { $("#totalImg").text(total); }
 
 initMenu = function(data) {
 	var itemLi, menu, ulNav;
@@ -252,34 +133,49 @@ $(function() {
 			"menuName": "操作日志",
 			"url": "./Modal/task/userManage/system/log/init.jsp"
 		}]
-	},{
-		"menuName": "设备管理",
-		"sysMenuList": [{
-			"menuName": "设备列表",
-			"url": "./Modal/device/devicelist/index.html"
-		},
-		{
-			"menuName": "设备异常日志",
-			"url": "./Modal/device/deviceerror/index.html"
-		},
-		{
-			"menuName": "用水量/节水量统计",
-			"url": "./Modal/device/deviceusewater/index.html"
-		},
-		{
-			"menuName": "设备类型管理",
-			"url": "./Modal/device/devicetype/index.html"
-		},
-		{
-			"menuName": "设备入库",
-			"url": "./Modal/device/deviceadd/index.html"
-		},
-		{
-			"menuName": "固件版本",
-			"url": "./Modal/device/firmversion/index.html"
-		}
-		]
-	}
+	},
+	 	{
+			"menuName": "设备管理",
+			"sysMenuList": [
+			    {
+				"menuName": "设备列表",
+				"url": "./Modal/device/devicelist/index.html"
+			    },
+				{
+					"menuName": "设备异常日志",
+					"url": "./Modal/device/deviceerror/index.html"
+				},
+				{
+					"menuName": "用水量/节水量统计",
+					"url": "./Modal/device/deviceusewater/index.html"
+				},
+				{
+					"menuName": "设备类型管理",
+					"url": "./Modal/device/devicetype/index.html"
+				},
+				{
+					"menuName": "设备入库",
+					"url": "./Modal/device/deviceadd/index.html"
+				},
+				{
+					"menuName": "固件版本",
+					"url": "./Modal/device/firmversion/index.html"
+				}
+			]
+	 	},
+	 	{
+	 		"menuName": "资讯管理",
+	 		"sysMenuList": [
+	 		     {
+					"menuName": "轮播管理",
+					"url": "./Modal/newsmanager/lunbomanager/index.html"
+	 		     },
+	 		     {
+					"menuName": "资讯列表",
+					"url": "./Modal/device/devicelist/index.html"
+		 		 }
+	 		 ]
+	 	}
 
 	]);
 
@@ -335,7 +231,6 @@ $(function() {
 			}
 		  }); 
 	});
-	// 报表菜单加载
-	var hrefs = $("#side-menu").find("li");
+	
 });
 
