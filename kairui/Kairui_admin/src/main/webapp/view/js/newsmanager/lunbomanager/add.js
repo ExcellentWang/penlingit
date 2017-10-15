@@ -81,4 +81,23 @@ $("#addDeviceType").click(function(){
 		href: 'Modal/newsmanager/lunbomanager/add.html'
 	});
 })
-
+var ue = UE.getEditor('container');
+//添加
+$("#addlunbo").click(function(){
+	$.ajax({
+			url: "/lunbomanager/addlunbo",
+			data:$.extend($("#lunboForm").values(),{"content":ue.getContent()}),
+			success: function(item){
+				if(item.code!=0){
+	 				tip({
+	 					content:item.msg
+	 				})
+				}else{
+	 				tip({
+	 					content:"添加成功！"
+	 				})
+				}
+				$("#sureModal").modal('hide')
+			}
+		});
+})
