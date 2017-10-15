@@ -29,10 +29,10 @@
                 <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
                   <thead>
                     <tr>
-                      <th data-field="equipmentName" >轮播标题</th>
-                      <th data-field="period">是否显示</th>
-                       <th data-field="remark">发布日期</th>
-                       <th data-field="remark">排序</th>
+                      <th data-field="title" >轮播标题</th>
+                      <th data-field="isShow">是否显示</th>
+                       <th data-field="ctime">发布日期</th>
+                       <th data-field="lunboOrder">排序</th>
                         <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
                     </tr>
                   </thead>
@@ -43,69 +43,6 @@
       </div>
     </div>
   </div>
-	<form id="typeForm">
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title text-center" id="myModalLabel">添加设备类型
-						</h4>
-					</div>
-					<div class="modal-body">
-						<div class="form-group form-group-sm row">
-							<div class="input-tip">
-								<label class="col-xs-5 col-sm-5 col-md-5 control-label">产品类型：</label>
-								<div class="col-xs-15 col-sm-15 col-md-15">
-									<select name="productName" class="form-control" id="org">
-										<option value="">--请选择--</option>
-										<option >智能喷淋系统</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group form-group-sm row">
-						<input type="hidden" name="equipmentType" >
-							<div class="input-tip">
-								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">类型名称：</label>
-								<div class="col-xs-15 col-sm-15 col-md-15 ">
-									<input type="text" name="equipmentName" placeholder="" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="form-group form-group-sm row">
-							<div class="input-tip">
-								<label class="col-xs-5 col-sm-5 col-md-5 control-label">保修期：</label>
-								<div class="col-xs-15 col-sm-15 col-md-15 ">
-									<input type="text" name="period" placeholder="" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="form-group form-group-sm row">
-							<div class="input-tip">
-								<label class="col-xs-5 col-sm-5 col-md-5 control-label">型号说明：</label>
-								<div class="col-xs-15 col-sm-15 col-md-15 ">
-									<textarea name="remark" placeholder="" class="form-control " rows="3"
-										cols="20"></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消
-						</button>
-						<button type="button" class="btn btn-primary" id="addDeviceType1">
-							添加</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
-	</form>
 </body>
 <script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
 <script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>

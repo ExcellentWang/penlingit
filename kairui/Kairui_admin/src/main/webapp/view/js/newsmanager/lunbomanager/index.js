@@ -3,7 +3,7 @@ var table_1, table_2;
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
 		isProcessed: false
-	}), "device/deviceTypeList");
+	}), "getLunboList");
 };
 
 
@@ -16,40 +16,18 @@ handle = function (value, row, index) {
 
 tableEvent = {
 	"click .update" : function(e, a, item, index) {
-		$("#myModal").modal("show");
-		$.ajax({
-	 			url: "/device/selectDeviceTypeId",
-	 			data: {
-	 				"equipmentType":item.equipmentType
-	 			},
-	 			success: function(item){
-	 				$("#typeForm").values(item.data)
-	 			}
-	 		});
-		$("#addDeviceType1").html("修改")
-		$("#addDeviceType1").click(function(){
-		$.ajax({
-			  url: "/device/addDeviceType",
-			  data: $("#typeForm").values(),
-			  success: function(){
-				  $("#table1").bootstrapTable("refresh", {url: "..."});
-				  tip({
-					  content:"修改成功！"
-				  })
-				  $("#myModal").modal("hide");
-				  
-			  }
-			});
-	})
-		
+		comn.addTab({
+			title: '修改轮播',
+			href: 'Modal/newsmanager/lunbomanager/add.html?id='+item.id
+		});
 	},
 	"click .del" : function(e, a, item, index) {
-		oppSureModal("确定删除该设备类型？");
+		oppSureModal("确定删除该轮播？");
    	 	$("#sureOption").unbind("click").click(function () {
    	 		$.ajax({
-   	 			url: "/device/delDeviceType",
+   	 			url: "/delLunbo",
    	 			data: {
-   	 				"equipmentType":item.equipmentType
+   	 				"id":item.id
    	 			},
    	 			success: function(item){
    	 				$("#table1").bootstrapTable("refresh", {url: "..."});

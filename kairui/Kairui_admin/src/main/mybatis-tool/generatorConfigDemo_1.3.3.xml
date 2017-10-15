@@ -40,9 +40,9 @@
             <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="tb_equipment" domainObjectName="TbEquipment">
+        <table tableName="lunbo" domainObjectName="Lunbo">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="equipment_id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
         <!--<table tableName="loan_info_view" domainObjectName="LoanInfoView">-->
         <!--<property name="enableCountByExample" value="false"/>-->

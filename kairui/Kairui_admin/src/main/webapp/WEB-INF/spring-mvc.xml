@@ -74,7 +74,7 @@
         <property name="order" value="0" />
         <property name="prefix" value="/WEB-INF/view/"/>
         <property name="suffix" value=".html" />  
-        <property name="contentType" value="text/html;charset=UTF-8"></property>  
+        <property name="contentType" value="application/json;charset=UTF-8"></property>  
     </bean>
 
 	<!-- All views are JSPs loaded from /WEB-INF/views -->
