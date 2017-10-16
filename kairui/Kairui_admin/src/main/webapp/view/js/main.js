@@ -172,7 +172,7 @@ $(function() {
 	 		     },
 	 		     {
 					"menuName": "资讯列表",
-					"url": "./Modal/device/devicelist/index.html"
+					"url": "./Modal/newsmanager/newslist/index.html"
 		 		 }
 	 		 ]
 	 	}
