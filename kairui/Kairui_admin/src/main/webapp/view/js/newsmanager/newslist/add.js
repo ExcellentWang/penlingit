@@ -3,7 +3,7 @@ $(function(){
 	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
 	$.ajax({
-		url: "/getLunboId",
+		url: "/getTbNewsinformationId",
 		data:{"id":args['id']},
 		success: function(item){
 			$("#lunboForm").values(item.data)
@@ -18,7 +18,7 @@ $(function(){
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
 		$.ajax({
-				url: "/addLunbo",
+				url: "/addTbNewsinformation",
 				data:$.extend($("#lunboForm").values(),{"content":ue.getContent()},formData),
 				type: "POST",
 	            contentType: false,

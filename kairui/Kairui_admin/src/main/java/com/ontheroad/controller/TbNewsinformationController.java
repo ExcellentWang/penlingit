@@ -48,4 +48,10 @@ public class TbNewsinformationController {
 		tbNewsinformationService.addOrUpdate(tbNewsinformation);
 		return WebUtil.getSuccessJson();
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getTbNewsinformationId")
+	public String selectTbNewsinformationId(Integer id){
+		return WebUtil.getSuccessJson(tbNewsinformationService.getTbNewsinformationId(id));
+	}
 }
