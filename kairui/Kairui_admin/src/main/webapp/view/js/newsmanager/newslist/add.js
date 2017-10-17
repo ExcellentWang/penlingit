@@ -15,9 +15,14 @@ $(function(){
 	
 	//添加
 	$("#addlunbo").click(function(){
+		var formData = new FormData();
+        formData.append("file", document.getElementById("file").files[0]);
 		$.ajax({
 				url: "/addLunbo",
-				data:$.extend($("#lunboForm").values(),{"content":ue.getContent()}),
+				data:$.extend($("#lunboForm").values(),{"content":ue.getContent()},formData),
+				type: "POST",
+	            contentType: false,
+	            processData: false,
 				success: function(item){
 					if(item.code!=0){
 		 				tip({

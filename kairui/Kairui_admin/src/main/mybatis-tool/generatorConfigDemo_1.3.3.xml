@@ -40,7 +40,7 @@
             <!--&lt;!&ndash;自动生成主键，可以代替useGeneratedKeys，大家不用删&ndash;&gt;-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="lunbo" domainObjectName="Lunbo">
+        <table tableName="tb_newsinformation" domainObjectName="TbNewsinformation">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>

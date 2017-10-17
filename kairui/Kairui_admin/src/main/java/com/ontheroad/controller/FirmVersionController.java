@@ -44,4 +44,5 @@ public class FirmVersionController {
 		firmVersionService.del(id);
 		return WebUtil.getSuccessJson();
 	}
+	
 }
