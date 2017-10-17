@@ -17,9 +17,12 @@ $(function(){
 	$("#addlunbo").click(function(){
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
+        formData.append("title", $("[name='title']").val());
+        formData.append("isSend", $("[name='isSend']").val());
+        formData.append("content", ue.getContent());
 		$.ajax({
 				url: "/addTbNewsinformation",
-				data:$.extend($("#lunboForm").values(),{"content":ue.getContent()},formData),
+				data:formData,
 				type: "POST",
 	            contentType: false,
 	            processData: false,

@@ -1,6 +1,9 @@
 package com.ontheroad.controller;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.ontheroad.core.util.UploadUtil;
 import com.ontheroad.entity.TbNewsinformation;
 import com.ontheroad.service.TbNewsinformationService;
+import com.ontheroad.utils.MapUtil;
 import com.ontheroad.utils.WebUtil;
 
 @Controller
@@ -21,37 +25,37 @@ public class TbNewsinformationController {
 	
 	@ResponseBody
 	@RequestMapping("/addTbNewsinformation")
-	public String add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request) throws Exception{
+	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request) throws Exception{
 		String str=UploadUtil.save(file, request);
-		tbNewsinformation.setAddress(str);
+		tbNewsinformation.setPicture(str);
         tbNewsinformationService.addOrUpdate(tbNewsinformation);
-		return WebUtil.getSuccessJson();
+		return MapUtil.getSuccessJson();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/selectTbNewsinformationExample")
-	public String select(TbNewsinformation tbNewsinformation){
-		
-		return null;
+	public  Map<Object, Object> select(TbNewsinformation tbNewsinformation){
+		List<TbNewsinformation> ls=tbNewsinformationService.selectByExample(tbNewsinformation);
+		return MapUtil.getSuccessJson(ls,ls.size());
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delTbNewsinformation")
-	public String del(Integer id){
+	public Map<Object, Object> del(Integer id){
 		tbNewsinformationService.del(id);
-		return WebUtil.getSuccessJson();
+		return MapUtil.getSuccessJson();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/changeStatus")
-	public String changeStatus(TbNewsinformation tbNewsinformation){
+	public Map<Object, Object> changeStatus(TbNewsinformation tbNewsinformation){
 		tbNewsinformationService.addOrUpdate(tbNewsinformation);
-		return WebUtil.getSuccessJson();
+		return MapUtil.getSuccessJson();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getTbNewsinformationId")
-	public String selectTbNewsinformationId(Integer id){
-		return WebUtil.getSuccessJson(tbNewsinformationService.getTbNewsinformationId(id));
+	public Map<Object, Object> selectTbNewsinformationId(Integer id){
+		return MapUtil.getSuccessJson(tbNewsinformationService.getTbNewsinformationId(id));
 	}
 }

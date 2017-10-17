@@ -17,9 +17,13 @@ $(function(){
 	$("#addlunbo").click(function(){
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
+        formData.append("title", $("[name='title']").val());
+        formData.append("lunboOrder", $("[name='lunboOrder']").val());
+        formData.append("content", ue.getContent());
+        formData.append("isShow", $("[name='isShow']").val());
 		$.ajax({
 				url: "/addLunbo",
-				data:$.extend($("#lunboForm").values(),{"content":ue.getContent()},formData),
+				data:formData,
 				type: "POST",
 	            contentType: false,
 	            processData: false,

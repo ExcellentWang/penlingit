@@ -7,7 +7,7 @@ import com.ontheroad.entity.TbNewsinformation;
 
 public interface TbNewsinformationService {
 	void addOrUpdate(TbNewsinformation tbNewsinformation);
-	List<TbNewsinformation> getList();
+	List<TbNewsinformation> selectByExample(TbNewsinformation tbNewsinformation);
 	void del(Integer id);
 	TbNewsinformation getTbNewsinformationId(Integer id);
 }

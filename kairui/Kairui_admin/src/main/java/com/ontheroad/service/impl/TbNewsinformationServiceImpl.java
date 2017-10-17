@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ontheroad.dao.TbNewsinformationMapper;
 import com.ontheroad.entity.TbNewsinformation;
 import com.ontheroad.entity.TbNewsinformationExample;
+import com.ontheroad.entity.TbNewsinformationExample.Criteria;
 import com.ontheroad.service.TbNewsinformationService;
 @Service
 public class TbNewsinformationServiceImpl implements TbNewsinformationService {
@@ -25,11 +26,6 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 
 	}
 
-	@Override
-	public List<TbNewsinformation> getList() {
-		TbNewsinformationExample example=new TbNewsinformationExample();
-		return tbNewsinformationMapper.selectByExample(example);
-	}
 
 	@Override
 	public void del(Integer id) {
@@ -39,6 +35,23 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 	@Override
 	public TbNewsinformation getTbNewsinformationId(Integer id) {
 		return tbNewsinformationMapper.selectByPrimaryKey(id);
+	}
+
+
+	@Override
+	public List<TbNewsinformation> selectByExample(TbNewsinformation tbNewsinformation) {
+		TbNewsinformationExample example = new TbNewsinformationExample();
+		Criteria c = example.createCriteria();
+		if (tbNewsinformation.getTitle() != null && tbNewsinformation.getTitle() != "") {
+			c.andTitleEqualTo(tbNewsinformation.getTitle());
+		}
+		if (tbNewsinformation.getStatus()!= null ) {
+			c.andStatusEqualTo(tbNewsinformation.getStatus());
+		}
+		if (tbNewsinformation.getCreatetime() != null) {
+			c.andCreatetimeGreaterThanOrEqualTo(tbNewsinformation.getCreatetime());
+		}
+		return tbNewsinformationMapper.selectByExample(example);
 	}
 
 }
