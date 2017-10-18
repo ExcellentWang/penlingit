@@ -5,20 +5,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.ontheroad.pojo.user.*;
 import com.ontheroad.service.AppService.QiniuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ontheroad.core.util.UploadUtil;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.tokenUtil.EhcacheUtil;
 import com.ontheroad.utils.StringUtilsCommon;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @RestController
 @RequestMapping("/app/user")
@@ -258,30 +263,16 @@ public class AppUserController extends BaseConstant{
 	 * 修改用户资料
 	 * 
 	 */
-	@RequestMapping(value = "/appUserUpdateData", method = RequestMethod.POST)
-    public Map<Object,Object> appUserUpdateData(MultipartHttpServletRequest request) {
+	@RequestMapping(value = "/appUserUpdateData")
+    public Map<Object,Object> appUserUpdateData(User user, @RequestParam("file1") CommonsMultipartFile file,HttpServletRequest request) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 	    String headPortrait = null;
-	    User user = new User();
 		try {
-
-			MultipartFile file = request.getFile("file1");
-			if(file != null){
-				File f = new File("/alidata/www/img/" + StringUtilsCommon.getRandom(false, 32));
-				file.transferTo(f);
-				headPortrait = f.getName();
-			}
-
-			user.setUser_id(Integer.parseInt(request.getParameter("user_id")));
-			user.setSex(request.getParameter("sex"));
-			user.setUsername(request.getParameter("username"));
-			
+			headPortrait=UploadUtil.save(file, request);
 			if(headPortrait != null && !headPortrait.equals("")){
-				user.setHeadPortrait("http://106.14.173.153:8081/" + headPortrait);
+				user.setHeadPortrait(headPortrait);
 			}
-//			user.setHeadPortrait("http://192.168.2.107:8081/" + headPortrait);
-
 			return appUserService.appUserUpdateData(user);
 		} catch (Exception e) {
 		   e.printStackTrace();
