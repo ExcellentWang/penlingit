@@ -11,7 +11,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class UploadUtil {
 	public static String save(CommonsMultipartFile file,HttpServletRequest request){
 		//获取本地文件地址
-        String path = request.getSession().getServletContext().getRealPath("upload");  
+        String path = request.getSession().getServletContext().getRealPath("view/upload");  
         String fileName = file.getOriginalFilename();  
         File targetFile = new File(path, fileName);  
         if(!targetFile.exists()){  
