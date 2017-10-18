@@ -44,6 +44,7 @@
                 <mvc:exclude-mapping path="/log/**" />
                 <mvc:exclude-mapping path="/app/update" />
                 <mvc:exclude-mapping path="/information/getNewsList" />
+                 <mvc:exclude-mapping path="/view/**" />
                 <bean class="com.ontheroad.web.filter.TokenFilter" />
             </mvc:interceptor>
             <!--<mvc:interceptor>-->
