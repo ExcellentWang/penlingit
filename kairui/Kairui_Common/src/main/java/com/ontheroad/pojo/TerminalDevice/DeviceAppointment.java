@@ -6,6 +6,8 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /*
  * 设备预约设置
  * 
@@ -19,6 +21,7 @@ public class DeviceAppointment implements Serializable{
 	 private int equipment_id;   //设备ID
 	 private int user_id;   //用户ID
 	 private String effluent_speed; //出水速度 0慢 1中等 2快
+	 @DateTimeFormat(pattern = "yyyy-MM-dd") 
 	 private Date time;   //预约时间
 	 private String children_status; //儿童模式 0关 1开
 	 private String appointment_temperature; //预约温度

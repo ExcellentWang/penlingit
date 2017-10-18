@@ -52,7 +52,7 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 
-	@RequestMapping(value = "/bindingDevice", method = RequestMethod.POST)
+	@RequestMapping(value = "/bindingDevice")
     public Map<Object,Object> bindingDevice(DeviceShare ds) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 

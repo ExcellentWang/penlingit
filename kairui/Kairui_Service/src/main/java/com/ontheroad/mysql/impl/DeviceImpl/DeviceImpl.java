@@ -390,7 +390,7 @@ public class DeviceImpl implements DeviceService {
 			deviceSendInstruction(d.getInstructions());
 			d.setValid(true);
 			device.setWorkStatus(2);
-			deviceMapper.updateDeviceWorkingStatus(device);
+//			deviceMapper.updateDeviceWorkingStatus(device);
 			deviceMapper.deviceAppointment(d);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "预约成功");

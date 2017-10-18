@@ -271,7 +271,7 @@ public class DeviceController extends BaseConstant{
 	 * 预约设置
 	 * 
 	 */
-	@RequestMapping(value = "/deviceAppointment", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceAppointment")
     public Map<Object,Object> deviceAppointment(DeviceAppointment d) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
