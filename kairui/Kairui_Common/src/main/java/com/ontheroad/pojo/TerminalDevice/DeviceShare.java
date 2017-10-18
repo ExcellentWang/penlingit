@@ -13,23 +13,17 @@ import java.io.Serializable;
  */
 public class DeviceShare implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private int share_id;  //主键
-	 private int share_user_id;  //分享用户ID
-	 private int user_id;  //用户ID
-	private int equipment_id;  //设备id
-	private String equipmentNum;//设备编号
-	private String phone;//用户手机号O
-	private int authority;  //权限 0查看 1查看并控制
-	private String remark;  //备注
-	private int status;  //拥有状态 0绑定 1共享;
-	 private String username;
-	
-	
-	
+	private int share_id; // 主键
+	private int share_user_id; // 分享用户ID
+	private int user_id; // 用户ID
+	private int equipment_id; // 设备id
+	private String equipmentNum;// 设备编号
+	private String phone;// 用户手机号O
+	private int authority; // 权限 0查看 1查看并控制
+	private String remark; // 备注
+	private int status; // 拥有状态 0绑定 1共享;
+	private String username;
 	
 	
 	public int getShare_user_id() {

@@ -257,11 +257,8 @@ public class DeviceImpl implements DeviceService {
 		try {
 			Map<Object, Object> resultMap = new HashMap<Object, Object>();
 			t = deviceMapper.getDeviceDetailById(t.getEquipment_id());
-			
-//			t.setCustomer_services(customerserviceMapper.getCustomerListByDevice(t.getEquipment_id()));
 			//更换为字段，查询设备是否有正在进行中的售后
 			t.setProcessRepair(deviceMapper.repairStatus(t.getEquipment_id())>0?false:true);
-//			map.put("resultMap", deviceMapper.repairStatus(equipment_id)>0?"false":"true");
 			t.setAppointment(deviceMapper.findAppointment(t));
 			Map<Object,Object> fieldMap = new HashMap<Object,Object>();
 			fieldMap.put("equipment_id", t.getEquipment_id());
