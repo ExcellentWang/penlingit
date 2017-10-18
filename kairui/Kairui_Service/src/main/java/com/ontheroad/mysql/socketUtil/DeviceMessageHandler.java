@@ -140,6 +140,10 @@ public class DeviceMessageHandler {
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
+                    val = deviceMessage.getArgs().get(0);
+                    device.setCurrent_temp(val);
+                    deviceMapper.updateDevice(device);
+                    logger.info("更新当前温度"+device.getEquipment_id()+"val: "+val);
                     break;
                 case "asbltr": // 背光
                     rep = new DeviceMessage(
@@ -152,7 +156,7 @@ public class DeviceMessageHandler {
                     val = deviceMessage.getArgs().get(0);
                     device.setBacklight(val);
                     deviceMapper.updateDevice(device);
-                    logger.info("UPDATE " + device.getEquipment_id() + " BKL: " + val);
+                    logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
                 case "asyyos": // 音量
                     rep = new DeviceMessage(
