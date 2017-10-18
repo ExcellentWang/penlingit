@@ -175,8 +175,16 @@ $(function() {
 					"url": "./Modal/newsmanager/newslist/index.html"
 		 		 }
 	 		 ]
-	 	}
-
+	 	},
+	 	{
+	 		"menuName": "消息管理",
+	 		"sysMenuList": [
+	 		     {
+					"menuName": "消息列表",
+					"url": "./Modal/xiaoximanager/xiaoxi/index.html"
+		 		 }
+	 		 ]
+	 	},
 	]);
 
 	$("#imageSwitch").on("hide.bs.modal", function(){ 
