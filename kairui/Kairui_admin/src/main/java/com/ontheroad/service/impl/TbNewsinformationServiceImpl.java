@@ -19,6 +19,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 	public void addOrUpdate(TbNewsinformation tbNewsinformation) {
 		tbNewsinformation.setCreatetime(new Date());
 		if(tbNewsinformation.getId()==null){
+			tbNewsinformation.setStatus(1);
 			tbNewsinformationMapper.insert(tbNewsinformation);
 		}else{
 			tbNewsinformationMapper.updateByPrimaryKeySelective(tbNewsinformation);
