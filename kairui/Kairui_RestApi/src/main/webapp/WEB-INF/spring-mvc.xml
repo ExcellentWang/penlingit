@@ -44,6 +44,7 @@
                 <mvc:exclude-mapping path="/log/**" />
                 <mvc:exclude-mapping path="/app/update" />
                 <mvc:exclude-mapping path="/information/getNewsList" />
+                 <mvc:exclude-mapping path="/view/**" />
                 <bean class="com.ontheroad.web.filter.TokenFilter" />
             </mvc:interceptor>
             <!--<mvc:interceptor>-->
@@ -102,7 +103,7 @@
     </bean>
 
     <bean id="exceptionResolver" class="com.ontheroad.exception.DefaultExceptionResolver"/>
-
+	<mvc:resources mapping="/view/**" location="/view/"/>
     <!--<aop:config proxy-target-class="true">-->
         <!--<aop:pointcut id="controllerMethodPointcut" expression="execution(* com.ontheroad.controller..*(..)) and @annotation(org.springframework.web.bind.annotation.RequestMapping)"/>-->
         <!--<aop:advisor advice-ref="validateInterceptor" pointcut-ref="controllerMethodPointcut" />-->
