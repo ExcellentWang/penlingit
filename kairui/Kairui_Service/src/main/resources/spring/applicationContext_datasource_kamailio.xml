@@ -81,6 +81,6 @@
     
 	<bean id="mapperScannerConfigurer" class="org.mybatis.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.ontheroad.mysql" />
+		<property name="basePackage" value="com.ontheroad" />
 	</bean>
 </beans>
