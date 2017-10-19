@@ -72,7 +72,7 @@ tableEvent = {
 		oppSureModal("确定推送消息到app？");
 	   	 $("#sureOption").unbind("click").click(function () {
 	   		 $("#sureModal").modal('hide')
-	   		changeStatus(item.id,3);
+	   		send(item.id);
 	   	 })
 	}
 };
@@ -93,7 +93,7 @@ handle_pic = function (value, row, index) {
 	return "<img style='height:50px;width:100px;' src='"+value+"'/>";
 };
 handle_status= function (value, row, index) {
-	return [null,"待审核","已审核","已推送"][value];
+	return [null,"待审核","已审核","已推送",null,"推送中"][value];
 };
 
 //改变状态共用
@@ -103,6 +103,29 @@ function changeStatus(id,status){
 			data: {
 				"id":id,
 				"status":status
+			},
+			success: function(item){
+				$("#table1").bootstrapTable("refresh", {url: "..."});
+				if(item.code!=0){
+	 				tip({
+	 					content:item.msg
+	 				})
+				}else{
+	 				tip({
+	 					content:"操作成功！"
+	 				})
+				}
+				$("#sureModal").modal('hide')
+			}
+		});
+}
+
+//推送
+function send(id){
+	$.ajax({
+			url: "/sendToApp",
+			data: {
+				"id":id
 			},
 			success: function(item){
 				$("#table1").bootstrapTable("refresh", {url: "..."});

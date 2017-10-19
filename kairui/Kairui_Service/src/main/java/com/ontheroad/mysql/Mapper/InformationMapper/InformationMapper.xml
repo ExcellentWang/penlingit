@@ -15,7 +15,7 @@
    
    
    <select id="getNewsInformationList" resultType="com.ontheroad.pojo.Information.NewsInformation">
-      select * from tb_newsInformation 
+      select * from tb_newsInformation  where type=1
       ORDER BY createTime DESC
    </select> 
     
