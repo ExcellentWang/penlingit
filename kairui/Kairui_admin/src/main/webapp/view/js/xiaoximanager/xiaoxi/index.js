@@ -26,12 +26,12 @@ handle = function (value, row, index) {
 tableEvent = {
 	"click .update" : function(e, a, item, index) {
 		comn.addTab({
-			title: '修改资讯',
-			href: 'Modal/newsmanager/newslist/add.html?id='+item.id
+			title: '修改消息',
+			href: 'Modal/xiaoximanager/xiaoxi/add.html?id='+item.id
 		});
 	},
 	"click .del" : function(e, a, item, index) {
-		oppSureModal("确定删除该资讯？");
+		oppSureModal("确定删除该消息？");
    	 	$("#sureOption").unbind("click").click(function () {
    	 		$.ajax({
    	 			url: "/delTbNewsinformation",

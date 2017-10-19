@@ -21,6 +21,7 @@ $(function(){
         formData.append("lunboOrder", $("[name='lunboOrder']").val());
         formData.append("content", ue.getContent());
         formData.append("isShow", $("[name='isShow']").val());
+        formData.append("id", $("[name='id']").val());
 		$.ajax({
 				url: "/addLunbo",
 				data:formData,

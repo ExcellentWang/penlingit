@@ -20,7 +20,8 @@ $(function(){
         formData.append("title", $("[name='title']").val());
         formData.append("isSend", $("[name='isSend']").val());
         formData.append("content", ue.getContent());
-        formData.append("type", 2);
+        formData.append("type",2);
+        formData.append("id", $("[name='id']").val());
 		$.ajax({
 				url: "/addTbNewsinformation",
 				data:formData,
