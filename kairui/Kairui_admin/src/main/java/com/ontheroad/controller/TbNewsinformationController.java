@@ -28,6 +28,7 @@ public class TbNewsinformationController {
 	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request) throws Exception{
 		String str=UploadUtil.save(file, request);
 		tbNewsinformation.setPicture(str);
+		
         tbNewsinformationService.addOrUpdate(tbNewsinformation);
 		return MapUtil.getSuccessJson();
 	}

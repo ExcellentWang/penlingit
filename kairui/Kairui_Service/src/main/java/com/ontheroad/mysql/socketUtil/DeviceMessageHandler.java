@@ -1,6 +1,9 @@
 package com.ontheroad.mysql.socketUtil;
 
 import com.danga.MemCached.MemCachedClient;
+import com.ontheroad.dao.TbEquipmentstatusMapper;
+import com.ontheroad.entity.TbEquipmentstatus;
+import com.ontheroad.entity.TbEquipmentstatusExample;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
@@ -32,6 +35,8 @@ public class DeviceMessageHandler {
 
     @Autowired
     private MemCachedClient memCachedClient;
+    @Autowired
+    private TbEquipmentstatusMapper tbEquipmentstatusMapper;
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -154,8 +159,13 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                    device.setBacklight(val);
-                    deviceMapper.updateDevice(device);
+                    /*device.setBacklight(val);
+                    deviceMapper.updateDevice(device);*/
+                    TbEquipmentstatusExample example=new TbEquipmentstatusExample();
+                    example.createCriteria().andEquipmentIdEqualTo(device.getEquipment_id());
+                    TbEquipmentstatus tbEquipmentstatus=new TbEquipmentstatus();
+                    tbEquipmentstatus.setBacklight(val);
+                    tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
                     logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
                 case "asyyos": // 音量
