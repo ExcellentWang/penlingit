@@ -166,7 +166,7 @@ public class DeviceMessageHandler {
                     TbEquipmentstatusExample example=new TbEquipmentstatusExample();
                     example.createCriteria().andEquipmentIdEqualTo(device.getEquipment_id());
                     TbEquipmentstatus tbEquipmentstatus=new TbEquipmentstatus();
-                    tbEquipmentstatus.setBacklight(val);
+                    tbEquipmentstatus.setBacklight("111");
                     tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
                     logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
