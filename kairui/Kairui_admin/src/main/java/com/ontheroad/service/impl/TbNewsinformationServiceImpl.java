@@ -54,6 +54,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		if (tbNewsinformation.getCreatetime() != null) {
 			c.andCreatetimeGreaterThanOrEqualTo(tbNewsinformation.getCreatetime());
 		}
+		c.andTypeEqualTo(tbNewsinformation.getType());
 		return tbNewsinformationMapper.selectByExample(example);
 	}
 
