@@ -103,7 +103,7 @@ function send(id){
 	 				})
 				}else{
 	 				tip({
-	 					content:"操作成功！"
+	 					content:"操作成功,请稍后刷新查看推送结果！"
 	 				})
 				}
 				$("#sureModal").modal('hide')
