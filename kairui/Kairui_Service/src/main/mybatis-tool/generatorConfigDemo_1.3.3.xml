@@ -16,18 +16,18 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.ontheroad.entity"
+        <javaModelGenerator targetPackage="com.ontheroad.mysql.entity"
                             targetProject="Kairui_Service">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.ontheroad"
+        <sqlMapGenerator targetPackage="com.ontheroad.mysql"
                          targetProject="Kairui_Service/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ontheroad.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ontheroad.mysql.dao"
                              targetProject="Kairui_Service">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

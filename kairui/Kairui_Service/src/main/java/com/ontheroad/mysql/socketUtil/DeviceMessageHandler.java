@@ -1,25 +1,26 @@
 package com.ontheroad.mysql.socketUtil;
 
-import com.danga.MemCached.MemCachedClient;
-import com.ontheroad.dao.TbEquipmentstatusMapper;
-import com.ontheroad.entity.TbEquipmentstatus;
-import com.ontheroad.entity.TbEquipmentstatusExample;
-import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
-import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
-import com.ontheroad.pojo.TerminalDevice.DeviceError;
-import com.ontheroad.pojo.TerminalDevice.DeviceLog;
-import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
-import com.ontheroad.service.DeviceService.DeviceService;
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.session.IoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+import com.danga.MemCached.MemCachedClient;
+import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
+import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
+import com.ontheroad.mysql.entity.TbEquipmentstatus;
+import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
+import com.ontheroad.pojo.TerminalDevice.DeviceError;
+import com.ontheroad.pojo.TerminalDevice.DeviceLog;
+import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.service.DeviceService.DeviceService;
 
 @Component("DeviceMessageHandler")
 public class DeviceMessageHandler {
@@ -35,8 +36,8 @@ public class DeviceMessageHandler {
 
     @Autowired
     private MemCachedClient memCachedClient;
- /*   @Autowired
-    private TbEquipmentstatusMapper tbEquipmentstatusMapper;*/
+    @Autowired
+    private TbEquipmentstatusMapper tbEquipmentstatusMapper;
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -159,14 +160,14 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                    val="1";
+                   /* val="1";
                     device.setBacklight(val);
-                    deviceMapper.updateDevice(device);
-                   /* TbEquipmentstatusExample example=new TbEquipmentstatusExample();
+                    deviceMapper.updateDevice(device);*/
+                    TbEquipmentstatusExample example=new TbEquipmentstatusExample();
                     example.createCriteria().andEquipmentIdEqualTo(device.getEquipment_id());
                     TbEquipmentstatus tbEquipmentstatus=new TbEquipmentstatus();
                     tbEquipmentstatus.setBacklight(val);
-                    tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);*/
+                    tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
                     logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
                 case "asyyos": // 音量
