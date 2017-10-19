@@ -1,8 +1,0 @@
-label.error,
-span.error,
-p.error,
-div.validator-error {
-    color: #f00;
-    width: auto !important;
-    font-size: 14px;
-}

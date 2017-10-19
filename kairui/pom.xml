@@ -10,7 +10,6 @@
 
     <modules>
         <module>Kairui_Common</module>
-        <module>Kairui_System</module>
         <module>Kairui_RestApi</module>
         <module>Kairui_Service</module>
     <module>Kairui_admin</module>
