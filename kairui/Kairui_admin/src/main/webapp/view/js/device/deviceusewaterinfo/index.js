@@ -1,9 +1,9 @@
-var table_1, table_2;
-
+var table_1, table_2,equipmentNum;
+var args=comn.getArgs();
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
-		isProcessed: false
-	}), "device/getDeviceError");
+		deviceId:args['deviceId']
+	}), "device/getUseWaterByDeviceId");
 };
 
 
@@ -21,11 +21,13 @@ tableEvent = {
 handle= function (value, row, index) {
     return ["<a class='info' href='javascript:;'>" + "查看详情" + "</a>"].join("");
 };
-
+equipmentNum=function(value, row, index){
+	return args['equipmentNum']
+}
 
 deviceType=function(value, row, index){
 	
-	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
+	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][args['type'].substring(1)]
 }
 
 

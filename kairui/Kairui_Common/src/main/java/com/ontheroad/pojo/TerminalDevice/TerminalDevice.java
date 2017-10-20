@@ -2,8 +2,6 @@ package com.ontheroad.pojo.TerminalDevice;
 
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Guarantee;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -42,7 +40,7 @@ public class TerminalDevice implements Serializable{
 
 
 	 private DeviceAppointment appointment; // 预约
-	 private DeviceUseLog useLog = new DeviceUseLog(); // 使用情况
+	 private com.ontheroad.mysql.entity.DeviceUseLog deviceUseLog;// 使用情况
 
 	 private List<Customerservice> customer_services;
 	 private Guarantee guarantee;
@@ -67,6 +65,14 @@ public class TerminalDevice implements Serializable{
 	 private String product;
 
 	
+	 
+	public com.ontheroad.mysql.entity.DeviceUseLog getDeviceUseLog() {
+		return deviceUseLog;
+	}
+
+	public void setDeviceUseLog(com.ontheroad.mysql.entity.DeviceUseLog deviceUseLog) {
+		this.deviceUseLog = deviceUseLog;
+	}
 
 	public String getProduct() {
 		return product;
@@ -236,13 +242,7 @@ public class TerminalDevice implements Serializable{
 		this.appointment = appointment;
 	}
 
-	public DeviceUseLog getUseLog() {
-		return useLog;
-	}
 
-	public void setUseLog(DeviceUseLog useLog) {
-		this.useLog = useLog;
-	}
 
 	public List<Customerservice> getCustomer_services() {
 		return customer_services;

@@ -1,5 +1,6 @@
 package com.ontheroad.service.DeviceService;
 
+import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.TerminalDevice.*;
 import com.ontheroad.pojo.user.User;
 import org.springframework.remoting.service.annotation.RemoteService;
@@ -79,7 +80,11 @@ public interface DeviceService {
 	 * @param device
 	 */
 	void insert(TerminalDevice device);
-	
+	/**
+	 * 通过设备id获取设备用水量节水量
+	 * @return
+	 */
+	List<DeviceWater> getDeviceWaterByDeviceId(Long deviceId);
 	
 	
 	

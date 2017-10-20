@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -11,10 +12,16 @@ import org.apache.mina.core.session.IoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.dao.DeviceUseLogMapper;
+import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
+import com.ontheroad.mysql.entity.DeviceUseLog;
+import com.ontheroad.mysql.entity.DeviceUseLogExample;
+import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
@@ -38,6 +45,10 @@ public class DeviceMessageHandler {
     private MemCachedClient memCachedClient;
     @Autowired
     private TbEquipmentstatusMapper tbEquipmentstatusMapper;
+    @Autowired
+    private DeviceUseLogMapper deviceUseLogMapper;
+    @Autowired
+    private DeviceWaterMapper deviceWaterMapper;
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -108,6 +119,7 @@ public class DeviceMessageHandler {
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
             device.setPort(String.valueOf(addr.getPort()));
+            List<String> ls=deviceMessage.getArgs();
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
                     rep = new DeviceMessage(
@@ -278,17 +290,35 @@ public class DeviceMessageHandler {
                     deviceMapper.updateDevice(device);
                     break;
                 case "verx": // 固件版本
-//                    rep = new DeviceMessage(
-//                            deviceMessage.getDeviceType(),
-//                            deviceMessage.getDeviceID(),
-//                            "akgapp",
-//                            new ArrayList<>(Arrays.asList("OK"))
-//                    );
-//                    reply(session, rep);
                 	String firmVersion=deviceMessage.getArgs().get(0);
                 	 device.setFirm_version(firmVersion);
                      deviceMapper.updateDevice(device);
                      logger.info("--------------------固件版本被更新------- "+firmVersion);
+                    break;
+                case "real": // 实时数据
+                	DeviceUseLog log=new DeviceUseLog();
+                	log.setUploadstatus(ls.get(6));
+                	log.setUsetype(ls.get(8));
+                	log.setSettemperature(ls.get(10));
+                	log.setOuttemperature(ls.get(11));
+                	log.setValveouttemperature(ls.get(12));
+                	log.setBatterytemperature(ls.get(13));
+                	log.setFlowgrade(ls.get(16));
+                	log.setFlowspeed(ls.get(17));
+                	log.setBatteryvoltage(ls.get(18));
+                	log.setBatterytemperature(ls.get(19));
+                	log.setEquipmentId(device.getEquipment_id());
+                	deviceUseLogMapper.insertSelective(log);
+                    logger.info("--------------------上传实时数据------- "+JSON.toJSONString(log));
+                    break;
+                case "scwt": //每次洗澡用水量节水量
+                	DeviceWater de=new DeviceWater();
+                	de.setDeviceId(Long.valueOf(device.getEquipment_id()));
+                	de.setUseWater(ls.get(6));
+                	de.setJieWater(ls.get(7));
+                	de.setBathTime(ls.get(8));
+                	deviceWaterMapper.insertSelective(de) ;
+                    logger.info("--------------------上传每次洗澡用水量节水量------- ");
                     break;
             }
         } catch (Exception e) {

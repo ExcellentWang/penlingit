@@ -8,6 +8,12 @@ import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceLogMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
+import com.ontheroad.mysql.dao.DeviceUseLogMapper;
+import com.ontheroad.mysql.dao.DeviceWaterMapper;
+import com.ontheroad.mysql.entity.DeviceUseLog;
+import com.ontheroad.mysql.entity.DeviceUseLogExample;
+import com.ontheroad.mysql.entity.DeviceWater;
+import com.ontheroad.mysql.entity.DeviceWaterExample;
 import com.ontheroad.mysql.socketUtil.DeviceMessage;
 import com.ontheroad.mysql.socketUtil.MinaServerHandler;
 import com.ontheroad.pojo.Constant.BaseConstant;
@@ -54,6 +60,11 @@ public class DeviceImpl implements DeviceService {
 
 	@Autowired
 	private MemCachedClient memCachedClient;
+	
+	@Autowired
+	private DeviceUseLogMapper  deviceUseLogMapper;
+	@Autowired
+	private DeviceWaterMapper deviceWaterMapper;
 	
 
 	private static final Logger logger = Logger.getLogger(DeviceImpl.class);
@@ -264,7 +275,13 @@ public class DeviceImpl implements DeviceService {
 			fieldMap.put("equipment_id", t.getEquipment_id());
 			Guarantee g = guaranteeMapper.getGuaranteeDetail(fieldMap);
 			t.setGuarantee(g);
-			
+			//查询设备最新的使用记录
+			DeviceUseLogExample example=new DeviceUseLogExample();
+			example.createCriteria().andEquipmentIdEqualTo( t.getEquipment_id());
+			List<DeviceUseLog> ls=deviceUseLogMapper.selectByExample(example);
+			if(ls.size()>0){
+				t.setDeviceUseLog(ls.get(ls.size()-1));
+			}
 			resultMap.put("deviceDetail", t);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");
@@ -676,6 +693,13 @@ public class DeviceImpl implements DeviceService {
 	public void insert(TerminalDevice device) {
 		deviceMapper.insert(device);
 		
+	}
+
+	@Override
+	public List<DeviceWater> getDeviceWaterByDeviceId(Long deviceId) {
+		DeviceWaterExample example=new DeviceWaterExample();
+		example.createCriteria().andDeviceIdEqualTo(deviceId);
+		return deviceWaterMapper.selectByExample(example);
 	}
 
 	

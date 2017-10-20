@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ontheroad.entity.equipmentDatatype;
+import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
@@ -81,52 +82,6 @@ public class DeviceController extends BaseConstant{
             return map;
         }
     }
-	/**
-	 * 绑定设备 2017. 7.21
-	 * 
-	 * @param ds
-	 * @return
-	 */
-
-	@RequestMapping(value = "/bindingDevice", method = RequestMethod.POST)
-    public Map<Object,Object> bindingDevice(DeviceShare ds) {
-		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return deviceService.bindingDevice(ds);      	        	        	
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", BaseConstant.appUserErrorStatus);
-    		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
-            return map;
-        }
-    }
-	
-	/**
-	 * 分享设备 2017. 8.2
-	 * 
-	 * @param ds
-	 * @return
-	 */
-
-	@RequestMapping(value = "/shareDevice", method = RequestMethod.POST)
-    public Map<Object,Object> shareDevice(DeviceShare ds) {
-		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return deviceService.shareDevice(ds);      	        	        	
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", BaseConstant.appUserErrorStatus);
-    		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
-            return map;
-        }
-    }
-	
 	
 	/**
 	 * 删除设备
@@ -166,26 +121,7 @@ public class DeviceController extends BaseConstant{
 		}
 	}
 	
-	/*
-	 * 单个设备详情
-	 * 
-	 */
-	
-	@RequestMapping(value = "/getDeviceDetail")
-    public Map<Object,Object> getDeviceDetail(TerminalDevice t) {
-		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return deviceService.getDeviceDetail(t);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", BaseConstant.appUserErrorStatus);
-    		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
-            return map;
-        }
-    }
+
 	
 	/**
 	 * 设备语音播报
@@ -570,5 +506,18 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
-
+	/**
+	 * 
+	* 
+	* @Description:
+	* @param terminalDevice 通过设备id获取设备用水量节水量
+	* @return  
+	* Map<Object,Object>   
+	* @throws
+	 */
+	@RequestMapping(value = "/getUseWaterByDeviceId")
+	public Map<Object, Object> getUseWaterByDeviceId(Long deviceId) {
+		List<DeviceWater> ls=deviceService.getDeviceWaterByDeviceId(deviceId);
+		return MapUtil.getSuccessJson(ls);
+	}
 }
