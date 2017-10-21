@@ -2,6 +2,7 @@ package com.ontheroad.controller;
 
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,20 +10,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ontheroad.core.util.PushUtil;
 import com.ontheroad.core.util.UploadUtil;
 import com.ontheroad.entity.TbNewsinformation;
 import com.ontheroad.service.TbNewsinformationService;
 import com.ontheroad.utils.MapUtil;
-import com.ontheroad.utils.WebUtil;
 
 @Controller
 public class TbNewsinformationController {
@@ -31,18 +31,36 @@ public class TbNewsinformationController {
 	private PushUtil pushUtil;
 	@ResponseBody
 	@RequestMapping("/addTbNewsinformation")
-	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request) throws Exception{
+	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request,Integer timeSend
+			,boolean isSend) throws Exception{
 		String str=UploadUtil.save(file, request);
 		tbNewsinformation.setPicture(str);
-		
-        tbNewsinformationService.addOrUpdate(tbNewsinformation);
+		tbNewsinformation=tbNewsinformationService.addOrUpdate(tbNewsinformation);
+        //消息推送设置
+        if(timeSend!=null){
+        	tbNewsinformation.setContent(null);
+        	JSONObject json=new JSONObject();
+    		json.put("pdata", tbNewsinformation);
+        	if(timeSend==1){
+        		pushUtil.push(json);
+        	}else{//定时推送
+        		
+        	}
+        }
+        //资讯推送设置
+        if(isSend){
+        	tbNewsinformation.setContent(null);
+        	JSONObject json=new JSONObject();
+    		json.put("pdata", tbNewsinformation);
+    		pushUtil.push(json);
+        }
 		return MapUtil.getSuccessJson();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/selectTbNewsinformationExample")
-	public  Map<Object, Object> select(TbNewsinformation tbNewsinformation){
-		List<TbNewsinformation> ls=tbNewsinformationService.selectByExample(tbNewsinformation);
+	public  Map<Object, Object> select(TbNewsinformation tbNewsinformation,@DateTimeFormat(pattern="yyyy-MM-dd") Date createtime2){
+		List<TbNewsinformation> ls=tbNewsinformationService.selectByExample(tbNewsinformation, createtime2);
 		return MapUtil.getSuccessJson(ls,ls.size());
 	}
 	

@@ -16,7 +16,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 	@Autowired
 	private TbNewsinformationMapper tbNewsinformationMapper;
 	@Override
-	public void addOrUpdate(TbNewsinformation tbNewsinformation) {
+	public TbNewsinformation addOrUpdate(TbNewsinformation tbNewsinformation) {
 		tbNewsinformation.setCreatetime(new Date());
 		if(tbNewsinformation.getId()==null){
 			tbNewsinformation.setStatus(1);
@@ -26,7 +26,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		}else{
 			tbNewsinformationMapper.updateByPrimaryKeySelective(tbNewsinformation);
 		}
-
+		return tbNewsinformation;
 	}
 
 
@@ -42,7 +42,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 
 
 	@Override
-	public List<TbNewsinformation> selectByExample(TbNewsinformation tbNewsinformation) {
+	public List<TbNewsinformation> selectByExample(TbNewsinformation tbNewsinformation,Date createtime2) {
 		TbNewsinformationExample example = new TbNewsinformationExample();
 		Criteria c = example.createCriteria();
 		if (tbNewsinformation.getTitle() != null && tbNewsinformation.getTitle() != "") {
@@ -53,6 +53,9 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		}
 		if (tbNewsinformation.getCreatetime() != null) {
 			c.andCreatetimeGreaterThanOrEqualTo(tbNewsinformation.getCreatetime());
+		}
+		if (createtime2 != null) {
+			c.andCreatetimeLessThanOrEqualTo(createtime2);
 		}
 		c.andTypeEqualTo(tbNewsinformation.getType());
 		return tbNewsinformationMapper.selectByExample(example);

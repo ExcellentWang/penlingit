@@ -2,6 +2,8 @@ package com.ontheroad.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TbNewsinformation {
     /**
      *
@@ -28,6 +30,7 @@ public class TbNewsinformation {
      *
      * @mbggenerated Thu Oct 19 17:04:00 CST 2017
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd") 
     private Date createtime;
 
     /**

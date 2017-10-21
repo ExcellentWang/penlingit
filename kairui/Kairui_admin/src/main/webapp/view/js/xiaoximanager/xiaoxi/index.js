@@ -14,9 +14,6 @@ handle = function (value, row, index) {
 	if(row.status==1){
 		modifyMenu+="<li><a class='send'>立即推送</a></li>"
 	}
-	/*if(row.status==2){
-		modifyMenu+="<li><a class='cancelview'>取消审核</a></li><li><a class='send'>推送</a></li>"
-	}*/
 	if(row.status==4){
 		modifyMenu+="<li><a class='send'>重新推送</a></li>"
 	}

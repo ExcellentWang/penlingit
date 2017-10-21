@@ -2,6 +2,7 @@
 $(function(){
 	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
+	var isUpload=false;
 	$.ajax({
 		url: "/getTbNewsinformationId",
 		data:{"id":args['id']},
@@ -12,9 +13,17 @@ $(function(){
 			});
 		}
 	});
-	
+	$("[name='file']").change(function(){
+		isUpload=true;
+	})
 	//添加
 	$("#addlunbo").click(function(){
+		if(isUpload==false){
+			tip({
+				content:"请先上传缩略图！"
+			})
+			return;
+		}
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
         formData.append("title", $("[name='title']").val());
@@ -22,6 +31,7 @@ $(function(){
         formData.append("content", ue.getContent());
         formData.append("id", $("[name='id']").val());
         formData.append("type",1);
+        fromData.append("isSend",$("input[name='isSend']").is(':checked'))
 		$.ajax({
 				url: "/addTbNewsinformation",
 				data:formData,
