@@ -38,7 +38,7 @@ public class LunboController {
 	@RequestMapping("/getLunboList")
 	@ResponseBody
 	public  Map<Object, Object> getList(){
-		return MapUtil.getSuccessJson(lunboService.getList());
+		return MapUtil.getSuccessJson(lunboService.getList(),lunboService.getList().size());
 	}
 	
 	@RequestMapping("/delLunbo")

@@ -163,6 +163,27 @@ $(function() {
 				}
 			]
 	 	},
+		{
+	 		"menuName": "保修服务",
+	 		"sysMenuList": [
+	 		     {
+					"menuName": "保修卡",
+					"url": "./Modal/guarantee/guaranteecard/index.html"
+	 		     },
+	 		     {
+					"menuName": "用户报修",
+					"url": "./Modal/newsmanager/newslist/index.html"
+		 		 },
+		 		{
+						"menuName": "报修类型",
+						"url": "./Modal/newsmanager/newslist/index.html"
+		 		},
+		 		{
+					"menuName": "维修员工管理",
+					"url": "./Modal/newsmanager/newslist/index.html"
+	 		}
+	 		 ]
+	 	},
 	 	{
 	 		"menuName": "资讯管理",
 	 		"sysMenuList": [
