@@ -176,7 +176,7 @@ $(function() {
 		 		 },
 		 		{
 						"menuName": "报修类型",
-						"url": "./Modal/newsmanager/newslist/index.html"
+						"url": "./Modal/guarantee/guaranteetype/index.html"
 		 		},
 		 		{
 					"menuName": "维修员工管理",
