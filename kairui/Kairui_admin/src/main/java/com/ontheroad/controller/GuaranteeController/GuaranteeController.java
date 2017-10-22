@@ -20,7 +20,7 @@ public class GuaranteeController {
 	@RequestMapping("/selectByExampleGuaranteeType")
 	@ResponseBody
 	public Map<Object, Object> selectByExample(GuaranteeType guaranteeType){
-		return MapUtil.getSuccessJson(guaranteeService.getTypeList(guaranteeType));
+		return MapUtil.getSuccessJson(guaranteeService.getTypeList(guaranteeType),guaranteeService.getTypeList(guaranteeType).size());
 	}
 	
 	@RequestMapping("/addOrUpdateGuaranteeType")
@@ -46,7 +46,7 @@ public class GuaranteeController {
 	@RequestMapping("/selectByExampleStaff")
 	@ResponseBody
 	public Map<Object, Object> selectByExample(Staff staff){
-		return MapUtil.getSuccessJson(guaranteeService.getStaffList(staff));
+		return MapUtil.getSuccessJson(guaranteeService.getStaffList(staff),guaranteeService.getStaffList(staff).size());
 	}
 	
 	@RequestMapping("/addOrUpdateStaff")
