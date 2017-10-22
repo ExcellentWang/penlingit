@@ -180,7 +180,7 @@ $(function() {
 		 		},
 		 		{
 					"menuName": "维修员工管理",
-					"url": "./Modal/newsmanager/newslist/index.html"
+					"url": "./Modal/guarantee/staff/index.html"
 	 		}
 	 		 ]
 	 	},

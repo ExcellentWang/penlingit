@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../../common/plugs/bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../../common/css/style.min.css"/>
+    <link rel="stylesheet" href="../../../common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
+    <link rel="stylesheet" href="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.css">
+        <link rel="stylesheet" href="../../../common/plugs/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css" />
+    <title>维修员工管理</title>
+  </head>
+</html>
+<body class="gray-bg">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-xs-24 col-sm-24 col-md-24">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+         	 <p>
+			    	<div class="col-xs-24 col-sm-24 col-md-24 text-right">
+                  <button type="button" class="btn btn-primary" id="addDeviceType" modal="enter" ><span class=" "></span><span>&nbsp;添加维修员工&nbsp;</span>
+                  </button>
+                </div>
+			    </p>
+          		   <form class="form-horizontal" id="taskForm">
+          		   <input type="hidden" name="type" value="2" />
+              <div class="form-group form-group-sm">
+               <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">员工工号：</label>
+                 <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" name="title" placeholder="" class="form-control">
+                  </div>
+                </div>
+                <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">手机号：</label>
+                 <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" name="title" placeholder="" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+               <div class="input-tip">
+                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">员工姓名：</label>
+                 <div class="col-xs-5 col-sm-5 col-md-5">
+                    <input type="text" name="title" placeholder="" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-sm">
+                <div class="col-xs-24 col-sm-24 col-md-24 text-center">
+                  <button type="button" class="btn btn-primary" id="btn-search" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
+                  </button>
+                  <button type="button" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="tab-content">
+                <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
+                  <thead>
+                    <tr>
+                     <th data-field=""  >工号</th>
+                      <th data-field=""  >姓名</th>
+                      <th data-field="">手机号</th>
+                      <th data-field="">更新时间</th>
+                        <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- tian加 -->
+<div class="modal fade" id="xintiao" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >添加维修员工
+						</h4>
+					</div>
+			<div class="modal-body ">
+				<div class="form-group form-group-sm row">
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">工号：</label>
+								<div class="col-xs-15 col-sm-15 col-md-15 ">
+									<input type="text" name="equipmentName" placeholder="" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group form-group-sm row">
+						<input type="hidden" name="equipmentType" >
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">姓名：</label>
+								<div class="col-xs-15 col-sm-15 col-md-15 ">
+									<input type="text" name="equipmentName" placeholder="" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="form-group form-group-sm row">
+						<input type="hidden" name="equipmentType" >
+							<div class="input-tip">
+								<label class="col-xs-5 col-sm-5 col-md-5 control-label ">手机号：</label>
+								<div class="col-xs-15 col-sm-15 col-md-15 ">
+									<input type="text" name="equipmentName" placeholder="" class="form-control">
+								</div>
+							</div>
+						</div>
+			</div>
+			<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="xinConfirm" >
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+<script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
+<script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
+<script src="../../../common/plugs/layer/layer.js?rev=8962f047eeb03c06cf8200de1bf8ab99"></script>
+<script src="../../../common/js/mock.js"></script>
+<script src="../../../common/js/jquery.values.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="../../../common/plugs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../common/plugs/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../../common/plugs/bootstrap-datepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $("head").append([
+    '<script src="../../../common/js/URL.js"><\/script>',
+    '<script src="../../../common/js/iframeCommon.js"><\/script>',
+    '<script src="../../../js/guarantee/staff/index.js"><\/script>'
+  ].join(""));
+</script>
