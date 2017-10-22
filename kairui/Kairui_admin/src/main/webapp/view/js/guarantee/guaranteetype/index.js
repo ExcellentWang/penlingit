@@ -1,9 +1,8 @@
-var table_1, table_2,handle_pic;
+var table_1, table_2;
 
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
-		isProcessed: false
-	}), "selectTbNewsinformationExample");
+	}), "selectByExampleGuaranteeType");
 };
 
 
@@ -11,27 +10,46 @@ var handle,tableEvent;
 
 handle = function (value, row, index) {
 	var modifyMenu = "<li><a class='del'>删除</a></li>";
-	if(row.status==1){
-		modifyMenu+="<li><a class='send'>立即推送</a></li>"
-	}
-	if(row.status==4){
-		modifyMenu+="<li><a class='send'>重新推送</a></li>"
-	}
-    return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='view'>查看详情</a></li>", modifyMenu, "</ul>", "</div>"].join("");
+    return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='update'>修改</a></li>", modifyMenu, "</ul>", "</div>"].join("");
 };
 
 tableEvent = {
 	"click .update" : function(e, a, item, index) {
-		comn.addTab({
-			title: '修改消息',
-			href: 'Modal/xiaoximanager/xiaoxi/add.html?id='+item.id
-		});
+		$("#xintiao").modal("show")   	
+		$.ajax({
+   	 			url: "/selGuaranteeTypeById",
+   	 			data: {
+   	 				"id":item.id
+   	 			},
+   	 			success: function(item){
+   	 				$("#modalForm").values(item.data)
+   	 			}
+   	 		});
+		$("#confirm").unbind("click").click(function () {
+			$("#xintiao").modal('hide')
+			$.ajax({
+   	 			url: "/addOrUpdateGuaranteeType",
+   	 			data: $("#modalForm").values(),
+   	 			success: function(item){
+   	 			$("#table1").bootstrapTable("refresh", {url: "..."});
+   	 				if(item.code!=0){
+	   	 				tip({
+	   	 					content:item.msg
+	   	 				})
+	 				}else{
+	   	 				tip({
+	   	 					content:"修改成功！"
+	   	 				})
+	 				}
+   	 			}
+   	 		});
+		})
 	},
 	"click .del" : function(e, a, item, index) {
-		oppSureModal("确定删除该消息？");
+		oppSureModal("确定删除？");
    	 	$("#sureOption").unbind("click").click(function () {
    	 		$.ajax({
-   	 			url: "/delTbNewsinformation",
+   	 			url: "/delGuaranteeType",
    	 			data: {
    	 				"id":item.id
    	 			},
@@ -50,13 +68,8 @@ tableEvent = {
    	 			}
    	 		});
    	 	})
-	},
-	"click .view" : function(e, a, item, index) {
-		comn.addTab({
-			title: '保修卡详情',
-			href: 'Modal/guarantee/guaranteecard/add.html?id='+item.id
-		});
 	}
+	
 	
 };
 
@@ -67,38 +80,32 @@ $("#btn-search").click(function () {
 });
 //添加
 $("#addDeviceType").click(function(){
-	$("#xintiao").modal("show")   	
+	$("#xintiao").modal("show")  
 	$("#confirm").unbind("click").click(function () {
-		$("#useUpTimeModal").modal('hide')
+		$("#xintiao").modal('hide')
+		$.ajax({
+	 			url: "/addOrUpdateGuaranteeType",
+	 			data: $("#modalForm").values(),
+	 			success: function(item){
+	 				if(item.code!=0){
+   	 				tip({
+   	 					content:item.msg
+   	 				})
+ 				}else{
+   	 				tip({
+   	 					content:"添加成功！"
+   	 				})
+ 				}
+	 			}
+	 		});
 		
 	})
 })
-handle_pic = function (value, row, index) {
-	return "<img style='height:50px;width:100px;' src='"+value+"'/>";
-};
-handle_status= function (value, row, index) {
-	return [null,"等待推送",null,"推送完成","推送失败","推送中"][value];
-};
-
-//推送
-function send(id){
-	$.ajax({
-			url: "/sendToApp",
-			data: {
-				"id":id
-			},
-			success: function(item){
-				$("#table1").bootstrapTable("refresh", {url: "..."});
-				if(item.code!=0){
-	 				tip({
-	 					content:item.msg
-	 				})
-				}else{
-	 				tip({
-	 					content:"操作成功,请稍后刷新查看推送结果！"
-	 				})
-				}
-				$("#sureModal").modal('hide')
-			}
-		});
+var deviceType
+deviceType=function(value, row, index){
+	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
 }
+var xuhao;
+xuhao= function (value, row, index) {
+	return index+1;
+};
