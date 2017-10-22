@@ -17,7 +17,7 @@ tableEvent = {
 	"click .update" : function(e, a, item, index) {
 		$("#xintiao").modal("show")   	
 		$.ajax({
-   	 			url: "/selGuaranteeTypeById",
+   	 			url: "/selStaffById",
    	 			data: {
    	 				"id":item.id
    	 			},

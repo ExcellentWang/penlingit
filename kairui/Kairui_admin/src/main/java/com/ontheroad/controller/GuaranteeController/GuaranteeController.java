@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ontheroad.entity.GuaranteeType;
+import com.ontheroad.entity.Staff;
 import com.ontheroad.service.GuaranteeService;
 import com.ontheroad.utils.MapUtil;
 
@@ -40,5 +41,31 @@ public class GuaranteeController {
 	@ResponseBody
 	public Map<Object, Object> selGuaranteeTypeById(Long id){
 		return MapUtil.getSuccessJson(guaranteeService.selType(id));
+	}
+	
+	@RequestMapping("/selectByExampleStaff")
+	@ResponseBody
+	public Map<Object, Object> selectByExample(Staff staff){
+		return MapUtil.getSuccessJson(guaranteeService.getStaffList(staff));
+	}
+	
+	@RequestMapping("/addOrUpdateStaff")
+	@ResponseBody
+	public Map<Object, Object> addOrUpdate(Staff staff){
+		guaranteeService.addOrUpdateStaff(staff);
+		return MapUtil.getSuccessJson();
+	}
+	
+	@RequestMapping("/delStaff")
+	@ResponseBody
+	public Map<Object, Object> delStaff(Long id){
+		guaranteeService.delStaff(id);
+		return MapUtil.getSuccessJson();
+	}
+	
+	@RequestMapping("/selStaffById")
+	@ResponseBody
+	public Map<Object, Object> selStaffById(Long id){
+		return MapUtil.getSuccessJson(guaranteeService.selStaff(id));
 	}
 }
