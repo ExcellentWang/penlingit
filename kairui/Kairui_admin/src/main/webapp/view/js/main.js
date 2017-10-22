@@ -172,7 +172,7 @@ $(function() {
 	 		     },
 	 		     {
 					"menuName": "用户报修",
-					"url": "./Modal/newsmanager/newslist/index.html"
+					"url": "./Modal/guarantee/guaranteecustomer/index.html"
 		 		 },
 		 		{
 						"menuName": "报修类型",
