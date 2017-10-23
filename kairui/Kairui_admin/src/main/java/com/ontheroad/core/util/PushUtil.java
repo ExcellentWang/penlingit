@@ -23,6 +23,7 @@ public class PushUtil {
 		AVOSCloud.setDebugLogEnabled(true);
 		AVPush push = new AVPush();
 		push.setPushToAndroid(true);
+		push.setPushToIOS(true);
 		push.setData(json);
 		push.sendInBackground(new SendCallback() {
 		    @Override
@@ -42,7 +43,8 @@ public class PushUtil {
 		}
 	public static void main(String[] args) {
 		JSONObject js=new JSONObject();
-		js.put("test", "1");
+		js.put("test", "2");
+		js.put("alert", "推送给ios3333,android222！");
 		new PushUtil().push(js);
 	}
 }
