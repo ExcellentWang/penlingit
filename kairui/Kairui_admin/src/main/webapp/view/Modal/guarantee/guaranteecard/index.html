@@ -22,7 +22,6 @@
           <div class="ibox-content">
          
           		   <form class="form-horizontal" id="taskForm">
-          		   <input type="hidden" name="type" value="2" />
               <div class="form-group form-group-sm">
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">时间：</label>
@@ -39,9 +38,9 @@
                   <div class="col-xs-5 col-sm-5 col-md-5">
                     <select name="status" class="form-control" >
                       <option value="">--请选择--</option>
-							<option value="3">待审核</option>
-							<option value="1">审核通过</option>
-							<option value="4">已拒绝</option>
+							<option value="1">待审核</option>
+							<option value="2">审核通过</option>
+							<option value="3">已拒绝</option>
                     </select>
                   </div>
                 </div>
@@ -50,13 +49,13 @@
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">设备编号：</label>
                  <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input type="text" name="title" placeholder="" class="form-control">
+                    <input type="text" name="equipmentNum" placeholder="" class="form-control">
                   </div>
                 </div>
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">用户手机号：</label>
                  <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input type="text" name="title" placeholder="" class="form-control">
+                    <input type="text" name="phone" placeholder="" class="form-control">
                   </div>
                 </div>
               </div>
@@ -73,11 +72,11 @@
                 <table id="table1" data-toggle="table" data-ajax="table_1" data-cookie="true" data-cookie-id-table="saveId" data-show-columns="true">
                   <thead>
                     <tr>
-                      <th data-field=""  >设备编号</th>
-                      <th data-field="">设备类型</th>
-                       <th data-field="" data-formatter="handle_status">绑定手机号</th>
+                      <th data-field="equipmentNum"  >设备编号</th>
+                      <th data-field="type" data-formatter="deviceType">设备类型</th>
+                       <th data-field="phone" data-formatter="">绑定手机号</th>
                        <th data-field="">到期时间</th>
-                        <th data-field="">审核状态</th>
+                        <th data-field="status" data-formatter="handle_status">审核状态</th>
                          <th data-field="">剩余保修天数</th>
                           <th data-field="">提交日期</th>
                         <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>

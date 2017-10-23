@@ -1,65 +1,55 @@
 
 $(function(){
-	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
-	var isUpload=false;
+	console.log(args['id'])
 	$.ajax({
-		url: "/getTbNewsinformationId",
+		url: "/selGuaranteeId",
 		data:{"id":args['id']},
 		success: function(item){
-			$("#lunboForm").values(item.data)
-			ue.ready(function(){
-				ue.setContent(item.data.content);
-			});
+			$("#guaa").values(item.data)
 		}
 	});
-	$("[name='file']").change(function(){
-		isUpload=true;
-	})
-	//添加
-	$("#addlunbo").click(function(){
-		if(isUpload==false){
-			tip({
-				content:"请先上传缩略图！"
-			})
-			return;
-		}
-		var formData = new FormData();
-        formData.append("file", document.getElementById("file").files[0]);
-        formData.append("title", $("[name='title']").val());
-        formData.append("isSend", $("[name='isSend']").val());
-        formData.append("content", ue.getContent());
-        formData.append("type",2);
-        formData.append("id", $("[name='id']").val());
-        formData.append("timeSend",$("[name='timeSend']").val());
+	if(args['type']==2){
+		$("#shenhe").removeClass("hide")
+	}
+	//通过
+	$("#pass").click(function(){
 		$.ajax({
-				url: "/addTbNewsinformation",
-				data:formData,
-				type: "POST",
-	            contentType: false,
-	            processData: false,
-				success: function(item){
-					if(item.code!=0){
-		 				tip({
-		 					content:item.msg
-		 				})
-					}else{
-		 				tip({
-		 					content:"成功！"
-		 				})
-		 				comn.closeTab()
-					}
-					$("#sureModal").modal('hide')
+			url: "/addOrUpdateGuarantee",
+			data:{"guaranteeId":args['id'],"status":2},
+			success: function(item){
+				if(item.code==0){
+					tip({
+						content:"操作成功！"
+					})
+					comn.closeTab()
+				}else{
+					tip({
+						content:"操作失败！"
+					})
 				}
-			});
+			}
+		});
+	})
+	//拒绝
+	$("#refu").click(function(){
+		$.ajax({
+			url: "/addOrUpdateGuarantee",
+			data:{"guaranteeId":args['id'],"status":3},
+			success: function(item){
+				if(item.code==0){
+					tip({
+						content:"操作成功！"
+					})
+					comn.closeTab()
+				}else{
+					tip({
+						content:"操作失败！"
+					})
+				}
+			}
+		});
 	})
 	
-	//预览
-$("#yulan").click(function(){
-	comn.addTab({
-		title: '预览',
-		href: 'Modal/newsmanager/newslist/show.html?content='+ue.getContent()
-	});
-})
 })
 

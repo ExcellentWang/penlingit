@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ontheroad.dto.TbGuranteeDto;
 import com.ontheroad.entity.GuaranteeType;
 import com.ontheroad.entity.Staff;
+import com.ontheroad.entity.TbGuarantee;
 import com.ontheroad.service.GuaranteeService;
 import com.ontheroad.utils.MapUtil;
 
@@ -67,5 +69,29 @@ public class GuaranteeController {
 	@ResponseBody
 	public Map<Object, Object> selStaffById(Long id){
 		return MapUtil.getSuccessJson(guaranteeService.selStaff(id));
+	}
+	
+	/**
+	 * 保修卡
+	 * @param t
+	 * @return
+	 */
+	@RequestMapping("/selectByExampleGuarantee")
+	@ResponseBody
+	public Map<Object, Object> selectByExampleGuarantee(TbGuranteeDto t){
+		return MapUtil.getSuccessJson(guaranteeService.getTbGuaranteeList(t),guaranteeService.getTbGuaranteeList(t).size());
+	}
+	
+	@RequestMapping("/selGuaranteeId")
+	@ResponseBody
+	public Map<Object, Object> selGuaranteeId(Integer id){
+		return MapUtil.getSuccessJson(guaranteeService.selTbGuarantee(id));
+	}
+	
+	@RequestMapping("/addOrUpdateGuarantee")
+	@ResponseBody
+	public Map<Object, Object> addOrUpdate(TbGuarantee t){
+		guaranteeService.addOrUpdateTbGuarantee(t);
+		return MapUtil.getSuccessJson();
 	}
 }

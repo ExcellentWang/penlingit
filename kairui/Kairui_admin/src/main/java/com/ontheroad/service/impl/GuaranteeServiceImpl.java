@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 import com.google.common.base.Strings;
 import com.ontheroad.dao.GuaranteeTypeMapper;
 import com.ontheroad.dao.StaffMapper;
+import com.ontheroad.dao.TbGuaranteeMapper;
+import com.ontheroad.dto.TbGuranteeDto;
 import com.ontheroad.entity.GuaranteeType;
 import com.ontheroad.entity.GuaranteeTypeExample;
 import com.ontheroad.entity.GuaranteeTypeExample.Criteria;
 import com.ontheroad.entity.Staff;
 import com.ontheroad.entity.StaffExample;
+import com.ontheroad.entity.TbGuarantee;
+import com.ontheroad.entity.TbGuaranteeExample;
 import com.ontheroad.service.GuaranteeService;
 @Service
 public class GuaranteeServiceImpl implements GuaranteeService {
@@ -21,6 +25,8 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 	private GuaranteeTypeMapper guaranteeTypeMapper;
 	@Autowired 
 	private StaffMapper staffMapper;
+	@Autowired
+	private TbGuaranteeMapper tbGuaranteeMapper;
 	
 	@Override
 	public List<GuaranteeType> getTypeList(GuaranteeType t) {
@@ -88,6 +94,29 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 	@Override
 	public Staff selStaff(Long id) {
 		return staffMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<TbGuranteeDto> getTbGuaranteeList(TbGuranteeDto t) {
+		return tbGuaranteeMapper.selectByExample2(t);
+	}
+
+	@Override
+	public TbGuarantee addOrUpdateTbGuarantee(TbGuarantee t) {
+		tbGuaranteeMapper.updateByPrimaryKeySelective(t);
+		return t;
+	}
+
+	@Override
+	public void delTbGuarantee(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TbGuarantee selTbGuarantee(Integer id) {
+		// TODO Auto-generated method stub
+		return tbGuaranteeMapper.selectByPrimaryKey(id);
 	}
 
 }
