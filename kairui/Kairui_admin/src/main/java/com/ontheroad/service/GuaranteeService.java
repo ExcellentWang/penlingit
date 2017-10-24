@@ -6,6 +6,8 @@ import com.ontheroad.dto.TbCustomerserviceDto;
 import com.ontheroad.dto.TbGuranteeDto;
 import com.ontheroad.entity.GuaranteeType;
 import com.ontheroad.entity.Staff;
+import com.ontheroad.entity.TbCustomerservice;
+import com.ontheroad.entity.TbCustomerservicedetails;
 import com.ontheroad.entity.TbGuarantee;
 
 public interface GuaranteeService {
@@ -36,4 +38,10 @@ public interface GuaranteeService {
 	 * 用户报修
 	 */
 	List<TbCustomerserviceDto> getCustomerservice(TbCustomerserviceDto t);
+	TbCustomerservice getCustomerserviceById(Integer id);
+	/**
+	 * 报修日志
+	 */
+	void tail(TbCustomerservicedetails t);
+	List<TbCustomerservicedetails> seltail();
 }

@@ -10,6 +10,7 @@ import com.google.common.base.Strings;
 import com.ontheroad.dao.GuaranteeTypeMapper;
 import com.ontheroad.dao.StaffMapper;
 import com.ontheroad.dao.TbCustomerserviceMapper;
+import com.ontheroad.dao.TbCustomerservicedetailsMapper;
 import com.ontheroad.dao.TbGuaranteeMapper;
 import com.ontheroad.dto.TbCustomerserviceDto;
 import com.ontheroad.dto.TbGuranteeDto;
@@ -19,6 +20,8 @@ import com.ontheroad.entity.GuaranteeTypeExample.Criteria;
 import com.ontheroad.entity.Staff;
 import com.ontheroad.entity.StaffExample;
 import com.ontheroad.entity.TbCustomerservice;
+import com.ontheroad.entity.TbCustomerservicedetails;
+import com.ontheroad.entity.TbCustomerservicedetailsExample;
 import com.ontheroad.entity.TbGuarantee;
 import com.ontheroad.entity.TbGuaranteeExample;
 import com.ontheroad.service.GuaranteeService;
@@ -32,6 +35,8 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 	private TbGuaranteeMapper tbGuaranteeMapper;
 	@Autowired
 	private TbCustomerserviceMapper tbCustomerserviceMapper;
+	@Autowired
+	private TbCustomerservicedetailsMapper tbCustomerservicedetailsMapper;
 	
 	@Override
 	public List<GuaranteeType> getTypeList(GuaranteeType t) {
@@ -127,6 +132,23 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 	@Override
 	public List<TbCustomerserviceDto> getCustomerservice(TbCustomerserviceDto t) {
 		return tbCustomerserviceMapper.countByExample2(t);
+	}
+
+	@Override
+	public TbCustomerservice getCustomerserviceById(Integer id) {
+		return tbCustomerserviceMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void tail(TbCustomerservicedetails t) {
+		tbCustomerservicedetailsMapper.insertSelective(t);
+		
+	}
+
+	@Override
+	public List<TbCustomerservicedetails> seltail() {
+		TbCustomerservicedetailsExample example=new TbCustomerservicedetailsExample();
+		return tbCustomerservicedetailsMapper.selectByExample(example);
 	}
 
 }

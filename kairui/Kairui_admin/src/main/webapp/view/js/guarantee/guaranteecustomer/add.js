@@ -1,65 +1,87 @@
-
+var table_2;
+	table_2 = function (params) {
+		tableData(params, $.extend({}, {
+			isProcessed: false
+		}), "selGuaranteeCustomerTail");
+	};
 $(function(){
-	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
 	var isUpload=false;
+	
 	$.ajax({
-		url: "/getTbNewsinformationId",
+		url: "/selGuaranteeCustomerId",
 		data:{"id":args['id']},
 		success: function(item){
 			$("#lunboForm").values(item.data)
-			ue.ready(function(){
-				ue.setContent(item.data.content);
-			});
+			if(item.status==0){
+				$("[name='status']").val("待受理")
+			}
+			if(item.status==1){
+				$("[name='status']").val("已受理")
+			}
+			if(item.status==0){
+				$("[name='status']").val("维修完成")
+			}
 		}
 	});
-	$("[name='file']").change(function(){
-		isUpload=true;
-	})
-	//添加
-	$("#addlunbo").click(function(){
-		if(isUpload==false){
-			tip({
-				content:"请先上传缩略图！"
-			})
-			return;
-		}
-		var formData = new FormData();
-        formData.append("file", document.getElementById("file").files[0]);
-        formData.append("title", $("[name='title']").val());
-        formData.append("isSend", $("[name='isSend']").val());
-        formData.append("content", ue.getContent());
-        formData.append("type",2);
-        formData.append("id", $("[name='id']").val());
-        formData.append("timeSend",$("[name='timeSend']").val());
-		$.ajax({
-				url: "/addTbNewsinformation",
-				data:formData,
-				type: "POST",
-	            contentType: false,
-	            processData: false,
-				success: function(item){
-					if(item.code!=0){
-		 				tip({
-		 					content:item.msg
-		 				})
-					}else{
-		 				tip({
-		 					content:"成功！"
-		 				})
-		 				comn.closeTab()
-					}
-					$("#sureModal").modal('hide')
+	//所有维修人员
+	$.ajax({
+		url: "/selectByExampleStaff",
+		data:{},
+		success: function(item){
+			if(item.data){
+				var da=item.data;
+				console.log(da)
+				for( var i=0;i<da.length; i++){
+					var option=" <option value="+da[i].id+">"+da[i].name+"</option>";
+					$("[name='stafflist']").append(option)
 				}
-			});
+			}
+			
+		}
+	});
+	//安排维修
+	$("#anpaibu").click(function(){
+		$("#anpai").modal("show")
+		$("#confirm").unbind("click").click(function () {
+    		$("#anpaibu").modal('hide')
+    		//选中维修人员
+    		$.ajax({
+    			url: "/saveGuaranteeCustomerTail",
+    			data:{"personname":$("[name='stafflist']").text()},
+    			success: function(item){
+    				if(item.code==0){
+    					tip({
+    						content:"操作成功！"
+    					})
+    				}else{
+    					tip({
+    						content:"操作失败！"
+    					})
+    				}
+    			}
+    		});
+    	})
+	})
+	//安排维修
+	$("#comple").click(function(){
+		$.ajax({
+			url: "/saveGuaranteeCustomerTail",
+			data:{"personname":$("[name='stafflist']").text()},
+			success: function(item){
+				if(item.code==0){
+					tip({
+						content:"操作成功！"
+					})
+				}else{
+					tip({
+						content:"操作失败！"
+					})
+				}
+			}
+		});
+		comn.closeTab()
 	})
 	
-	//预览
-$("#yulan").click(function(){
-	comn.addTab({
-		title: '预览',
-		href: 'Modal/newsmanager/newslist/show.html?content='+ue.getContent()
-	});
-})
 })
 

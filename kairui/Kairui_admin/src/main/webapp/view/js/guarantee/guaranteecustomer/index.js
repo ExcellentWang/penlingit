@@ -10,12 +10,12 @@ table_1 = function (params) {
 var handle,tableEvent;
 
 handle = function (value, row, index) {
-	var modifyMenu = "<li><a class='del'>删除</a></li>";
-	if(row.status==1){
-		modifyMenu+="<li><a class='send'>立即推送</a></li>"
+	var modifyMenu = "";
+	if(row.status==0){
+		modifyMenu+="<li><a class='send'>安排检修</a></li>"
 	}
-	if(row.status==4){
-		modifyMenu+="<li><a class='send'>重新推送</a></li>"
+	if(row.status==1){
+		modifyMenu+="<li><a class='send'>维修完成</a></li>"
 	}
     return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='view'>查看详情</a></li>", modifyMenu, "</ul>", "</div>"].join("");
 };
@@ -52,9 +52,10 @@ tableEvent = {
    	 	})
 	},
 	"click .view" : function(e, a, item, index) {
+		console.log(item)
 		comn.addTab({
 			title: '用户报修详情',
-			href: 'Modal/guarantee/guaranteecustomer/add.html?id='+item.id
+			href: 'Modal/guarantee/guaranteecustomer/add.html?id='+item.customer_id
 		});
 	}
 	

@@ -3,7 +3,7 @@ package com.ontheroad.dto;
 import java.util.Date;
 
 public class TbCustomerserviceDto {
-	private Integer customerId;
+	private Integer customer_id;
 
     private Integer equipmentId;
 
@@ -52,12 +52,14 @@ public class TbCustomerserviceDto {
 		this.username = username;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+
+
+	public Integer getCustomer_id() {
+		return customer_id;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
 	}
 
 	public Integer getEquipmentId() {

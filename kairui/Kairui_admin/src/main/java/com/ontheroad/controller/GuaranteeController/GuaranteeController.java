@@ -11,6 +11,7 @@ import com.ontheroad.dto.TbCustomerserviceDto;
 import com.ontheroad.dto.TbGuranteeDto;
 import com.ontheroad.entity.GuaranteeType;
 import com.ontheroad.entity.Staff;
+import com.ontheroad.entity.TbCustomerservicedetails;
 import com.ontheroad.entity.TbGuarantee;
 import com.ontheroad.service.GuaranteeService;
 import com.ontheroad.utils.MapUtil;
@@ -102,5 +103,27 @@ public class GuaranteeController {
 	@ResponseBody
 	public Map<Object, Object> selectByExampleGuaranteeCustomer(TbCustomerserviceDto t){
 		return MapUtil.getSuccessJson(guaranteeService.getCustomerservice(t),guaranteeService.getCustomerservice(t).size());
+	}
+	
+	@RequestMapping("/selGuaranteeCustomerId")
+	@ResponseBody
+	public Map<Object, Object> selGuaranteeCustomerId(Integer id){
+		return MapUtil.getSuccessJson(guaranteeService.getCustomerserviceById(id));
+	}
+	
+	/**
+	 * 报修日志
+	 */
+	@RequestMapping("/selGuaranteeCustomerTail")
+	@ResponseBody
+	public Map<Object, Object> selGuaranteeCustomerTail(){
+		return MapUtil.getSuccessJson(guaranteeService.seltail(),guaranteeService.seltail().size());
+	}
+	
+	@RequestMapping("/saveGuaranteeCustomerTail")
+	@ResponseBody
+	public Map<Object, Object> saveGuaranteeCustomerTail(TbCustomerservicedetails t){
+		guaranteeService.tail(t);
+		return MapUtil.getSuccessJson();
 	}
 }

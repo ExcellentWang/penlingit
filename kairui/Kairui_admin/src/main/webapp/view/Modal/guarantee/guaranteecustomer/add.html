@@ -17,16 +17,23 @@
   <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
       <div class="col-xs-24 col-sm-24 col-md-24">
+      <form id="lunboForm">
       <div class="ibox float-e-margins">
           <div class="ibox-content">
 			 <div class="tab-content">
 					<div class="form-group form-group-sm row">
 						<label class="col-xs-3 col-sm-3 col-md-3 control-label">报修单号：</label>
-						<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+						<div class="col-xs-5 col-sm-5 col-md-5">
+                   			<input type="text" name="ordernum" placeholder="" class="form-control" readonly>
+                 		</div>
 						<label class="col-xs-3 col-sm-3 col-md-3 control-label">报修帐号：</label>
-						<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+						<div class="col-xs-5 col-sm-5 col-md-5">
+                   			<input type="text" name="phone" placeholder="" class="form-control" readonly>
+                 		</div>
 						<label class="col-xs-3 col-sm-3 col-md-3 control-label">维修状态：</label>
-						<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+						<div class="col-xs-5 col-sm-5 col-md-5">
+                   			<input type="text" name="status" placeholder="" class="form-control" readonly>
+                 		</div>
 					</div>		
 			 </div>
 		 </div>
@@ -37,43 +44,57 @@
 								<div class="form-group form-group-sm row">
 								<div class="input-tip">
 								<label class="col-xs-3 col-sm-3 col-md-3 control-label">报修产品：</label>
-								<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+									<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="product" placeholder="智能喷淋系统" class="form-control" readonly>
+                 					</div>
 								</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">设备型号：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="type" placeholder="" class="form-control" readonly>
+                 					</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">设备编号：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="equipmentnum" placeholder="" class="form-control" readonly>
+                 						</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">故障类型：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="repairtype" placeholder="" class="form-control" readonly>
+                 						</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">故障现象：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="phenomenon" placeholder="" class="form-control" readonly>
+                 						</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">服务地址：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="area" placeholder="" class="form-control" readonly>
+                 						</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row">
 									<div class="input-tip">
 									<label class="col-xs-3 col-sm-3 col-md-3 control-label">预约上门时间：</label>
-									<label class="col-xs-3 col-sm-3 col-md-3 control-label" name=""></label>
+										<div class="col-xs-5 col-sm-5 col-md-5">
+                   						<input type="text" name="appointmenttime" placeholder="" class="form-control" readonly>
+                 						</div>
 									</div>
 								</div>
 								<div class="form-group form-group-sm row"><!-- 图片 -->
@@ -87,7 +108,7 @@
 		<div class="ibox float-e-margins">
         	<div class="ibox-content">
 				 <div class="tab-content">
-                <table id="table1" data-toggle="table" data-ajax="table_2" data-cookie="true" data-cookie-id-table="saveId">
+                <table id="table2" data-toggle="table" data-ajax="table_2" data-cookie="true" data-cookie-id-table="saveId">
                   <thead>
                     <tr>
                      <th data-field=""  >类型</th>
@@ -101,16 +122,17 @@
 		</div>
 		<div class="form-group form-group-sm row">
 								<div class="col-xs-24 col-sm-24 col-md-24 text-center">
-									<button type="button" class="btn btn-primary" id=""
+									<button type="button" class="btn btn-primary" id="anpaibu"
 										modal="enter">
 										<span class=" "></span><span>&nbsp;安排维修&nbsp;</span>
 									</button>
-									<button type="button" class="btn btn-primary" id=""
+									<button type="button" class="btn btn-primary" id="comple"
 										modal="enter">
 										<span class=" "></span><span>&nbsp;维修完成&nbsp;</span>
 									</button>
 								</div>
 							</div>
+	</form>
 					</div>
         </div>
       </div>
@@ -118,6 +140,42 @@
   </div>
 
 </body>
+<!-- 安排维修modal -->
+<!--文本信息下发  -->
+<div class="modal fade" id="anpai" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center" >安排维修
+						</h4>
+					</div>
+					<div class="modal-body ">
+						<div class="form-group form-group-sm text-center">
+                <div class="input-tip">
+                  <label class="col-xs-6 col-sm-6 col-md-6 control-label">选择维修人员：</label>
+                  <div class="col-xs-7 col-sm-7 col-md-7">
+                    <select name="stafflist" class="form-control" >
+                      <option value="">--请选择--</option>
+							
+                    </select>
+                  </div>
+                </div>
+              </div>					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button type="button" class="btn btn-primary" id="confirm">
+							确认</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
 </html>
 <script src="../../../common/js/jquery-2.1.1.min.js?rev=6631a779321bc03f4a5281d3ff526254"></script>
 <script src="../../../common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
