@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.dao.TbCustomerserviceMapper">
+  <resultMap id="BaseResultMap" type="com.ontheroad.entity.TbCustomerservice">
+    <id column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="equipmentNum" jdbcType="VARCHAR" property="equipmentnum" />
+    <result column="repairType" jdbcType="VARCHAR" property="repairtype" />
+    <result column="phenomenon" jdbcType="VARCHAR" property="phenomenon" />
+    <result column="appointmentTime" jdbcType="TIMESTAMP" property="appointmenttime" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="orderNum" jdbcType="VARCHAR" property="ordernum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    customer_id, equipment_id, user_id, equipmentNum, repairType, phenomenon, appointmentTime, 
+    area, address, phone, status, createTime, orderNum
+  </sql>
+  <select id="selectByExample" parameterType="com.ontheroad.entity.TbCustomerserviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_customerservice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_customerservice
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_customerservice
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ontheroad.entity.TbCustomerserviceExample">
+    delete from tb_customerservice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ontheroad.entity.TbCustomerservice">
+    <selectKey keyProperty="customerId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_customerservice (equipment_id, user_id, equipmentNum, 
+      repairType, phenomenon, appointmentTime, 
+      area, address, phone, 
+      status, createTime, orderNum
+      )
+    values (#{equipmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{equipmentnum,jdbcType=VARCHAR}, 
+      #{repairtype,jdbcType=VARCHAR}, #{phenomenon,jdbcType=VARCHAR}, #{appointmenttime,jdbcType=TIMESTAMP}, 
+      #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{ordernum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ontheroad.entity.TbCustomerservice">
+    <selectKey keyProperty="customerId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_customerservice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        equipment_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="equipmentnum != null">
+        equipmentNum,
+      </if>
+      <if test="repairtype != null">
+        repairType,
+      </if>
+      <if test="phenomenon != null">
+        phenomenon,
+      </if>
+      <if test="appointmenttime != null">
+        appointmentTime,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="ordernum != null">
+        orderNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentnum != null">
+        #{equipmentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="repairtype != null">
+        #{repairtype,jdbcType=VARCHAR},
+      </if>
+      <if test="phenomenon != null">
+        #{phenomenon,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmenttime != null">
+        #{appointmenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ontheroad.entity.TbCustomerserviceExample" resultType="java.lang.Integer">
+    select count(*) from tb_customerservice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_customerservice
+    <set>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentId != null">
+        equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentnum != null">
+        equipmentNum = #{record.equipmentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairtype != null">
+        repairType = #{record.repairtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phenomenon != null">
+        phenomenon = #{record.phenomenon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appointmenttime != null">
+        appointmentTime = #{record.appointmenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ordernum != null">
+        orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_customerservice
+    set customer_id = #{record.customerId,jdbcType=INTEGER},
+      equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      equipmentNum = #{record.equipmentnum,jdbcType=VARCHAR},
+      repairType = #{record.repairtype,jdbcType=VARCHAR},
+      phenomenon = #{record.phenomenon,jdbcType=VARCHAR},
+      appointmentTime = #{record.appointmenttime,jdbcType=TIMESTAMP},
+      area = #{record.area,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      orderNum = #{record.ordernum,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ontheroad.entity.TbCustomerservice">
+    update tb_customerservice
+    <set>
+      <if test="equipmentId != null">
+        equipment_id = #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentnum != null">
+        equipmentNum = #{equipmentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="repairtype != null">
+        repairType = #{repairtype,jdbcType=VARCHAR},
+      </if>
+      <if test="phenomenon != null">
+        phenomenon = #{phenomenon,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmenttime != null">
+        appointmentTime = #{appointmenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordernum != null">
+        orderNum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ontheroad.entity.TbCustomerservice">
+    update tb_customerservice
+    set equipment_id = #{equipmentId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      equipmentNum = #{equipmentnum,jdbcType=VARCHAR},
+      repairType = #{repairtype,jdbcType=VARCHAR},
+      phenomenon = #{phenomenon,jdbcType=VARCHAR},
+      appointmentTime = #{appointmenttime,jdbcType=TIMESTAMP},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      orderNum = #{ordernum,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!--  报修列表-->
+  <select id="countByExample2" parameterType="com.ontheroad.dto.TbCustomerserviceDto" resultType="com.ontheroad.dto.TbCustomerserviceDto">
+    select * from tb_customerservice tc
+    LEFT JOIN tb_equipment te ON tc.`equipment_id`=te.`equipment_id`
+    LEFT JOIN `tb_user` tu ON tu.`user_id`=tc.`user_id`
+    where 1=1
+    <if test="equipmentnum != null and equipmentnum!=''">
+       and tc.equipmentNum = #{equipmentnum,jdbcType=VARCHAR}
+      </if>
+     <if test="phone != null and phone!=''">
+       and tc.phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="(status != null and status!='' )or status==0">
+      and  tc.status = #{status,jdbcType=VARCHAR}
+      </if>
+  </select>
+</mapper>

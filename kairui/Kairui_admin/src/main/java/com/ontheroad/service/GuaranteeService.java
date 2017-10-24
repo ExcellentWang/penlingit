@@ -2,6 +2,7 @@ package com.ontheroad.service;
 
 import java.util.List;
 
+import com.ontheroad.dto.TbCustomerserviceDto;
 import com.ontheroad.dto.TbGuranteeDto;
 import com.ontheroad.entity.GuaranteeType;
 import com.ontheroad.entity.Staff;
@@ -31,4 +32,8 @@ public interface GuaranteeService {
 	TbGuarantee addOrUpdateTbGuarantee(TbGuarantee t);
 	void delTbGuarantee(Integer id);
 	TbGuarantee selTbGuarantee(Integer id);
+	/**
+	 * 用户报修
+	 */
+	List<TbCustomerserviceDto> getCustomerservice(TbCustomerserviceDto t);
 }

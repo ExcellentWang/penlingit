@@ -3,7 +3,7 @@ var table_1, table_2,handle_pic;
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
 		isProcessed: false
-	}), "selectTbNewsinformationExample");
+	}), "selectByExampleGuaranteeCustomer");
 };
 
 
@@ -65,39 +65,13 @@ tableEvent = {
 $("#btn-search").click(function () {
     $("#table1").bootstrapTable("refresh", {url: "..."});
 });
-//添加消息
-$("#addDeviceType").click(function(){
-	comn.addTab({
-		title: '添加消息',
-		href: 'Modal/xiaoximanager/xiaoxi/add.html'
-	});
-})
-handle_pic = function (value, row, index) {
-	return "<img style='height:50px;width:100px;' src='"+value+"'/>";
-};
-handle_status= function (value, row, index) {
-	return [null,"等待推送",null,"推送完成","推送失败","推送中"][value];
-};
 
-//推送
-function send(id){
-	$.ajax({
-			url: "/sendToApp",
-			data: {
-				"id":id
-			},
-			success: function(item){
-				$("#table1").bootstrapTable("refresh", {url: "..."});
-				if(item.code!=0){
-	 				tip({
-	 					content:item.msg
-	 				})
-				}else{
-	 				tip({
-	 					content:"操作成功,请稍后刷新查看推送结果！"
-	 				})
-				}
-				$("#sureModal").modal('hide')
-			}
-		});
+var bao_status
+bao_status=function(value, row, index){
+	return ["待处理","已受理","完成"][value]
+}
+var deviceType
+deviceType=function(value, row, index){
+	if(value==null)return
+	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
 }
