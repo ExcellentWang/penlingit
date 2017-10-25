@@ -113,6 +113,8 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 
 	@Override
 	public TbGuarantee addOrUpdateTbGuarantee(TbGuarantee t) {
+		//审核时间
+		t.setAuditTime(new Date());
 		tbGuaranteeMapper.updateByPrimaryKeySelective(t);
 		return t;
 	}
@@ -140,14 +142,26 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 	}
 
 	@Override
-	public void tail(TbCustomerservicedetails t) {
+	public void tail(TbCustomerservicedetails t,Long id) {
+		Staff staff=staffMapper.selectByPrimaryKey(id);
+		t.setTime(new Date());
+		if(t.getLogType()==1){
+			t.setContent("受理维修申请,维修人员："+staff.getName()+";电话："+staff.getPhone());
+		}else{
+			t.setContent("维修完成");
+		}
+		TbCustomerservice tbs=new TbCustomerservice();
+		tbs.setCustomerId(Integer.valueOf(String.valueOf(t.getCustomerId())));
+		tbs.setStatus(Integer.valueOf(String.valueOf(t.getLogType())));
+		tbCustomerserviceMapper.updateByPrimaryKeySelective(tbs);
 		tbCustomerservicedetailsMapper.insertSelective(t);
 		
 	}
 
 	@Override
-	public List<TbCustomerservicedetails> seltail() {
+	public List<TbCustomerservicedetails> seltail(Long customerId) {
 		TbCustomerservicedetailsExample example=new TbCustomerservicedetailsExample();
+		example.createCriteria().andCustomerIdEqualTo(customerId);
 		return tbCustomerservicedetailsMapper.selectByExample(example);
 	}
 

@@ -5,8 +5,6 @@ import java.util.Date;
 public class TbCustomerservicedetails {
     private Integer servicedetailId;
 
-    private Integer customerId;
-
     private Integer equipmentId;
 
     private Integer userId;
@@ -19,20 +17,16 @@ public class TbCustomerservicedetails {
 
     private String content;
 
+    private Long logType;
+
+    private Long customerId;
+
     public Integer getServicedetailId() {
         return servicedetailId;
     }
 
     public void setServicedetailId(Integer servicedetailId) {
         this.servicedetailId = servicedetailId;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
     }
 
     public Integer getEquipmentId() {
@@ -81,5 +75,21 @@ public class TbCustomerservicedetails {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Long getLogType() {
+        return logType;
+    }
+
+    public void setLogType(Long logType) {
+        this.logType = logType;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }

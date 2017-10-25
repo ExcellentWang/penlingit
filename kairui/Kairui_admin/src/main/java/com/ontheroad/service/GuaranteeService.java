@@ -42,6 +42,6 @@ public interface GuaranteeService {
 	/**
 	 * 报修日志
 	 */
-	void tail(TbCustomerservicedetails t);
-	List<TbCustomerservicedetails> seltail();
+	void tail(TbCustomerservicedetails t,Long id);
+	List<TbCustomerservicedetails> seltail(Long customerId);
 }

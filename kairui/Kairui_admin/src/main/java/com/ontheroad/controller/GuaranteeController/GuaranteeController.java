@@ -1,5 +1,6 @@
 package com.ontheroad.controller.GuaranteeController;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,14 +117,14 @@ public class GuaranteeController {
 	 */
 	@RequestMapping("/selGuaranteeCustomerTail")
 	@ResponseBody
-	public Map<Object, Object> selGuaranteeCustomerTail(){
-		return MapUtil.getSuccessJson(guaranteeService.seltail(),guaranteeService.seltail().size());
+	public Map<Object, Object> selGuaranteeCustomerTail(Long customerId){
+		return MapUtil.getSuccessJson(guaranteeService.seltail(customerId),guaranteeService.seltail(customerId).size());
 	}
 	
 	@RequestMapping("/saveGuaranteeCustomerTail")
 	@ResponseBody
-	public Map<Object, Object> saveGuaranteeCustomerTail(TbCustomerservicedetails t){
-		guaranteeService.tail(t);
+	public Map<Object, Object> saveGuaranteeCustomerTail(TbCustomerservicedetails t,Long id){
+		guaranteeService.tail(t,id);
 		return MapUtil.getSuccessJson();
 	}
 }

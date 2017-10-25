@@ -7,6 +7,15 @@ $(function(){
 		data:{"id":args['id']},
 		success: function(item){
 			$("#guaa").values(item.data)
+			if(item.data.status==1){
+				$("[name='status']").val("待审核")
+			}
+			if(item.data.status==2){
+				$("[name='status']").val("审核通过")
+			}
+			if(item.data.status==3){
+				$("[name='status']").val("已拒绝")
+			}
 		}
 	});
 	if(args['type']==2){

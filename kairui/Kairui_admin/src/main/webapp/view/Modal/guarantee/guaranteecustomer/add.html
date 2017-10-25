@@ -32,7 +32,7 @@
                  		</div>
 						<label class="col-xs-3 col-sm-3 col-md-3 control-label">维修状态：</label>
 						<div class="col-xs-5 col-sm-5 col-md-5">
-                   			<input type="text" name="status" placeholder="" class="form-control" readonly>
+                   			<input type="text" id="status" placeholder="" class="form-control" readonly>
                  		</div>
 					</div>		
 			 </div>
@@ -111,9 +111,9 @@
                 <table id="table2" data-toggle="table" data-ajax="table_2" data-cookie="true" data-cookie-id-table="saveId">
                   <thead>
                     <tr>
-                     <th data-field=""  >类型</th>
-                      <th data-field=""  >内容</th>
-                      <th data-field="">时间</th>
+                     <!-- <th data-field="logType" data-formatter="logType">类型</th> -->
+                      <th data-field="content"  >内容</th>
+                      <th data-field="time">时间</th>
                     </tr>
                   </thead>
                 </table>
@@ -122,11 +122,11 @@
 		</div>
 		<div class="form-group form-group-sm row">
 								<div class="col-xs-24 col-sm-24 col-md-24 text-center">
-									<button type="button" class="btn btn-primary" id="anpaibu"
+									<button type="button" class="btn btn-primary hide" id="anpaibu"
 										modal="enter">
 										<span class=" "></span><span>&nbsp;安排维修&nbsp;</span>
 									</button>
-									<button type="button" class="btn btn-primary" id="comple"
+									<button type="button" class="btn btn-primary hide" id="comple"
 										modal="enter">
 										<span class=" "></span><span>&nbsp;维修完成&nbsp;</span>
 									</button>
@@ -141,7 +141,6 @@
 
 </body>
 <!-- 安排维修modal -->
-<!--文本信息下发  -->
 <div class="modal fade" id="anpai" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

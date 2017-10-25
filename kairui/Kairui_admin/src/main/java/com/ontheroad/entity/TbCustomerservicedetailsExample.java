@@ -165,66 +165,6 @@ public class TbCustomerservicedetailsExample {
             return (Criteria) this;
         }
 
-        public Criteria andCustomerIdIsNull() {
-            addCriterion("customer_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdIsNotNull() {
-            addCriterion("customer_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdEqualTo(Integer value) {
-            addCriterion("customer_id =", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdNotEqualTo(Integer value) {
-            addCriterion("customer_id <>", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdGreaterThan(Integer value) {
-            addCriterion("customer_id >", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("customer_id >=", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdLessThan(Integer value) {
-            addCriterion("customer_id <", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdLessThanOrEqualTo(Integer value) {
-            addCriterion("customer_id <=", value, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdIn(List<Integer> values) {
-            addCriterion("customer_id in", values, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdNotIn(List<Integer> values) {
-            addCriterion("customer_id not in", values, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdBetween(Integer value1, Integer value2) {
-            addCriterion("customer_id between", value1, value2, "customerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCustomerIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("customer_id not between", value1, value2, "customerId");
-            return (Criteria) this;
-        }
-
         public Criteria andEquipmentIdIsNull() {
             addCriterion("equipment_id is null");
             return (Criteria) this;
@@ -612,6 +552,126 @@ public class TbCustomerservicedetailsExample {
 
         public Criteria andContentNotBetween(String value1, String value2) {
             addCriterion("content not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeIsNull() {
+            addCriterion("log_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeIsNotNull() {
+            addCriterion("log_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeEqualTo(Long value) {
+            addCriterion("log_type =", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeNotEqualTo(Long value) {
+            addCriterion("log_type <>", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeGreaterThan(Long value) {
+            addCriterion("log_type >", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeGreaterThanOrEqualTo(Long value) {
+            addCriterion("log_type >=", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeLessThan(Long value) {
+            addCriterion("log_type <", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeLessThanOrEqualTo(Long value) {
+            addCriterion("log_type <=", value, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeIn(List<Long> values) {
+            addCriterion("log_type in", values, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeNotIn(List<Long> values) {
+            addCriterion("log_type not in", values, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeBetween(Long value1, Long value2) {
+            addCriterion("log_type between", value1, value2, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogTypeNotBetween(Long value1, Long value2) {
+            addCriterion("log_type not between", value1, value2, "logType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdIsNull() {
+            addCriterion("customer_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdIsNotNull() {
+            addCriterion("customer_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdEqualTo(Long value) {
+            addCriterion("customer_id =", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdNotEqualTo(Long value) {
+            addCriterion("customer_id <>", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdGreaterThan(Long value) {
+            addCriterion("customer_id >", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("customer_id >=", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdLessThan(Long value) {
+            addCriterion("customer_id <", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdLessThanOrEqualTo(Long value) {
+            addCriterion("customer_id <=", value, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdIn(List<Long> values) {
+            addCriterion("customer_id in", values, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdNotIn(List<Long> values) {
+            addCriterion("customer_id not in", values, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdBetween(Long value1, Long value2) {
+            addCriterion("customer_id between", value1, value2, "customerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustomerIdNotBetween(Long value1, Long value2) {
+            addCriterion("customer_id not between", value1, value2, "customerId");
             return (Criteria) this;
         }
     }

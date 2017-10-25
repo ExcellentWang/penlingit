@@ -28,6 +28,6 @@ public interface TbGuaranteeMapper {
     int updateByPrimaryKeySelective(TbGuarantee record);
 
     int updateByPrimaryKey(TbGuarantee record);
-
-	List<TbGuranteeDto> selectByExample2(TbGuranteeDto t);
+    
+    List<TbGuranteeDto> selectByExample2(TbGuranteeDto t);
 }

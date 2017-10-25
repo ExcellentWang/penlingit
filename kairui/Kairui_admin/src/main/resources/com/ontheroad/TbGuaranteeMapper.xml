@@ -15,6 +15,8 @@
     <result column="invoice" jdbcType="VARCHAR" property="invoice" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="submit_time" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
   </resultMap>
    <resultMap id="BaseResultMap2" type="com.ontheroad.dto.TbGuranteeDto">
     <id column="guarantee_id" jdbcType="INTEGER" property="guaranteeId" />
@@ -92,7 +94,7 @@
   </sql>
   <sql id="Base_Column_List">
     guarantee_id, equipment_id, user_id, model, productNumber, buyTime, guaranteeTime, 
-    phone, area, address, invoice, status, remark
+    phone, area, address, invoice, status, remark, submit_time, audit_time
   </sql>
   <select id="selectByExample" parameterType="com.ontheroad.entity.TbGuaranteeExample" resultMap="BaseResultMap">
     select
@@ -131,13 +133,13 @@
     insert into tb_guarantee (equipment_id, user_id, model, 
       productNumber, buyTime, guaranteeTime, 
       phone, area, address, 
-      invoice, status, remark
-      )
+      invoice, status, remark, 
+      submit_time, audit_time)
     values (#{equipmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{model,jdbcType=VARCHAR}, 
       #{productnumber,jdbcType=VARCHAR}, #{buytime,jdbcType=TIMESTAMP}, #{guaranteetime,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{invoice,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
-      )
+      #{invoice,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{auditTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ontheroad.entity.TbGuarantee">
     <selectKey keyProperty="guaranteeId" order="AFTER" resultType="java.lang.Integer">
@@ -181,6 +183,12 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentId != null">
@@ -218,6 +226,12 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -269,6 +283,12 @@
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.submitTime != null">
+        submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditTime != null">
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -288,7 +308,9 @@
       address = #{record.address,jdbcType=VARCHAR},
       invoice = #{record.invoice,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR},
+      submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -332,6 +354,12 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where guarantee_id = #{guaranteeId,jdbcType=INTEGER}
   </update>
@@ -348,11 +376,12 @@
       address = #{address,jdbcType=VARCHAR},
       invoice = #{invoice,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP}
     where guarantee_id = #{guaranteeId,jdbcType=INTEGER}
   </update>
-  
-  <!-- 保修卡列表 -->
+    <!-- 保修卡列表 -->
     <select id="selectByExample2" parameterType="com.ontheroad.dto.TbGuranteeDto" resultMap="BaseResultMap2">
     SELECT 
     tg.*,te.equipmentNum,te.type,te.product

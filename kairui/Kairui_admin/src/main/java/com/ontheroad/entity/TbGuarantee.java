@@ -29,6 +29,10 @@ public class TbGuarantee {
 
     private String remark;
 
+    private Date submitTime;
+
+    private Date auditTime;
+
     public Integer getGuaranteeId() {
         return guaranteeId;
     }
@@ -131,5 +135,21 @@ public class TbGuarantee {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Date getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 }
