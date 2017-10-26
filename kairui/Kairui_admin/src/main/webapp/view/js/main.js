@@ -98,7 +98,7 @@ initMenu = function(data) {
 			a.push("</ul>");
 		}
 		return a.join("");
-	};	
+	};
 	$("#side-menu").append(menu(data, 0));
 	$("#side-menu").metisMenu();
 	return $(".sidebar-collapse").slimScroll({
@@ -216,22 +216,14 @@ $(function() {
 
 
 	$.ajax({
-		url: interUrl.basic + interUrl.user.menu,
+		url: interUrl.basic + "user/getMenuByUser",
 		data: {
-			st: "CLS_WEB_BEFORE"
 		},
 		type: "POST",
-		data: {
-			st: 'CLS_WEB_BEFORE'
-		},
-		dataType: "json",
-		success: function(data, textStatus, jqXHR) {
-			if (typeof data === "string") {
-				data = JSON.parse(data);
-			}
+		success: function(data) {
 			if (data.code === 30000) {
 				return location.href = "./index.html";
-			} else if (data.code === 20000) {
+			} else if (data.code === 2) {
 				$("#dialogTip").nameValues({
 					content: data.message
 				});

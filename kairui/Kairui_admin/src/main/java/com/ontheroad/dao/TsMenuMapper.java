@@ -10,7 +10,7 @@ public interface TsMenuMapper {
 
     int deleteByExample(TsMenuExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer menuId);
 
     int insert(TsMenu record);
 
@@ -18,7 +18,7 @@ public interface TsMenuMapper {
 
     List<TsMenu> selectByExample(TsMenuExample example);
 
-    TsMenu selectByPrimaryKey(Integer id);
+    TsMenu selectByPrimaryKey(Integer menuId);
 
     int updateByExampleSelective(@Param("record") TsMenu record, @Param("example") TsMenuExample example);
 
@@ -27,6 +27,5 @@ public interface TsMenuMapper {
     int updateByPrimaryKeySelective(TsMenu record);
 
     int updateByPrimaryKey(TsMenu record);
-    
     List<TsMenu> getMenusUser(Integer userId);
 }

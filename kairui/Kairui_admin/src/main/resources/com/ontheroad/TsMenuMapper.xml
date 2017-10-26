@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ontheroad.dao.TsMenuMapper">
   <resultMap id="BaseResultMap" type="com.ontheroad.entity.TsMenu">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="menu_desc" jdbcType="VARCHAR" property="menuDesc" />
     <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
@@ -14,6 +14,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="menu_order" jdbcType="INTEGER" property="menuOrder" />
+    <result column="MENU_PID" jdbcType="INTEGER" property="menuPid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, menu_name, menu_desc, menu_url, parent_id, menu_type, menu_status, menu_level, 
-    menu_icon, create_time, update_time, menu_order
+    menu_id, menu_name, menu_desc, menu_url, parent_id, menu_type, menu_status, menu_level, 
+    menu_icon, create_time, update_time, menu_order, MENU_PID
   </sql>
   <select id="selectByExample" parameterType="com.ontheroad.entity.TsMenuExample" resultMap="BaseResultMap">
     select
@@ -95,11 +96,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_s_menu
-    where id = #{id,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_s_menu
-    where id = #{id,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ontheroad.entity.TsMenuExample">
     delete from t_s_menu
@@ -108,20 +109,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ontheroad.entity.TsMenu">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="menuId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_s_menu (menu_name, menu_desc, menu_url, 
       parent_id, menu_type, menu_status, 
       menu_level, menu_icon, create_time, 
-      update_time, menu_order)
+      update_time, menu_order, MENU_PID
+      )
     values (#{menuName,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{menuType,jdbcType=INTEGER}, #{menuStatus,jdbcType=INTEGER}, 
       #{menuLevel,jdbcType=INTEGER}, #{menuIcon,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{menuOrder,jdbcType=INTEGER})
+      #{updateTime,jdbcType=TIMESTAMP}, #{menuOrder,jdbcType=INTEGER}, #{menuPid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ontheroad.entity.TsMenu">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="menuId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_s_menu
@@ -159,6 +162,9 @@
       <if test="menuOrder != null">
         menu_order,
       </if>
+      <if test="menuPid != null">
+        MENU_PID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="menuName != null">
@@ -194,6 +200,9 @@
       <if test="menuOrder != null">
         #{menuOrder,jdbcType=INTEGER},
       </if>
+      <if test="menuPid != null">
+        #{menuPid,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.ontheroad.entity.TsMenuExample" resultType="java.lang.Integer">
@@ -205,8 +214,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update t_s_menu
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.menuId != null">
+        menu_id = #{record.menuId,jdbcType=INTEGER},
       </if>
       <if test="record.menuName != null">
         menu_name = #{record.menuName,jdbcType=VARCHAR},
@@ -241,6 +250,9 @@
       <if test="record.menuOrder != null">
         menu_order = #{record.menuOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.menuPid != null">
+        MENU_PID = #{record.menuPid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +260,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_s_menu
-    set id = #{record.id,jdbcType=INTEGER},
+    set menu_id = #{record.menuId,jdbcType=INTEGER},
       menu_name = #{record.menuName,jdbcType=VARCHAR},
       menu_desc = #{record.menuDesc,jdbcType=VARCHAR},
       menu_url = #{record.menuUrl,jdbcType=VARCHAR},
@@ -259,7 +271,8 @@
       menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      menu_order = #{record.menuOrder,jdbcType=INTEGER}
+      menu_order = #{record.menuOrder,jdbcType=INTEGER},
+      MENU_PID = #{record.menuPid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -300,8 +313,11 @@
       <if test="menuOrder != null">
         menu_order = #{menuOrder,jdbcType=INTEGER},
       </if>
+      <if test="menuPid != null">
+        MENU_PID = #{menuPid,jdbcType=INTEGER},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ontheroad.entity.TsMenu">
     update t_s_menu
@@ -315,20 +331,18 @@
       menu_icon = #{menuIcon,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      menu_order = #{menuOrder,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+      menu_order = #{menuOrder,jdbcType=INTEGER},
+      MENU_PID = #{menuPid,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
   
   <!-- 用户拥有菜单 -->
-   <select id="getMenusUser" parameterType="com.ontheroad.entity.TsMenuExample" resultType="java.lang.Integer">
+   <select id="getMenusUser" parameterType="com.ontheroad.entity.TsUser" resultMap="BaseResultMap">
     SELECT m.* FROM t_s_menu m 
-LEFT JOIN `t_s_role_menu` rm ON rm.`menu_id`=m.`id`
-LEFT JOIN `t_s_role` r ON r.`id`=rm.`role_id`
-LEFT JOIN `t_s_role_user` ru ON ru.`role_id`=r.`id`
+LEFT JOIN `t_s_role_menu` rm ON rm.`menu_id`=m.`menu_id`
+LEFT JOIN `t_s_role` r ON r.`role_id`=rm.`role_id`
+LEFT JOIN `t_s_role_user` ru ON ru.`role_id`=r.`role_id`
 LEFT JOIN `t_s_user` u ON u.`user_id`=ru.`user_id`
 WHERE u.user_id=#{userId}
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
   </select>
 </mapper>

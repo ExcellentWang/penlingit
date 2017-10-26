@@ -27,22 +27,10 @@ $(function() {
 			type: "POST",
 			data: $("#loginForm").values(),
 			success: function(res) {
-				var code = $('.check i').attr('index');
-				var userName = $("input[name=userName]").val();
-				if (code == 1) {
-					delCookie(userName);
-				} else if (code == 0) {
-					addCookie(userName);
-				};
-				var o;
-				if (typeof res === "string") {
-					o = JSON.parse(res);
-				} else {
-					o = res;
-				}
-				if (o["code"] === 10000) {
+				console.log(res.code)
+				if (res.code === 0) {
 					location.href = "main.html";
-				} else if (o['code'] === 20000) {
+				} else if (res.code === 2) {
 					$('#errInfo').html(res['message']);
 					$("#loginError").modal("show");
 				}

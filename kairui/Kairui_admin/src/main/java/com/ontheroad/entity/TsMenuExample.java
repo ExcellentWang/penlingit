@@ -105,63 +105,63 @@ public class TsMenuExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andMenuIdIsNull() {
+            addCriterion("menu_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andMenuIdIsNotNull() {
+            addCriterion("menu_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andMenuIdEqualTo(Integer value) {
+            addCriterion("menu_id =", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andMenuIdNotEqualTo(Integer value) {
+            addCriterion("menu_id <>", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andMenuIdGreaterThan(Integer value) {
+            addCriterion("menu_id >", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andMenuIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("menu_id >=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andMenuIdLessThan(Integer value) {
+            addCriterion("menu_id <", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andMenuIdLessThanOrEqualTo(Integer value) {
+            addCriterion("menu_id <=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andMenuIdIn(List<Integer> values) {
+            addCriterion("menu_id in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andMenuIdNotIn(List<Integer> values) {
+            addCriterion("menu_id not in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andMenuIdBetween(Integer value1, Integer value2) {
+            addCriterion("menu_id between", value1, value2, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andMenuIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("menu_id not between", value1, value2, "menuId");
             return (Criteria) this;
         }
 
@@ -862,6 +862,66 @@ public class TsMenuExample {
 
         public Criteria andMenuOrderNotBetween(Integer value1, Integer value2) {
             addCriterion("menu_order not between", value1, value2, "menuOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidIsNull() {
+            addCriterion("MENU_PID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidIsNotNull() {
+            addCriterion("MENU_PID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidEqualTo(Integer value) {
+            addCriterion("MENU_PID =", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidNotEqualTo(Integer value) {
+            addCriterion("MENU_PID <>", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidGreaterThan(Integer value) {
+            addCriterion("MENU_PID >", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("MENU_PID >=", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidLessThan(Integer value) {
+            addCriterion("MENU_PID <", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidLessThanOrEqualTo(Integer value) {
+            addCriterion("MENU_PID <=", value, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidIn(List<Integer> values) {
+            addCriterion("MENU_PID in", values, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidNotIn(List<Integer> values) {
+            addCriterion("MENU_PID not in", values, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidBetween(Integer value1, Integer value2) {
+            addCriterion("MENU_PID between", value1, value2, "menuPid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuPidNotBetween(Integer value1, Integer value2) {
+            addCriterion("MENU_PID not between", value1, value2, "menuPid");
             return (Criteria) this;
         }
     }

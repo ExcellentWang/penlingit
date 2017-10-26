@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ontheroad.core.util.Md5Util;
+import com.ontheroad.dao.TsMenuMapper;
 import com.ontheroad.dao.TsUserMapper;
+import com.ontheroad.entity.TsMenu;
 import com.ontheroad.entity.TsUser;
 import com.ontheroad.entity.TsUserExample;
 import com.ontheroad.service.UserService;
@@ -15,6 +17,8 @@ import com.ontheroad.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private TsUserMapper tsUserMapper;
+	@Autowired
+	private TsMenuMapper tsMenuMapper;
 
 	@Override
 	public TsUser login(TsUser user) {
@@ -26,6 +30,11 @@ public class UserServiceImpl implements UserService {
 			return ls.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public List<TsMenu> getMenu(TsUser user) {
+		return tsMenuMapper.getMenusUser(user.getUserId());
 	}
 
 }

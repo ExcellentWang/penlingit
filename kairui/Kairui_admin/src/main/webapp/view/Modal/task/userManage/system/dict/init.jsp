@@ -74,10 +74,10 @@ $(function() {
 	                 {width : '350',title : '字典描述',field : 'dictDesc',sortable:true},
 	                 /* {width : '100',title : '状态',field : 'dictStatus',sortable:true,formatter:function(v,r){return JSON.parse('${statusMap}')[v]}}, */
 	                 {width : '150',title : '修改时间',field : 'updateTime',sortable:true},
-	              	 {width : '50',title : '操作',field : 'action',sortable:true,formatter:function(value,row){
+	              	/*  {width : '50',title : '操作',field : 'action',sortable:true,formatter:function(value,row){
 	                	 return '<a href="<c:url value='/system/detail/init'/>?dictId='+row.dictId+'"><img border=0 src="<c:url value='/static/images/childs.gif'/>" /></a>';
 	    			 }
-	    			} ]] 
+	    			}  */]] 
 	}); 
 });
 

@@ -3,7 +3,7 @@ package com.ontheroad.entity;
 import java.util.Date;
 
 public class TsMenu {
-    private Integer id;
+    private Integer menuId;
 
     private String menuName;
 
@@ -27,12 +27,14 @@ public class TsMenu {
 
     private Integer menuOrder;
 
-    public Integer getId() {
-        return id;
+    private Integer menuPid;
+
+    public Integer getMenuId() {
+        return menuId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
     public String getMenuName() {
@@ -121,5 +123,13 @@ public class TsMenu {
 
     public void setMenuOrder(Integer menuOrder) {
         this.menuOrder = menuOrder;
+    }
+
+    public Integer getMenuPid() {
+        return menuPid;
+    }
+
+    public void setMenuPid(Integer menuPid) {
+        this.menuPid = menuPid;
     }
 }

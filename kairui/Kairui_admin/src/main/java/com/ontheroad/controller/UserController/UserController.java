@@ -1,5 +1,8 @@
 package com.ontheroad.controller.UserController;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ontheroad.core.util.SessionUtil;
+import com.ontheroad.entity.TsMenu;
 import com.ontheroad.entity.TsUser;
 import com.ontheroad.service.UserService;
+import com.ontheroad.utils.MapUtil;
 import com.ontheroad.utils.WebUtil;
 
 @Controller
@@ -31,13 +37,26 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping("/login")
-	public String login(TsUser user, HttpServletRequest request){
+	public Map<Object, Object> login(TsUser user, HttpServletRequest request){
 		TsUser user2=userService.login(user);
 		if(user2==null){
-			return WebUtil.getFailureJson("用户名或者密码错误", 10001);
+			return MapUtil.getFailureJson("用户名或者密码错误");
 		}
 		//存session
-		request.getSession().setAttribute("user", user);
-		return WebUtil.getSuccessJson();
+		request.getSession().setAttribute("user", user2);
+		return MapUtil.getSuccessJson();
+	}
+	/**
+	 * 用户拥有菜单
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getMenuByUser")
+	public Map<Object, Object> getMenuByUser(HttpServletRequest request){
+		TsUser user=SessionUtil.getUser(request);
+		List<TsMenu> ls=userService.getMenu(user);
+		return MapUtil.getSuccessJson(ls);
 	}
 }

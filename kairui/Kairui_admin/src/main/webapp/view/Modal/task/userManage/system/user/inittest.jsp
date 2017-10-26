@@ -4,6 +4,7 @@
 <html>
 <head> <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../../common/plugs/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css" />
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -28,32 +29,18 @@
               </div>
               <div class="form-group form-group-sm">
                 <div class="input-tip">
-                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">状态：</label>
-                 <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input id="userStatus" name="userStatus" type="combo" placeholder="" class="form-control">
-                  </div>
-                </div>
-                <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">创建时间：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input id="createTimeStart" name="createTimeStart" type="datetime" placeholder="" class="form-control easyui-datebox"/>
+                    <input id="createTimeStart" name="createTimeStart" type="text" placeholder="" class="form-control date"/>
                   </div>
                 </div>
               </div>
-              <div class="form-group form-group-sm">
-               <div class="input-tip">
-                 <label class="col-xs-3 col-sm-3 col-md-3 control-label">结束时间：</label>
-                  <div class="col-xs-5 col-sm-5 col-md-5">
-					 <input id="createTimeEnd" name="createTimeEnd"  type="datetime" placeholder="" class="form-control easyui-datebox"/>
-                  </div>
-                 </div>
                 <div class="col-xs-24 col-sm-24 col-md-24 text-center">
                   <button type="button" class="btn btn-primary" id="queryBtn" modal="enter"><span class="glyphicon glyphicon-search"></span><span>&nbsp;查询&nbsp;</span>
                   </button>
                   <button type="button"  id="clearBtn" class="btn btn-white" modal="reset"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
                   </button>
                 </div>
-              </div>
             </form>
           </div>
         </div>
@@ -64,7 +51,7 @@
 		<ul>
     		<li><a href="#" onclick="showAdd('/system/user/showAdd',600,250);"><span class="menu1"></span>添加</a></li>
     		<li><a href="#" onclick="showEdit('/system/user/showEdit','user_id',600,250);"><span class="menu13"></span>修改</a></li>
-    		<li><a href="#" onclick="removeRow('user_id','/Kairui_admin/system/user/delete');"><span class="menu11"></span>删除</a></li>
+    		<li><a href="#" onclick="removeRow('user_id','/system/user/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>
@@ -74,6 +61,8 @@
     </div>
   </div>
 </body>
+<script src="../../../../../common/plugs/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../../../../common/plugs/bootstrap-datepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 $(function() {
 	var jsonStr="";
@@ -82,7 +71,7 @@ $(function() {
 		type : "post",
 		dataType : "text",
 		async : false,
-		url : '/Kairui_admin/system/user/dictStatusMap',
+		url : '/system/user/dictStatusMap',
 		data : {
 		},
 		success : function(msg1) {
@@ -91,7 +80,7 @@ $(function() {
 	})
 	
 	$('#grid').datagrid({   
-	    url:'/Kairui_admin/system/user/list', 
+	    url:'/system/user/list', 
 	    pageSize :10,
 		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000],
 		striped : true,
@@ -109,7 +98,7 @@ $(function() {
 	                /*  {width : '50',title : '排序',field : 'userOrder'}, */
 	                 {width : '150',title : '创建时间',field : 'create_time'},
 					 {width : '150',title : '最后登录时间',field : 'update_time'},
-					 {width : '200',title : '操作',field : 'xx',formatter:function(v,r){ var userId = r.user_id;var userStatus = r.user_status; return '<a href="javascript:showEdit(\'/system/user/showEdit\',\'user_id\',600,270);" >修改</a>'+'&nbsp&nbsp'+'<a href="javascript:disableUser('+userId+','+userStatus+');" >用户停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'user_id\',\'/Kairui_admin/system/user/delete\');" >删除</a>'}}]
+					 {width : '200',title : '操作',field : 'xx',formatter:function(v,r){ var userId = r.user_id;var userStatus = r.user_status; return '<a href="javascript:showEdit(\'/system/user/showEdit\',\'user_id\',600,270);" >修改</a>'+'&nbsp&nbsp'+'<a href="javascript:disableUser('+userId+','+userStatus+');" >用户停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'user_id\',\'/system/user/delete\');" >删除</a>'}}]
 	    		]
 	}); 
     $('#userStatus').combobox({  
@@ -150,7 +139,7 @@ function disableUser(roleId,roleStatus){
 	$.ajax({
 			type : "post",
 			dataType : "text",
-			url : '/Kairui_admin/system/user/update',
+			url : '/system/user/update',
 			data : {
 				userId : roleId,
 				userStatus : '2'

@@ -38,11 +38,10 @@ public class OpLogInterceptor extends HandlerInterceptorAdapter {
      */ 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+		
 		StopWatch stopWatch = new StopWatch(handler.toString());
 		stopWatchLocal.set(stopWatch);
 		stopWatch.start(handler.toString());
-
 		return true;
 	}
 	
@@ -90,4 +89,5 @@ public class OpLogInterceptor extends HandlerInterceptorAdapter {
 		  }
 			} 
    }
+	
 }

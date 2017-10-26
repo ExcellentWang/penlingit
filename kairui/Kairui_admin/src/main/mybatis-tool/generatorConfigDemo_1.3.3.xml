@@ -35,9 +35,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_guarantee" domainObjectName="TbGuarantee">
+        <table tableName="t_s_menu" domainObjectName="TsMenu">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="guarantee_id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="menu_id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 
     </context>

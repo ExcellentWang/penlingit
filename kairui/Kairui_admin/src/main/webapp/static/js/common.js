@@ -301,7 +301,7 @@ $(function(){
 					return false;
 				}
 				$.messager.confirm('提示:','你确认要删除吗?',function(e){ 
-					debugger;
+//					debugger;
 					if(e){ 
 					   var ids = [];
 			  		   for(var i=0;i<selections.length;i++){ids.push(selections[i][deleteId]);}
