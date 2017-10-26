@@ -5,7 +5,7 @@ import org.mybatis.annotation.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(pkId = "menuId",  tabName = "t_penlin_menu")
+@Table(pkId = "menuId",  tabName = "t_s_menu")
 public class SysMenu implements Serializable{
 	private static final long serialVersionUID = 7356082631048900404L;
 

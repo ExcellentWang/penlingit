@@ -44,7 +44,7 @@
 	</sql>
 
 	<delete id="deleteByCondition" parameterType="java.util.Map">
-		delete from t_penlin_DETAIL
+		delete from t_s_DETAIL
 		<include refid="Model_Where_Clause" />
 	</delete>
 </mapper>

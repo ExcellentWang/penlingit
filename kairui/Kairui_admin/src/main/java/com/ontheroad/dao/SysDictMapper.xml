@@ -36,7 +36,7 @@
 			</if>
 			
 			<if test="@org.mybatis.util.Ognl@isBlank( dictId )">
-			AND dict_isshow != 'F' 
+			AND dict_id != 'F' 
 			</if>
 		</where>
 	</sql>

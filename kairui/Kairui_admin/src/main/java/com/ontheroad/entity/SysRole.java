@@ -5,7 +5,7 @@ import org.mybatis.annotation.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(pkId = "roleId",  tabName = "t_penlin_role")
+@Table(pkId = "roleId",  tabName = "t_s_role")
 public class SysRole implements Serializable{
 	private static final long serialVersionUID = 7153762069085534888L;
 
@@ -32,11 +32,9 @@ public class SysRole implements Serializable{
 
 	//
 	private Date updateTime; 
-	
 	private String bz;
 	
 	private String province;
-
 	public Long  getRoleId(){
 		return this.roleId;
 	}
@@ -116,6 +114,6 @@ public class SysRole implements Serializable{
 	public void setProvince(String province) {
 		this.province = province;
 	}
-
+	
 	
 }

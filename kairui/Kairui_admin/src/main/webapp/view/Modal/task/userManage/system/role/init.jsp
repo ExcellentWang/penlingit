@@ -4,6 +4,7 @@
 <html>
 <head> <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../../common/plugs/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css" />
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -25,7 +26,7 @@
                 <div class="input-tip">
                   <label class="col-xs-3 col-sm-3 col-md-3 control-label">创建时间：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
-                    <input id="updateTimeStart" name="updateTimeStart" type="datetime" placeholder="" class="form-control easyui-datebox"/>
+                    <input  name="updateTimeStart" type="text" placeholder="" class="form-control date"/>
                   </div>
                 </div>
               </div>
@@ -33,7 +34,7 @@
                <div class="input-tip">
                  <label class="col-xs-3 col-sm-3 col-md-3 control-label">结束时间：</label>
                   <div class="col-xs-5 col-sm-5 col-md-5">
-					 <input id="updateTimeEnd" name="updateTimeEnd"  type="datetime" placeholder="" class="form-control easyui-datebox"/>
+					 <input  name="updateTimeEnd"  type="text" placeholder="" class="form-control date"/>
                   </div>
                  </div>
                 <div class="col-xs-24 col-sm-24 col-md-24 text-center">
@@ -65,6 +66,8 @@
     </div>
   </div>
 </body>
+<script src="../../../../../common/plugs/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../../../../common/plugs/bootstrap-datepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 var jsonStr="";
 
@@ -72,7 +75,7 @@ $.ajax({
 	type : "post",
 	dataType : "text",
 	async : false,
-	url : '/Kairui_admin/system/role/dictStatusMap',
+	url : '/system/role/dictStatusMap',
 	data : {
 	},
 	success : function(msg1) {
@@ -82,7 +85,7 @@ $.ajax({
 
 $(function() {      
 	$('#grid').datagrid({   
-	    url:'/Kairui_admin/system/role/list', 
+	    url:'/system/role/list', 
 	    pageSize :10,
 		pageList : [ 10, 30, 40, 50, 100, 200,   500, 1000 ],
 		striped : true,
@@ -91,13 +94,13 @@ $(function() {
 		toolbar : '#toolbar',
 	    columns : [[ {width : '150', field : 'ck',checkbox:true},
 	                 {width : '100',title : '角色名',field : 'roleName'},
-	                 {width : '100',title : '地区',field : 'province',formatter:function(v,r){ return JSON.parse(JSON.parse(jsonStr)["districtMap"])[v]}},
-	                 {width : '100',title : '备注',field : 'bz'},
+	               /*   {width : '100',title : '地区',field : 'province',formatter:function(v,r){ return JSON.parse(JSON.parse(jsonStr)["districtMap"])[v]}},
+	                 {width : '100',title : '备注',field : 'bz'}, */ 
 	                 {width : '150',title : '角色描述',field : 'roleDesc'},
 	                 {width : '80',title : '状态',field : 'roleStatus',formatter:function(v,r){return JSON.parse(JSON.parse(jsonStr)["statusMap"])[v]}},
 /* 	                 {width : '50',title : '排序',field : 'roleOrder'}, */
 	                 {width : '150',title : '创建时间',field : 'createTime'},
-	                 {width : '200',title : '操作',field : 'opt',formatter:function(v,r){ var roleId = r.roleId;var roleStatus = r.roleStatus; return '<a href="javascript:showEdit(\'/system/role/showEdit\',\'roleId\',600,270);" >编辑</a>'+'&nbsp&nbsp'+'<a href="javascript:bindMenu();" >分配权限</a>'+'&nbsp&nbsp'+'<a href="javascript:disableRole('+roleId+','+roleStatus+');" >角色停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'roleId\',\'/Kairui_admin/system/role/delete\');" >删除</a>'}}
+	                 /* {width : '200',title : '操作',field : 'opt',formatter:function(v,r){ var roleId = r.roleId;var roleStatus = r.roleStatus; return '<a href="javascript:showEdit(\'/system/role/showEdit\',\'roleId\',600,270);" >编辑</a>'+'&nbsp&nbsp'+'<a href="javascript:bindMenu();" >分配权限</a>'+'&nbsp&nbsp'+'<a href="javascript:disableRole('+roleId+','+roleStatus+');" >角色停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'roleId\',\'/system/role/delete\');" >删除</a>'}} */
 					]
 	    		]
 	}); 
@@ -135,7 +138,7 @@ function disableRole(roleId,roleStatus){
 	$.ajax({
 			type : "post",
 			dataType : "text",
-			url : '/Kairui_admin/system/role/update',
+			url : '/system/role/update',
 			data : {
 				roleId : roleId,
 				roleStatus : '2'
@@ -148,4 +151,5 @@ function disableRole(roleId,roleStatus){
 		})
 	}
 </script>
+
 </html>

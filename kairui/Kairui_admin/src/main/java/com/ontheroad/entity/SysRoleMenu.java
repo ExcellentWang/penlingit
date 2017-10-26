@@ -4,7 +4,7 @@ import org.mybatis.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(pkId = "roleMenuId",tabName = "t_penlin_role_menu")
+@Table(pkId = "roleMenuId",tabName = "t_s_role_menu")
 public class SysRoleMenu implements Serializable{
 	private static final long serialVersionUID = -7189337772149196400L;
 

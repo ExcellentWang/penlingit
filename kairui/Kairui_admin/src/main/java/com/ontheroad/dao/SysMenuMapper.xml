@@ -58,13 +58,13 @@
 		</where>
 	</sql>
 	<delete id="deleteByCondition"  parameterType="java.util.Map" >
-		 delete from  t_penlin_MENU
+		 delete from  t_s_MENU
 		 <include refid="Model_Where_Clause" />
 	</delete> 
 	<select id="getAllMenus" parameterType="Long" resultMap="result_ResultMap_SysMenu">
 		select  distinct  t1.MENU_ID, MENU_NAME, MENU_DESC, MENU_URL, MENU_PID,MENU_TYPE,MENU_STATUS, MENU_LEVEL, MENU_ICON, CREATE_TIME,
 		           UPDATE_TIME,MENU_ORDER  
-		   from t_penlin_MENU t1, t_penlin_ROLE_USER t2, t_penlin_ROLE_MENU t3
+		   from t_s_MENU t1, t_s_ROLE_USER t2, t_s_ROLE_MENU t3
 		where  menu_status=1  and  t2.user_id = #{userId}
 		  and t2.role_id =t3.role_id
           and t3.menu_id=t1.menu_id 
