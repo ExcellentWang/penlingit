@@ -29,7 +29,11 @@ deviceType=function(value, row, index){
 	
 	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][args['type'].substring(1)]
 }
-
+var phone
+phone=function(value, row, index){
+	if(args['phone']=="undefined")return ""
+	return args['phone']
+}
 
 
 $("#btn-search").click(function () {

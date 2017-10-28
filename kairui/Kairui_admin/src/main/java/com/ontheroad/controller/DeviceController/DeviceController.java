@@ -518,6 +518,6 @@ public class DeviceController extends BaseConstant{
 	@RequestMapping(value = "/getUseWaterByDeviceId")
 	public Map<Object, Object> getUseWaterByDeviceId(Long deviceId) {
 		List<DeviceWater> ls=deviceService.getDeviceWaterByDeviceId(deviceId);
-		return MapUtil.getSuccessJson(ls);
+		return MapUtil.getSuccessJson(ls,ls.size());
 	}
 }

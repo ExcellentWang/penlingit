@@ -3,6 +3,8 @@ package com.ontheroad.mysql.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DeviceWater implements Serializable{
     /**
      *
@@ -83,6 +85,7 @@ public class DeviceWater implements Serializable{
      *
      * @mbggenerated Fri Oct 20 22:36:01 GMT+08:00 2017
      */
+    @DateTimeFormat(pattern="yyyy-MM-ddHH:mm:ss")
     private Date createTime;
 
     /**

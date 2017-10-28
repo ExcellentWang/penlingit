@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -317,6 +318,7 @@ public class DeviceMessageHandler {
                 	de.setUseWater(ls.get(6));
                 	de.setJieWater(ls.get(7));
                 	de.setBathTime(ls.get(8));
+                	de.setCreateTime(new Date());
                 	deviceWaterMapper.insertSelective(de) ;
                     logger.info("--------------------上传每次洗澡用水量节水量------- ");
                     break;

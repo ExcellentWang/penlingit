@@ -14,7 +14,7 @@ tableEvent = {
     "click .info": function (e, a, item, index) {
     	comn.addTab({
 			title: '用水量/节水量详情',
-			href: 'Modal/device/deviceusewaterinfo/index.html?deviceId='+item.equipment_id+"&equipmentNum="+item.equipmentNum+"&type="+item.type
+			href: 'Modal/device/deviceusewaterinfo/index.html?deviceId='+item.equipment_id+"&equipmentNum="+item.equipmentNum+"&type="+item.type+"&phone="+item.phone
 		});
     }
 };
