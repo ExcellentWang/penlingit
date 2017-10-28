@@ -434,9 +434,16 @@ public class AppUserController extends BaseConstant{
 			while(it.hasNext()) {
 				MultipartFile file = request.getFile(it.next().toString());
 				if(file != null){
-					File f = new File("/alidata/www/img/" + StringUtilsCommon.getRandom(false, 32));
-					file.transferTo(f);
-					images.add("http://106.14.173.153:8081/" + f.getName());
+					//获取本地文件地址
+			        String path = request.getSession().getServletContext().getRealPath("view/upload");  
+			        String fileName = file.getOriginalFilename();  
+			        File targetFile = new File(path, fileName);  
+			        if(!targetFile.exists()){  
+			            targetFile.mkdirs();  
+			        }  
+					file.transferTo(targetFile);
+					 String sImg= "http://"+"106.14.173.153"+":9999"+"/Kairui_RestApi/view/upload/"+fileName;
+					images.add(sImg);
 				}
 			}
 			customerservice.setPictureAdd(images);
