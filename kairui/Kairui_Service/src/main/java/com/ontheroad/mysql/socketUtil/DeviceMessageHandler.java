@@ -161,8 +161,8 @@ public class DeviceMessageHandler {
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
                     device.setCurrent_temp(val);
-                    deviceMapper.updateDevice(device);
                     logger.info("更新当前温度"+device.getEquipment_id()+"val: "+val);
+                    deviceMapper.updateDevice(device);
                     break;
                 case "asbltr": // 背光
                     rep = new DeviceMessage(
@@ -173,13 +173,11 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                   /* val="1";
-                    device.setBacklight(val);
-                    deviceMapper.updateDevice(device);*/
                     TbEquipmentstatusExample example=new TbEquipmentstatusExample();
                     example.createCriteria().andEquipmentIdEqualTo(device.getEquipment_id());
                     TbEquipmentstatus tbEquipmentstatus=new TbEquipmentstatus();
-                    tbEquipmentstatus.setBacklight("111");
+                    tbEquipmentstatus.setEquipmentId(device.getEquipment_id());
+                    tbEquipmentstatus.setBacklight(val);
                     tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
                     logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
