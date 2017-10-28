@@ -141,6 +141,10 @@ public class DeviceMessageHandler {
                             deviceMessage.getDeviceID(),
                             "asoty");
                     reply(session, rep);
+                    val = deviceMessage.getArgs().get(0);
+                    logger.info("更新出水方式"+device.getEquipmentNum()+"val: "+val);
+                    device.setEffluent_way(val);
+                    deviceMapper.updateDevice(device);
                     break;
                 case "asmod": // 出水模式
                     rep = new DeviceMessage(
@@ -150,6 +154,10 @@ public class DeviceMessageHandler {
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
+                    val = deviceMessage.getArgs().get(0);
+                    logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
+                    device.setEffluent_type(val);
+                    deviceMapper.updateDevice(device);
                     break;
                 case "asdft": // 温度流量
                     rep = new DeviceMessage(
