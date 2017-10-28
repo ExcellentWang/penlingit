@@ -191,11 +191,8 @@ public class DeviceMessage {
 
     public static void main(String[] args) {
     	//
-        String m1_s = "<LDCT01201704230001:wcal,063,-1.0,-1.0,-1.0,-1.0,1,998,3950,7E>";
+        String m1_s = "<LDCT01201704230002:asomd,049,01,00,00500,004,1A>";
         DeviceMessage m1 = new DeviceMessage(m1_s);
         System.out.println(m1.toString());
-        String m1_s2 = "<<LDCT01201704230001:xtds,052,2017,05,02,20,12,38,91>";
-        DeviceMessage m12 = new DeviceMessage(m1_s2);
-        System.out.println(m12.toString());
     }
 }

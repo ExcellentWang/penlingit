@@ -146,11 +146,11 @@ public class DeviceMessageHandler {
                     device.setEffluent_way(val);
                     deviceMapper.updateDevice(device);
                     break;
-                case "asmod": // 出水模式
+                case "asomd": // 出水模式
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
-                            "asmod",
+                            "asomd",
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
