@@ -21,7 +21,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		if(tbNewsinformation.getId()==null){
 			tbNewsinformation.setStatus(1);
 			tbNewsinformationMapper.insert(tbNewsinformation);
-			tbNewsinformation.setAddress("http://106.14.173.153:9023/view/Modal/newsmanager/newslist/show.html?id="+tbNewsinformation.getId());
+			tbNewsinformation.setAddress("http://106.14.173.153:9999/view/Modal/newsmanager/newslist/show.html?id="+tbNewsinformation.getId());
 			tbNewsinformationMapper.updateByPrimaryKey(tbNewsinformation);
 		}else{
 			tbNewsinformationMapper.updateByPrimaryKeySelective(tbNewsinformation);
