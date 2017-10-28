@@ -229,7 +229,7 @@ $(function() {
 				});
 				return $("#dialogTip").modal("show");
 			} else {
-				initMenu(data.data);
+//				initMenu(data.data);
 			}
 		}
 	});

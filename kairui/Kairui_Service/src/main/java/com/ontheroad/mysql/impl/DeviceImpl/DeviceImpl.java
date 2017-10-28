@@ -131,6 +131,9 @@ public class DeviceImpl implements DeviceService {
 				ds.setAuthority(1);
 				ds.setShare_user_id(ds.getUser_id());
 				deviceShareMapper.insertDeviceShare(ds);
+				//设备改名
+				t.setEquipmentName(ds.getEquipmentName());
+				deviceMapper.updateDeviceName(t);
 				map.put("code", BaseConstant.appUserSuccessStatus);
 				map.put("msg", "绑定成功");
 				map.put("extra", null);

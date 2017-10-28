@@ -24,8 +24,15 @@ public class DeviceShare implements Serializable{
 	private String remark; // 备注
 	private int status; // 拥有状态 0绑定 1共享;
 	private String username;
+	private String equipmentName;//设备名
 	
 	
+	public String getEquipmentName() {
+		return equipmentName;
+	}
+	public void setEquipmentName(String equipmentName) {
+		this.equipmentName = equipmentName;
+	}
 	public int getShare_user_id() {
 		return share_user_id;
 	}
