@@ -10,10 +10,13 @@ import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
 import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
+import com.ontheroad.mysql.dao.GuaranteeTypeMapper;
 import com.ontheroad.mysql.entity.DeviceUseLog;
 import com.ontheroad.mysql.entity.DeviceUseLogExample;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.DeviceWaterExample;
+import com.ontheroad.mysql.entity.GuaranteeType;
+import com.ontheroad.mysql.entity.GuaranteeTypeExample;
 import com.ontheroad.mysql.socketUtil.DeviceMessage;
 import com.ontheroad.mysql.socketUtil.MinaServerHandler;
 import com.ontheroad.pojo.Constant.BaseConstant;
@@ -65,6 +68,8 @@ public class DeviceImpl implements DeviceService {
 	private DeviceUseLogMapper  deviceUseLogMapper;
 	@Autowired
 	private DeviceWaterMapper deviceWaterMapper;
+	@Autowired
+	private GuaranteeTypeMapper guaranteeTypeMapper;
 	
 
 	private static final Logger logger = Logger.getLogger(DeviceImpl.class);
@@ -520,20 +525,15 @@ public class DeviceImpl implements DeviceService {
 		// 返回前端map
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		List<Object> repairTypes = new ArrayList<>();
-		Map<Object, Object> repairType_1 = new HashMap<>();
-		Map<Object, Object> repairType_2 = new HashMap<>();
-		Map<Object, Object> repairType_3 = new HashMap<>();
-		repairType_1.put("id", "1");
-		repairType_1.put("name", "不通电");
-		repairType_2.put("id", "1");
-		repairType_2.put("name", "不出水");
-		repairType_3.put("id", "1");
-		repairType_3.put("name", "不加热");
-
-		repairTypes.add(repairType_1);
-		repairTypes.add(repairType_2);
-		repairTypes.add(repairType_3);
-
+		//获取维修类型
+		GuaranteeTypeExample example=new GuaranteeTypeExample();
+		List<GuaranteeType> ls=guaranteeTypeMapper.selectByExample(example);
+		for (GuaranteeType g : ls) {
+			Map<Object, Object> r = new HashMap<>();
+			r.put("id", g.getId());
+			r.put("name", g.getTypeName());
+			repairTypes.add(r);
+		}
 		map.put("resultMap", repairTypes);
 		map.put("code", BaseConstant.appUserSuccessStatus);
 		map.put("msg", "发送成功");
