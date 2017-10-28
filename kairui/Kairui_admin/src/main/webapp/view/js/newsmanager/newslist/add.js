@@ -31,7 +31,7 @@ $(function(){
         formData.append("content", ue.getContent());
         formData.append("id", $("[name='id']").val());
         formData.append("type",1);
-        fromData.append("isSend",$("input[name='isSend']").is(':checked'))
+        formData.append("isSend",$("input[name='isSend']").is(':checked'))
 		$.ajax({
 				url: "/addTbNewsinformation",
 				data:formData,

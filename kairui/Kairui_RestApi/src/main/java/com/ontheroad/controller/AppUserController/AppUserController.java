@@ -378,7 +378,7 @@ public class AppUserController extends BaseConstant{
 	 * 
 	 * 
 	 */
-	@RequestMapping(value = "/getCustomerDetail", method = RequestMethod.POST)
+	@RequestMapping(value = "/getCustomerDetail")
     public Map<Object,Object> getCustomerDetail(Customerservice customerservice) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();	    
@@ -422,14 +422,14 @@ public class AppUserController extends BaseConstant{
 	 * 
 	 */
 	
-	@RequestMapping(value = "/applyCustomer ", method = RequestMethod.POST)
+	@RequestMapping(value = "/applyCustomer ")
     public Map<Object,Object> applyCustomer(MultipartHttpServletRequest request) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 	    Customerservice customerservice = new Customerservice();
 		List<String> images = new ArrayList<>();
 		try {
-
+			//图片上传
 			Iterator<String> it = request.getFileNames();
 			while(it.hasNext()) {
 				MultipartFile file = request.getFile(it.next().toString());
