@@ -23,5 +23,6 @@ public interface CustomerserviceMapper {
 	void insertSinglePicture(Customerpicture cp);
 
 	List<Customerpicture> getPics(int customer_id);
+	
 
 }

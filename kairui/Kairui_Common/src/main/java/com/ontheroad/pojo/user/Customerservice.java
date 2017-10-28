@@ -139,13 +139,7 @@ public class Customerservice implements Serializable{
 	}
 
 	public String getRepairTypeText() {
-		repairTypeText = "不通电";
-//		switch (this.getRepairType()) {
-//			case "1": repairTypeText = "不通电"; break;
-//			case "2": repairTypeText = "不出水"; break;
-//			case "3": repairTypeText = "不加热"; break;
-//			default: break;
-//		}
+
 		return repairTypeText;
 	}
 
@@ -153,34 +147,11 @@ public class Customerservice implements Serializable{
 		this.repairTypeText = repairTypeText;
 	}
 
-	public List<ServiceDetail> getServiceDetails() {
-
-		List<ServiceDetail> list = new ArrayList<>();
-		ServiceDetail d1 = new ServiceDetail();
-		ServiceDetail d2 = new ServiceDetail();
-		ServiceDetail d3 = new ServiceDetail();
-
-		d1.setId(1);
-		d1.setDetail("售后申请已经批准");
-		d1.setTime(DateUtil.addDay(Calendar.getInstance().getTime(), -7));
-
-		d2.setId(2);
-		d2.setDetail("申请已经受理");
-		d2.setTime(DateUtil.addDay(Calendar.getInstance().getTime(), -1));
-
-		d3.setId(3);
-		d3.setDetail("已经安排上门");
-		d3.setTime(Calendar.getInstance().getTime());
-
-		list.add(d1);
-		list.add(d2);
-		list.add(d3);
-		this.serviceDetails = list;
-
-		return serviceDetails;
-	}
-
 	public void setServiceDetails(List<ServiceDetail> serviceDetails) {
 		this.serviceDetails = serviceDetails;
 	}
+	public List<ServiceDetail> getServiceDetails() {
+		return serviceDetails;
+	}
+	
 }

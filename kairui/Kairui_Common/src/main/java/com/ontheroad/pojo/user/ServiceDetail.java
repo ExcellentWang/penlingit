@@ -8,11 +8,6 @@ import java.util.Date;
 
 public class ServiceDetail implements Serializable {
     private static final long serialVersionUID = 1L;
-/*
-    @Getter @Setter private int id;
-    @Getter @Setter private int service_id;
-    @Getter @Setter private Date time;
-    @Getter @Setter private String detail;*/
     private int id;
     private int service_id;
     private Date time;

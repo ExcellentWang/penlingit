@@ -45,5 +45,6 @@ public interface AppUserService {
 	Map<Object, Object> appUserGetVerificationCode(String phone);
 
 	Map<Object, Object> getEULA();
-
+	
+	
 }

@@ -4,6 +4,9 @@ import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.mysql.Mapper.AppMapper.*;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.dao.TbCustomerservicedetailsMapper;
+import com.ontheroad.mysql.entity.TbCustomerservicedetails;
+import com.ontheroad.mysql.entity.TbCustomerservicedetailsExample;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.user.*;
 import com.ontheroad.service.AppService.AppUserService;
@@ -49,6 +52,8 @@ public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private DeviceMapper deviceMapper;
 	
+	@Autowired
+	private TbCustomerservicedetailsMapper tbCustomerservicedetailsMapper;
 	@Override
 	public Map<Object,Object> findUserByPhone(User user,String appCode) {								
 		List<User> list = new ArrayList<>();
@@ -432,8 +437,20 @@ public class AppUserServiceImpl implements AppUserService{
 			for(Customerpicture p: picadds) {
 				pics.add(p.getPictureAddress());
 			}
-
 			c.setPictureAdd(pics);
+			//获取报修进度
+			TbCustomerservicedetailsExample example =new TbCustomerservicedetailsExample();
+			example.createCriteria().andCustomerIdEqualTo(Long.valueOf(customerservice.getCustomer_id()));
+			List<TbCustomerservicedetails> ls=tbCustomerservicedetailsMapper.selectByExample(example);
+			List<ServiceDetail> ds=new ArrayList<>();
+			for (TbCustomerservicedetails t : ls) {
+				ServiceDetail d=new ServiceDetail();
+				d.setId(t.getServicedetailId());
+				d.setDetail(t.getContent());
+				d.setTime(t.getTime());
+				ds.add(d);
+			}
+			c.setServiceDetails(ds);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");
 			map.put("extra",null);
