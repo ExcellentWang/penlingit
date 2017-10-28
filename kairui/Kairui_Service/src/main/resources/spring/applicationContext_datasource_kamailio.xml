@@ -61,22 +61,6 @@
 		<property name="configLocation" value="classpath:mybatis-plugin-config.xml" />
 	</bean>
 	
-	
-	<!--数据源事物管理 -->
-	<!-- <bean id="kamailioTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="kamailiodataSource" /> 
-        <qualifier value="core" />  
-	</bean>
-	
-	<bean id="transactionTemplate"  class="org.springframework.transaction.support.TransactionTemplate">  
-        <property name="transactionManager">  <ref local="kamailioTransactionManager" />  
-        </property>  
-        ISOLATION_DEFAULT 表示由使用的数据库决定   
-        <property name="isolationLevelName" value="ISOLATION_DEFAULT"/>  
-        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
-        <property name="timeout" value="30"/>  
-    </bean> -->
-      <!-- transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="kamailiodataSource"/>
     </bean>
