@@ -85,8 +85,8 @@
             tb_equipmentstatus.port = #{port},
             tb_equipmentstatus.temperature = #{current_temp},
             tb_equipment.firm_version=#{firm_version},
-             tb_equipment.effluent_way=#{effluent_way},
-             tb_equipment.effluent_type=#{effluent_type}
+             tb_equipmentstatus.effluent_way=#{effluent_way},
+             tb_equipmentstatus.effluent_type=#{effluent_type}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
