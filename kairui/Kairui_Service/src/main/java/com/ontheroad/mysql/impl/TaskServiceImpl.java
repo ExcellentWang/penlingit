@@ -63,7 +63,6 @@ public class TaskServiceImpl implements TaskService {
     @Scheduled(cron = "0 */3 * * * *")
     @Override
     public void checkOnline() {
-    	logger.info("定时任务开始le-------------------");
         List<TerminalDevice> devices = deviceMapper.getAllDevices();
         Date now = Calendar.getInstance().getTime();
         for(TerminalDevice t: devices) {
@@ -71,7 +70,6 @@ public class TaskServiceImpl implements TaskService {
             DeviceLog lastlog = deviceLogMapper.getLastDeviceLog(t.getEquipmentNum().split("LDCT01")[1]);
             if(lastlog == null || (now.getTime() - lastlog.getCreatedAt().getTime()) > 1000 * 180) {
                 t.setWorkStatus(4);
-                logger.info("------------------------------更新设备"+t.getEquipmentNum().split("LDCT01")[1]+"为离线状态");
             }else{
             	 t.setWorkStatus(0);
             	//设备固件版本
@@ -81,7 +79,6 @@ public class TaskServiceImpl implements TaskService {
             deviceMapper.updateDeviceWorkingStatus(t);
             
         }
-        logger.info("定时任务结束-------------------");
     }
 
     @Override

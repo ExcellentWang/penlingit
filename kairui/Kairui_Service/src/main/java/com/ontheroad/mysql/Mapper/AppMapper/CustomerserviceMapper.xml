@@ -21,8 +21,9 @@
    
    
    <select id="getCustomerDetail" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
-            select c.*,e.equipmentName,e.equipmentNum,e.type from tb_customerservice c
+            select c.*,e.equipmentName,e.equipmentNum,e.type, gt.type_name as repairTypeText from tb_customerservice c
 			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+			left join guarantee_type gt on gt.id=c.repairType
 			where c.customer_id = #{customer_id} 
    </select>
 

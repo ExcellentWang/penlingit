@@ -12,6 +12,8 @@ import com.ontheroad.service.AppService.QiniuService;
 import com.ontheroad.service.DeviceService.DeviceService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +34,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @RestController
 @RequestMapping("/app/user")
 public class AppUserController extends BaseConstant{
-    
+    private final static Logger logger=LoggerFactory.getLogger(AppUserController.class);
 	
 	@Autowired
     private AppUserService appUserService;
@@ -402,7 +404,7 @@ public class AppUserController extends BaseConstant{
 	/*2017.7.25*/
 	
 	/*
-	 * 申请售后
+	 * 用户报修
 	 * 
 	 */
 	
@@ -421,8 +423,10 @@ public class AppUserController extends BaseConstant{
 					//获取本地文件地址
 					String sImg=UploadUtil.save(file, request);
 					images.add(sImg);
+					logger.info("申请售后：图片地址" +sImg);
 				}
 			}
+			
 			customerservice.setPictureAdd(images);
 			customerservice.setEquipment_id(Integer.parseInt(request.getParameter("equipment_id")));
 			customerservice.setUser_id(Integer.parseInt(request.getParameter("user_id")));
