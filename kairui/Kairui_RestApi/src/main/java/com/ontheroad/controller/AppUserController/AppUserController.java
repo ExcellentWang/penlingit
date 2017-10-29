@@ -406,7 +406,7 @@ public class AppUserController extends BaseConstant{
 	 * 
 	 */
 	
-	@RequestMapping(value = "/applyCustomer ")
+	@RequestMapping(value = "/applyCustomer")
     public Map<Object,Object> applyCustomer(MultipartHttpServletRequest request) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
@@ -419,14 +419,7 @@ public class AppUserController extends BaseConstant{
 				MultipartFile file = request.getFile(it.next().toString());
 				if(file != null){
 					//获取本地文件地址
-			        String path = request.getSession().getServletContext().getRealPath("view/upload");  
-			        String fileName = file.getOriginalFilename();  
-			        File targetFile = new File(path, fileName);  
-			        if(!targetFile.exists()){  
-			            targetFile.mkdirs();  
-			        }  
-					file.transferTo(targetFile);
-					 String sImg= "http://"+"106.14.173.153"+":9999"+"/Kairui_RestApi/view/upload/"+fileName;
+					String sImg=UploadUtil.save(file, request);
 					images.add(sImg);
 				}
 			}
