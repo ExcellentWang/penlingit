@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.dao.TbInformationMapper">
+  <resultMap id="BaseResultMap" type="com.ontheroad.mysql.entity.TbInformation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="informationType" jdbcType="INTEGER" property="informationtype" />
+    <result column="isNew" jdbcType="BIT" property="isnew" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="useWeight" jdbcType="DECIMAL" property="useweight" />
+    <result column="saveWeight" jdbcType="DECIMAL" property="saveweight" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, createTime, creator, informationType, isNew, content, equipment_id, user_id, 
+    useWeight, saveWeight, is_delete, picture, address, summary
+  </sql>
+  <select id="selectByExample" parameterType="com.ontheroad.mysql.entity.TbInformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ontheroad.mysql.entity.TbInformationExample">
+    delete from tb_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ontheroad.mysql.entity.TbInformation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_information (title, createTime, creator, 
+      informationType, isNew, content, 
+      equipment_id, user_id, useWeight, 
+      saveWeight, is_delete, picture, 
+      address, summary)
+    values (#{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{informationtype,jdbcType=INTEGER}, #{isnew,jdbcType=BIT}, #{content,jdbcType=VARCHAR}, 
+      #{equipmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{useweight,jdbcType=DECIMAL}, 
+      #{saveweight,jdbcType=DECIMAL}, #{isDelete,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ontheroad.mysql.entity.TbInformation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="informationtype != null">
+        informationType,
+      </if>
+      <if test="isnew != null">
+        isNew,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="equipmentId != null">
+        equipment_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="useweight != null">
+        useWeight,
+      </if>
+      <if test="saveweight != null">
+        saveWeight,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="informationtype != null">
+        #{informationtype,jdbcType=INTEGER},
+      </if>
+      <if test="isnew != null">
+        #{isnew,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="useweight != null">
+        #{useweight,jdbcType=DECIMAL},
+      </if>
+      <if test="saveweight != null">
+        #{saveweight,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ontheroad.mysql.entity.TbInformationExample" resultType="java.lang.Integer">
+    select count(*) from tb_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_information
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.informationtype != null">
+        informationType = #{record.informationtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.isnew != null">
+        isNew = #{record.isnew,jdbcType=BIT},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentId != null">
+        equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useweight != null">
+        useWeight = #{record.useweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saveweight != null">
+        saveWeight = #{record.saveweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_information
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      informationType = #{record.informationtype,jdbcType=INTEGER},
+      isNew = #{record.isnew,jdbcType=BIT},
+      content = #{record.content,jdbcType=VARCHAR},
+      equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      useWeight = #{record.useweight,jdbcType=DECIMAL},
+      saveWeight = #{record.saveweight,jdbcType=DECIMAL},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ontheroad.mysql.entity.TbInformation">
+    update tb_information
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="informationtype != null">
+        informationType = #{informationtype,jdbcType=INTEGER},
+      </if>
+      <if test="isnew != null">
+        isNew = #{isnew,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null">
+        equipment_id = #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="useweight != null">
+        useWeight = #{useweight,jdbcType=DECIMAL},
+      </if>
+      <if test="saveweight != null">
+        saveWeight = #{saveweight,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ontheroad.mysql.entity.TbInformation">
+    update tb_information
+    set title = #{title,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      informationType = #{informationtype,jdbcType=INTEGER},
+      isNew = #{isnew,jdbcType=BIT},
+      content = #{content,jdbcType=VARCHAR},
+      equipment_id = #{equipmentId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      useWeight = #{useweight,jdbcType=DECIMAL},
+      saveWeight = #{saveweight,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

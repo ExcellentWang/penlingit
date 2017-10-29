@@ -139,34 +139,6 @@ public class InformationController {
 	/**
 	 * 
 	* 
-	* @Description: 获取所有消息条数
-	* @param user_id
-	* @return  
-	* @return Map<Object,Object>   
-	* @throws 
-	* @author 胡俊
-	* @email 510830970@qq.com
-	 */
-	@Deprecated
-	@RequestMapping(value = "/allInformationsNum")
-    public Map<Object,Object> allInformationsNum(Integer user_id) {
-		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return informationService.allInformationsNum( user_id);      	        	        	
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", BaseConstant.appUserErrorStatus);
-    		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
-            return map;
-        }
-    }
-	
-	/**
-	 * 
-	* 
 	* @Description:设置某种类型消息，单条为已读
 	* @param user_id
 	* @return  

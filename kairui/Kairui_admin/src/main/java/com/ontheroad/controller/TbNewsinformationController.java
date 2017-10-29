@@ -36,6 +36,8 @@ public class TbNewsinformationController {
 		String str=UploadUtil.save(file, request);
 		tbNewsinformation.setPicture(str);
 		tbNewsinformation=tbNewsinformationService.addOrUpdate(tbNewsinformation);
+		//插入消息公用表数据
+		
         //消息推送设置
         if(timeSend!=null){
         	tbNewsinformation.setContent(null);

@@ -1,6 +1,8 @@
 package com.ontheroad.mysql.impl.InformationImpl;
 
 import com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper;
+import com.ontheroad.mysql.dao.TbInformationMapper;
+import com.ontheroad.mysql.entity.TbInformation;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.Information.*;
 import com.ontheroad.service.InformationService.InformationService;
@@ -19,6 +21,8 @@ public class InformationImpl implements InformationService{
 
 	@Autowired
 	private InformationMapper informationMapper;
+	@Autowired
+	private TbInformationMapper tbInformationMapper;
 	
 	
 	@Override
@@ -190,20 +194,6 @@ public class InformationImpl implements InformationService{
 			return map;
 		}
 	}
-
-
-
-	@Override
-	public Map<Object, Object> allInformationsNum(Integer user_id) {
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("code", BaseConstant.appUserSuccessStatus);
-		map.put("msg", "成功");
-		map.put("extra", null);
-		map.put("resultMap", informationMapper.allInformationsNum(user_id));
-		return map;
-	}
-
-
 	
 	@Override
 	public Map<Object, Object> setInformationIsRead(Integer user_id, Integer informationId) {
@@ -215,4 +205,15 @@ public class InformationImpl implements InformationService{
 		map.put("resultMap", null);
 		return map;
 	}
+
+	@Override
+	public void addOrUpdateTbInformation(TbInformation info) {
+		if(info.getId()!=null){
+			tbInformationMapper.updateByPrimaryKeySelective(info);
+		}else{
+			tbInformationMapper.insertSelective(info);
+		}
+		
+	}
+	
 }
