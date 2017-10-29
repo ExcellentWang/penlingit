@@ -5,11 +5,12 @@ import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Component
 public class UploadUtil {
-	public static String save(CommonsMultipartFile file,HttpServletRequest request){
+	public static String save(MultipartFile file,HttpServletRequest request){
 		//获取本地文件地址
         String path = request.getSession().getServletContext().getRealPath("view/upload");  
         String fileName = file.getOriginalFilename();  

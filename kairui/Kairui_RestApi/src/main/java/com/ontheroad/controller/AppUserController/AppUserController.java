@@ -234,12 +234,15 @@ public class AppUserController extends BaseConstant{
 	 * 
 	 */
 	@RequestMapping(value = "/appUserUpdateData")
-    public Map<Object,Object> appUserUpdateData(User user, @RequestParam("file1") CommonsMultipartFile file,HttpServletRequest request) {
+    public Map<Object,Object> appUserUpdateData(User user, MultipartHttpServletRequest request) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 	    String headPortrait = null;
 		try {
-			headPortrait=UploadUtil.save(file, request);
+			MultipartFile file = request.getFile("file1");
+			if(file!=null){
+				headPortrait=UploadUtil.save(file, request);
+			}
 			if(headPortrait != null && !headPortrait.equals("")){
 				user.setHeadPortrait(headPortrait);
 			}
@@ -292,14 +295,7 @@ public class AppUserController extends BaseConstant{
 			MultipartFile file = request.getFile("file1");
 			if(file != null){
 				//获取本地文件地址
-		        String path = request.getSession().getServletContext().getRealPath("view/upload");  
-		        String fileName = file.getOriginalFilename();  
-		        File targetFile = new File(path, fileName);  
-		        if(!targetFile.exists()){  
-		            targetFile.mkdirs();  
-		        }  
-				file.transferTo(targetFile);
-				  sImg= "http://"+"106.14.173.153"+":9999"+"/Kairui_RestApi/view/upload/"+fileName;
+				sImg=UploadUtil.save(file, request);
 			}
 			Integer equipment_id=Integer.parseInt(request.getParameter("equipment_id"));
 			if(request.getParameter("guarantee_id")!=null){
