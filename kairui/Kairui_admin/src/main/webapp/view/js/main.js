@@ -65,7 +65,7 @@ initMenu = function(data) {
 		var ref;
 		if (! ((ref = o.sysMenuList) != null ? ref.length: void 0) > 0) {
 			
-			return ["<li><a class='J_menuItem' href='" + o.url + "' data-index='" + o.id + "'>" + o.menuName + "</a>"].join("");
+			return ["<li><a class='J_menuItem' href='" + o.menuUrl + "' data-index='" + o.id + "'>" + o.menuName + "</a>"].join("");
 			
 		} else {
 			return ["<li>" + "<a>" + ("<i class='fa iconfont " + o.logoTag + "'></i>") + ("<span class='nav-label'>" + o.menuName + "</span>") + "<span class='fa arrow'></span>" + "</a>" + menu(o.sysMenuList, level + 1, k) + "</li>"].join("");
@@ -77,10 +77,10 @@ initMenu = function(data) {
 
 		if(arr[arr.length-1]['sysMenuList']){
 			$.each(arr[arr.length-1]['sysMenuList'], function(i, item){
-				if(item.url.indexOf("?") != -1){
-					url = item.url.split("?")[0];
+				if(item.menuUrl.indexOf("?") != -1){
+					url = item.menuUrl.split("?")[0];
 				}else{
-					url = item.url;
+					url = item.menuUrl;
 				}
 				retprotUrl.push(url); 
 			});
@@ -109,7 +109,7 @@ initMenu = function(data) {
 };
 
 $(function() {
-	initMenu([{
+	/*initMenu([{
 		"menuName": "系统设置",
 		"sysMenuList": [{
 			"menuName": "用户角色管理",
@@ -206,7 +206,7 @@ $(function() {
 		 		 }
 	 		 ]
 	 	},
-	]);
+	]);*/
 
 	$("#imageSwitch").on("hide.bs.modal", function(){ 
 		if(imgIds && imgIds.length > 0){
@@ -229,7 +229,7 @@ $(function() {
 				});
 				return $("#dialogTip").modal("show");
 			} else {
-//				initMenu(data.data);
+				initMenu(data.data);
 			}
 		}
 	});

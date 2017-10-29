@@ -33,24 +33,13 @@
             mvc:exclude-mapping 这些请求不拦截 -->
             <mvc:interceptor>
                 <mvc:mapping path="/**"/>  
-                <mvc:exclude-mapping path="/test" />
-                <mvc:exclude-mapping path="/admin/**" />
+                <mvc:exclude-mapping path="/view/upload/**" />
+                 <mvc:exclude-mapping path="/view/index.html" />
                 <mvc:exclude-mapping path="/static/**" />
-                <mvc:exclude-mapping path="/app/user/appUserRegister" /> 
-                <mvc:exclude-mapping path="/app/user/appUserLogin" /> 
-                <mvc:exclude-mapping path="/app/user/appUserGetVerificationCode" />
-                <mvc:exclude-mapping path="/app/user/appUserForgetPassword" />
-                <mvc:exclude-mapping path="/app/user/getEULA" />
-                <mvc:exclude-mapping path="/log/**" />
-                <mvc:exclude-mapping path="/app/update" />
-                <mvc:exclude-mapping path="/information/getNewsList" />
-                <bean class="com.ontheroad.web.filter.TokenFilter" />
+                <mvc:exclude-mapping path="/user/login" />
+                <mvc:exclude-mapping path="/admin/login" />
+                <bean class="com.ontheroad.web.filter.AdminLoginFilter" />
             </mvc:interceptor>
-            <!--<mvc:interceptor>-->
-                <!--<mvc:mapping path="/admin/**" />-->
-                <!--<mvc:exclude-mapping path="/admin/login" />-->
-                <!--<bean class="com.ontheroad.web.filter.AdminLoginFilter" />-->
-            <!--</mvc:interceptor>-->
     </mvc:interceptors>
     
     <mvc:interceptors>
@@ -60,19 +49,11 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <!-- All views are JSPs loaded from /WEB-INF/views -->
-    <!-- <bean
-	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	<property name="prefix" value="/WEB-INF/view/" />
-	<property name="suffix" value=".html" />
-	<property name="order" value="1" />
-</bean> -->
-
 	 <bean id="htmlviewResolver"  
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
         <property name="viewClass" value="com.ontheroad.core.util.HtmlResourceView"/>
         <property name="order" value="0" />
-        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="prefix" value="/view/"/>
         <property name="suffix" value=".html" />  
         <property name="contentType" value="application/json;charset=UTF-8"></property>  
     </bean>

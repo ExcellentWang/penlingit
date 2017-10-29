@@ -24,31 +24,14 @@ public class AdminController {
 
     @Autowired
     private DeviceService deviceService;
-    @Autowired
-    private AdminService adminService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLogin() {
-        return "index";
-    }
-
-    @RequestMapping(value = "/loginProcess")
-    public String loginProcess(HttpSession session, AdminLogin login) {
-    	AdminLogin admin = adminService.login(login);
-        if(admin == null) {
-            return "admin/login";
-        }
-        else {
-            session.setAttribute("username", admin.getUsername());
-            return "admin/index";
-        }
-    }
-
-
-
-    @RequestMapping("/index")
+    /**
+     * 登录转发
+     * @return
+     */
+    @RequestMapping("/login")
     public String index() {
-        return "admin/index";
+        return "index";
     }
 
     @RequestMapping("/device/devices")

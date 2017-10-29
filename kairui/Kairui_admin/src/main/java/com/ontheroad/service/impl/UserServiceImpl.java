@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
 		return tsMenuMapper.getMenusUser(user.getUserId());
 	}
 
+	@Override
+	public List<TsMenu> getMenusUserByParentId(Integer user_id, Integer menu_id) {
+		return tsMenuMapper.getMenusUserByParentId(user_id, menu_id);
+	}
+	
 }

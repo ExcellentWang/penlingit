@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ontheroad.core.util.SessionUtil;
 import com.ontheroad.entity.TsMenu;
@@ -57,6 +58,14 @@ public class UserController {
 	public Map<Object, Object> getMenuByUser(HttpServletRequest request){
 		TsUser user=SessionUtil.getUser(request);
 		List<TsMenu> ls=userService.getMenu(user);
-		return MapUtil.getSuccessJson(ls);
+		//将用户菜单拼接成前端需要的json
+		JSONArray result=new JSONArray();
+		JSONObject json=new JSONObject();
+		for (TsMenu m : ls) {
+			json.put("menuName", m.getMenuName());
+			json.put("sysMenuList", userService.getMenusUserByParentId(user.getUserId(), m.getMenuId()));
+			result.add(json);
+		}
+		return MapUtil.getSuccessJson(result);
 	}
 }

@@ -27,5 +27,8 @@ public interface TsMenuMapper {
     int updateByPrimaryKeySelective(TsMenu record);
 
     int updateByPrimaryKey(TsMenu record);
+    
     List<TsMenu> getMenusUser(Integer userId);
+    
+    List<TsMenu> getMenusUserByParentId(@Param("user_id")Integer user_id,@Param("menu_id") Integer menu_id);
 }
