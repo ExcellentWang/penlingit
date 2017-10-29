@@ -15,7 +15,7 @@ public class TbGuranteeDto {
 	private String model;
 
 	private String productnumber;
-
+	@DateTimeFormat(pattern="yy-mm-dd")
 	private Date buytime;
 
 	private String guaranteetime;

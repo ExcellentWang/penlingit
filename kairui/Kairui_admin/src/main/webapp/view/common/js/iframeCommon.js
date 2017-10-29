@@ -418,4 +418,7 @@ function getNowTime(){
 	var now=year+'-'+p(month)+"-"+p(date)/*+" "+p(h)+':'+p(m)+":"+p(s);*/
 	return now;
 }
-
+function isnull(a){
+	if(a=="undefined"||a==null||a=="")return true
+	else return false
+}

@@ -85,3 +85,31 @@ deviceType=function(value, row, index){
 	if (value==null)return
 	return [null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][value.substring(1)]
 }
+
+var daoqitime;
+var shenyutime;
+
+shenyutime=function(value, row, index){
+	if(isnull(row.guaranteetime)||isnull(row.buytime))return
+	var a=new Date().getTime()-new Date(row.buytime).getTime()
+	var time1 = parseInt(a / (1000 * 60 * 60 * 24));
+	console.log("parseInt(row.guaranteeTime*365) "+row.guaranteetime)
+	return parseInt(row.guaranteetime*365)-time1;
+}
+
+daoqitime=function(value, row, index){
+	if(isnull(row.guaranteetime)||isnull(row.buytime))return
+	var a=DateAdd(row.guaranteetime,new Date(row.buytime))
+	return FormatDate(a)
+}
+
+function DateAdd( number, date) {
+	 date.setFullYear(parseInt(date.getFullYear()) + parseInt(number));
+     return date;
+}
+
+function FormatDate (strTime) {
+    var date = new Date(strTime);
+    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+}
+
