@@ -25,7 +25,7 @@
    
    
     <select id="getDeviceDetailById" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select t.*,s.workStatus,s.temperature, s.volume, s.backlight, o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
+        select t.*,s.workStatus,s.temperature, s.volume, s.backlight,s.app_enabled,o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
         from tb_equipment t
 		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
 		LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
@@ -87,7 +87,8 @@
             tb_equipmentstatus.temperature = #{current_temp},
             tb_equipment.firm_version=#{firm_version},
              tb_equipmentstatus.effluent_way=#{effluent_way},
-             tb_equipmentstatus.effluent_type=#{effluent_type}
+             tb_equipmentstatus.effluent_type=#{effluent_type},
+              tb_equipmentstatus.app_enabled=#{app_enabled}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

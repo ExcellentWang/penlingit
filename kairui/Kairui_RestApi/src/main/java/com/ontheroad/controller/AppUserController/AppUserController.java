@@ -158,17 +158,6 @@ public class AppUserController extends BaseConstant{
 		
 	}
 	
-	
-	public URL test(){
-		String xmlPath = "/spring/ehcache.xml";
-		URL url = this.getClass().getResource(xmlPath);
-		System.out.println(this.getClass());
-		System.out.println(this.getClass().getClassLoader());
-		System.out.println(this.getClass().getResource(xmlPath));
-		System.out.println(this.getClass().getResourceAsStream(xmlPath));
-		return url;
-	}
-
 	/*忘记密码设置新的密码
 	 * 
 	 * 

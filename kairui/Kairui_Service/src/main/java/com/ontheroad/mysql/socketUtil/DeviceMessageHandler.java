@@ -282,6 +282,10 @@ public class DeviceMessageHandler {
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
+                    val=deviceMessage.getArgs().get(0);
+                    device.setApp_enabled(val);
+                    deviceMapper.updateDevice(device);
+                    logger.info("app禁用---------val:"+val);
                     break;
                 case "scjl": // 上传使用记录 （APP要数或者间隔时间到自动上传）
                     rep = new DeviceMessage(

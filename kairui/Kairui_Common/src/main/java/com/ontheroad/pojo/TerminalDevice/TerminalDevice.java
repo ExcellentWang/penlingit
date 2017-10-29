@@ -31,7 +31,7 @@ public class TerminalDevice implements Serializable{
 	 private String status; //拥有状态 0绑定 1共享
 
 	 private String effluent_way = "0"; // 出水方式
-	 private String effluent_type = "0"; // 出水模式
+	 private String effluent_type; // 出水模式
 	 private String current_flow_grade = "001";  // 当前流速等级
 	 private String current_temp ;  // 当前温度
 	 private String started = "1";  // 开始/暂停: 1开始出水, 2暂停出水
@@ -69,7 +69,21 @@ public class TerminalDevice implements Serializable{
 	  */
 	 private Integer period;
 	 
+	 /**
+	  * app禁用（1：开，0：关）
+	  */
+	 private String app_enabled;
 	 
+	 
+	 
+	public String getApp_enabled() {
+		return app_enabled;
+	}
+
+	public void setApp_enabled(String app_enabled) {
+		this.app_enabled = app_enabled;
+	}
+
 	public Integer getPeriod() {
 		return period;
 	}

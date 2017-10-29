@@ -30,7 +30,7 @@ public class DeviceUseLog implements Serializable {
 
      private String hotTemperature = "50"; // 热水温度
      private String coldTemperature = "10"; // 冷水温度
-     private int app_enabled = 1; // app 是否启用
+    
 	public int getLog_id() {
 		return log_id;
 	}
@@ -127,12 +127,7 @@ public class DeviceUseLog implements Serializable {
 	public void setColdTemperature(String coldTemperature) {
 		this.coldTemperature = coldTemperature;
 	}
-	public int getApp_enabled() {
-		return app_enabled;
-	}
-	public void setApp_enabled(int app_enabled) {
-		this.app_enabled = app_enabled;
-	}
+
      
 
 }
