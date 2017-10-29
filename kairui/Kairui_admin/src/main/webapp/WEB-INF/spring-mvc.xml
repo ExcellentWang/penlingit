@@ -33,11 +33,11 @@
             mvc:exclude-mapping 这些请求不拦截 -->
             <mvc:interceptor>
                 <mvc:mapping path="/**"/>  
-                <mvc:exclude-mapping path="/view/upload/**" />
-                 <mvc:exclude-mapping path="/view/index.html" />
+                <mvc:exclude-mapping path="/view/**" />
                 <mvc:exclude-mapping path="/static/**" />
                 <mvc:exclude-mapping path="/user/login" />
                 <mvc:exclude-mapping path="/admin/login" />
+                <mvc:exclude-mapping path="/user/logOut" />
                 <bean class="com.ontheroad.web.filter.AdminLoginFilter" />
             </mvc:interceptor>
     </mvc:interceptors>

@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-<form id="form1" action="update">
+<form id="form1" action="/system/user/update">
 <div class="dialogPage">
 	<div class="om-panel-header">编辑</div>
 	<div class="editDiv">

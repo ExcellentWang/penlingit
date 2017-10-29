@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ontheroad.entity.TsMenu;
+import com.ontheroad.entity.TsRoleUser;
 import com.ontheroad.entity.TsUser;
 /**
  * 用户相关
@@ -37,4 +38,9 @@ public interface UserService {
 	 * @return
 	 */
 	List<TsMenu> getMenusUserByParentId(Integer user_id, Integer menu_id);
+	/**
+	 * 根据主菜单查询所有子菜单
+	 */
+	void updateUserRole(TsRoleUser tr);
+	
 }

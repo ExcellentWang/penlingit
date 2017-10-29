@@ -239,16 +239,11 @@ $(function() {
 	});
 	return $("#exitSure").click(function() {
 		$.ajax({
-			url: interUrl.basic + interUrl.user.logOut,
-			type: "POST",
-			dataType: "json",
+			url: "/user/logOut",
 			success: function(data, textStatus, jqXHR) {
-			  if (typeof data === "string") {
-				data = JSON.parse(data);
-			  }
-			  if(data.code == 10000 || data.code == 30000){
+//			  if(data.code == 10000 || data.code == 30000){
 					location.href = "./index.html";
-			  }
+//			  }
 			}
 		  }); 
 	});

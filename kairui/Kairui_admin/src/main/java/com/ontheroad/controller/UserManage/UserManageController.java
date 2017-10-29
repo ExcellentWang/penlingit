@@ -13,6 +13,7 @@ import com.ontheroad.entity.SysDetail;
 import com.ontheroad.entity.SysDict;
 import com.ontheroad.entity.SysRole;
 import com.ontheroad.entity.SysUser;
+import com.ontheroad.entity.TsRoleUser;
 import com.ontheroad.service.SysDictService;
 import com.ontheroad.service.SysManageUserService;
 import com.ontheroad.service.SysRoleService;
@@ -54,9 +55,7 @@ public class UserManageController extends BaseController {
     @Autowired
     private SysManageUserService sysManageUserService;
     @Autowired
-	private GenericMapper<SysUser, Long> genericMapper;
-    @Autowired
-	private SysUserMapper  sysUserMapper;
+	private UserService userService;
 
     public Hashtable<String, Map<String, String>>loadData(){
 		SysDictMapper sDictMapper = (SysDictMapper) SpringUtils.getBean(SysDictMapper.class);
@@ -191,7 +190,7 @@ public class UserManageController extends BaseController {
     }
 
     @RequestMapping(value = "update")
-    public String update(HttpServletRequest request, SysUser user) {
+    public String update(HttpServletRequest request, SysUser user,Integer userRole) {
     	
     	if(null == user){
     		Long i = Long.valueOf(request.getParameter("userId"));
@@ -208,6 +207,11 @@ public class UserManageController extends BaseController {
         sysUser.setUserType(user.getUserType());
         sysUser.setUserStatus(user.getUserStatus());//状态变更
         sysUserService.updateById(sysUser);
+        //角色更新
+        TsRoleUser tr=new TsRoleUser();
+        tr.setRoleId(userRole);
+        tr.setUserId(Integer.valueOf(request.getParameter("userId")));
+        userService.updateUserRole(tr);
         return "Modal/task/userManage/system/success";
     }
 

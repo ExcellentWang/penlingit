@@ -19,8 +19,8 @@ public class AdminLoginFilter implements HandlerInterceptor {
             return true;
         }else {
             //没有登陆，转向登陆界面
-            request.getRequestDispatcher("admin/login");
-            return true;
+        	 request.getRequestDispatcher("/admin/login").forward(request, response); 
+            return false;
         }
     }
 

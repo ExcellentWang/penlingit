@@ -35,9 +35,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_s_menu" domainObjectName="TsMenu">
+        <table tableName="t_s_role_user" domainObjectName="TsRoleUser">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="menu_id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="role_user_id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 
     </context>

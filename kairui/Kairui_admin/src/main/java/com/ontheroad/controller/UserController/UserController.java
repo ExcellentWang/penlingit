@@ -60,12 +60,26 @@ public class UserController {
 		List<TsMenu> ls=userService.getMenu(user);
 		//将用户菜单拼接成前端需要的json
 		JSONArray result=new JSONArray();
-		JSONObject json=new JSONObject();
 		for (TsMenu m : ls) {
+			JSONObject json=new JSONObject();
 			json.put("menuName", m.getMenuName());
 			json.put("sysMenuList", userService.getMenusUserByParentId(user.getUserId(), m.getMenuId()));
 			result.add(json);
 		}
 		return MapUtil.getSuccessJson(result);
 	}
+	
+	/**
+	 * 登出
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logOut")
+	public Map<Object, Object> logOut(HttpServletRequest request){
+		request.getSession().removeAttribute("user");
+		return MapUtil.getSuccessJson();
+	}
+	
 }
