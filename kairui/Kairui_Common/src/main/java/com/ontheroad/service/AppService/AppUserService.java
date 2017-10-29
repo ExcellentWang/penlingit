@@ -1,5 +1,6 @@
 package com.ontheroad.service.AppService;
 
+import com.ontheroad.mysql.entity.TbGuarantee;
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Feedback;
 import com.ontheroad.pojo.user.Guarantee;
@@ -45,6 +46,10 @@ public interface AppUserService {
 	Map<Object, Object> appUserGetVerificationCode(String phone);
 
 	Map<Object, Object> getEULA();
-	
+	/**
+	 * 添加或更新保修卡
+	 * @param t
+	 */
+	void saveOrUpdateTbGuarantee(TbGuarantee t);
 	
 }

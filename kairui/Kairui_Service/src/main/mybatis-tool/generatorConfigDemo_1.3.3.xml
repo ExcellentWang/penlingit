@@ -7,7 +7,10 @@
     <classPathEntry location="E:\mysql-connector-java-5.1.18.jar"/>
     <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
-     
+     	<commentGenerator >  
+           <property name="suppressDate" value="true"/>  
+            <property name="suppressAllComments" value="true"/>  
+        </commentGenerator> 
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://106.14.173.153:3306/penlinsystem"
                         userId="root" password="30bac9801b">
@@ -32,9 +35,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="guarantee_type" domainObjectName="GuaranteeType">
+        <table tableName="tb_guarantee" domainObjectName="TbGuarantee">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="guarantee_id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 
     </context>

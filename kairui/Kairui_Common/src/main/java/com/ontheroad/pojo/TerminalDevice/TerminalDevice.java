@@ -63,9 +63,21 @@ public class TerminalDevice implements Serializable{
 	  * 产品类型
 	  */
 	 private String product;
-
-	
 	 
+	 /**
+	  * 保修期
+	  */
+	 private Integer period;
+	 
+	 
+	public Integer getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Integer period) {
+		this.period = period;
+	}
+
 	public com.ontheroad.mysql.entity.DeviceUseLog getDeviceUseLog() {
 		return deviceUseLog;
 	}

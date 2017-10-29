@@ -5,8 +5,10 @@ import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.mysql.Mapper.AppMapper.*;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.mysql.dao.TbCustomerservicedetailsMapper;
+import com.ontheroad.mysql.dao.TbGuaranteeMapper;
 import com.ontheroad.mysql.entity.TbCustomerservicedetails;
 import com.ontheroad.mysql.entity.TbCustomerservicedetailsExample;
+import com.ontheroad.mysql.entity.TbGuarantee;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.user.*;
 import com.ontheroad.service.AppService.AppUserService;
@@ -51,6 +53,8 @@ public class AppUserServiceImpl implements AppUserService{
 	
 	@Autowired
 	private DeviceMapper deviceMapper;
+	@Autowired
+	private TbGuaranteeMapper tbGuaranteeMapper;
 	
 	@Autowired
 	private TbCustomerservicedetailsMapper tbCustomerservicedetailsMapper;
@@ -609,6 +613,15 @@ public class AppUserServiceImpl implements AppUserService{
 			map.put("extra",null);
 			map.put("resultMap", null);
 			return map;
+		}
+	}
+
+	@Override
+	public void saveOrUpdateTbGuarantee(TbGuarantee t) {
+		if(t.getGuaranteeId()!=null){
+			tbGuaranteeMapper.updateByPrimaryKeySelective(t);
+		}else{
+			tbGuaranteeMapper.insertSelective(t);
 		}
 	}
 }

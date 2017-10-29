@@ -705,5 +705,10 @@ public class DeviceImpl implements DeviceService {
 		return deviceWaterMapper.selectByExample(example);
 	}
 
+	@Override
+	public TerminalDevice getDeviceDetail(Integer equipment_id) {
+		return deviceMapper.getDeviceDetailById(equipment_id);
+	}
+
 	
 }

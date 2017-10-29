@@ -85,7 +85,12 @@ public interface DeviceService {
 	 * @return
 	 */
 	List<DeviceWater> getDeviceWaterByDeviceId(Long deviceId);
-	
+	/**
+	 * 获取设备详情
+	 * @param equipment_id
+	 * @return
+	 */
+	TerminalDevice getDeviceDetail(Integer equipment_id);
 	
 	
 }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.ontheroad.pojo.user.*;
 import com.ontheroad.service.AppService.QiniuService;
+import com.ontheroad.service.DeviceService.DeviceService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ontheroad.core.util.UploadUtil;
+import com.ontheroad.mysql.entity.TbGuarantee;
 import com.ontheroad.pojo.Constant.BaseConstant;
+import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.tokenUtil.EhcacheUtil;
 import com.ontheroad.utils.StringUtilsCommon;
@@ -35,6 +39,8 @@ public class AppUserController extends BaseConstant{
 	
 	@Autowired
 	private QiniuService qiniuService;
+	@Autowired
+	private  DeviceService deviceService;
 	/*用户注册 2017.7.19
 	 * 
 	 * 
@@ -151,24 +157,6 @@ public class AppUserController extends BaseConstant{
 	}
 	
 	
-	
-	
-	
-	public static void main(String[] args) {
-		
-		/*EhcacheUtil.getInstance().put("token", "test", "123");
-        String str = (String) EhcacheUtil.getInstance().get("token", "test");
-        System.out.println(str);
-        EhcacheUtil.getInstance().remove("token", "test");
-        String str2 = (String) EhcacheUtil.getInstance().get("token", "test");
-        System.out.println(str2);	*/	
-		AppUserController a = new AppUserController();
-		
-		URL url = a.test();
-		//System.out.println(url);
-	    
-	}
-	
 	public URL test(){
 		String xmlPath = "/spring/ehcache.xml";
 		URL url = this.getClass().getResource(xmlPath);
@@ -178,20 +166,7 @@ public class AppUserController extends BaseConstant{
 		System.out.println(this.getClass().getResourceAsStream(xmlPath));
 		return url;
 	}
-	/*@RequestMapping(value = "/test", method = RequestMethod.POST)
-    public void test() {
-		System.out.println("1111111111");
-		EhcacheUtil.getInstance().put("token", "test1", "123");
-        String str = (String) EhcacheUtil.getInstance().get("token", "test1");
-        System.out.println(str);
-        EhcacheUtil.getInstance().remove("token", "test1");
-        String str2 = (String) EhcacheUtil.getInstance().get("token", "test1");
-        System.out.println(str2);
-	}*/
 
-	
-	
-	
 	/*忘记密码设置新的密码
 	 * 
 	 * 
@@ -211,11 +186,6 @@ public class AppUserController extends BaseConstant{
            return map;
 		}	
 	}
-	
-	
-	
-	
-	
 	
 	/**
 	 * 修改密码
@@ -310,37 +280,55 @@ public class AppUserController extends BaseConstant{
 	 * 
 	 * 
 	 */
-	@RequestMapping(value = "/submitGuarantee", method = RequestMethod.POST)
-    public Map<Object,Object> subGuarantee(MultipartHttpServletRequest request) {
+	@RequestMapping(value = "/submitGuarantee")
+    public Map<Object,Object> subGuarantee(MultipartHttpServletRequest request,TbGuarantee tbGuarantee) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
-
-		Guarantee guarantee = new Guarantee();
-		String invoiceURL = null;
+		String sImg="";
+		Integer guarantee_id=null;
+		Integer user_id=null;
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			MultipartFile file = request.getFile("file1");
 			if(file != null){
-				File f = new File("/alidata/www/img/" + StringUtilsCommon.getRandom(false, 32));
-				file.transferTo(f);
-				invoiceURL = f.getName();
-				//qiniuService.test();
-//				invoiceURL = (String)qiniuService.upload(f.getAbsolutePath()).get("resultMap");
+				//获取本地文件地址
+		        String path = request.getSession().getServletContext().getRealPath("view/upload");  
+		        String fileName = file.getOriginalFilename();  
+		        File targetFile = new File(path, fileName);  
+		        if(!targetFile.exists()){  
+		            targetFile.mkdirs();  
+		        }  
+				file.transferTo(targetFile);
+				  sImg= "http://"+"106.14.173.153"+":9999"+"/Kairui_RestApi/view/upload/"+fileName;
 			}
-
-			guarantee.setGuarantee_id(Integer.parseInt(request.getParameter("guarantee_id")));
-			guarantee.setUser_id(Integer.parseInt(request.getParameter("user_id")));
-			guarantee.setAddress(request.getParameter("address"));
-			guarantee.setArea(request.getParameter("area"));
-			guarantee.setPhone(request.getParameter("phone"));
-
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			guarantee.setBuyTime(format.parse(request.getParameter("buyTime")));
-			guarantee.setInvoice("http://106.14.173.153:8081/" + invoiceURL);
-//			guarantee.setInvoice("http://192.168.2.107:8081/" + invoiceURL);
-			guarantee.setStatus("1");
-
-
-			return appUserService.submitGuaranteeDetail(guarantee);
+			Integer equipment_id=Integer.parseInt(request.getParameter("equipment_id"));
+			if(request.getParameter("guarantee_id")!=null){
+				guarantee_id =Integer.parseInt(request.getParameter("guarantee_id"));
+			}
+			if(request.getParameter("user_id")!=null){
+				user_id=Integer.parseInt(request.getParameter("user_id"));
+			}
+			
+			//保修期
+			TerminalDevice t=new TerminalDevice();
+			t.setEquipment_id(equipment_id);
+			Integer period=deviceService.getDeviceDetail(equipment_id).getPeriod();
+			tbGuarantee.setEquipmentId(equipment_id);
+			tbGuarantee.setUserId(user_id);
+			if(request.getParameter("buytime")!=null){
+				tbGuarantee.setBuytime(format.parse(request.getParameter("buytime")));
+			}
+			tbGuarantee.setInvoice(sImg);
+			tbGuarantee.setStatus(1);
+			tbGuarantee.setGuaranteeId(guarantee_id);
+			tbGuarantee.setGuaranteetime(String.valueOf(period));
+			tbGuarantee.setSubmitTime(new Date());
+			appUserService.saveOrUpdateTbGuarantee(tbGuarantee);
+			map.put("code", BaseConstant.appUserSuccessStatus);
+			map.put("msg", "成功");
+			map.put("extra",null);
+			map.put("resultMap", null);
+			return map;
 		} catch (Exception e) {
 		   e.printStackTrace();
            map.put("code", BaseConstant.appUserErrorStatus);

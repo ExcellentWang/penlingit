@@ -55,5 +55,6 @@ public interface DeviceMapper {
 	List<TerminalDevice> getDevicesByExample(TerminalDeviceVo terminalDeviceVo);
 	
 	void insert(TerminalDevice device);
+	
 
 }

@@ -25,11 +25,12 @@
    
    
     <select id="getDeviceDetailById" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select t.*,s.workStatus,s.temperature, s.volume, s.backlight, o.appointment_temperature, g.status AS guaranteeStatus
+        select t.*,s.workStatus,s.temperature, s.volume, s.backlight, o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
         from tb_equipment t
 		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
 		LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
 		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
+		left join equipment_datatype ed on t.type=ed.type
         where t.equipment_id = #{equipment_id}
    </select>
    

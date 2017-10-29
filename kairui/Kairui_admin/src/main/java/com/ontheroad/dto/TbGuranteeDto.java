@@ -2,6 +2,8 @@ package com.ontheroad.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class TbGuranteeDto {
 	private Integer guaranteeId;
@@ -32,7 +34,16 @@ public class TbGuranteeDto {
 	private String equipmentNum;
 	private String type;
 	private String product;
+	@DateTimeFormat(pattern="yy-mm-dd hh:ss")
+	private Date submit_time;
 	
+	
+	public Date getSubmit_time() {
+		return submit_time;
+	}
+	public void setSubmit_time(Date submit_time) {
+		this.submit_time = submit_time;
+	}
 	public Integer getGuaranteeId() {
 		return guaranteeId;
 	}
