@@ -646,5 +646,10 @@ public class AppUserServiceImpl implements AppUserService{
 		if(eulas.size()==0){return null;}
 		else return eulas.get(0);
 	}
+
+	@Override
+	public Integer getIndexCustomerService() {
+		return customerserviceMapper.getIndexCustomerService();
+	}
 	
 }

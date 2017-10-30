@@ -65,12 +65,9 @@
         DELETE FROM tb_customerservice where customer_id = #{customer_id}
     </delete>
    
-   <!-- <update id="submitGuaranteeDetail"  parameterType="com.ontheroad.pojo.user.Guarantee">
-       UPDATE tb_guarantee set equipment_id = #{equipment_id},user_id = #{user_id},buyTime = #{buyTime},guaranteeTime = #{guaranteeTime},
-       phone = #{phone},area = #{area},address = #{address},invoice = #{invoice},status = #{status},remark = #{remark}      
-	   where guarantee_id = #{guarantee_id} 
-   </update> -->
-   
-   
+    <select id="getIndexCustomerService" parameterType="Integer" resultType="com.ontheroad.pojo.user.Customerpicture">
+        SELECT id from tb_customerservice
+        order by id desc limit 1
+    </select>
    
 </mapper>

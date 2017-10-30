@@ -29,7 +29,7 @@ public class DeviceController extends BaseConstant{
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/deviceList", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceList")
     public Map<Object,Object> regist(User user) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -75,7 +75,7 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 
-	@RequestMapping(value = "/shareDevice", method = RequestMethod.POST)
+	@RequestMapping(value = "/shareDevice")
     public Map<Object,Object> shareDevice(DeviceShare ds) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -95,7 +95,7 @@ public class DeviceController extends BaseConstant{
 	/**
 	 * 删除设备
 	 */
-	@RequestMapping(value = "/deleteDevice", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteDevice")
     public Map<Object,Object> deleteDevice(DeviceShare ds) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -114,7 +114,7 @@ public class DeviceController extends BaseConstant{
 	/**
 	 * 删除设备共享
 	 */
-	@RequestMapping(value = "/deleteDeviceShare", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteDeviceShare")
 	public Map<Object,Object> deleteDeviceShare(DeviceShare ds) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -155,7 +155,7 @@ public class DeviceController extends BaseConstant{
 	 * 设备语音播报
 	 * 
 	 */
-	@RequestMapping(value = "/deviceBroadcast", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceBroadcast")
     public Map<Object,Object> deviceBroadcast(TerminalDevice t,String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -175,7 +175,7 @@ public class DeviceController extends BaseConstant{
 	 * 背光值设置
 	 * 
 	 */
-	@RequestMapping(value = "/deviceBacklight", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceBacklight")
     public Map<Object,Object> deviceBacklight(TerminalDevice t,String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -195,7 +195,7 @@ public class DeviceController extends BaseConstant{
 	 * 设备提醒设置
 	 * 
 	 */
-	@RequestMapping(value = "/deviceRemind", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceRemind")
     public Map<Object,Object> deviceRemind(DeviceRemind d,String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -215,7 +215,7 @@ public class DeviceController extends BaseConstant{
 	 * 设备提醒读取
 	 *
 	 */
-	@RequestMapping(value = "/findDeviceRemind", method = RequestMethod.POST)
+	@RequestMapping(value = "/findDeviceRemind")
 	public Map<Object,Object> findDeviceRemind(TerminalDevice t) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -235,7 +235,7 @@ public class DeviceController extends BaseConstant{
 	 * 预约设置
 	 * 
 	 */
-	@RequestMapping(value = "/deviceAppointment", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceAppointment")
     public Map<Object,Object> deviceAppointment(DeviceAppointment d) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -258,7 +258,7 @@ public class DeviceController extends BaseConstant{
 	 * 
 	 */
 	
-	@RequestMapping(value = "/deviceSendInstruction", method = RequestMethod.POST)
+	@RequestMapping(value = "/deviceSendInstruction")
     public Map<Object,Object> deviceSendInstruction(String instructions) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
@@ -277,7 +277,7 @@ public class DeviceController extends BaseConstant{
 	/**
 	 * 获取分享列表
 	 */
-	@RequestMapping(value = "/findDeviceShares", method = RequestMethod.POST)
+	@RequestMapping(value = "/findDeviceShares")
 	public Map<Object, Object> findDeviceShares(int user_id) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -293,7 +293,7 @@ public class DeviceController extends BaseConstant{
 		}
 	}
 
-	@RequestMapping(value = "/getRepairTypes", method = RequestMethod.POST)
+	@RequestMapping(value = "/getRepairTypes")
 	public Map<Object, Object> getRepairTypes() {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -310,7 +310,7 @@ public class DeviceController extends BaseConstant{
 	}
 
 
-	@RequestMapping(value = "/getDeviceError", method = RequestMethod.POST)
+	@RequestMapping(value = "/getDeviceError")
 	public Map<Object, Object> getDeviceError(Integer equipment_id) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -326,7 +326,7 @@ public class DeviceController extends BaseConstant{
 		}
 	}
 
-	@RequestMapping(value = "/updateDeviceName", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateDeviceName")
 	public Map<Object, Object> updateDeviceName(TerminalDevice terminalDevice) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
@@ -341,29 +341,5 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
-	/**
-	 * 
-	* 
-	* @Description: 维修状态
-	* @param terminalDevice
-	* @return  
-	* Map<Object,Object>   
-	* @throws
-	 */
-	@Deprecated
-	@RequestMapping(value = "/repairStatus")
-	public Map<Object, Object> repairStatus(TerminalDevice terminalDevice) {
-		//返回前端map
-		Map<Object,Object> map = new HashMap<Object,Object>();
-		try {
-			return deviceService.repairStatus(terminalDevice.getEquipment_id());
-		} catch (Exception e) {
-			e.printStackTrace();
-			map.put("code", BaseConstant.appUserErrorStatus);
-			map.put("msg", "服务器异常");
-			map.put("extra",null);
-			map.put("resultMap", null);
-			return map;
-		}
-	}
+
 }

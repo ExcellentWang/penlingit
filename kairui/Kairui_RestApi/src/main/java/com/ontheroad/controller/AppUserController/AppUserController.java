@@ -425,10 +425,18 @@ public class AppUserController extends BaseConstant{
 			customerservice.setAddress(request.getParameter("address"));
 			customerservice.setPhone(request.getParameter("phone"));
 			customerservice.setArea(request.getParameter("area"));
-
+			String equipmentNum=request.getParameter("equipmentNum");
+			Integer index=appUserService.getIndexCustomerService();
+			if(index==null){
+				index=1;
+			}
+			else{
+				index=index+1;
+			}
+			String orderNum=getnum(String.valueOf(index),equipmentNum);//报修编号
+			customerservice.setOrderNum(orderNum);
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 			customerservice.setAppointmentTime(format.parse(request.getParameter("appointmentTime")));
-
 			return appUserService.applyCustomer(customerservice);	
 		} catch (Exception e) {
 		   e.printStackTrace();
@@ -439,7 +447,18 @@ public class AppUserController extends BaseConstant{
            return map;
 		}	
 	}
-
+	public String getnum(String index,String deviceNum) {
+		String orderNum="SH"+deviceNum.substring(4,6);
+		for(int i=0;i<5-index.length();i++){
+			orderNum+="0";
+		}
+		orderNum+=index;
+		System.out.println(orderNum);
+		return orderNum;
+	}
+	public static void main(String[] args) {
+		new AppUserController().getnum("1", "LDCT01201704230001");
+	}
 	@RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
 	public Map<Object, Object> deleteCustomer(Customerservice customerservice) {
 		//返回前端map

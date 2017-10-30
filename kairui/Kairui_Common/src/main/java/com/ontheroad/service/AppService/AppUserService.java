@@ -62,5 +62,10 @@ public interface AppUserService {
 	 * @param eula
 	 */
 	TbEula getEula();
+	/**
+	 * 获取报修最大id
+	 * @return
+	 */
+	Integer getIndexCustomerService();
 	
 }

@@ -24,5 +24,7 @@ public interface CustomerserviceMapper {
 
 	List<Customerpicture> getPics(int customer_id);
 	
+	Integer getIndexCustomerService();
+	
 
 }
