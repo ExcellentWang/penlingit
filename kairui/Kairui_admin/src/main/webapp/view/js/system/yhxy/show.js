@@ -14,7 +14,7 @@ $(function(){
 	$("#updateYHXY").click(function(){
 		comn.addTab({
 			title: '修改用户协议',
-			href: 'Modal/task/userManage/system/yhxy/add.html?content='+$("#container").html()+'&id='+id
+			href: 'Modal/task/userManage/system/yhxy/add.html?'+'id='+id
 		});
 	})
 })

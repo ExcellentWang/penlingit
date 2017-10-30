@@ -2,6 +2,15 @@
 $(function(){
 	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
+	$.ajax({
+		url: "/user/selectEula",
+		data:{},
+		success: function(item){
+			ue.ready(function(){
+				ue.setContent(item.data.content);
+			});
+		}
+	});
 	//保存
 	$("#baocun").click(function(){
 		$.ajax({
