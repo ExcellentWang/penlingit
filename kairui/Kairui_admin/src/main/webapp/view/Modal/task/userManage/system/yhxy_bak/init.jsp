@@ -30,7 +30,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 		<ul>
     		<li><a href="#" onclick="showAdd('/systemmanage/yhxy/showAdd',600,230);"><span class="menu1"></span>添加</a></li>
     		<li><a href="#" onclick="showEdit('/systemmanage/yhxy/showEdit','dictId',600,230);"><span class="menu13"></span>修改</a></li>
-    		<li><a href="#" onclick="removeRow('dictId','/Kairui_admin/systemmanage/yhxy/delete');"><span class="menu11"></span>删除</a></li>
+    		<li><a href="#" onclick="removeRow('dictId','/systemmanage/yhxy/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>
@@ -40,7 +40,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 <script type="text/javascript">
 $(function() {
 	$('#grid').datagrid({   
-	    url:'/Kairui_admin/systemmanage/yhxy/list', 
+	    url:'/systemmanage/yhxy/list', 
 	    pageSize :10,
 		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
 		striped : true,

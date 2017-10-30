@@ -66,7 +66,7 @@
 		<ul>
     		<li><a href="#" onclick="showMenuAdd();"><span class="menu1"></span>添加</a></li>
 	    		<li><a href="#" onclick="showEdit('/system/menu/showEdit','menuId',600,240);"><span class="menu13"></span>修改</a></li>
-	    		<li><a href="#" onclick="removeRow('menuId','/Kairui_admin/system/menu/delete');"><span class="menu11"></span>删除</a></li>
+	    		<li><a href="#" onclick="removeRow('menuId','/system/menu/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>
@@ -80,7 +80,7 @@
 $(function() {	
 	 refleshTree=true;
      $('#grid').datagrid({   
- 	    url:'/Kairui_admin/system/menu/list', 
+ 	    url:'/system/menu/list', 
  	    pageSize :10,
  		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
  		striped : true,

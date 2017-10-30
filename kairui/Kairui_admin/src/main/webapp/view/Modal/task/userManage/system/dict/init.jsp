@@ -49,7 +49,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 		<ul>
     		<li><a href="#" onclick="showAdd('/system/dict/showAdd',600,230);"><span class="menu1"></span>添加</a></li>
     		<li><a href="#" onclick="showEdit('/system/dict/showEdit','dictId',600,230);"><span class="menu13"></span>修改</a></li>
-    		<li><a href="#" onclick="removeRow('dictId','/Kairui_admin/system/dict/delete');"><span class="menu11"></span>删除</a></li>
+    		<li><a href="#" onclick="removeRow('dictId','/system/dict/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>

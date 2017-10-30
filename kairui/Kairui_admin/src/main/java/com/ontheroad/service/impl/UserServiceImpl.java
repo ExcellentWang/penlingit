@@ -54,5 +54,12 @@ public class UserServiceImpl implements UserService {
 		tsRoleUserMapper.deleteByExample(example);
 		tsRoleUserMapper.insert(tr);
 	}
+
+	@Override
+	public TsUser updateUser(TsUser user) {
+		tsUserMapper.updateByPrimaryKeySelective(user);
+		return user;
+	}
+	
 	
 }

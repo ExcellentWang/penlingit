@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.core.util.SessionUtil;
 import com.ontheroad.entity.TsMenu;
 import com.ontheroad.entity.TsUser;
@@ -79,6 +80,26 @@ public class UserController {
 	@RequestMapping("/logOut")
 	public Map<Object, Object> logOut(HttpServletRequest request){
 		request.getSession().removeAttribute("user");
+		return MapUtil.getSuccessJson();
+	}
+	
+	/**
+	 * 修改密码
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateUserPwd")
+	public Map<Object, Object> updateUserPwd(HttpServletRequest request,String password,String newPwd){
+		TsUser user=SessionUtil.getUser(request);
+		String dbpwd= Md5Util.makeMd5Sum(password.getBytes()).toUpperCase();
+		if(!user.getUserPwd().equals(dbpwd)){
+			return MapUtil.getFailureJson("原密码错误");
+		}
+		newPwd = Md5Util.makeMd5Sum(newPwd.getBytes()).toUpperCase();
+		user.setUserPwd(newPwd);
+		userService.updateUser(user);
 		return MapUtil.getSuccessJson();
 	}
 	

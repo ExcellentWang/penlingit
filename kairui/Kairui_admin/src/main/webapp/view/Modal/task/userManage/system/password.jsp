@@ -41,15 +41,16 @@ function doSubmit(){
 	var newPwd = $('#newPwd').val();
 	var confirmPwd = $('#confirmPwd').val();
 	if(password==''){$('#errorMessage').html('原始密码不能为空！');return}
-	$.post(ctx+"/index/checkUserPwd", {"password":password},
+	if(confirmPwd!=newPwd){$('#errorMessage').html('两次输入密码不一致！');return}
+	$.post(ctx+"/user/updateUserPwd", {
+		"password":password,
+		"newPwd":newPwd
+	},
 	   function(data){
-			if(data.success){
-				$('#errorMessage').html(data.msg);
+			if(data.code==0){
+				$('#errorMessage').html("操作成功！");
 			}else{
-				if(newPwd==''){$('#errorMessage').html('新密码不能为空！');return}
-				if(confirmPwd==''){$('#errorMessage').html('确认密码不能为空！');return}
-				if(newPwd!=confirmPwd){$('#errorMessage').html('两次输入的密码不一致！');return}
-				$('#form1').submit();
+				$('#errorMessage').html(data.msg)
 			}
 	   }, "json");
 }

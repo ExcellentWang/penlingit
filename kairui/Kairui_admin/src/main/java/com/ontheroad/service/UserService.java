@@ -42,5 +42,11 @@ public interface UserService {
 	 * 根据主菜单查询所有子菜单
 	 */
 	void updateUserRole(TsRoleUser tr);
+	/**
+	 * 更新用户信息
+	 * @param user
+	 * @return
+	 */
+	TsUser updateUser(TsUser user);
 	
 }

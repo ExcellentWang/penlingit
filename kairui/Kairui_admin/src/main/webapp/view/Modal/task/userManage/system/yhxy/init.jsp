@@ -50,7 +50,7 @@ a:hover{text-decoration:underline;color:red;cursor:pointer}
 <script type="text/javascript">
 $(function() {
 	$('#grid').datagrid({   
-	    url:'/Kairui_admin/system/dict/listyhxy', 
+	    url:'/system/dict/listyhxy', 
 	    pageSize :10,
 		pageList : [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000 ],
 		striped : true,

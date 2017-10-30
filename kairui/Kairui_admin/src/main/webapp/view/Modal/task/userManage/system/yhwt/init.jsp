@@ -45,7 +45,7 @@ request.setAttribute("dictId", dictId);
 		<ul>
     		<li><a href="#" onclick="showDetailAdd();"><span class="menu1"></span>添加</a></li>
 	   		<li><a href="#" onclick="showEdit('/system/detail/showEditYhwt','detailId',600,260);"><span class="menu13"></span>修改</a></li>
-	   		<li><a href="#" onclick="removeRow('detailId','/Kairui_admin/system/detail/delete');"><span class="menu11"></span>删除</a></li>
+	   		<li><a href="#" onclick="removeRow('detailId','/system/detail/delete');"><span class="menu11"></span>删除</a></li>
 		</ul>
 	</div>
 </div>
