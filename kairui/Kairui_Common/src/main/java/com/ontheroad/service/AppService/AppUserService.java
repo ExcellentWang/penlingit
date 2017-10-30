@@ -1,5 +1,6 @@
 package com.ontheroad.service.AppService;
 
+import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.mysql.entity.TbGuarantee;
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Feedback;
@@ -51,5 +52,15 @@ public interface AppUserService {
 	 * @param t
 	 */
 	void saveOrUpdateTbGuarantee(TbGuarantee t);
+	/**
+	 * 添加或更新用户协议
+	 * @param eula
+	 */
+	void updateOrAddEula(TbEula eula);
+	/**
+	 * 查询用户协议
+	 * @param eula
+	 */
+	TbEula getEula();
 	
 }

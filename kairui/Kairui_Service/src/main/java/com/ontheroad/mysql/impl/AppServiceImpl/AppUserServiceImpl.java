@@ -5,9 +5,12 @@ import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.mysql.Mapper.AppMapper.*;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.mysql.dao.TbCustomerservicedetailsMapper;
+import com.ontheroad.mysql.dao.TbEulaMapper;
 import com.ontheroad.mysql.dao.TbGuaranteeMapper;
 import com.ontheroad.mysql.entity.TbCustomerservicedetails;
 import com.ontheroad.mysql.entity.TbCustomerservicedetailsExample;
+import com.ontheroad.mysql.entity.TbEula;
+import com.ontheroad.mysql.entity.TbEulaExample;
 import com.ontheroad.mysql.entity.TbGuarantee;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.user.*;
@@ -58,6 +61,8 @@ public class AppUserServiceImpl implements AppUserService{
 	
 	@Autowired
 	private TbCustomerservicedetailsMapper tbCustomerservicedetailsMapper;
+	@Autowired
+	private TbEulaMapper tbEulaMapper;
 	@Override
 	public Map<Object,Object> findUserByPhone(User user,String appCode) {								
 		List<User> list = new ArrayList<>();
@@ -624,4 +629,22 @@ public class AppUserServiceImpl implements AppUserService{
 			tbGuaranteeMapper.insertSelective(t);
 		}
 	}
+
+	@Override
+	public void updateOrAddEula(TbEula eula) {
+		if(eula.getId()!=null){
+			tbEulaMapper.updateByPrimaryKey(eula);
+		}else{
+			tbEulaMapper.insertSelective(eula);
+		}
+	}
+
+	@Override
+	public TbEula getEula() {
+		TbEulaExample example=new TbEulaExample();
+		List<TbEula> eulas=tbEulaMapper.selectByExample(example);
+		if(eulas.size()==0){return null;}
+		else return eulas.get(0);
+	}
+	
 }

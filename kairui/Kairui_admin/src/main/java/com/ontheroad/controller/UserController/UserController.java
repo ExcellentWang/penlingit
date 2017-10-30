@@ -16,7 +16,9 @@ import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.core.util.SessionUtil;
 import com.ontheroad.entity.TsMenu;
 import com.ontheroad.entity.TsUser;
+import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.service.UserService;
+import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.utils.MapUtil;
 import com.ontheroad.utils.WebUtil;
 
@@ -25,6 +27,8 @@ import com.ontheroad.utils.WebUtil;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private AppUserService appUserService;
 	
 	/**
 	 * 
@@ -101,6 +105,28 @@ public class UserController {
 		user.setUserPwd(newPwd);
 		userService.updateUser(user);
 		return MapUtil.getSuccessJson();
+	}
+	
+	/**
+	 * 添加或更新用户协议
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addOrUpdateEula")
+	public Map<Object, Object> addOrUpdateEula(HttpServletRequest request,TbEula eula){
+		eula.setAddress("http://106.14.173.153:9999/view/Modal/task/userManage/system/yhxy/show.html");
+		appUserService.updateOrAddEula(eula);
+		return MapUtil.getSuccessJson();
+	}
+	
+	/**
+	 * 查询用户协议
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/selectEula")
+	public Map<Object, Object> selectEula(HttpServletRequest request){
+		return MapUtil.getSuccessJson(appUserService.getEula());
 	}
 	
 }
