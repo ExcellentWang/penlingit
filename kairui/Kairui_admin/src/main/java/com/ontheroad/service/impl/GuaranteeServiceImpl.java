@@ -92,6 +92,13 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 			staffMapper.updateByPrimaryKey(t);
 		}else{
 			staffMapper.insert(t);
+			String num="LDSH";
+			for(int i=0;i<5-String.valueOf(t.getId()).length();i++){
+				num+="0";
+			}
+			num+=t.getId();
+			t.setStaffNum(num);
+			staffMapper.updateByPrimaryKey(t);
 		}
 		return t;
 	}
