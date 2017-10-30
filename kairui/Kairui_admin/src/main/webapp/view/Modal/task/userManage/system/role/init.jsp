@@ -54,7 +54,7 @@
 		<ul>
     		<li><a href="#" onclick="showAdd('/system/role/showAdd',600,240);"><span class="menu1"></span>添加</a></li>
     		<li><a href="#" onclick="showEdit('/system/role/showEdit','roleId',600,270);"><span class="menu13"></span>修改</a></li>
-    		<li><a href="#" onclick="removeRow('roleId');"><span class="menu11"></span>删除</a></li>
+    		<li><a href="#" onclick="removeRow('roleId','/system/role/delete');"><span class="menu11"></span>删除</a></li>
     		<li><a href="#" onclick="bindMenu()"><span class="menu4"></span>绑定权限</a></li>
     		<li><a href="#" onclick="bindUser()"><span class="menu4"></span>绑定用户</a></li>
 		</ul>
@@ -100,7 +100,7 @@ $(function() {
 	                 {width : '80',title : '状态',field : 'roleStatus',formatter:function(v,r){return JSON.parse(JSON.parse(jsonStr)["statusMap"])[v]}},
 /* 	                 {width : '50',title : '排序',field : 'roleOrder'}, */
 	                 {width : '150',title : '创建时间',field : 'createTime'},
-	                 /* {width : '200',title : '操作',field : 'opt',formatter:function(v,r){ var roleId = r.roleId;var roleStatus = r.roleStatus; return '<a href="javascript:showEdit(\'/system/role/showEdit\',\'roleId\',600,270);" >编辑</a>'+'&nbsp&nbsp'+'<a href="javascript:bindMenu();" >分配权限</a>'+'&nbsp&nbsp'+'<a href="javascript:disableRole('+roleId+','+roleStatus+');" >角色停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'roleId\',\'/system/role/delete\');" >删除</a>'}} */
+	                 /* {width : '200',title : '操作',field : 'opt',formatter:function(v,r){ var roleId = r.roleId;var roleStatus = r.roleStatus; return '<a href="javascript:showEdit(\'/system/role/showEdit\',\'roleId\',600,270);" >编辑</a>'+'&nbsp&nbsp'+'<a href="javascript:bindMenu();" >分配权限</a>'+'&nbsp&nbsp'+'<a href="javascript:disableRole('+roleId+','+roleStatus+');" >角色停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'roleId\',\'/system/role/delete\');" >删除</a>'}}  */
 					]
 	    		]
 	}); 
