@@ -1,9 +1,10 @@
 package com.ontheroad.mysql.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TbInformation {
+public class TbInformation implements Serializable{
     private Integer id;
 
     private String title;
@@ -33,6 +34,10 @@ public class TbInformation {
     private String address;
 
     private String summary;
+
+    private Long newsId;
+
+    private Long deviceInfoId;
 
     public Integer getId() {
         return id;
@@ -152,5 +157,21 @@ public class TbInformation {
 
     public void setSummary(String summary) {
         this.summary = summary == null ? null : summary.trim();
+    }
+
+    public Long getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(Long newsId) {
+        this.newsId = newsId;
+    }
+
+    public Long getDeviceInfoId() {
+        return deviceInfoId;
+    }
+
+    public void setDeviceInfoId(Long deviceInfoId) {
+        this.deviceInfoId = deviceInfoId;
     }
 }

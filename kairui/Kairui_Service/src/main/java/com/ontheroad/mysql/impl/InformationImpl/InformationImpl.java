@@ -3,6 +3,7 @@ package com.ontheroad.mysql.impl.InformationImpl;
 import com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper;
 import com.ontheroad.mysql.dao.TbInformationMapper;
 import com.ontheroad.mysql.entity.TbInformation;
+import com.ontheroad.mysql.entity.TbInformationExample;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.Information.*;
 import com.ontheroad.service.InformationService.InformationService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,9 +210,13 @@ public class InformationImpl implements InformationService{
 
 	@Override
 	public void addOrUpdateTbInformation(TbInformation info) {
-		if(info.getId()!=null){
-			tbInformationMapper.updateByPrimaryKeySelective(info);
+		if(info.getId()!=null){//根据消息id去更新消息公用表
+			TbInformationExample example=new TbInformationExample();
+			example.createCriteria().andNewsIdEqualTo(Long.valueOf(info.getId()));
+			info.setId(null);
+			tbInformationMapper.updateByExampleSelective(info, example);
 		}else{
+			info.setCreatetime(new Date());
 			tbInformationMapper.insertSelective(info);
 		}
 		

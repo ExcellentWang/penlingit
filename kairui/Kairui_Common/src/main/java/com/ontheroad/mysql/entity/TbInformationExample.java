@@ -1,11 +1,12 @@
 package com.ontheroad.mysql.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TbInformationExample {
+public class TbInformationExample implements Serializable{
     protected String orderByClause;
 
     protected boolean distinct;
@@ -1065,16 +1066,136 @@ public class TbInformationExample {
             addCriterion("summary not between", value1, value2, "summary");
             return (Criteria) this;
         }
+
+        public Criteria andNewsIdIsNull() {
+            addCriterion("news_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdIsNotNull() {
+            addCriterion("news_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdEqualTo(Long value) {
+            addCriterion("news_id =", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdNotEqualTo(Long value) {
+            addCriterion("news_id <>", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdGreaterThan(Long value) {
+            addCriterion("news_id >", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("news_id >=", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdLessThan(Long value) {
+            addCriterion("news_id <", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdLessThanOrEqualTo(Long value) {
+            addCriterion("news_id <=", value, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdIn(List<Long> values) {
+            addCriterion("news_id in", values, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdNotIn(List<Long> values) {
+            addCriterion("news_id not in", values, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdBetween(Long value1, Long value2) {
+            addCriterion("news_id between", value1, value2, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewsIdNotBetween(Long value1, Long value2) {
+            addCriterion("news_id not between", value1, value2, "newsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdIsNull() {
+            addCriterion("device_info_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdIsNotNull() {
+            addCriterion("device_info_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdEqualTo(Long value) {
+            addCriterion("device_info_id =", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdNotEqualTo(Long value) {
+            addCriterion("device_info_id <>", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdGreaterThan(Long value) {
+            addCriterion("device_info_id >", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("device_info_id >=", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdLessThan(Long value) {
+            addCriterion("device_info_id <", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdLessThanOrEqualTo(Long value) {
+            addCriterion("device_info_id <=", value, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdIn(List<Long> values) {
+            addCriterion("device_info_id in", values, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdNotIn(List<Long> values) {
+            addCriterion("device_info_id not in", values, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdBetween(Long value1, Long value2) {
+            addCriterion("device_info_id between", value1, value2, "deviceInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceInfoIdNotBetween(Long value1, Long value2) {
+            addCriterion("device_info_id not between", value1, value2, "deviceInfoId");
+            return (Criteria) this;
+        }
     }
 
-    public static class Criteria extends GeneratedCriteria {
+    public static class Criteria extends GeneratedCriteria implements Serializable{
 
         protected Criteria() {
             super();
         }
     }
 
-    public static class Criterion {
+    public static class Criterion implements Serializable{
         private String condition;
 
         private Object value;

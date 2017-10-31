@@ -17,6 +17,8 @@
     <result column="picture" jdbcType="VARCHAR" property="picture" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="news_id" jdbcType="BIGINT" property="newsId" />
+    <result column="device_info_id" jdbcType="BIGINT" property="deviceInfoId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, title, createTime, creator, informationType, isNew, content, equipment_id, user_id, 
-    useWeight, saveWeight, is_delete, picture, address, summary
+    useWeight, saveWeight, is_delete, picture, address, summary, news_id, device_info_id
   </sql>
   <select id="selectByExample" parameterType="com.ontheroad.mysql.entity.TbInformationExample" resultMap="BaseResultMap">
     select
@@ -118,12 +120,14 @@
       informationType, isNew, content, 
       equipment_id, user_id, useWeight, 
       saveWeight, is_delete, picture, 
-      address, summary)
+      address, summary, news_id, 
+      device_info_id)
     values (#{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
       #{informationtype,jdbcType=INTEGER}, #{isnew,jdbcType=BIT}, #{content,jdbcType=VARCHAR}, 
       #{equipmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{useweight,jdbcType=DECIMAL}, 
       #{saveweight,jdbcType=DECIMAL}, #{isDelete,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR})
+      #{address,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{newsId,jdbcType=BIGINT}, 
+      #{deviceInfoId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.ontheroad.mysql.entity.TbInformation">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -173,6 +177,12 @@
       <if test="summary != null">
         summary,
       </if>
+      <if test="newsId != null">
+        news_id,
+      </if>
+      <if test="deviceInfoId != null">
+        device_info_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="title != null">
@@ -216,6 +226,12 @@
       </if>
       <if test="summary != null">
         #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="newsId != null">
+        #{newsId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceInfoId != null">
+        #{deviceInfoId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -273,6 +289,12 @@
       <if test="record.summary != null">
         summary = #{record.summary,jdbcType=VARCHAR},
       </if>
+      <if test="record.newsId != null">
+        news_id = #{record.newsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deviceInfoId != null">
+        device_info_id = #{record.deviceInfoId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -294,7 +316,9 @@
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       picture = #{record.picture,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      summary = #{record.summary,jdbcType=VARCHAR}
+      summary = #{record.summary,jdbcType=VARCHAR},
+      news_id = #{record.newsId,jdbcType=BIGINT},
+      device_info_id = #{record.deviceInfoId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -344,6 +368,12 @@
       <if test="summary != null">
         summary = #{summary,jdbcType=VARCHAR},
       </if>
+      <if test="newsId != null">
+        news_id = #{newsId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceInfoId != null">
+        device_info_id = #{deviceInfoId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -362,7 +392,9 @@
       is_delete = #{isDelete,jdbcType=INTEGER},
       picture = #{picture,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      summary = #{summary,jdbcType=VARCHAR}
+      summary = #{summary,jdbcType=VARCHAR},
+      news_id = #{newsId,jdbcType=BIGINT},
+      device_info_id = #{deviceInfoId,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -27,11 +27,10 @@ $(function(){
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
         formData.append("title", $("[name='title']").val());
-        formData.append("isSend", $("[name='isSend']").val());
         formData.append("content", ue.getContent());
         formData.append("type",2);
         formData.append("id", $("[name='id']").val());
-        formData.append("timeSend",$("[name='timeSend']").val());
+        formData.append("timeSend",$("input[name=timeSend]:checked").val());
 		$.ajax({
 				url: "/addTbNewsinformation",
 				data:formData,

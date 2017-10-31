@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ontheroad.core.util.CopyUtil;
 import com.ontheroad.core.util.PushUtil;
 import com.ontheroad.core.util.UploadUtil;
 import com.ontheroad.entity.TbNewsinformation;
+import com.ontheroad.mysql.entity.TbInformation;
 import com.ontheroad.service.TbNewsinformationService;
 import com.ontheroad.utils.MapUtil;
 
@@ -29,6 +31,7 @@ public class TbNewsinformationController {
 	@Autowired TbNewsinformationService tbNewsinformationService;
 	@Autowired
 	private PushUtil pushUtil;
+	
 	@ResponseBody
 	@RequestMapping("/addTbNewsinformation")
 	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request,Integer timeSend
@@ -36,9 +39,7 @@ public class TbNewsinformationController {
 		String str=UploadUtil.save(file, request);
 		tbNewsinformation.setPicture(str);
 		tbNewsinformation=tbNewsinformationService.addOrUpdate(tbNewsinformation);
-		//插入消息公用表数据
-		
-        //消息推送设置
+		//消息推送设置
         if(timeSend!=null){
         	tbNewsinformation.setContent(null);
         	JSONObject json=new JSONObject();
