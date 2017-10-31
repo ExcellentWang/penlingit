@@ -16,6 +16,8 @@ $(function(){
 			if(item.data.status==3){
 				$("[name='status']").val("已拒绝")
 			}
+			//发票
+			$("#invoice").attr("src",item.data.invoice);
 		}
 	});
 	if(args['type']==2){
