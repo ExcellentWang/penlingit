@@ -35,7 +35,7 @@ public class TbNewsinformationController {
 	@ResponseBody
 	@RequestMapping("/addTbNewsinformation")
 	public Map<Object, Object> add(TbNewsinformation tbNewsinformation,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request,Integer timeSend
-			,boolean isSend) throws Exception{
+			,String isSend) throws Exception{
 		String str=UploadUtil.save(file, request);
 		tbNewsinformation.setPicture(str);
 		tbNewsinformation=tbNewsinformationService.addOrUpdate(tbNewsinformation);
@@ -51,7 +51,7 @@ public class TbNewsinformationController {
         	}
         }
         //资讯推送设置
-        if(isSend){
+        if(isSend.contains("true")){
         	tbNewsinformation.setContent(null);
         	JSONObject json=new JSONObject();
     		json.put("pdata", tbNewsinformation);

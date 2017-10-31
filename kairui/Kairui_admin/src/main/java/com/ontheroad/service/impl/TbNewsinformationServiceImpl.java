@@ -41,6 +41,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 			informationService.addOrUpdateTbInformation(info);
 		}else{
 			tbNewsinformationMapper.updateByPrimaryKeySelective(tbNewsinformation);
+			//更新消息公用表数据
 			TbInformation info=new TbInformation();
 			try {
 				CopyUtil.Copy(tbNewsinformation, info);
