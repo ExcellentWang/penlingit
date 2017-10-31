@@ -1,10 +1,11 @@
 package com.ontheroad.mysql.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LunboExample {
+public class LunboExample implements Serializable{
     protected String orderByClause;
 
     protected boolean distinct;
@@ -416,14 +417,14 @@ public class LunboExample {
         }
     }
 
-    public static class Criteria extends GeneratedCriteria {
+    public static class Criteria extends GeneratedCriteria implements Serializable{
 
         protected Criteria() {
             super();
         }
     }
 
-    public static class Criterion {
+    public static class Criterion implements Serializable{
         private String condition;
 
         private Object value;

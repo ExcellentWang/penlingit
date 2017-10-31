@@ -99,14 +99,9 @@ public class InformationImpl implements InformationService{
 		Map<Object, Object> resultMap = new HashMap<Object, Object>();
 
 		try {
-//			informationMapper.updateInformationStatus(BaseConstant.newsInformation);
-			
-			List<NewsInformation> news = new ArrayList<NewsInformation>();
-			List<Lunbo> slides = new ArrayList<>();
-
-			news = informationMapper.getNewsInformationList();
+			List<NewsInformation> news = informationMapper.getNewsInformationList();
 			LunboExample example=new LunboExample();
-			slides = lunboMapper.selectByExample(example);
+			List<Lunbo> slides  = lunboMapper.selectByExample(example);
 
 			resultMap.put("slides", slides);
 			resultMap.put("news", news);
