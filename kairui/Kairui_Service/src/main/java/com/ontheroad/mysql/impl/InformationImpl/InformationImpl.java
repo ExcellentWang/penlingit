@@ -1,7 +1,10 @@
 package com.ontheroad.mysql.impl.InformationImpl;
 
 import com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper;
+import com.ontheroad.mysql.dao.LunboMapper;
 import com.ontheroad.mysql.dao.TbInformationMapper;
+import com.ontheroad.mysql.entity.Lunbo;
+import com.ontheroad.mysql.entity.LunboExample;
 import com.ontheroad.mysql.entity.TbInformation;
 import com.ontheroad.mysql.entity.TbInformationExample;
 import com.ontheroad.pojo.Constant.BaseConstant;
@@ -25,6 +28,8 @@ public class InformationImpl implements InformationService{
 	private InformationMapper informationMapper;
 	@Autowired
 	private TbInformationMapper tbInformationMapper;
+	@Autowired
+	private LunboMapper lunboMapper;
 	
 	
 	@Override
@@ -97,10 +102,11 @@ public class InformationImpl implements InformationService{
 //			informationMapper.updateInformationStatus(BaseConstant.newsInformation);
 			
 			List<NewsInformation> news = new ArrayList<NewsInformation>();
-			List<Slideshow> slides = new ArrayList<>();
+			List<Lunbo> slides = new ArrayList<>();
 
 			news = informationMapper.getNewsInformationList();
-			slides = informationMapper.getSlides();
+			LunboExample example=new LunboExample();
+			slides = lunboMapper.selectByExample(example);
 
 			resultMap.put("slides", slides);
 			resultMap.put("news", news);

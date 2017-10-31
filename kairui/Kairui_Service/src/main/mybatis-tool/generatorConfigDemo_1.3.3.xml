@@ -35,7 +35,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_information" domainObjectName="TbInformation">
+        <table tableName="lunbo" domainObjectName="Lunbo">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
