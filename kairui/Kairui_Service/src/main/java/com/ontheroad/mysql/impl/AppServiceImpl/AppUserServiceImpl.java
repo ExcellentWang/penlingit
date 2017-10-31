@@ -651,5 +651,10 @@ public class AppUserServiceImpl implements AppUserService{
 	public Integer getIndexCustomerService() {
 		return customerserviceMapper.getIndexCustomerService();
 	}
+
+	@Override
+	public List<Customerpicture> getPicsCustomerService(Integer customer_id) {
+		return customerserviceMapper.getPics(customer_id);
+	}
 	
 }

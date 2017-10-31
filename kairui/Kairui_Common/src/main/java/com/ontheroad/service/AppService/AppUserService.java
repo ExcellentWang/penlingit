@@ -2,12 +2,14 @@ package com.ontheroad.service.AppService;
 
 import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.mysql.entity.TbGuarantee;
+import com.ontheroad.pojo.user.Customerpicture;
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Feedback;
 import com.ontheroad.pojo.user.Guarantee;
 import com.ontheroad.pojo.user.User;
 import org.springframework.remoting.service.annotation.RemoteService;
 
+import java.util.List;
 import java.util.Map;
 
 @RemoteService
@@ -68,4 +70,9 @@ public interface AppUserService {
 	 */
 	Integer getIndexCustomerService();
 	
+	/**
+	 * 获取报修图片
+	 * @return
+	 */
+	List<Customerpicture> getPicsCustomerService(Integer customer_id);
 }

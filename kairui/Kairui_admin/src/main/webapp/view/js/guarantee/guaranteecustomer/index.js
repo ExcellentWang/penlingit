@@ -55,7 +55,7 @@ tableEvent = {
 		console.log(item)
 		comn.addTab({
 			title: '用户报修详情',
-			href: 'Modal/guarantee/guaranteecustomer/add.html?id='+item.customer_id+"&status="+item.status
+			href: 'Modal/guarantee/guaranteecustomer/add.html?id='+item.customer_id+"&status="+item.status+"&type="+item.type
 		});
 	}
 	

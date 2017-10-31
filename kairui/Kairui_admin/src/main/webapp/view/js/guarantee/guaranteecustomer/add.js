@@ -19,7 +19,6 @@ var args=comn.getArgs();
 
 $(function(){
 	var isUpload=false;
-	
 	$.ajax({
 		url: "/selGuaranteeCustomerId",
 		data:{"id":args['id']},
@@ -34,8 +33,26 @@ $(function(){
 			if(item.data.status==0){
 				$("[id='status']").val("维修完成")
 			}
+			$("[name=type]").val([null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][args['type'].substring(1)])
 		}
 	});
+	//报修图片
+	$.ajax({
+		url: "/getCustomerPics",
+		data:{"customer_id":args['id']},
+		success: function(item){
+			var json=item.data;
+			var lis="";
+			if(!item.data)
+				return
+			for(var i=0;i<json.length;i++){
+			    lis+="<span><img height='200px' width='200px' src='"+json[0].pictureAddress+"' </span>";
+			}
+			console.log(lis)
+			$("#img").append(lis);
+		}
+	});
+	
 	//所有维修人员
 	$.ajax({
 		url: "/selectByExampleStaff",

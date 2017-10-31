@@ -15,12 +15,15 @@ import com.ontheroad.entity.Staff;
 import com.ontheroad.entity.TbCustomerservicedetails;
 import com.ontheroad.entity.TbGuarantee;
 import com.ontheroad.service.GuaranteeService;
+import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.utils.MapUtil;
 
 @Controller
 public class GuaranteeController {
 	@Autowired
 	private GuaranteeService guaranteeService;
+	@Autowired
+	private AppUserService appUserService;
 	
 	@RequestMapping("/selectByExampleGuaranteeType")
 	@ResponseBody
@@ -126,5 +129,16 @@ public class GuaranteeController {
 	public Map<Object, Object> saveGuaranteeCustomerTail(TbCustomerservicedetails t,Long id){
 		guaranteeService.tail(t,id);
 		return MapUtil.getSuccessJson();
+	}
+	
+	/**
+	 * 报修图片
+	 * @param customer_id
+	 * @return
+	 */
+	@RequestMapping("/getCustomerPics")
+	@ResponseBody
+	public Map<Object, Object> getCustomerPics(Integer customer_id){
+		return MapUtil.getSuccessJson(appUserService.getPicsCustomerService(customer_id));
 	}
 }
