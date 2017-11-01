@@ -101,7 +101,7 @@ public class InformationImpl implements InformationService{
 		try {
 			List<NewsInformation> news = informationMapper.getNewsInformationList();
 			LunboExample example=new LunboExample();
-			List<Lunbo> slides  = lunboMapper.selectByExample(example);
+			List<Lunbo> slides  = lunboMapper.selectByExampleWithBLOBs(example);
 
 			resultMap.put("slides", slides);
 			resultMap.put("news", news);
