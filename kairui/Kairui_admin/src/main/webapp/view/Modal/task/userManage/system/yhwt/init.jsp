@@ -69,7 +69,7 @@ $(function() {
 	                 {width : '150',title : '问题',field : 'detailName'},
 	                 {width : '150',title : '问题编号',field : 'detailValue'},
 	                 {width : '250',title : '问题答案',field : 'detailDesc'},
-	                 {width : '100',title : '状态',field : 'detailStatus',formatter:function(v,r){return JSON.parse('${statusMap}')[v]}},
+	                 /* {width : '100',title : '状态',field : 'detailStatus',formatter:function(v,r){return }}, */
 	                 {width : '150',title : '发布日期',field : 'updateTime'}	                
 	    		  ]]
 	}); 

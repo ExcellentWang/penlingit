@@ -20,13 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ontheroad.core.util.JSONUtils;
 import com.ontheroad.core.util.UploadUtil;
+import com.ontheroad.entity.ProblemVo;
 import com.ontheroad.mysql.entity.TbGuarantee;
+import com.ontheroad.mysql.entity.TsDetail;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.tokenUtil.EhcacheUtil;
 import com.ontheroad.utils.StringUtilsCommon;
+
+import cn.modoumama.page.PageObject;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -480,11 +486,24 @@ public class AppUserController extends BaseConstant{
 	 * 获取常见问题列表
 	 */
 	@RequestMapping(value = "/getCommonProblemList ", method = RequestMethod.POST)
-    public Map<Object,Object> getCommonProblemList() {
+    public Map<Object,Object> getCommonProblemList(HttpServletRequest request) {
 		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>();	    
+	    Map<Object,Object> map = new HashMap<Object,Object>();	
+	    List<ProblemVo> lss=new ArrayList<>();
 		try {																					
-			return appUserService.getCommonProblemList();
+			List<TsDetail> ls=appUserService.getTsDetailS();
+			for (TsDetail t : ls) {
+				ProblemVo v=new ProblemVo();
+				v.setTitle(t.getDetailName());
+				v.setContent(t.getDetailDesc());
+				v.setNum(t.getDetailValue());
+				v.setCreateTime(t.getCreateTime());
+				lss.add(v);
+			}
+			map.put("code", BaseConstant.appUserSuccessStatus);
+			map.put("msg", "获取成功");
+			map.put("extra",lss.size());
+			map.put("resultMap", lss);
 		} catch (Exception e) {
 		   e.printStackTrace();
            map.put("code", BaseConstant.appUserErrorStatus);
@@ -492,7 +511,8 @@ public class AppUserController extends BaseConstant{
 	   	   map.put("extra",null);
 	   	   map.put("resultMap", null);
            return map;
-		}	
+		}
+		return map;	
 	}
 	
 	

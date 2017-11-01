@@ -2,6 +2,7 @@ package com.ontheroad.service.AppService;
 
 import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.mysql.entity.TbGuarantee;
+import com.ontheroad.mysql.entity.TsDetail;
 import com.ontheroad.pojo.user.Customerpicture;
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Feedback;
@@ -75,4 +76,11 @@ public interface AppUserService {
 	 * @return
 	 */
 	List<Customerpicture> getPicsCustomerService(Integer customer_id);
+	
+	/**
+	 * 获取常见问题
+	 * @return
+	 */
+	List<TsDetail> getTsDetailS();
+	
 }

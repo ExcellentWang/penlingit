@@ -40,19 +40,6 @@ public class DetailController extends BaseController {
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public void list(HttpServletRequest request,HttpServletResponse response,SysDetail sDetail) {
-		log.debug("method: list() ");
-		
-		/*try {
-			Long dictId = Long.valueOf(request.getParameter("dictId"));
-			
-			if(sDetail == null && dictId != 0){
-				sDetail.setDictId(dictId);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
-		
 		PageObject po = getPageObject(request,"UPDATE_TIME desc");
 		po.getCondition().put("dictId", sDetail.getDictId());
 		po.getCondition().put("detailNameLike", sDetail.getDetailName());
