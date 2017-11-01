@@ -30,6 +30,7 @@ $(function(){
         formData.append("content", ue.getContent());
         formData.append("type",2);
         formData.append("id", $("[name='id']").val());
+        formData.append("summary",$("[name='summary']").val());
         formData.append("timeSend",$("input[name=timeSend]:checked").val());
 		$.ajax({
 				url: "/addTbNewsinformation",
