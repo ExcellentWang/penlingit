@@ -189,25 +189,6 @@ public class DeviceMessageHandler {
                     tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
                     logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
                     break;
-                case "asyyos": // 音量
-                    rep = new DeviceMessage(
-                            deviceMessage.getDeviceType(),
-                            deviceMessage.getDeviceID(),
-                            "asyyos",
-                            new ArrayList<>(Arrays.asList("OK"))
-                    );
-                    reply(session, rep);
-                    val = deviceMessage.getArgs().get(0);
-                    device.setVolume(val);
-                    if("00".equals(val) || "".equals(val)) {
-                        device.setVoicebroadcast("0");
-                    } else {
-                        device.setVoicebroadcast("1");
-                    }
-
-                    deviceMapper.updateDevice(device);
-                    logger.info("UPDATE " + device.getEquipment_id() + " VOL: " + val);
-                    break;
                 case "asxzsj": // 洗澡时间
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
@@ -332,6 +313,20 @@ public class DeviceMessageHandler {
                 	deviceWaterMapper.insertSelective(de) ;
                     logger.info("--------------------上传每次洗澡用水量节水量------- ");
                     break;
+                case "yyos": //语音播报开关
+                	val = deviceMessage.getArgs().get(0);
+                	device.setVoicebroadcast(val);
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------上传语音播报开关------- ");
+                    break;
+//                    wdft
+                case "wdft": //设定温度
+                	val = deviceMessage.getArgs().get(0);
+                	device.setCurrent_temp(val);
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------设定温度------- ");
+                    break;
+                    
             }
         } catch (Exception e) {
             e.printStackTrace();
