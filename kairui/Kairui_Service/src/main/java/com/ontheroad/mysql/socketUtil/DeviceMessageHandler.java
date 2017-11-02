@@ -135,7 +135,7 @@ public class DeviceMessageHandler {
                     deviceMapper.updateDevice(device);
                     logger.info("UPDATE " + device.getEquipment_id() + " DEV: " + val);
                     break;
-                case "asoty": // 出水方式
+                case "woty": // 出水方式
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
@@ -146,7 +146,7 @@ public class DeviceMessageHandler {
                     device.setEffluent_way(val);
                     deviceMapper.updateDevice(device);
                     break;
-                case "asomd": // 出水模式
+                case "womd": // 出水模式
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
@@ -320,7 +320,6 @@ public class DeviceMessageHandler {
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------上传语音播报开关------- ");
                     break;
-//                    wdft
                 case "wdft": //设定温度
                 	val = deviceMessage.getArgs().get(0);
                 	device.setCurrent_temp(val);
