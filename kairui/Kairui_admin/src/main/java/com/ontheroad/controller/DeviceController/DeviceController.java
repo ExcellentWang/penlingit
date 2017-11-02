@@ -531,33 +531,46 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 	@RequestMapping(value = "/wenbenDown")
-	public Map<Object, Object> wenbenDown(String wenbenDown) {
-		textFirmDown(wenbenDown);
+	public Map<Object, Object> wenbenDown(String wenbenDown,String deviceNum) {
+		textFirmDown(wenbenDown,deviceNum);
 		return MapUtil.getSuccessJson();
 	}
-	
+	/**
+	 * 固件更新
+	 * @return
+	 */
 	@RequestMapping(value = "/upgu")
-	public Map<Object, Object> upgu() {
-		
+	public Map<Object, Object> upgu(String deviceNum) {
+		File file=new File("");
+		file2String(file,null,deviceNum);
 		return MapUtil.getSuccessJson();
 	}
 	
 	
-	private  void textFirmDown(String str) {
+	private  void textFirmDown(String str,String deviceNum) {
 		try {
-			byte[] b=new byte[3];
+			byte[] b=new byte[100];
 			InputStream in=null;
 			if(str!=null){
 				 in=new ByteArrayInputStream(str.getBytes("utf-8"));
 			}else{
 				in =new FileInputStream(new File(""));
 			}
+			int a=0;
 			while((in.read(b))!=-1){
 				String s=new String(b,"utf-8");
 				//执行命令
 				System.out.println(s);
 				String instructions="";
-				deviceService.deviceSendInstruction(getValidate(instructions));  
+				if(a==0){
+					instructions="<"+deviceNum+":stxt,039,00,121,OR>";
+				}else if(a>0&&a<10){
+					instructions="<"+deviceNum+":stxt,039,0"+a+","+s+",OR>";
+				}else{
+					instructions="<"+deviceNum+":stxt,039,"+a+","+s+",OR>";
+				}
+					deviceService.deviceSendInstruction(getValidate(instructions)); 
+				a++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -572,7 +585,7 @@ public class DeviceController extends BaseConstant{
      * @return 转换后的字符串 
      * @throws IOException 
      */ 
-    public  String file2String(File file, String encoding) { 
+    public  String file2String(File file, String encoding,String deviceNum) { 
             InputStreamReader reader = null; 
             StringWriter writer = new StringWriter(); 
             try { 
@@ -582,14 +595,23 @@ public class DeviceController extends BaseConstant{
                             reader = new InputStreamReader(new FileInputStream(file)); 
                     } 
                     //将输入流写入输出流 
-                    char[] buffer = new char[128]; 
+                    char[] buffer = new char[100]; 
                     int n = 0; 
+                    int a=0;
                     while (-1 != (n = reader.read(buffer))) { 
                             writer.write(buffer, 0, n); 
-                            String result=writer.toString();
+                            String s=writer.toString();
                             //发送指令
                             String instructions="";
-            				deviceService.deviceSendInstruction(getValidate(instructions));  
+            				if(a==0){
+            					instructions="<"+deviceNum+":load,039,00"+"121,OR>";
+            				}else if(a>0&&a<10){
+            					instructions="<"+deviceNum+":load,039,"+a+","+s+",OR>";
+            				}else{
+            					instructions="<"+deviceNum+":load,039,"+a+","+s+",OR>";
+            				}
+            					deviceService.deviceSendInstruction(getValidate(instructions)); 
+            				a++;  
                     } 
             } catch (Exception e) { 
                     e.printStackTrace(); 
