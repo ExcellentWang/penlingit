@@ -35,7 +35,7 @@
    </select>
    
     <select id="findDeviceByNum" parameterType="java.lang.String"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select * from tb_equipment te 
+        select *,tes.temperature as current_temp from tb_equipment te 
         left join tb_equipmentstatus tes
         on te.equipment_id=tes.equipment_id
         where equipmentNum = #{equipmentNum}

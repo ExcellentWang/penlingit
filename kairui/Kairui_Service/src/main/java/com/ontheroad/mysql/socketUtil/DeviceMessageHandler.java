@@ -316,6 +316,7 @@ public class DeviceMessageHandler {
                 case "yyos": //语音播报开关
                 	val = deviceMessage.getArgs().get(0);
                 	device.setVoicebroadcast(val);
+                	device.setVolume(val);
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------上传语音播报开关------- ");
                     break;
