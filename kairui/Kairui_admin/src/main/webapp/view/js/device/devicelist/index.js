@@ -83,8 +83,24 @@ tableEvent = {
     	var instructions;
     	$("#upgu").modal("show")   	
     	$("#confirm").unbind("click").click(function () {  	
-    		
-    		sendOrder(instructions)
+    		$("#upgu").modal("hide") 
+    		$.ajax({
+				url:"/device/upgu",
+				data:{
+					
+				},
+				success:function(item){
+					if(item.code==0){
+						tip({
+							content:"操作成功！"
+						})
+					}else{
+						tip({
+							content:item.msg
+						})
+					}
+				}
+			})
     	})
     },
     //文本信息下发
@@ -92,12 +108,25 @@ tableEvent = {
     	var instructions;
     	
     	$("#wenbenDown").modal("show") 
-    	$("#confirm").unbind("click").click(function () { 
-    		//<LDCT01201704230001:stxt,128,01，0xaa,-------0xbb,OR>
-    		instructions="<"+item.equipmentNum+":stxt,128,01"
-			+$("[name='wenbenDown']").val()
-			+",OR>";
-    		sendOrder(instructions)
+    	$("#confirm").unbind("click").click(function () {
+    		$("#wenbenDown").modal("hide") 
+    		 $.ajax({
+ 				url:"/device/wenbenDown",
+ 				data:{
+ 					"wenbenDown":$("[name='wenbenDown']").val()
+ 				},
+ 				success:function(item){
+ 					if(item.code==0){
+ 						tip({
+ 							content:"操作成功！"
+ 						})
+ 					}else{
+ 						tip({
+ 							content:item.msg
+ 						})
+ 					}
+ 				}
+ 			})
     	})
     }
 };

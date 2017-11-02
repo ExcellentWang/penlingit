@@ -1,5 +1,12 @@
 package com.ontheroad.controller.DeviceController;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,14 +16,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ontheroad.entity.equipmentDatatype;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
-import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.DeviceVo;
@@ -520,4 +525,86 @@ public class DeviceController extends BaseConstant{
 		List<DeviceWater> ls=deviceService.getDeviceWaterByDeviceId(deviceId);
 		return MapUtil.getSuccessJson(ls,ls.size());
 	}
+	/**
+	 * 
+	 * @param wenbenDown文本信息下发
+	 * @return
+	 */
+	@RequestMapping(value = "/wenbenDown")
+	public Map<Object, Object> wenbenDown(String wenbenDown) {
+		textFirmDown(wenbenDown);
+		return MapUtil.getSuccessJson();
+	}
+	
+	@RequestMapping(value = "/upgu")
+	public Map<Object, Object> upgu() {
+		
+		return MapUtil.getSuccessJson();
+	}
+	
+	
+	private  void textFirmDown(String str) {
+		try {
+			byte[] b=new byte[3];
+			InputStream in=null;
+			if(str!=null){
+				 in=new ByteArrayInputStream(str.getBytes("utf-8"));
+			}else{
+				in =new FileInputStream(new File(""));
+			}
+			while((in.read(b))!=-1){
+				String s=new String(b,"utf-8");
+				//执行命令
+				System.out.println(s);
+				String instructions="";
+				deviceService.deviceSendInstruction(getValidate(instructions));  
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	   /** 
+     * 文本文件转换为指定编码的字符串 
+     * 
+     * @param file         文本文件 
+     * @param encoding 编码类型 
+     * @return 转换后的字符串 
+     * @throws IOException 
+     */ 
+    public  String file2String(File file, String encoding) { 
+            InputStreamReader reader = null; 
+            StringWriter writer = new StringWriter(); 
+            try { 
+                    if (encoding == null || "".equals(encoding.trim())) { 
+                            reader = new InputStreamReader(new FileInputStream(file), encoding); 
+                    } else { 
+                            reader = new InputStreamReader(new FileInputStream(file)); 
+                    } 
+                    //将输入流写入输出流 
+                    char[] buffer = new char[128]; 
+                    int n = 0; 
+                    while (-1 != (n = reader.read(buffer))) { 
+                            writer.write(buffer, 0, n); 
+                            String result=writer.toString();
+                            //发送指令
+                            String instructions="";
+            				deviceService.deviceSendInstruction(getValidate(instructions));  
+                    } 
+            } catch (Exception e) { 
+                    e.printStackTrace(); 
+                    return null; 
+            } finally { 
+                    if (reader != null) 
+                            try { 
+                                    reader.close(); 
+                            } catch (IOException e) { 
+                                    e.printStackTrace(); 
+                            } 
+            } 
+            //返回转换结果 
+            if (writer != null) 
+                    return writer.toString(); 
+            else return null; 
+    }
 }

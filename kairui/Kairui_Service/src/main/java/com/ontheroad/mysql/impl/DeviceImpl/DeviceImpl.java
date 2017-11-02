@@ -456,7 +456,7 @@ public class DeviceImpl implements DeviceService {
 				}
 
 				if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
-					session.write(msg.toString());
+					session.write(msg.toString());//发指令
 					resultMap.put("instructions", msg.toString());
 					resultMap.put("sentAt", DateFormat.getDateInstance().format(Calendar.getInstance().getTime()));
 					InetSocketAddress addr = (InetSocketAddress)session.getRemoteAddress();
