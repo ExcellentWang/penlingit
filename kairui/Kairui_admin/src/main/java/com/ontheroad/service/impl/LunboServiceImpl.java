@@ -18,9 +18,9 @@ public class LunboServiceImpl implements LunboService {
 	public void addOrUpdate(Lunbo lunbo) {
 		lunbo.setCtime(new Date());
 		if(lunbo.getId()==null){
-			lunbo.setAddress("http://106.14.173.153:9999/view/Modal/newsmanager/lunbomanager/show.html?id="+lunbo.getId());
 			lunboMapper.insert(lunbo);
-			
+			lunbo.setAddress("http://106.14.173.153:9999/view/Modal/newsmanager/lunbomanager/show.html?id="+lunbo.getId());
+			lunboMapper.updateByPrimaryKey(lunbo);
 		}else{
 			lunboMapper.updateByPrimaryKey(lunbo);
 		}

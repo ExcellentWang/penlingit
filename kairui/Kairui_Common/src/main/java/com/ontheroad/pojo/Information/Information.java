@@ -21,6 +21,21 @@ public class Information implements Serializable {
      private Double useWeight;
      private Double saveWeight;
      private Integer isRead;
+     private String address;
+     private String summary;
+     
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 	public int getId() {
 		return id;
 	}
