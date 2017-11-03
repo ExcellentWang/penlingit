@@ -7,6 +7,7 @@
     <result column="lunbo_order" jdbcType="BIGINT" property="lunboOrder" />
     <result column="is_show" jdbcType="INTEGER" property="isShow" />
     <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ontheroad.mysql.entity.Lunbo">
     <result column="s_img" jdbcType="LONGVARCHAR" property="sImg" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, lunbo_order, is_show, ctime
+    id, title, lunbo_order, is_show, ctime, address
   </sql>
   <sql id="Blob_Column_List">
     s_img, content
@@ -129,11 +130,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into lunbo (title, lunbo_order, is_show, 
-      ctime, s_img, content
-      )
+      ctime, address, s_img, 
+      content)
     values (#{title,jdbcType=VARCHAR}, #{lunboOrder,jdbcType=BIGINT}, #{isShow,jdbcType=INTEGER}, 
-      #{ctime,jdbcType=TIMESTAMP}, #{sImg,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{ctime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{sImg,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ontheroad.mysql.entity.Lunbo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -152,6 +153,9 @@
       </if>
       <if test="ctime != null">
         ctime,
+      </if>
+      <if test="address != null">
+        address,
       </if>
       <if test="sImg != null">
         s_img,
@@ -172,6 +176,9 @@
       </if>
       <if test="ctime != null">
         #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="sImg != null">
         #{sImg,jdbcType=LONGVARCHAR},
@@ -205,6 +212,9 @@
       <if test="record.ctime != null">
         ctime = #{record.ctime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
       <if test="record.sImg != null">
         s_img = #{record.sImg,jdbcType=LONGVARCHAR},
       </if>
@@ -223,6 +233,7 @@
       lunbo_order = #{record.lunboOrder,jdbcType=BIGINT},
       is_show = #{record.isShow,jdbcType=INTEGER},
       ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=VARCHAR},
       s_img = #{record.sImg,jdbcType=LONGVARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -235,7 +246,8 @@
       title = #{record.title,jdbcType=VARCHAR},
       lunbo_order = #{record.lunboOrder,jdbcType=BIGINT},
       is_show = #{record.isShow,jdbcType=INTEGER},
-      ctime = #{record.ctime,jdbcType=TIMESTAMP}
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,6 +267,9 @@
       <if test="ctime != null">
         ctime = #{ctime,jdbcType=TIMESTAMP},
       </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
       <if test="sImg != null">
         s_img = #{sImg,jdbcType=LONGVARCHAR},
       </if>
@@ -270,6 +285,7 @@
       lunbo_order = #{lunboOrder,jdbcType=BIGINT},
       is_show = #{isShow,jdbcType=INTEGER},
       ctime = #{ctime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
       s_img = #{sImg,jdbcType=LONGVARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
@@ -279,7 +295,8 @@
     set title = #{title,jdbcType=VARCHAR},
       lunbo_order = #{lunboOrder,jdbcType=BIGINT},
       is_show = #{isShow,jdbcType=INTEGER},
-      ctime = #{ctime,jdbcType=TIMESTAMP}
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

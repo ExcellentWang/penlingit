@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-    <classPathEntry location="E:\mysql-connector-java-5.1.18.jar"/>
+    <classPathEntry location="d:\mysql-connector-java-5.1.18.jar"/>
     <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
         <commentGenerator type="org.mybatis.generator.internal.CGWCommentGenerator">
@@ -36,9 +36,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_s_detail" domainObjectName="TsDetail">
+        <table tableName="lunbo" domainObjectName="Lunbo">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
-            <generatedKey column="detail_id" sqlStatement="Mysql" type="post" identity="true"/>
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 
     </context>
