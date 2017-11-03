@@ -87,7 +87,7 @@ tableEvent = {
     		$.ajax({
 				url:"/device/upgu",
 				data:{
-					
+					"deviceNum":item.equipmentNum
 				},
 				success:function(item){
 					if(item.code==0){
@@ -106,14 +106,15 @@ tableEvent = {
     //文本信息下发
     "click .wenbenDown": function (e, a, item, index) {
     	var instructions;
-    	
+    	console.log(1)
     	$("#wenbenDown").modal("show") 
-    	$("#confirm").unbind("click").click(function () {
+    	$("#confirmw").click(function () {
     		$("#wenbenDown").modal("hide") 
     		 $.ajax({
  				url:"/device/wenbenDown",
  				data:{
- 					"wenbenDown":$("[name='wenbenDown']").val()
+ 					"wenbenDown":$("[name='wenbenDown']").val(),
+ 					"deviceNum":item.equipmentNum
  				},
  				success:function(item){
  					if(item.code==0){
