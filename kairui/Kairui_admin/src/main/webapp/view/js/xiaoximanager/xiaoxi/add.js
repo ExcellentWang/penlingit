@@ -13,6 +13,8 @@ $(function(){
 			});
 		}
 	});
+	$("#lunboForm").validate()
+	if(!$("#lunboForm").valid())return
 	$("[name='file']").change(function(){
 		isUpload=true;
 	})

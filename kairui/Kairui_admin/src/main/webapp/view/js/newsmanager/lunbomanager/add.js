@@ -2,6 +2,7 @@
 $(function(){
 	var ue = UE.getEditor('container');
 	var args=comn.getArgs();
+	var isUpload=false;
 	$.ajax({
 		url: "/getLunboId",
 		data:{"id":args['id']},
@@ -12,7 +13,11 @@ $(function(){
 			});
 		}
 	});
-	
+	$("#lunboForm").validate()
+	if(!$("#lunboForm").valid())return
+	$("[name='file']").change(function(){
+		isUpload=true;
+	})
 	//添加
 	$("#addlunbo").click(function(){
 		var formData = new FormData();

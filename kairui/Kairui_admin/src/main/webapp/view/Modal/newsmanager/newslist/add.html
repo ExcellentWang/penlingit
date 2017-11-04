@@ -27,7 +27,7 @@
 							<div class="input-tip">
 								<label class="col-xs-2 control-label">标题：</label>
 								<div class="col-xs-5 ">
-									<input type="text" name="title" placeholder="" class="form-control">
+									<input type="text" name="title" placeholder="" class="form-control required" required="required">
 								</div>
 								</div>
 							</div>
@@ -36,7 +36,7 @@
 							<div class="input-tip">
 								<label class="col-xs-2 control-label">略缩图：</label>
 								<div class="col-xs-5">
-									<input type="file" name="file" id="file">
+									<input type="file" name="file" id="file" >
 								</div>
 							</div>
 					</div>
@@ -44,7 +44,7 @@
 							<div class="input-tip">
 								<label class="col-xs-2 control-label">概述：</label>
 								<div class="col-xs-10">
-									<textarea name="summary" rows=5 cols=40 class="form-control"></textarea>
+									<textarea name="summary" rows=5 cols=40 class="form-control required"></textarea>
 								</div>
 							</div>
 					</div>
@@ -93,6 +93,9 @@
 <script src="../../../common/plugs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="../../../common/plugs/ueditor/ueditor.config.js"></script>
 <script src="../../../common/plugs/ueditor/ueditor.all.js"></script>
+<script src="../../../common/plugs/jquery-validation/dist/jquery.validate.min.js?rev=3b00d60f87e893caf2649eff0d48813a"></script>
+<script src="../../../common/plugs/jquery-validation/dist/additional-methods.js"></script>
+<script src="../../../common/plugs/jquery-validation/dist/localization/messages_zh.js"></script>
 <script type="text/javascript" charset="utf-8">
   $("head").append([
     '<script src="../../../common/js/URL.js"><\/script>',
