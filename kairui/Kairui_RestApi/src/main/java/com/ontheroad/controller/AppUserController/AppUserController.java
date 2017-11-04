@@ -188,7 +188,7 @@ public class AppUserController extends BaseConstant{
 	 * 修改密码
 	 * 
 	 */
-	@RequestMapping(value = "/appUserUpdatePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/appUserUpdatePassword")
     public Map<Object,Object> appUserUpdatePassword(User user,String newPassword,String oldPassword) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();	    

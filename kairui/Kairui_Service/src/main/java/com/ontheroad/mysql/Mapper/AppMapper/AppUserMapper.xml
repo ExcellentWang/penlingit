@@ -23,7 +23,7 @@
    
     <update id="updatePassword"  parameterType="map">
          UPDATE tb_user set password = #{password}
-	   where phone = #{phone}
+	   where user_id=#{user_id}
    </update>
    
    <select id="findUserByIdPassword" parameterType="map" resultType="com.ontheroad.pojo.user.User">
