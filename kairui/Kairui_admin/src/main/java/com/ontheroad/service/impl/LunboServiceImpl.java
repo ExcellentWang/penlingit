@@ -29,6 +29,7 @@ public class LunboServiceImpl implements LunboService {
 	@Override
 	public List<Lunbo> getList() {
 		LunboExample example=new LunboExample();
+		example.setOrderByClause("lunbo_order");
 		return lunboMapper.selectByExample(example);
 	}
 

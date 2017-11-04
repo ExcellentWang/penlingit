@@ -13,13 +13,19 @@ $(function(){
 			});
 		}
 	});
-	$("#lunboForm").validate()
-	if(!$("#lunboForm").valid())return
 	$("[name='file']").change(function(){
 		isUpload=true;
 	})
 	//添加
 	$("#addlunbo").click(function(){
+		$("#lunboForm").validate()
+		if(!$("#lunboForm").valid())return
+		if(isUpload==false){
+			tip({
+				content:"请先上传缩略图！"
+			})
+			return;
+		}
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
         formData.append("title", $("[name='title']").val());
