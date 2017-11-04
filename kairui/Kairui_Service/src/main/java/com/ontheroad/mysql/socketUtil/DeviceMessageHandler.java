@@ -311,6 +311,13 @@ public class DeviceMessageHandler {
                 	de.setBathTime(ls.get(8));
                 	de.setCreateTime(new Date());
                 	deviceWaterMapper.insertSelective(de) ;
+                	if(new Date().getDate()==1){//1号清空月用水量节水量
+                		device.setM_jie_water("0");
+                		device.setM_use_water("0");
+                	}
+                	device.setM_use_water(String.valueOf(Integer.parseInt(device.getM_use_water())+Integer.parseInt(ls.get(6))));
+                	device.setM_jie_water(String.valueOf(Integer.parseInt(device.getM_jie_water())+Integer.parseInt(ls.get(7))));
+                	deviceMapper.updateDevice(device);
                     logger.info("--------------------上传每次洗澡用水量节水量------- ");
                     break;
                 case "yyos": //语音播报开关
@@ -332,4 +339,8 @@ public class DeviceMessageHandler {
             e.printStackTrace();
         }
     }
+    public static void main(String[] args) {
+		
+    	System.out.println();
+	}
 }

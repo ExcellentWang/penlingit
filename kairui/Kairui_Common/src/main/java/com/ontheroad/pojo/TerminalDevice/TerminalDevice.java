@@ -53,8 +53,27 @@ public class TerminalDevice implements Serializable{
 	 private String last_active_at;
 
 	 private String firm_version;
+	 private String m_use_water;
+	 private String m_jie_water;
 	 
-	 /**
+	 
+	 public String getM_use_water() {
+		return m_use_water;
+	}
+
+	public void setM_use_water(String m_use_water) {
+		this.m_use_water = m_use_water;
+	}
+
+	public String getM_jie_water() {
+		return m_jie_water;
+	}
+
+	public void setM_jie_water(String m_jie_water) {
+		this.m_jie_water = m_jie_water;
+	}
+
+	/**
 	  * 是否有进行中的售后
 	  */
 	 private boolean isProcessRepair;

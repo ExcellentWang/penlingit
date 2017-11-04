@@ -88,7 +88,9 @@
             tb_equipment.firm_version=#{firm_version},
              tb_equipmentstatus.effluent_way=#{effluent_way},
              tb_equipmentstatus.effluent_type=#{effluent_type},
-              tb_equipmentstatus.app_enabled=#{app_enabled}
+              tb_equipmentstatus.app_enabled=#{app_enabled},
+              tb_equipmentstatus.m_use_water=#{m_use_water},
+               tb_equipmentstatus.m_jie_water=#{m_jie_water}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

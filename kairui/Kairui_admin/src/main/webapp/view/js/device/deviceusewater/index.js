@@ -3,7 +3,7 @@ var table_1, table_2;
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
 		isProcessed: false
-	}), "device/getDeviceError");
+	}), "device/deviceList");
 };
 
 
