@@ -107,8 +107,10 @@ function Map() {
 
                 var $sl = $("#topList").find("[title='" + china[state]['name'] + "']:not([select])");
                 if (e.type == 'mouseenter') {
+                	//获取选择的省份
                 	console.log(china[state]['name'])
-                    tiplayer.text(china[state]['name']).css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
+                	var province=china[state]['name']
+                    tiplayer.text(china[state]['name']+":20% 在线：100，总数：200").css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
                     $sl.css("font-size", "20px");
                 } else {
                     if (tiplayer.is(':animated')) tiplayer.stop();

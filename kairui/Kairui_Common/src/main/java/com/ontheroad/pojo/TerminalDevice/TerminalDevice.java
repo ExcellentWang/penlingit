@@ -55,9 +55,28 @@ public class TerminalDevice implements Serializable{
 	 private String firm_version;
 	 private String m_use_water;
 	 private String m_jie_water;
+	 private String province;
+	 private String city;
 	 
 	 
-	 public String getM_use_water() {
+	 
+	 public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getM_use_water() {
 		return m_use_water;
 	}
 

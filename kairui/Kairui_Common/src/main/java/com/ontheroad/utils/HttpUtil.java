@@ -1,106 +1,82 @@
 package com.ontheroad.utils;
 
-import com.alibaba.fastjson.JSONObject;
-import ytx.org.apache.http.HttpResponse;
-import ytx.org.apache.http.client.methods.HttpPost;
-import ytx.org.apache.http.entity.StringEntity;
-import ytx.org.apache.http.impl.client.DefaultHttpClient;
-import ytx.org.apache.http.util.EntityUtils;
-
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.HttpEntity;
+
+import ytx.org.apache.http.HttpException;
+import ytx.org.apache.http.HttpResponse;
+import ytx.org.apache.http.StatusLine;
+import ytx.org.apache.http.client.HttpClient;
+import ytx.org.apache.http.client.methods.HttpGet;
+import ytx.org.apache.http.util.EntityUtils;
 
 /**
  * @ClassName: HttpUtil
  * @Description: http操作工具类
  */
 public class HttpUtil {
-    public static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) {
-        // post请求返回结果
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        JSONObject jsonResult = null;
-        HttpPost method = new HttpPost(url);
+	   /**
+     * 向指定URL发送GET方法的请求
+     * 
+     * @param url
+     *            发送请求的URL
+     * @param param
+     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @return URL 所代表远程资源的响应结果
+     */
+    public static String sendGet(String url, String param) {
+        String result = "";
+        BufferedReader in = null;
         try {
-            if (null != jsonParam) {
-                // 解决中文乱码问题
-                StringEntity entity = new StringEntity(jsonParam.toString(),
-                        "utf-8");
-                entity.setContentEncoding("UTF-8");
-                entity.setContentType("application/json");
-                method.setEntity(entity);
+            String urlNameString = url + "?" + param;
+            URL realUrl = new URL(urlNameString);
+            // 打开和URL之间的连接
+            URLConnection connection = realUrl.openConnection();
+            // 设置通用的请求属性
+            connection.setRequestProperty("accept", "*/*");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 建立实际的连接
+            connection.connect();
+            // 获取所有响应头字段
+            Map<String, List<String>> map = connection.getHeaderFields();
+            // 遍历所有的响应头字段
+            for (String key : map.keySet()) {
+                System.out.println(key + "--->" + map.get(key));
             }
-            HttpResponse result = httpClient.execute(method);
-            System.out.println(result);
-            url = URLDecoder.decode(url, "UTF-8");
-            /** 请求发送成功，并得到响应 **/
-            if (result.getStatusLine().getStatusCode() == 200) {
-                String str = "";
-                try {
-                    /** 读取服务器返回过来的json字符串数据 **/
-                    str = EntityUtils.toString(result.getEntity());
-                    if (noNeedResponse) {
-                        return null;
-                    }
-                    /** 把json字符串转换成json对象 **/
-                    jsonResult = JSONObject.parseObject(str);
-                } catch (Exception e) {
-                    // logger.error("post请求提交失败:" + url, e);
-                }
+            // 定义 BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
             }
-        } catch (IOException e) {
-            // logger.error("post请求提交失败:" + url, e);
+        } catch (Exception e) {
+            System.out.println("发送GET请求出现异常！" + e);
+            e.printStackTrace();
         }
-        return jsonResult;
+        // 使用finally块来关闭输入流
+        finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return result;
     }
+  
 
-//	public static JSONObject httpPost(String url, String param,
-//			boolean noNeedResponse) {
-//		// post请求返回结果
-//		DefaultHttpClient httpClient = new DefaultHttpClient();
-//		JSONObject jsonResult = null;
-//		HttpPost method = new HttpPost(url);
-//		try {
-//			if (null != param) {
-//				// 解决中文乱码问题
-//				StringEntity entity = new StringEntity(param,
-//						"utf-8");
-//				entity.setContentEncoding("UTF-8");
-//				entity.setContentType("application/x-www-form-urlencoded");
-//				method.setEntity(entity);
-//			}
-//			HttpResponse result = httpClient.execute(method);
-//			System.out.println(result);
-//			url = URLDecoder.decode(url, "UTF-8");
-//			/** 请求发送成功，并得到响应 **/
-//			if (result.getStatusLine().getStatusCode() == 200) {
-//				String str = "";
-//				try {
-//					/** 读取服务器返回过来的json字符串数据 **/
-//					str = EntityUtils.toString(result.getEntity(),"UTF-8");
-//					if (noNeedResponse) {
-//						return null;
-//					}
-//					/** 把json字符串转换成json对象 **/
-//					jsonResult = JSONObject.parseObject(str);
-//				} catch (Exception e) {
-//					// logger.error("post请求提交失败:" + url, e);
-//				}
-//			}
-//		} catch (IOException e) {
-//			// logger.error("post请求提交失败:" + url, e);
-//		}
-//		return jsonResult;
-//	}
-
-    public static void main(String[] args) {
-//		System.out.println(httpPost("http://ip.taobao.com/service/getIpInfo.php?ip=110.212.83.51", null, false).getJSONObject("data").get("city"));
-//		Map<String, Object> param = new HashMap<String, Object>();
-//		param.put("user", "service");
-//		param.put("passwd", "szyxylmr");
-//		param.put("appid", 2);
-//		param.put("scene_id", 1);
-//		System.out.println(httpPost("http://sc.younsoo.com/service/index.php?c=wechat&a=createTempQrCode",JSONObject.parseObject(JSONObject.toJSONString(param)), false));
-//		String param = "sign=f4988939b81fb5c5bdd2043982ca6949&FromUserName=ssdsdsdsd&EventKey=qrscene_52365125&Event=event&method=jiuwu.steelyard.wxmsg.receive&ver=1.0&format=json&ToUserName=sdsdsdsdsd&MsgType=event";
-//		System.out.println(httpPost("http://javatest.daboowifi.net/forward/api/rest/router", param, false).toJSONString());
-    }
 }

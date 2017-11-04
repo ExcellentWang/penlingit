@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
@@ -29,6 +30,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.service.DeviceService.DeviceService;
+import com.ontheroad.utils.HttpUtil;
 
 @Component("DeviceMessageHandler")
 public class DeviceMessageHandler {
@@ -120,6 +122,13 @@ public class DeviceMessageHandler {
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
             device.setPort(String.valueOf(addr.getPort()));
+            //更新设备所在的地区
+            String jsonr=GetProvinceCity(addr.getAddress().getHostAddress());
+            if(jsonr!=null){
+            	device.setProvince(JSON.parseObject(jsonr).getString("province"));
+            	device.setCity(JSON.parseObject(jsonr).getString("city"));
+            	deviceMapper.updateDevice(device);
+            }
             List<String> ls=deviceMessage.getArgs();
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
@@ -340,7 +349,17 @@ public class DeviceMessageHandler {
         }
     }
     public static void main(String[] args) {
-		
-    	System.out.println();
+    	GetProvinceCity("");
 	}
+    public static String GetProvinceCity(String ip){
+    	try {
+			ip="format=js&ip="+ip;
+			String str=HttpUtil.sendGet("http://int.dpool.sina.com.cn/iplookup/iplookup.php",ip);
+			String json=str.split("=")[1].split(";")[0];
+			return json;
+		} catch (Exception e) {
+			logger.error("--------------------------通过ip获取地区失败-----------------------");
+			return null;
+		}
+    }
 }
