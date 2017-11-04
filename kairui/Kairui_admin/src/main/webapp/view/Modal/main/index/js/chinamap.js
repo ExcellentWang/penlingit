@@ -108,10 +108,27 @@ function Map() {
                 var $sl = $("#topList").find("[title='" + china[state]['name'] + "']:not([select])");
                 if (e.type == 'mouseenter') {
                 	//获取选择的省份
-                	console.log(china[state]['name'])
-                	var province=china[state]['name']
-                    tiplayer.text(china[state]['name']+":20% 在线：100，总数：200").css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
-                    $sl.css("font-size", "20px");
+                	var province=china[state]['name'];
+//                	getInfoByProvince(province);
+//                    tiplayer.text(china[state]['name']+":20% 在线：100，总数：200").css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
+                	$.ajax({
+                		url: "/admin/main/indexInfoByPro",
+                		data:{"province":province},
+                		success: function(item){
+                			var a=item.data;
+                			if(a){
+                				var zxl;
+                				if(a.zxl){
+                					zxl=a.zxl*100
+                				}else{
+                					zxl="0"
+                				}
+                				var str=province+":"+zxl+"% 在线："+a.online+"，总数："+a.all;
+                				tiplayer.text(str).css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
+                			}
+                		}
+                	});
+                	$sl.css("font-size", "20px");
                 } else {
                     if (tiplayer.is(':animated')) tiplayer.stop();
                     tiplayer.hide();
@@ -188,5 +205,25 @@ function Bind() {
         }
     });
 }
-
+//根据省份显示当前设备情况
+function getInfoByProvince(province){
+	$.ajax({
+		url: "/admin/main/indexInfoByPro",
+		data:{"province":province},
+		success: function(item){
+			var a=item.data;
+			if(a){
+				var zxl;
+				if(a.zxl){
+					zxl=a.zxl*100
+				}else{
+					zxl="0"
+				}
+				console.log(zxl)
+				var str=province+":"+zxl+"% 在线："+a.online+"，总数："+a.all;
+				tiplayer.text(str).css({ 'opacity': '0.75', 'top': (e.pageY + 10) + 'px', 'left': (e.pageX + 10) + 'px' }).fadeIn('normal');
+			}
+		}
+	});
+}
 

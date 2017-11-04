@@ -7,6 +7,7 @@ import com.ontheroad.entity.Login;
 import com.ontheroad.pojo.Admin.Admin;
 import com.ontheroad.pojo.Admin.AdminLogin;
 import com.ontheroad.service.GuaranteeService;
+import com.ontheroad.service.IDeviceService;
 import com.ontheroad.service.AdminService.AdminService;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.utils.MapUtil;
@@ -22,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -32,6 +36,8 @@ public class AdminController {
     private DeviceService deviceService;
     @Autowired
 	private GuaranteeService guaranteeService;
+    @Autowired
+    private IDeviceService iDeviceService;
     
 
     /**
@@ -77,8 +83,24 @@ public class AdminController {
     	dto2.setStatus(0);
     	dto.setStatus(1);
     	info.setGuaranteeSize(guaranteeService.getTbGuaranteeList(dto).size());
-    	info.setCustomerserviceSize(guaranteeService.getCustomerservice(dto2).size())
-    	;
+    	info.setCustomerserviceSize(guaranteeService.getCustomerservice(dto2).size());
+    	info.setZaixianlv(deviceService.getzaixianlv());//在线率
+    	info.setAllSize(iDeviceService.allSize());
+    	info.setOnlineSize(deviceService.OnlineSize(null));
     	return MapUtil.getSuccessJson(info);
+    }
+    
+    /**
+     * 地图移动信息
+     * @return
+     */
+    @RequestMapping("/main/indexInfoByPro")
+    @ResponseBody
+    public Map<Object, Object> indexInfoByPro(String province) {
+    	Map<String, Object> result=new HashMap<String, Object>();
+    	result.put("all", deviceService.allSize(province));
+    	result.put("online", deviceService.OnlineSize(province));
+    	result.put("zxl", deviceService.getzaixianlvByCity(province));
+		return MapUtil.getSuccessJson(result);
     }
 }

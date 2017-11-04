@@ -8,6 +8,8 @@ import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface DeviceMapper {
 
 	List<TerminalDevice> findUserListByUserId(int userId);
@@ -55,6 +57,25 @@ public interface DeviceMapper {
 	List<TerminalDevice> getDevicesByExample(TerminalDeviceVo terminalDeviceVo);
 	
 	void insert(TerminalDevice device);
+	/**
+	 * 统计在线率
+	 * @return
+	 */
+	List<Map<String, String>> getzaixianlv();
+	/**
+	 * 在线设备总数
+	 * @return
+	 */
+	Integer OnlineSize(@Param("province")String province);
+	/**
+	 * 设备总数
+	 * @return
+	 */
+	Integer allSize(@Param("province")String province);
 	
-
+	/**
+	 * 通过城市统计在线率
+	 * @return
+	 */
+	String getzaixianlvByCity(@Param("province")String province);
 }

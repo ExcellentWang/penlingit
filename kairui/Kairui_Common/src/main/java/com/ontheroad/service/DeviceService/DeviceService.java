@@ -3,6 +3,7 @@ package com.ontheroad.service.DeviceService;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.TerminalDevice.*;
 import com.ontheroad.pojo.user.User;
+
 import org.springframework.remoting.service.annotation.RemoteService;
 
 import java.util.List;
@@ -92,5 +93,25 @@ public interface DeviceService {
 	 */
 	TerminalDevice getDeviceDetail(Integer equipment_id);
 	
+	/**
+	 * 统计在线率
+	 * @return
+	 */
+	List<Map<String, String>> getzaixianlv();
 	
+	/**
+	 * 在线设备总数
+	 * @return
+	 */
+	Integer OnlineSize(String province);
+	/**
+	 * 设备总数
+	 * @return
+	 */
+	Integer allSize(String province);
+	/**
+	 * 通过城市统计在线率
+	 * @return
+	 */
+	String getzaixianlvByCity(String province);
 }

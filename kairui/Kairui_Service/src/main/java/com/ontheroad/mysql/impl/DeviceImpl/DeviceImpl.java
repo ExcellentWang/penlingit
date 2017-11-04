@@ -711,5 +711,25 @@ public class DeviceImpl implements DeviceService {
 		return deviceMapper.getDeviceDetailById(equipment_id);
 	}
 
+	@Override
+	public List<Map<String, String>> getzaixianlv() {
+		return deviceMapper.getzaixianlv();
+	}
+
+	@Override
+	public Integer OnlineSize(String province) {
+		return deviceMapper.OnlineSize(province);
+	}
+
+	@Override
+	public String getzaixianlvByCity(String province) {
+		return deviceMapper.getzaixianlvByCity(province);
+	}
+
+	@Override
+	public Integer allSize(String province) {
+		return deviceMapper.allSize(province);
+	}
+	
 	
 }

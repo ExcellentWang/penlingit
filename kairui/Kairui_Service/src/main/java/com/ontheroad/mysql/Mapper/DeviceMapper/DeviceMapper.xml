@@ -148,5 +148,52 @@
     </selectKey>
     insert into tb_equipment (equipmentNum,type,created_at,product)values(#{equipmentNum},#{type},#{created_at},#{product})
     </insert>
-
+	
+	 <select id="getzaixianlv" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.util.Map">
+	SELECT
+	((SELECT
+	COUNT(*)
+	FROM
+	tb_equipmentstatus t1
+	WHERE t1.province = t2.province
+	AND t1.workStatus != '4')/COUNT(*)) AS lv,
+	province
+	FROM
+	`tb_equipmentstatus` t2
+	GROUP BY province 
+	ORDER BY lv DESC
+    </select>
+     <select id="OnlineSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.Integer">
+	SELECT
+	count(*)
+	FROM
+	`tb_equipmentstatus` t2
+	WHERE t2.workStatus != '4'
+	<if test="province!=null">
+		and province=#{province}
+	</if>
+    </select>
+    <select id="allSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.Integer">
+	SELECT
+	count(*)
+	FROM
+	`tb_equipmentstatus` t2
+	WHERE 1=1
+	<if test="province!=null">
+		and province=#{province}
+	</if>
+    </select>
+    <select id="getzaixianlvByCity" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.String">
+	SELECT
+	((SELECT
+	COUNT(*)
+	FROM
+	tb_equipmentstatus t1
+	WHERE t1.province = t2.province
+	AND t1.workStatus != '4')/COUNT(*)) AS lv
+	FROM
+	`tb_equipmentstatus` t2
+	where t2.`province`=#{province}
+	GROUP BY t2.province 
+    </select>
 </mapper>

@@ -54,5 +54,10 @@ public class DeviceServiceImpl implements IDeviceService{
 		List<equipmentDatatype> ls= equipmentDatatypeMapper.selectByExample(example);
 		return ls.get(0);
 	}
-
+	@Override
+	public Integer allSize() {
+		TbEquipmentExample example=new TbEquipmentExample();
+		return tbEquipmentMapper.selectByExample(example).size();
+	}
+	
 }

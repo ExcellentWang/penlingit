@@ -30,4 +30,11 @@ public interface IDeviceService {
 	 * @param device
 	 */
 	equipmentDatatype selectDeviceTypeId(Integer equipmentType);
+	
+	/**
+	 * 设备总数
+	 * @param device
+	 */
+	Integer  allSize();
+	
 }
