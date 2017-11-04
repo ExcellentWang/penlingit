@@ -23,7 +23,15 @@ public class Information implements Serializable {
      private Integer isRead;
      private String address;
      private String summary;
+     private String picture;
      
+     
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 	public String getAddress() {
 		return address;
 	}

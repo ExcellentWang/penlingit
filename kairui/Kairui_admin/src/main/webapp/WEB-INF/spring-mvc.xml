@@ -39,6 +39,7 @@
                 <mvc:exclude-mapping path="/admin/login" />
                 <mvc:exclude-mapping path="/user/logOut" />
                 <mvc:exclude-mapping path="/getTbNewsinformationId" />
+               <mvc:exclude-mapping path="/admin/main/indexInfo" />
                 <bean class="com.ontheroad.web.filter.AdminLoginFilter" />
             </mvc:interceptor>
     </mvc:interceptors>

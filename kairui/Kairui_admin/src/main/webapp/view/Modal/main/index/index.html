@@ -12,19 +12,67 @@
     <link rel="stylesheet" href="../../../common/plugs/bootstrap-table/dist/bootstrap-table.min.css">
         <link rel="stylesheet" href="../../../common/plugs/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css" />
     <title>首页</title>
+    <style>
+    	.p1 {
+   			 padding: 10px 15px 32px 15px;
+   			 height:300px;
+		}
+		.p2 {
+   			 padding: 10px 15px 32px 15px;
+   			 height:400px;
+   			 margin-left: 25px;
+		}
+		.anti {
+   			 height:200px;
+   			 margin:40px;
+   			text-align: center;  
+			vertical-align:middle; 
+			line-height: 200px;
+			font-size: 30px;
+		}
+    </style>
   </head>
 </html>
 <body class="gray-bg">
   <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-      <div class="col-xs-24 col-sm-24 col-md-24">
-        <div class="ibox float-e-margins">
-          <div class="ibox-content">
-         	
-          </div>
-        </div>
-      </div>
-    </div>
+	    <div class="panel panel-default col-xs-24 col-sm-24 col-md-24" >
+		    <div class="panel-body p1" >
+		        这是一个基本的面板1
+		    </div>
+	    </div>
+	    <p></p>
+	    <p></p>
+	    <div class="panel panel-default col-xs-24 col-sm-24 col-md-24" >
+		    <div class="panel-body p2">
+		      <div class="row">
+            <div class="col-md-10 anti bg-primary" 
+               >
+               <p>
+              	 保修卡（<span id="shenhe"></span>条待审核）
+               </p>
+            </div>
+            <div class="col-md-10 anti bg-primary" 
+               >
+               <p> 
+               	用户报修（<span id="baoxiu"></span>条待处理）
+               </p>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-10 anti bg-primary" 
+               >
+               <p>资讯管理
+               </p>
+            </div>   
+            <div class="col-md-10 anti bg-primary" 
+               >
+               <p>消息推送</p>
+            </div>
+         </div>
+		        
+		    </div>
+		</div>
   </div>
 </body>
 
@@ -42,6 +90,6 @@
   $("head").append([
     '<script src="../../../common/js/URL.js"><\/script>',
     '<script src="../../../common/js/iframeCommon.js"><\/script>',
-    '<script src="../../../js/guarantee/staff/index.js"><\/script>'
+    '<script src="../../../js/main/index/index.js"><\/script>'
   ].join(""));
 </script>
