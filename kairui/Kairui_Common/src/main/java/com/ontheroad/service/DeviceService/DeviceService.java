@@ -20,7 +20,7 @@ public interface DeviceService {
 
 	Map<Object, Object> deleteDeviceShare(DeviceShare ds);
 
-	Map<Object, Object> getDeviceDetail(TerminalDevice t);
+	Map<Object, Object> getDeviceDetail(TerminalDevice t,Integer user_id);
 
 	Map<Object, Object> findDeviceRemind(TerminalDevice t);
 

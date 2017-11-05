@@ -136,11 +136,11 @@ public class DeviceController extends BaseConstant{
 	 */
 	
 	@RequestMapping(value = "/getDeviceDetail")
-    public Map<Object,Object> getDeviceDetail(TerminalDevice t) {
+    public Map<Object,Object> getDeviceDetail(TerminalDevice t,Integer user_id) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
         try {	        	
-        	return deviceService.getDeviceDetail(t);
+        	return deviceService.getDeviceDetail(t, user_id);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", BaseConstant.appUserErrorStatus);

@@ -271,7 +271,7 @@ public class DeviceImpl implements DeviceService {
 	}
 
 	@Override
-	public Map<Object, Object> getDeviceDetail(TerminalDevice t) {
+	public Map<Object, Object> getDeviceDetail(TerminalDevice t,Integer user_id) {
 		// 返回前端map
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		try {
@@ -291,6 +291,12 @@ public class DeviceImpl implements DeviceService {
 			if(ls.size()>0){
 				t.setDeviceUseLog(ls.get(ls.size()-1));
 			}
+			//设备分享还是绑定状态
+			DeviceShare ds=new DeviceShare();
+			ds.setEquipment_id(t.getEquipment_id());
+			ds.setShare_user_id(user_id);
+			Integer status=deviceShareMapper.findUserDeviceStatus(ds);
+			t.setStatus(String.valueOf(status));
 			resultMap.put("deviceDetail", t);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");

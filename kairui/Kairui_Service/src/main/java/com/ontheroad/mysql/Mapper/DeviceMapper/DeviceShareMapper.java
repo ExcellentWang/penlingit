@@ -23,5 +23,7 @@ public interface DeviceShareMapper {
 	List<TerminalDevice> findUserDevices(Integer user_id);
 
 	List<DeviceShare> findSharesOfDevice(Integer equipment_id);
+	
+	Integer findUserDeviceStatus(DeviceShare ds);
 
 }
