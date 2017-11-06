@@ -25,7 +25,7 @@
    
    
     <select id="getDeviceDetailById" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select *,s.workStatus,s.temperature, s.volume, s.backlight,s.app_enabled,o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
+        select *,s.workStatus,s.temperature as current_temp, s.volume, s.backlight,s.app_enabled,o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
         from tb_equipment t
 		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
 		LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
