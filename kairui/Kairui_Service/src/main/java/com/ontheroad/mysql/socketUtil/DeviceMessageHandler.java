@@ -298,20 +298,20 @@ public class DeviceMessageHandler {
                     break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
-                	log.setUploadstatus(ls.get(7));
-                	log.setsWorkStatus(ls.get(8));
-                	log.setUsetype(ls.get(9));
-                	log.setTimeType(ls.get(10));
-                	log.setSettemperature(ls.get(11));
-                	log.setOuttemperature(ls.get(12));
-                	log.setValveouttemperature(ls.get(13));
-                	log.setBuffertemperature(ls.get(14));
-                	log.setHotWaterTemp(ls.get(15));
-                	log.setCodeWaterTemp(ls.get(16));
-                	log.setFlowgrade(ls.get(17));
-                	log.setFlowspeed(ls.get(18));
-                	log.setBatteryvoltage(ls.get(19));
-                	log.setBatterytemperature(ls.get(20));
+                	log.setUploadstatus(ls.get(6));
+                	log.setsWorkStatus(ls.get(7));
+                	log.setUsetype(ls.get(8));
+                	log.setTimeType(ls.get(9));
+                	log.setSettemperature(ls.get(10));
+                	log.setOuttemperature(ls.get(11));
+                	log.setValveouttemperature(ls.get(12));
+                	log.setBuffertemperature(ls.get(13));
+                	log.setHotWaterTemp(ls.get(14));
+                	log.setCodeWaterTemp(ls.get(15));
+                	log.setFlowgrade(ls.get(16));
+                	log.setFlowspeed(ls.get(17));
+                	log.setBatteryvoltage(ls.get(18));
+                	log.setBatterytemperature(ls.get(19));
                 	log.setEquipmentId(device.getEquipment_id());
                 	deviceUseLogMapper.insertSelective(log);
                 	//更新当前温度和设定温度,工作状态workStatus
