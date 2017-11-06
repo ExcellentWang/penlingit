@@ -5,11 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
     <result column="uploadStatus" jdbcType="VARCHAR" property="uploadstatus" />
-    <result column="useTime" jdbcType="TIMESTAMP" property="usetime" />
     <result column="useType" jdbcType="VARCHAR" property="usetype" />
-    <result column="useDuration" jdbcType="VARCHAR" property="useduration" />
-    <result column="useWeight" jdbcType="VARCHAR" property="useweight" />
-    <result column="saveWeight" jdbcType="VARCHAR" property="saveweight" />
     <result column="valveOutTemperature" jdbcType="VARCHAR" property="valveouttemperature" />
     <result column="setTemperature" jdbcType="VARCHAR" property="settemperature" />
     <result column="bufferTemperature" jdbcType="VARCHAR" property="buffertemperature" />
@@ -18,8 +14,11 @@
     <result column="flowSpeed" jdbcType="VARCHAR" property="flowspeed" />
     <result column="batteryVoltage" jdbcType="VARCHAR" property="batteryvoltage" />
     <result column="batteryTemperature" jdbcType="VARCHAR" property="batterytemperature" />
-    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="s_work_status" jdbcType="VARCHAR" property="sWorkStatus" />
+    <result column="hot_water_temp" jdbcType="VARCHAR" property="hotWaterTemp" />
+    <result column="code_water_temp" jdbcType="VARCHAR" property="codeWaterTemp" />
+    <result column="time_type" jdbcType="VARCHAR" property="timeType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,9 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, equipment_id, uploadStatus, useTime, useType, useDuration, useWeight, saveWeight, 
-    valveOutTemperature, setTemperature, bufferTemperature, outTemperature, flowGrade, 
-    flowSpeed, batteryVoltage, batteryTemperature, startTime, create_time
+    id, equipment_id, uploadStatus, useType, valveOutTemperature, setTemperature, bufferTemperature, 
+    outTemperature, flowGrade, flowSpeed, batteryVoltage, batteryTemperature, create_time, 
+    s_work_status, hot_water_temp, code_water_temp, time_type
   </sql>
   <select id="selectByExample" parameterType="com.ontheroad.mysql.entity.DeviceUseLogExample" resultMap="BaseResultMap">
     select
@@ -118,18 +117,18 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into device_use_log (equipment_id, uploadStatus, useTime, 
-      useType, useDuration, useWeight, 
-      saveWeight, valveOutTemperature, setTemperature, 
-      bufferTemperature, outTemperature, flowGrade, 
-      flowSpeed, batteryVoltage, batteryTemperature, 
-      startTime, create_time)
-    values (#{equipmentId,jdbcType=INTEGER}, #{uploadstatus,jdbcType=VARCHAR}, #{usetime,jdbcType=TIMESTAMP}, 
-      #{usetype,jdbcType=VARCHAR}, #{useduration,jdbcType=VARCHAR}, #{useweight,jdbcType=VARCHAR}, 
-      #{saveweight,jdbcType=VARCHAR}, #{valveouttemperature,jdbcType=VARCHAR}, #{settemperature,jdbcType=VARCHAR}, 
-      #{buffertemperature,jdbcType=VARCHAR}, #{outtemperature,jdbcType=VARCHAR}, #{flowgrade,jdbcType=VARCHAR}, 
-      #{flowspeed,jdbcType=VARCHAR}, #{batteryvoltage,jdbcType=VARCHAR}, #{batterytemperature,jdbcType=VARCHAR}, 
-      #{starttime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    insert into device_use_log (equipment_id, uploadStatus, useType, 
+      valveOutTemperature, setTemperature, bufferTemperature, 
+      outTemperature, flowGrade, flowSpeed, 
+      batteryVoltage, batteryTemperature, create_time, 
+      s_work_status, hot_water_temp, code_water_temp, 
+      time_type)
+    values (#{equipmentId,jdbcType=INTEGER}, #{uploadstatus,jdbcType=VARCHAR}, #{usetype,jdbcType=VARCHAR}, 
+      #{valveouttemperature,jdbcType=VARCHAR}, #{settemperature,jdbcType=VARCHAR}, #{buffertemperature,jdbcType=VARCHAR}, 
+      #{outtemperature,jdbcType=VARCHAR}, #{flowgrade,jdbcType=VARCHAR}, #{flowspeed,jdbcType=VARCHAR}, 
+      #{batteryvoltage,jdbcType=VARCHAR}, #{batterytemperature,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{sWorkStatus,jdbcType=VARCHAR}, #{hotWaterTemp,jdbcType=VARCHAR}, #{codeWaterTemp,jdbcType=VARCHAR}, 
+      #{timeType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ontheroad.mysql.entity.DeviceUseLog">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -143,20 +142,8 @@
       <if test="uploadstatus != null">
         uploadStatus,
       </if>
-      <if test="usetime != null">
-        useTime,
-      </if>
       <if test="usetype != null">
         useType,
-      </if>
-      <if test="useduration != null">
-        useDuration,
-      </if>
-      <if test="useweight != null">
-        useWeight,
-      </if>
-      <if test="saveweight != null">
-        saveWeight,
       </if>
       <if test="valveouttemperature != null">
         valveOutTemperature,
@@ -182,11 +169,20 @@
       <if test="batterytemperature != null">
         batteryTemperature,
       </if>
-      <if test="starttime != null">
-        startTime,
-      </if>
       <if test="createTime != null">
         create_time,
+      </if>
+      <if test="sWorkStatus != null">
+        s_work_status,
+      </if>
+      <if test="hotWaterTemp != null">
+        hot_water_temp,
+      </if>
+      <if test="codeWaterTemp != null">
+        code_water_temp,
+      </if>
+      <if test="timeType != null">
+        time_type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -196,20 +192,8 @@
       <if test="uploadstatus != null">
         #{uploadstatus,jdbcType=VARCHAR},
       </if>
-      <if test="usetime != null">
-        #{usetime,jdbcType=TIMESTAMP},
-      </if>
       <if test="usetype != null">
         #{usetype,jdbcType=VARCHAR},
-      </if>
-      <if test="useduration != null">
-        #{useduration,jdbcType=VARCHAR},
-      </if>
-      <if test="useweight != null">
-        #{useweight,jdbcType=VARCHAR},
-      </if>
-      <if test="saveweight != null">
-        #{saveweight,jdbcType=VARCHAR},
       </if>
       <if test="valveouttemperature != null">
         #{valveouttemperature,jdbcType=VARCHAR},
@@ -235,11 +219,20 @@
       <if test="batterytemperature != null">
         #{batterytemperature,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null">
-        #{starttime,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sWorkStatus != null">
+        #{sWorkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="hotWaterTemp != null">
+        #{hotWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="codeWaterTemp != null">
+        #{codeWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeType != null">
+        #{timeType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -261,20 +254,8 @@
       <if test="record.uploadstatus != null">
         uploadStatus = #{record.uploadstatus,jdbcType=VARCHAR},
       </if>
-      <if test="record.usetime != null">
-        useTime = #{record.usetime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.usetype != null">
         useType = #{record.usetype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.useduration != null">
-        useDuration = #{record.useduration,jdbcType=VARCHAR},
-      </if>
-      <if test="record.useweight != null">
-        useWeight = #{record.useweight,jdbcType=VARCHAR},
-      </if>
-      <if test="record.saveweight != null">
-        saveWeight = #{record.saveweight,jdbcType=VARCHAR},
       </if>
       <if test="record.valveouttemperature != null">
         valveOutTemperature = #{record.valveouttemperature,jdbcType=VARCHAR},
@@ -300,11 +281,20 @@
       <if test="record.batterytemperature != null">
         batteryTemperature = #{record.batterytemperature,jdbcType=VARCHAR},
       </if>
-      <if test="record.starttime != null">
-        startTime = #{record.starttime,jdbcType=VARCHAR},
-      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sWorkStatus != null">
+        s_work_status = #{record.sWorkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotWaterTemp != null">
+        hot_water_temp = #{record.hotWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeWaterTemp != null">
+        code_water_temp = #{record.codeWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeType != null">
+        time_type = #{record.timeType,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -316,11 +306,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       equipment_id = #{record.equipmentId,jdbcType=INTEGER},
       uploadStatus = #{record.uploadstatus,jdbcType=VARCHAR},
-      useTime = #{record.usetime,jdbcType=TIMESTAMP},
       useType = #{record.usetype,jdbcType=VARCHAR},
-      useDuration = #{record.useduration,jdbcType=VARCHAR},
-      useWeight = #{record.useweight,jdbcType=VARCHAR},
-      saveWeight = #{record.saveweight,jdbcType=VARCHAR},
       valveOutTemperature = #{record.valveouttemperature,jdbcType=VARCHAR},
       setTemperature = #{record.settemperature,jdbcType=VARCHAR},
       bufferTemperature = #{record.buffertemperature,jdbcType=VARCHAR},
@@ -329,8 +315,11 @@
       flowSpeed = #{record.flowspeed,jdbcType=VARCHAR},
       batteryVoltage = #{record.batteryvoltage,jdbcType=VARCHAR},
       batteryTemperature = #{record.batterytemperature,jdbcType=VARCHAR},
-      startTime = #{record.starttime,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      s_work_status = #{record.sWorkStatus,jdbcType=VARCHAR},
+      hot_water_temp = #{record.hotWaterTemp,jdbcType=VARCHAR},
+      code_water_temp = #{record.codeWaterTemp,jdbcType=VARCHAR},
+      time_type = #{record.timeType,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -344,20 +333,8 @@
       <if test="uploadstatus != null">
         uploadStatus = #{uploadstatus,jdbcType=VARCHAR},
       </if>
-      <if test="usetime != null">
-        useTime = #{usetime,jdbcType=TIMESTAMP},
-      </if>
       <if test="usetype != null">
         useType = #{usetype,jdbcType=VARCHAR},
-      </if>
-      <if test="useduration != null">
-        useDuration = #{useduration,jdbcType=VARCHAR},
-      </if>
-      <if test="useweight != null">
-        useWeight = #{useweight,jdbcType=VARCHAR},
-      </if>
-      <if test="saveweight != null">
-        saveWeight = #{saveweight,jdbcType=VARCHAR},
       </if>
       <if test="valveouttemperature != null">
         valveOutTemperature = #{valveouttemperature,jdbcType=VARCHAR},
@@ -383,11 +360,20 @@
       <if test="batterytemperature != null">
         batteryTemperature = #{batterytemperature,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null">
-        startTime = #{starttime,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sWorkStatus != null">
+        s_work_status = #{sWorkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="hotWaterTemp != null">
+        hot_water_temp = #{hotWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="codeWaterTemp != null">
+        code_water_temp = #{codeWaterTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeType != null">
+        time_type = #{timeType,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -396,11 +382,7 @@
     update device_use_log
     set equipment_id = #{equipmentId,jdbcType=INTEGER},
       uploadStatus = #{uploadstatus,jdbcType=VARCHAR},
-      useTime = #{usetime,jdbcType=TIMESTAMP},
       useType = #{usetype,jdbcType=VARCHAR},
-      useDuration = #{useduration,jdbcType=VARCHAR},
-      useWeight = #{useweight,jdbcType=VARCHAR},
-      saveWeight = #{saveweight,jdbcType=VARCHAR},
       valveOutTemperature = #{valveouttemperature,jdbcType=VARCHAR},
       setTemperature = #{settemperature,jdbcType=VARCHAR},
       bufferTemperature = #{buffertemperature,jdbcType=VARCHAR},
@@ -409,8 +391,11 @@
       flowSpeed = #{flowspeed,jdbcType=VARCHAR},
       batteryVoltage = #{batteryvoltage,jdbcType=VARCHAR},
       batteryTemperature = #{batterytemperature,jdbcType=VARCHAR},
-      startTime = #{starttime,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      s_work_status = #{sWorkStatus,jdbcType=VARCHAR},
+      hot_water_temp = #{hotWaterTemp,jdbcType=VARCHAR},
+      code_water_temp = #{codeWaterTemp,jdbcType=VARCHAR},
+      time_type = #{timeType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

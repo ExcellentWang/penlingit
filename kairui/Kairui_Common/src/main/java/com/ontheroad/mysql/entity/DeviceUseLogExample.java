@@ -296,66 +296,6 @@ public class DeviceUseLogExample implements Serializable{
             return (Criteria) this;
         }
 
-        public Criteria andUsetimeIsNull() {
-            addCriterion("useTime is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeIsNotNull() {
-            addCriterion("useTime is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeEqualTo(Date value) {
-            addCriterion("useTime =", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeNotEqualTo(Date value) {
-            addCriterion("useTime <>", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeGreaterThan(Date value) {
-            addCriterion("useTime >", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("useTime >=", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeLessThan(Date value) {
-            addCriterion("useTime <", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeLessThanOrEqualTo(Date value) {
-            addCriterion("useTime <=", value, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeIn(List<Date> values) {
-            addCriterion("useTime in", values, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeNotIn(List<Date> values) {
-            addCriterion("useTime not in", values, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeBetween(Date value1, Date value2) {
-            addCriterion("useTime between", value1, value2, "usetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsetimeNotBetween(Date value1, Date value2) {
-            addCriterion("useTime not between", value1, value2, "usetime");
-            return (Criteria) this;
-        }
-
         public Criteria andUsetypeIsNull() {
             addCriterion("useType is null");
             return (Criteria) this;
@@ -423,216 +363,6 @@ public class DeviceUseLogExample implements Serializable{
 
         public Criteria andUsetypeNotBetween(String value1, String value2) {
             addCriterion("useType not between", value1, value2, "usetype");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationIsNull() {
-            addCriterion("useDuration is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationIsNotNull() {
-            addCriterion("useDuration is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationEqualTo(String value) {
-            addCriterion("useDuration =", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationNotEqualTo(String value) {
-            addCriterion("useDuration <>", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationGreaterThan(String value) {
-            addCriterion("useDuration >", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationGreaterThanOrEqualTo(String value) {
-            addCriterion("useDuration >=", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationLessThan(String value) {
-            addCriterion("useDuration <", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationLessThanOrEqualTo(String value) {
-            addCriterion("useDuration <=", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationLike(String value) {
-            addCriterion("useDuration like", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationNotLike(String value) {
-            addCriterion("useDuration not like", value, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationIn(List<String> values) {
-            addCriterion("useDuration in", values, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationNotIn(List<String> values) {
-            addCriterion("useDuration not in", values, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationBetween(String value1, String value2) {
-            addCriterion("useDuration between", value1, value2, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsedurationNotBetween(String value1, String value2) {
-            addCriterion("useDuration not between", value1, value2, "useduration");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightIsNull() {
-            addCriterion("useWeight is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightIsNotNull() {
-            addCriterion("useWeight is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightEqualTo(String value) {
-            addCriterion("useWeight =", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightNotEqualTo(String value) {
-            addCriterion("useWeight <>", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightGreaterThan(String value) {
-            addCriterion("useWeight >", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightGreaterThanOrEqualTo(String value) {
-            addCriterion("useWeight >=", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightLessThan(String value) {
-            addCriterion("useWeight <", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightLessThanOrEqualTo(String value) {
-            addCriterion("useWeight <=", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightLike(String value) {
-            addCriterion("useWeight like", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightNotLike(String value) {
-            addCriterion("useWeight not like", value, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightIn(List<String> values) {
-            addCriterion("useWeight in", values, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightNotIn(List<String> values) {
-            addCriterion("useWeight not in", values, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightBetween(String value1, String value2) {
-            addCriterion("useWeight between", value1, value2, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseweightNotBetween(String value1, String value2) {
-            addCriterion("useWeight not between", value1, value2, "useweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightIsNull() {
-            addCriterion("saveWeight is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightIsNotNull() {
-            addCriterion("saveWeight is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightEqualTo(String value) {
-            addCriterion("saveWeight =", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightNotEqualTo(String value) {
-            addCriterion("saveWeight <>", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightGreaterThan(String value) {
-            addCriterion("saveWeight >", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightGreaterThanOrEqualTo(String value) {
-            addCriterion("saveWeight >=", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightLessThan(String value) {
-            addCriterion("saveWeight <", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightLessThanOrEqualTo(String value) {
-            addCriterion("saveWeight <=", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightLike(String value) {
-            addCriterion("saveWeight like", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightNotLike(String value) {
-            addCriterion("saveWeight not like", value, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightIn(List<String> values) {
-            addCriterion("saveWeight in", values, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightNotIn(List<String> values) {
-            addCriterion("saveWeight not in", values, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightBetween(String value1, String value2) {
-            addCriterion("saveWeight between", value1, value2, "saveweight");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaveweightNotBetween(String value1, String value2) {
-            addCriterion("saveWeight not between", value1, value2, "saveweight");
             return (Criteria) this;
         }
 
@@ -1196,76 +926,6 @@ public class DeviceUseLogExample implements Serializable{
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeIsNull() {
-            addCriterion("startTime is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeIsNotNull() {
-            addCriterion("startTime is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeEqualTo(String value) {
-            addCriterion("startTime =", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeNotEqualTo(String value) {
-            addCriterion("startTime <>", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeGreaterThan(String value) {
-            addCriterion("startTime >", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeGreaterThanOrEqualTo(String value) {
-            addCriterion("startTime >=", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeLessThan(String value) {
-            addCriterion("startTime <", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeLessThanOrEqualTo(String value) {
-            addCriterion("startTime <=", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeLike(String value) {
-            addCriterion("startTime like", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeNotLike(String value) {
-            addCriterion("startTime not like", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeIn(List<String> values) {
-            addCriterion("startTime in", values, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeNotIn(List<String> values) {
-            addCriterion("startTime not in", values, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeBetween(String value1, String value2) {
-            addCriterion("startTime between", value1, value2, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeNotBetween(String value1, String value2) {
-            addCriterion("startTime not between", value1, value2, "starttime");
-            return (Criteria) this;
-        }
-
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -1323,6 +983,286 @@ public class DeviceUseLogExample implements Serializable{
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusIsNull() {
+            addCriterion("s_work_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusIsNotNull() {
+            addCriterion("s_work_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusEqualTo(String value) {
+            addCriterion("s_work_status =", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusNotEqualTo(String value) {
+            addCriterion("s_work_status <>", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusGreaterThan(String value) {
+            addCriterion("s_work_status >", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("s_work_status >=", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusLessThan(String value) {
+            addCriterion("s_work_status <", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusLessThanOrEqualTo(String value) {
+            addCriterion("s_work_status <=", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusLike(String value) {
+            addCriterion("s_work_status like", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusNotLike(String value) {
+            addCriterion("s_work_status not like", value, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusIn(List<String> values) {
+            addCriterion("s_work_status in", values, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusNotIn(List<String> values) {
+            addCriterion("s_work_status not in", values, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusBetween(String value1, String value2) {
+            addCriterion("s_work_status between", value1, value2, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSWorkStatusNotBetween(String value1, String value2) {
+            addCriterion("s_work_status not between", value1, value2, "sWorkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempIsNull() {
+            addCriterion("hot_water_temp is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempIsNotNull() {
+            addCriterion("hot_water_temp is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempEqualTo(String value) {
+            addCriterion("hot_water_temp =", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempNotEqualTo(String value) {
+            addCriterion("hot_water_temp <>", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempGreaterThan(String value) {
+            addCriterion("hot_water_temp >", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempGreaterThanOrEqualTo(String value) {
+            addCriterion("hot_water_temp >=", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempLessThan(String value) {
+            addCriterion("hot_water_temp <", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempLessThanOrEqualTo(String value) {
+            addCriterion("hot_water_temp <=", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempLike(String value) {
+            addCriterion("hot_water_temp like", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempNotLike(String value) {
+            addCriterion("hot_water_temp not like", value, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempIn(List<String> values) {
+            addCriterion("hot_water_temp in", values, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempNotIn(List<String> values) {
+            addCriterion("hot_water_temp not in", values, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempBetween(String value1, String value2) {
+            addCriterion("hot_water_temp between", value1, value2, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotWaterTempNotBetween(String value1, String value2) {
+            addCriterion("hot_water_temp not between", value1, value2, "hotWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempIsNull() {
+            addCriterion("code_water_temp is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempIsNotNull() {
+            addCriterion("code_water_temp is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempEqualTo(String value) {
+            addCriterion("code_water_temp =", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempNotEqualTo(String value) {
+            addCriterion("code_water_temp <>", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempGreaterThan(String value) {
+            addCriterion("code_water_temp >", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempGreaterThanOrEqualTo(String value) {
+            addCriterion("code_water_temp >=", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempLessThan(String value) {
+            addCriterion("code_water_temp <", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempLessThanOrEqualTo(String value) {
+            addCriterion("code_water_temp <=", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempLike(String value) {
+            addCriterion("code_water_temp like", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempNotLike(String value) {
+            addCriterion("code_water_temp not like", value, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempIn(List<String> values) {
+            addCriterion("code_water_temp in", values, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempNotIn(List<String> values) {
+            addCriterion("code_water_temp not in", values, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempBetween(String value1, String value2) {
+            addCriterion("code_water_temp between", value1, value2, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeWaterTempNotBetween(String value1, String value2) {
+            addCriterion("code_water_temp not between", value1, value2, "codeWaterTemp");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeIsNull() {
+            addCriterion("time_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeIsNotNull() {
+            addCriterion("time_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeEqualTo(String value) {
+            addCriterion("time_type =", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeNotEqualTo(String value) {
+            addCriterion("time_type <>", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeGreaterThan(String value) {
+            addCriterion("time_type >", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("time_type >=", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeLessThan(String value) {
+            addCriterion("time_type <", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeLessThanOrEqualTo(String value) {
+            addCriterion("time_type <=", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeLike(String value) {
+            addCriterion("time_type like", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeNotLike(String value) {
+            addCriterion("time_type not like", value, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeIn(List<String> values) {
+            addCriterion("time_type in", values, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeNotIn(List<String> values) {
+            addCriterion("time_type not in", values, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeBetween(String value1, String value2) {
+            addCriterion("time_type between", value1, value2, "timeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeTypeNotBetween(String value1, String value2) {
+            addCriterion("time_type not between", value1, value2, "timeType");
             return (Criteria) this;
         }
     }

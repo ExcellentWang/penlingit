@@ -15,14 +15,9 @@ public class DeviceUseLog implements Serializable{
     private Integer equipmentId;
 
     /**
-     * 上传的数据状态，01，预热开始洗浴 02，改变设定温度  03 改变设定 
+     * 设备状态 00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
      */
     private String uploadstatus;
-
-    /**
-     * 使用时间
-     */
-    private Date usetime;
 
     /**
      * 模式，01，成人模式 02，儿童模式
@@ -30,22 +25,7 @@ public class DeviceUseLog implements Serializable{
     private String usetype;
 
     /**
-     * 使用时长
-     */
-    private String useduration;
-
-    /**
-     * 用水量
-     */
-    private String useweight;
-
-    /**
-     * 节水量
-     */
-    private String saveweight;
-
-    /**
-     * 混水阀出水温度
+     * 混水温度
      */
     private String valveouttemperature;
 
@@ -65,12 +45,12 @@ public class DeviceUseLog implements Serializable{
     private String outtemperature;
 
     /**
-     * 流量等级
+     * 设定流量
      */
     private String flowgrade;
 
     /**
-     * 流量等级对应的流速单位L/min
+     * 实时流量
      */
     private String flowspeed;
 
@@ -85,19 +65,34 @@ public class DeviceUseLog implements Serializable{
     private String batterytemperature;
 
     /**
-     * 泵启动时间（单位s）
-     */
-    private String starttime;
-
-    /**
      * 
      */
     private Date createTime;
 
     /**
+     * 工作状态
+     */
+    private String sWorkStatus;
+
+    /**
+     * 热水温度
+     */
+    private String hotWaterTemp;
+
+    /**
+     * 冷水温度
+     */
+    private String codeWaterTemp;
+
+    /**
+     * 定时定量普通模式
+     */
+    private String timeType;
+
+    /**
      * 获取
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public Integer getId() {
         return id;
@@ -108,7 +103,7 @@ public class DeviceUseLog implements Serializable{
      *
      * @param id the value for device_use_log.id
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setId(Integer id) {
         this.id = id;
@@ -117,7 +112,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取设备ID
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public Integer getEquipmentId() {
         return equipmentId;
@@ -128,56 +123,36 @@ public class DeviceUseLog implements Serializable{
      *
      * @param equipmentId the value for device_use_log.equipment_id
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setEquipmentId(Integer equipmentId) {
         this.equipmentId = equipmentId;
     }
 
     /**
-     * 获取上传的数据状态，01，预热开始洗浴 02，改变设定温度  03 改变设定 
+     * 获取设备状态 00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getUploadstatus() {
         return uploadstatus;
     }
 
     /**
-     * 设置上传的数据状态，01，预热开始洗浴 02，改变设定温度  03 改变设定 
+     * 设置设备状态 00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
      *
      * @param uploadstatus the value for device_use_log.uploadStatus
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setUploadstatus(String uploadstatus) {
         this.uploadstatus = uploadstatus == null ? null : uploadstatus.trim();
     }
 
     /**
-     * 获取使用时间
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public Date getUsetime() {
-        return usetime;
-    }
-
-    /**
-     * 设置使用时间
-     *
-     * @param usetime the value for device_use_log.useTime
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public void setUsetime(Date usetime) {
-        this.usetime = usetime;
-    }
-
-    /**
      * 获取模式，01，成人模式 02，儿童模式
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getUsetype() {
         return usetype;
@@ -188,87 +163,27 @@ public class DeviceUseLog implements Serializable{
      *
      * @param usetype the value for device_use_log.useType
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setUsetype(String usetype) {
         this.usetype = usetype == null ? null : usetype.trim();
     }
 
     /**
-     * 获取使用时长
+     * 获取混水温度
      *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public String getUseduration() {
-        return useduration;
-    }
-
-    /**
-     * 设置使用时长
-     *
-     * @param useduration the value for device_use_log.useDuration
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public void setUseduration(String useduration) {
-        this.useduration = useduration == null ? null : useduration.trim();
-    }
-
-    /**
-     * 获取用水量
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public String getUseweight() {
-        return useweight;
-    }
-
-    /**
-     * 设置用水量
-     *
-     * @param useweight the value for device_use_log.useWeight
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public void setUseweight(String useweight) {
-        this.useweight = useweight == null ? null : useweight.trim();
-    }
-
-    /**
-     * 获取节水量
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public String getSaveweight() {
-        return saveweight;
-    }
-
-    /**
-     * 设置节水量
-     *
-     * @param saveweight the value for device_use_log.saveWeight
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public void setSaveweight(String saveweight) {
-        this.saveweight = saveweight == null ? null : saveweight.trim();
-    }
-
-    /**
-     * 获取混水阀出水温度
-     *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getValveouttemperature() {
         return valveouttemperature;
     }
 
     /**
-     * 设置混水阀出水温度
+     * 设置混水温度
      *
      * @param valveouttemperature the value for device_use_log.valveOutTemperature
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setValveouttemperature(String valveouttemperature) {
         this.valveouttemperature = valveouttemperature == null ? null : valveouttemperature.trim();
@@ -277,7 +192,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取设定温度
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getSettemperature() {
         return settemperature;
@@ -288,7 +203,7 @@ public class DeviceUseLog implements Serializable{
      *
      * @param settemperature the value for device_use_log.setTemperature
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setSettemperature(String settemperature) {
         this.settemperature = settemperature == null ? null : settemperature.trim();
@@ -297,7 +212,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取缓冲温度
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getBuffertemperature() {
         return buffertemperature;
@@ -308,7 +223,7 @@ public class DeviceUseLog implements Serializable{
      *
      * @param buffertemperature the value for device_use_log.bufferTemperature
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setBuffertemperature(String buffertemperature) {
         this.buffertemperature = buffertemperature == null ? null : buffertemperature.trim();
@@ -317,7 +232,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取出水温度
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getOuttemperature() {
         return outtemperature;
@@ -328,47 +243,47 @@ public class DeviceUseLog implements Serializable{
      *
      * @param outtemperature the value for device_use_log.outTemperature
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setOuttemperature(String outtemperature) {
         this.outtemperature = outtemperature == null ? null : outtemperature.trim();
     }
 
     /**
-     * 获取流量等级
+     * 获取设定流量
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getFlowgrade() {
         return flowgrade;
     }
 
     /**
-     * 设置流量等级
+     * 设置设定流量
      *
      * @param flowgrade the value for device_use_log.flowGrade
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setFlowgrade(String flowgrade) {
         this.flowgrade = flowgrade == null ? null : flowgrade.trim();
     }
 
     /**
-     * 获取流量等级对应的流速单位L/min
+     * 获取实时流量
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getFlowspeed() {
         return flowspeed;
     }
 
     /**
-     * 设置流量等级对应的流速单位L/min
+     * 设置实时流量
      *
      * @param flowspeed the value for device_use_log.flowSpeed
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setFlowspeed(String flowspeed) {
         this.flowspeed = flowspeed == null ? null : flowspeed.trim();
@@ -377,7 +292,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取电池电压
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getBatteryvoltage() {
         return batteryvoltage;
@@ -388,7 +303,7 @@ public class DeviceUseLog implements Serializable{
      *
      * @param batteryvoltage the value for device_use_log.batteryVoltage
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setBatteryvoltage(String batteryvoltage) {
         this.batteryvoltage = batteryvoltage == null ? null : batteryvoltage.trim();
@@ -397,7 +312,7 @@ public class DeviceUseLog implements Serializable{
     /**
      * 获取电池温度
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public String getBatterytemperature() {
         return batterytemperature;
@@ -408,36 +323,16 @@ public class DeviceUseLog implements Serializable{
      *
      * @param batterytemperature the value for device_use_log.batteryTemperature
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setBatterytemperature(String batterytemperature) {
         this.batterytemperature = batterytemperature == null ? null : batterytemperature.trim();
     }
 
     /**
-     * 获取泵启动时间（单位s）
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public String getStarttime() {
-        return starttime;
-    }
-
-    /**
-     * 设置泵启动时间（单位s）
-     *
-     * @param starttime the value for device_use_log.startTime
-     *
-     * @cgw 2017-11-03 10:32:49
-     */
-    public void setStarttime(String starttime) {
-        this.starttime = starttime == null ? null : starttime.trim();
-    }
-
-    /**
      * 获取
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public Date getCreateTime() {
         return createTime;
@@ -448,9 +343,89 @@ public class DeviceUseLog implements Serializable{
      *
      * @param createTime the value for device_use_log.create_time
      *
-     * @cgw 2017-11-03 10:32:49
+     * @cgw 2017-11-06 21:02:38
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * 获取工作状态
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public String getsWorkStatus() {
+        return sWorkStatus;
+    }
+
+    /**
+     * 设置工作状态
+     *
+     * @param sWorkStatus the value for device_use_log.s_work_status
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public void setsWorkStatus(String sWorkStatus) {
+        this.sWorkStatus = sWorkStatus == null ? null : sWorkStatus.trim();
+    }
+
+    /**
+     * 获取热水温度
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public String getHotWaterTemp() {
+        return hotWaterTemp;
+    }
+
+    /**
+     * 设置热水温度
+     *
+     * @param hotWaterTemp the value for device_use_log.hot_water_temp
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public void setHotWaterTemp(String hotWaterTemp) {
+        this.hotWaterTemp = hotWaterTemp == null ? null : hotWaterTemp.trim();
+    }
+
+    /**
+     * 获取冷水温度
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public String getCodeWaterTemp() {
+        return codeWaterTemp;
+    }
+
+    /**
+     * 设置冷水温度
+     *
+     * @param codeWaterTemp the value for device_use_log.code_water_temp
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public void setCodeWaterTemp(String codeWaterTemp) {
+        this.codeWaterTemp = codeWaterTemp == null ? null : codeWaterTemp.trim();
+    }
+
+    /**
+     * 获取定时定量普通模式
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public String getTimeType() {
+        return timeType;
+    }
+
+    /**
+     * 设置定时定量普通模式
+     *
+     * @param timeType the value for device_use_log.time_type
+     *
+     * @cgw 2017-11-06 21:02:38
+     */
+    public void setTimeType(String timeType) {
+        this.timeType = timeType == null ? null : timeType.trim();
     }
 }

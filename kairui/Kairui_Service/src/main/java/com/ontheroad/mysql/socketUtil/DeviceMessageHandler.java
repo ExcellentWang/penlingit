@@ -177,8 +177,8 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                    device.setCurrent_temp(val);
-                    logger.info("更新当前温度"+device.getEquipment_id()+"val: "+val);
+                    device.setSettemperature(val);
+                    logger.info("更新设定温度"+device.getEquipment_id()+"val: "+val);
                     deviceMapper.updateDevice(device);
                     break;
                 case "asbltr": // 背光
@@ -298,18 +298,31 @@ public class DeviceMessageHandler {
                     break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
-                	log.setUploadstatus(ls.get(6));
-                	log.setUsetype(ls.get(8));
-                	log.setSettemperature(ls.get(10));
-                	log.setOuttemperature(ls.get(11));
-                	log.setValveouttemperature(ls.get(12));
-                	log.setBatterytemperature(ls.get(13));
-                	log.setFlowgrade(ls.get(16));
-                	log.setFlowspeed(ls.get(17));
-                	log.setBatteryvoltage(ls.get(18));
-                	log.setBatterytemperature(ls.get(19));
+                	log.setUploadstatus(ls.get(7));
+                	log.setsWorkStatus(ls.get(8));
+                	log.setUsetype(ls.get(9));
+                	log.setTimeType(ls.get(10));
+                	log.setSettemperature(ls.get(11));
+                	log.setOuttemperature(ls.get(12));
+                	log.setValveouttemperature(ls.get(13));
+                	log.setBuffertemperature(ls.get(14));
+                	log.setHotWaterTemp(ls.get(15));
+                	log.setCodeWaterTemp(ls.get(16));
+                	log.setFlowgrade(ls.get(17));
+                	log.setFlowspeed(ls.get(18));
+                	log.setBatteryvoltage(ls.get(19));
+                	log.setBatterytemperature(ls.get(20));
                 	log.setEquipmentId(device.getEquipment_id());
                 	deviceUseLogMapper.insertSelective(log);
+                	//更新当前温度和设定温度,工作状态workStatus
+                	if(!"03".equals(ls.get(7))){
+                		device.setWorkStatus(Integer.parseInt(ls.get(7))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
+                	}else{
+                		device.setWorkStatus(4);
+                	}
+                	device.setSettemperature(ls.get(11));
+                	device.setCurrent_temp(ls.get(12));
+                	deviceMapper.updateDevice(device);
                     logger.info("--------------------上传实时数据------- "+JSON.toJSONString(log));
                     break;
                 case "scwt": //每次洗澡用水量节水量
@@ -339,6 +352,14 @@ public class DeviceMessageHandler {
                 case "wdft": //设定温度
                 	val = deviceMessage.getArgs().get(0);
                 	device.setCurrent_temp(val);
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------设定温度------- ");
+                    break;
+                case "xtpc": //心跳
+                	val = deviceMessage.getArgs().get(0);
+                	if(device.getWorkStatus()==4){
+                		device.setWorkStatus(0);
+                	}
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------设定温度------- ");
                     break;

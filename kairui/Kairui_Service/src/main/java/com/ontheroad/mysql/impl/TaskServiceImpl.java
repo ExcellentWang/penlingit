@@ -71,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
             if(lastlog == null || (now.getTime() - lastlog.getCreatedAt().getTime()) > 1000 * 180) {
                 t.setWorkStatus(4);
             }else{
-            	 t.setWorkStatus(0);
+//            	 t.setWorkStatus(0);
             	//设备固件版本
                  String instructions="<"+t.getEquipmentNum()+":verx,032,OR>";
                  deviceService.deviceSendInstruction(instructions);
