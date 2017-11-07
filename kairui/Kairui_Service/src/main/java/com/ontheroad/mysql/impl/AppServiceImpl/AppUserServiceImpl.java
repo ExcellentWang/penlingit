@@ -510,9 +510,7 @@ public class AppUserServiceImpl implements AppUserService{
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
 			customerservice.setStatus("0");
-			customerservice.setOrderNum("000");
 			customerservice.setCreateTime(Calendar.getInstance().getTime());
-
 			customerserviceMapper.insertCustomer(customerservice);
 			int id = customerservice.getCustomer_id();
 			List<String> pics = customerservice.getPictureAdd();

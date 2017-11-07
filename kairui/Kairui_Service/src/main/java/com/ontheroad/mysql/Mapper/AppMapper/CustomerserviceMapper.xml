@@ -65,9 +65,9 @@
         DELETE FROM tb_customerservice where customer_id = #{customer_id}
     </delete>
    
-    <select id="getIndexCustomerService" parameterType="Integer" resultType="com.ontheroad.pojo.user.Customerpicture">
+    <select id="getIndexCustomerService" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT customer_id from tb_customerservice
-        order by id desc limit 1
+        order by customer_id desc limit 1
     </select>
    
 </mapper>
