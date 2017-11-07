@@ -145,17 +145,29 @@ public class DeviceMessageHandler {
                     logger.info("UPDATE " + device.getEquipment_id() + " DEV: " + val);
                     break;
                 case "woty": // 出水方式
+                    val = deviceMessage.getArgs().get(0);
+                    logger.info("更新出水方式"+device.getEquipmentNum()+"val: "+val);
+                    device.setEffluent_way(val);
+                    deviceMapper.updateDevice(device);
+                    break;
+                case "asoty": // 出水方式主动上报
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
                             "asoty");
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                    logger.info("更新出水方式"+device.getEquipmentNum()+"val: "+val);
+                    logger.info("主动上报:更新出水方式"+device.getEquipmentNum()+"val: "+val);
                     device.setEffluent_way(val);
                     deviceMapper.updateDevice(device);
                     break;
                 case "womd": // 出水模式
+                    val = deviceMessage.getArgs().get(0);
+                    logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
+                    device.setEffluent_type(val);
+                    deviceMapper.updateDevice(device);
+                    break;
+                case "asomd": // 出水模式主动上报
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
@@ -164,7 +176,7 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
-                    logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
+                    logger.info("主动上报:更新出水模式"+device.getEquipmentNum()+"val: "+val);
                     device.setEffluent_type(val);
                     deviceMapper.updateDevice(device);
                     break;
@@ -320,6 +332,7 @@ public class DeviceMessageHandler {
                 	}else{
                 		device.setWorkStatus(4);
                 	}
+                	device.setEffluent_type(ls.get(8));//出水模式更新
                 	device.setSettemperature(ls.get(11));
                 	device.setCurrent_temp(ls.get(12));
                 	deviceMapper.updateDevice(device);
@@ -361,16 +374,32 @@ public class DeviceMessageHandler {
                 		device.setWorkStatus(0);
                 	}
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------设定温度------- ");
+                    logger.info("--------------------心跳------- ");
                     break;
-                    
+                case "daij": //待机
+                	device.setWorkStatus(0);
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------待机------- ");
+                    break;
+                case "kszt": // 开始暂停控制
+                	val = deviceMessage.getArgs().get(0);
+                	device.setStarted(val);
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------开始暂停控制------- "+val);
+                    break;
+                case "askazt": // 开始暂停主动上报
+                	val = deviceMessage.getArgs().get(0);
+                	device.setStarted("0".equals(val)?"2":"1");
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------开始暂停控制------- "+("0".equals(val)?"2":"1"));
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public static void main(String[] args) {
-    	GetProvinceCity("");
+    	System.out.println(Integer.parseInt("00"));
 	}
     public static String GetProvinceCity(String ip){
     	try {

@@ -94,7 +94,8 @@
                tb_equipmentstatus.province=#{province},
                tb_equipmentstatus.city=#{city},
                  tb_equipmentstatus.settemperature=#{settemperature},
-                 tb_equipmentstatus.workStatus=#{workStatus}
+                 tb_equipmentstatus.workStatus=#{workStatus},
+                  tb_equipmentstatus.started=#{started}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
