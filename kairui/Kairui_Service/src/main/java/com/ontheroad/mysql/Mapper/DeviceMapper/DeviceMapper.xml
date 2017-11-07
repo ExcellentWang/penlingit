@@ -12,7 +12,7 @@
  
  
    <select id="findUserListByUserId" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-		select *,s.workStatus,s.temperature,o.appointment_temperature,h.status from tb_equipment t
+		select *,s.workStatus,s.temperature as current_temp,o.appointment_temperature,h.status from tb_equipment t
 		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
 		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
         LEFT JOIN tb_user_share h ON  t.equipment_id = h.equipment_id
