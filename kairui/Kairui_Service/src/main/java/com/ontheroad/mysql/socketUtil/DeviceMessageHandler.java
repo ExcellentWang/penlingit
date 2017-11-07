@@ -118,6 +118,8 @@ public class DeviceMessageHandler {
         try {
             String num = "LDCT" + deviceMessage.getDeviceType() + deviceMessage.getDeviceID();
             String val;
+            String val1;
+            String val2;
             TerminalDevice device = deviceMapper.findDeviceByNum(num);
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
@@ -163,8 +165,17 @@ public class DeviceMessageHandler {
                     break;
                 case "womd": // 出水模式
                     val = deviceMessage.getArgs().get(0);
+                    val1=deviceMessage.getArgs().get(1);//出水模式
+                    val2=deviceMessage.getArgs().get(2);
+                    if(val1.equals("01")){
+                    	device.setSur_water(val2);//定量
+                    }
+                    if(val1.equals("02")){
+                    	device.setSur_time(val2);//定时
+                    }
                     logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
                     device.setEffluent_type(val);
+                    device.setEffluent_type2(val1);
                     deviceMapper.updateDevice(device);
                     break;
                 case "asomd": // 出水模式主动上报
@@ -176,8 +187,17 @@ public class DeviceMessageHandler {
                     );
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
+                    val1=deviceMessage.getArgs().get(1);//出水模式
+                    val2=deviceMessage.getArgs().get(2);
+                    if(val1.equals("01")){
+                    	device.setSur_water(val2);//定量
+                    }
+                    if(val1.equals("02")){
+                    	device.setSur_time(val2);//定时
+                    }
                     logger.info("主动上报:更新出水模式"+device.getEquipmentNum()+"val: "+val);
                     device.setEffluent_type(val);
+                    device.setEffluent_type2(val1);
                     deviceMapper.updateDevice(device);
                     break;
                 case "asdft": // 温度流量

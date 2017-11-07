@@ -32,6 +32,7 @@ public class TerminalDevice implements Serializable{
 
 	 private String effluent_way = "0"; // 出水方式
 	 private String effluent_type; // 出水模式
+	 private String effluent_type2; // 出水模式
 	 private String current_flow_grade = "001";  // 当前流速等级
 	 private String current_temp ;  // 当前温度
 	 private String settemperature;//设定温度
@@ -58,8 +59,34 @@ public class TerminalDevice implements Serializable{
 	 private String m_jie_water;
 	 private String province;
 	 private String city;
+	 private String sur_water;//剩余水量
+	 private String sur_time;//剩余时间
 	 
-	 public String getSettemperature() {
+	 public String getEffluent_type2() {
+		return effluent_type2;
+	}
+
+	public void setEffluent_type2(String effluent_type2) {
+		this.effluent_type2 = effluent_type2;
+	}
+
+	public String getSur_water() {
+		return sur_water;
+	}
+
+	public void setSur_water(String sur_water) {
+		this.sur_water = sur_water;
+	}
+
+	public String getSur_time() {
+		return sur_time;
+	}
+
+	public void setSur_time(String sur_time) {
+		this.sur_time = sur_time;
+	}
+
+	public String getSettemperature() {
 		return settemperature;
 	}
 
