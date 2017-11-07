@@ -32,7 +32,7 @@ public class TerminalDevice implements Serializable{
 
 	 private String effluent_way = "0"; // 出水方式
 	 private String effluent_type; // 出水模式
-	 private String effluent_type2; // 出水模式
+	 private String effluent_type2; // 出水模式定时定量普通
 	 private String current_flow_grade = "001";  // 当前流速等级
 	 private String current_temp ;  // 当前温度
 	 private String settemperature;//设定温度
