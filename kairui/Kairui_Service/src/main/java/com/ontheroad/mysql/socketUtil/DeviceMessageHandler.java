@@ -200,7 +200,7 @@ public class DeviceMessageHandler {
                     device.setEffluent_type2(val1);
                     deviceMapper.updateDevice(device);
                     break;
-                case "asdft": // 温度流量
+                case "asdft": // 温度流量液晶
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
