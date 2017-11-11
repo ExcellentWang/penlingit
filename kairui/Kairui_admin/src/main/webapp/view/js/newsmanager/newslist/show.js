@@ -9,6 +9,7 @@ $(function(){
 			}
 		});
 	}else{
+		console.log(args['content'])
 		$("#container").html(args['content'])
 	}
 })

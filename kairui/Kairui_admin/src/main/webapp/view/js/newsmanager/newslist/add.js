@@ -57,4 +57,13 @@ $(function(){
 				}
 			});
 	})
+	
+		//预览
+$("#yulan").click(function(){
+	console.log(ue.getContent())
+	comn.addTab({
+		title: '预览',
+		href: 'Modal/newsmanager/newslist/show.html?content='+ue.getContent()
+	});
+})
 })

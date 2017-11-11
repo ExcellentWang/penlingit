@@ -73,7 +73,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		TbNewsinformationExample example = new TbNewsinformationExample();
 		Criteria c = example.createCriteria();
 		if (tbNewsinformation.getTitle() != null && tbNewsinformation.getTitle() != "") {
-			c.andTitleEqualTo(tbNewsinformation.getTitle());
+			c.andTitleLike("%"+tbNewsinformation.getTitle()+"%");
 		}
 		if (tbNewsinformation.getStatus()!= null ) {
 			c.andStatusEqualTo(tbNewsinformation.getStatus());

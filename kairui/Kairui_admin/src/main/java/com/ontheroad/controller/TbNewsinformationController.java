@@ -51,7 +51,7 @@ public class TbNewsinformationController {
         	}
         }
         //资讯推送设置
-        if(isSend.contains("true")){
+        if(tbNewsinformation.getType()==1&&isSend.contains("true")){
         	tbNewsinformation.setContent(null);
         	JSONObject json=new JSONObject();
     		json.put("pdata", tbNewsinformation);
