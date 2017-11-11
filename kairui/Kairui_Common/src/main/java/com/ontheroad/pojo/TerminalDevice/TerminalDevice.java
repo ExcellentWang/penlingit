@@ -61,8 +61,18 @@ public class TerminalDevice implements Serializable{
 	 private String city;
 	 private String sur_water;//剩余水量
 	 private String sur_time;//剩余时间
+	 private String remark;//绑定备注
 	 
-	 public String getEffluent_type2() {
+	 
+	 public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getEffluent_type2() {
 		return effluent_type2;
 	}
 
