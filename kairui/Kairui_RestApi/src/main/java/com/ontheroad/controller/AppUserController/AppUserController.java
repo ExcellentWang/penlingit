@@ -312,7 +312,7 @@ public class AppUserController extends BaseConstant{
 				tbGuarantee.setBuytime(format.parse(request.getParameter("buytime")));
 			}
 			tbGuarantee.setInvoice(sImg);
-			tbGuarantee.setStatus(1);
+			tbGuarantee.setStatus(2);//审核中
 			tbGuarantee.setGuaranteeId(guarantee_id);
 			tbGuarantee.setGuaranteetime(String.valueOf(period));
 			tbGuarantee.setSubmitTime(new Date());

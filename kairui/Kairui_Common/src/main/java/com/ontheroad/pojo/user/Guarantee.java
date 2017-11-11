@@ -26,6 +26,14 @@ public class Guarantee implements Serializable {
 	private String invoice; //发票
 	private String status;  //保修卡状态 0待完善 1以完善 2审核中 3审核通过 4未通过
 	private String remark;  //备注（原因）remark = remark;
+	private String product_name;//产品
+	
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
 	public int getGuarantee_id() {
 		return guarantee_id;
 	}

@@ -78,7 +78,7 @@ $("#addDeviceType").click(function(){
 })
 
 handle_status= function (value, row, index) {
-	return [null,"待审核","已通过","已拒绝"][value];
+	return [null,null,"待审核","已通过","已拒绝"][value];
 };
 var deviceType;
 deviceType=function(value, row, index){

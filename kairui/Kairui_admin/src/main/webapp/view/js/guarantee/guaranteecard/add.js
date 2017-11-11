@@ -7,13 +7,13 @@ $(function(){
 		data:{"id":args['id']},
 		success: function(item){
 			$("#guaa").values(item.data)
-			if(item.data.status==1){
+			if(item.data.status==2){
 				$("[name='status']").val("待审核")
 			}
-			if(item.data.status==2){
+			if(item.data.status==3){
 				$("[name='status']").val("审核通过")
 			}
-			if(item.data.status==3){
+			if(item.data.status==4){
 				$("[name='status']").val("已拒绝")
 			}
 			//发票
@@ -27,7 +27,7 @@ $(function(){
 	$("#pass").click(function(){
 		$.ajax({
 			url: "/addOrUpdateGuarantee",
-			data:{"guaranteeId":args['id'],"status":2},
+			data:{"guaranteeId":args['id'],"status":3},
 			success: function(item){
 				if(item.code==0){
 					tip({
@@ -46,7 +46,7 @@ $(function(){
 	$("#refu").click(function(){
 		$.ajax({
 			url: "/addOrUpdateGuarantee",
-			data:{"guaranteeId":args['id'],"status":3},
+			data:{"guaranteeId":args['id'],"status":4},
 			success: function(item){
 				if(item.code==0){
 					tip({
