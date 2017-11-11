@@ -152,6 +152,12 @@ public class DeviceMessageHandler {
                     device.setEffluent_way(val);
                     deviceMapper.updateDevice(device);
                     break;
+                case "wyuy": // 预约改变状态准备中
+                    val = deviceMessage.getArgs().get(0);
+                    logger.info("预约改变状态准备中"+device.getEquipmentNum()+"val: "+val);
+                    device.setWorkStatus(1);
+                    deviceMapper.updateDevice(device);
+                    break;
                 case "asoty": // 出水方式主动上报
                     rep = new DeviceMessage(
                             deviceMessage.getDeviceType(),
@@ -226,9 +232,15 @@ public class DeviceMessageHandler {
                     example.createCriteria().andEquipmentIdEqualTo(device.getEquipment_id());
                     TbEquipmentstatus tbEquipmentstatus=new TbEquipmentstatus();
                     tbEquipmentstatus.setEquipmentId(device.getEquipment_id());
-                    tbEquipmentstatus.setBacklight(val);
+                    tbEquipmentstatus.setBacklight(String.valueOf(Integer.parseInt(val)));
                     tbEquipmentstatusMapper.updateByExampleSelective(tbEquipmentstatus, example);
-                    logger.info("更新背光值" + device.getEquipment_id() + "背光值: " + val);
+                    logger.info("液晶屏幕背光值" + device.getEquipment_id() + "背光值: " + val);
+                    break;
+                case "bltr": // 背光APP设置
+                	 val = deviceMessage.getArgs().get(0);
+                	 device.setBacklight(String.valueOf(Integer.parseInt(val)));
+                	 logger.info("背光APP设置"+device.getEquipment_id()+"val: "+val);
+                     deviceMapper.updateDevice(device);
                     break;
                 case "asxzsj": // 洗澡时间
                     rep = new DeviceMessage(
@@ -375,12 +387,26 @@ public class DeviceMessageHandler {
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------上传每次洗澡用水量节水量------- ");
                     break;
-                case "yyos": //语音播报开关
+                case "yyos": //语音播报开关，音量app设置
                 	val = deviceMessage.getArgs().get(0);
-                	device.setVoicebroadcast(val);
-                	device.setVolume(val);
+                	device.setVoicebroadcast((Integer.parseInt(val)==0?"0":"1"));
+                	device.setVolume(String.valueOf(Integer.parseInt(val)));
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------上传语音播报开关------- ");
+                    logger.info("--------------------语音播报开关，音量app设置------- ");
+                    break;
+                case "asyyos": // 音量液晶屏设置
+                	rep = new DeviceMessage(
+                            deviceMessage.getDeviceType(),
+                            deviceMessage.getDeviceID(),
+                            "asyyos",
+                            new ArrayList<>(Arrays.asList("OK"))
+                    );
+                    reply(session, rep);
+                	val = deviceMessage.getArgs().get(0);
+                	device.setVoicebroadcast((Integer.parseInt(val)==0?"0":"1"));
+                	device.setVolume(String.valueOf(Integer.parseInt(val)));
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------音量液晶屏设置------- "+("0".equals(val)?"2":"1"));
                     break;
                 case "wdft": //设定温度
                 	val = deviceMessage.getArgs().get(0);
@@ -413,6 +439,7 @@ public class DeviceMessageHandler {
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------开始暂停控制------- "+("0".equals(val)?"2":"1"));
                     break;
+              
             }
         } catch (Exception e) {
             e.printStackTrace();

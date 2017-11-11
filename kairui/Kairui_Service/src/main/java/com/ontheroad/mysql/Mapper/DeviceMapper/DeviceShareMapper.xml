@@ -30,6 +30,7 @@
     <select id="findSharesOfDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceShare" parameterType="Integer">
         SELECT * FROM tb_user_share s
         left join tb_user u on s.share_user_id = u.user_id
+        left join `tb_equipment` te on te.equipment_id=s.equipment_id
         WHERE s.equipment_id = #{equipment_id}
         AND s.status = 1
     </select>
