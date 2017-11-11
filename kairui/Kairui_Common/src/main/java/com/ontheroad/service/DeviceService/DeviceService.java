@@ -114,4 +114,6 @@ public interface DeviceService {
 	 * @return
 	 */
 	String getzaixianlvByCity(String province);
+	
+	Map<Object, Object> updateShareDeviceRemark(DeviceShare ds);
 }

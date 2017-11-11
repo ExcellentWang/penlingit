@@ -736,6 +736,14 @@ public class DeviceImpl implements DeviceService {
 	public Integer allSize(String province) {
 		return deviceMapper.allSize(province);
 	}
-	
+
+	@Override
+	public Map<Object, Object> updateShareDeviceRemark(DeviceShare ds) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		deviceShareMapper.updateShareDeviceRemark(ds);
+		map.put("code", BaseConstant.appUserSuccessStatus);
+		map.put("msg", "修改成功");
+		return map;
+	}
 	
 }

@@ -2,6 +2,7 @@ package com.ontheroad.mysql.Mapper.DeviceMapper;
 
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
+import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 
@@ -78,4 +79,6 @@ public interface DeviceMapper {
 	 * @return
 	 */
 	String getzaixianlvByCity(@Param("province")String province);
+	
+	
 }

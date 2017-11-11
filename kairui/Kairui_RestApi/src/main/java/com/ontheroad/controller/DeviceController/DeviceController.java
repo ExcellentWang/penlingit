@@ -325,7 +325,11 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
-
+	/**
+	 * 修改设备名
+	 * @param terminalDevice
+	 * @return
+	 */
 	@RequestMapping(value = "/updateDeviceName")
 	public Map<Object, Object> updateDeviceName(TerminalDevice terminalDevice) {
 		//返回前端map
@@ -341,5 +345,25 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
-
+	
+	/**
+	 * 修改分享或者绑定的备注
+	 * @param terminalDevice
+	 * @return
+	 */
+	@RequestMapping(value = "/updateShareDeviceRemark")
+	public Map<Object, Object> updateShareDeviceRemark(DeviceShare ds) {
+		//返回前端map
+		Map<Object,Object> map = new HashMap<Object,Object>();
+		try {
+			return deviceService.updateShareDeviceRemark(ds);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("code", BaseConstant.appUserErrorStatus);
+			map.put("msg", "服务器异常");
+			map.put("extra",null);
+			map.put("resultMap", null);
+			return map;
+		}
+	}
 }
