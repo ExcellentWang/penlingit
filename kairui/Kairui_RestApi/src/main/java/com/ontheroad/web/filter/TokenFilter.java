@@ -21,7 +21,7 @@ public class TokenFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	//获取token  	
-/*    	String token = request.getParameter("token"); 
+    	String token = request.getParameter("token"); 
     	
     	String isHasToken = (String) EhcacheUtil.getInstance().get("token",token);
   	
@@ -52,8 +52,8 @@ public class TokenFilter implements HandlerInterceptor {
             
             return false;
             
-    	}*/
-          return true;
+    	}
+//          return true;
     }
 
     @Override
