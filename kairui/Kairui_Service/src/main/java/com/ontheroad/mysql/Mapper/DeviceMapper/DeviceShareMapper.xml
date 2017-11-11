@@ -88,6 +88,6 @@
         and   equipment_id = #{equipment_id}
     </select>
     <update id="updateShareDeviceRemark" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceShare" >
-    	update tb_user_share set remark=#{remark} where share_user_id=#{share_user_id} and user_id=#{user_id}
+    	update tb_user_share set remark=#{remark} where share_user_id=#{share_user_id} and equipment_id=#{equipment_id}
     </update>
 </mapper>
