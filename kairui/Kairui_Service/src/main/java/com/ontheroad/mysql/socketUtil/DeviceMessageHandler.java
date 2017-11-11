@@ -180,6 +180,7 @@ public class DeviceMessageHandler {
                     	device.setSur_time(val2);//定时
                     }
                     logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
+                    device.setCurrent_flow_grade(ls.get(3));
                     device.setEffluent_type(val);
                     device.setEffluent_type2(val1);
                     deviceMapper.updateDevice(device);
@@ -438,6 +439,25 @@ public class DeviceMessageHandler {
                 	device.setStarted("0".equals(val)?"2":"1");
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------开始暂停控制------- "+("0".equals(val)?"2":"1"));
+                    break;
+                case "init": // 设备初始化
+                	device.setType(ls.get(0));
+                	device.setEffluent_way(ls.get(1));
+                	device.setEffluent_type(ls.get(2));
+                	device.setEffluent_type2(ls.get(3));
+                	 if(ls.get(3).equals("01")){
+                     	device.setSur_water(ls.get(4));//定量
+                     }
+                     if(ls.get(3).equals("02")){
+                     	device.setSur_time(ls.get(4));//定时
+                     }
+                	device.setSettemperature(ls.get(5));
+                	device.setCurrent_flow_grade(ls.get(6));
+                	//心跳间隔
+                	//使用记录间隔
+                	device.setApp_enabled(ls.get(9));
+                	deviceMapper.updateDevice(device);
+                    logger.info("--------------------设备初始化------- ");
                     break;
               
             }
