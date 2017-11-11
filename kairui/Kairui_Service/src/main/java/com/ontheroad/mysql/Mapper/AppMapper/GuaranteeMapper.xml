@@ -5,7 +5,7 @@
     <select id="getGuaranteeDetail" parameterType="map" resultType="com.ontheroad.pojo.user.Guarantee">
 	SELECT
 	e.type AS deviceType,e.type AS model,e.equipmentNum AS
-	productNumber,ed.period AS guaranteeTime , ed.product_name,g.* FROM tb_equipment e
+	productNumber,ed.period AS guaranteeTime , ed.product_name,g.*,e.* FROM tb_equipment e
 	LEFT JOIN tb_guarantee g ON e.equipment_id = g.equipment_id
 	LEFT JOIN equipment_datatype ed ON ed.type =e.type
 	WHERE e.equipment_id =#{equipment_id}
