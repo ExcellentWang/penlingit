@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ontheroad.entity.equipmentDatatype;
+import com.ontheroad.entity.EquipmentDatatype;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
@@ -72,7 +72,7 @@ public class DeviceController extends BaseConstant{
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
         try {	 
-        	List<equipmentDatatype> ls=iDeviceService.selectAllDeviceType();
+        	List<EquipmentDatatype> ls=iDeviceService.selectAllDeviceType();
         	map.put("code", BaseConstant.appUserSuccessStatus);
      		map.put("msg", "获取成功");
      		map.put("totalItem",ls.size());
@@ -392,10 +392,11 @@ public class DeviceController extends BaseConstant{
 	* @throws
 	 */
 	@RequestMapping(value = "/addDeviceType")
-	public Map<Object, Object> addDeviceType(equipmentDatatype equipmentDatatype) {
+	public Map<Object, Object> addDeviceType(EquipmentDatatype equipmentDatatype) {
 		//返回前端map
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
+			equipmentDatatype.setType(equipmentDatatype.getRemark());
 			iDeviceService.addDeviceType(equipmentDatatype);
 			map.put("resultMap", null);
 			map.put("code", BaseConstant.appUserSuccessStatus);

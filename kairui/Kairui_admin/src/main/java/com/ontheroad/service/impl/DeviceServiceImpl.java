@@ -6,12 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ontheroad.dao.EquipmentDatatypeMapper;
 import com.ontheroad.dao.TbEquipmentMapper;
-import com.ontheroad.dao.equipmentDatatypeMapper;
+import com.ontheroad.entity.EquipmentDatatype;
+import com.ontheroad.entity.EquipmentDatatypeExample;
 import com.ontheroad.entity.TbEquipment;
 import com.ontheroad.entity.TbEquipmentExample;
-import com.ontheroad.entity.equipmentDatatype;
-import com.ontheroad.entity.equipmentDatatypeExample;
 import com.ontheroad.service.IDeviceService;
 import com.ontheroad.utils.MapUtil;
 import com.ontheroad.utils.WebUtil;
@@ -19,11 +19,11 @@ import com.ontheroad.utils.WebUtil;
 @Service
 public class DeviceServiceImpl implements IDeviceService{
 	@Autowired
-	private equipmentDatatypeMapper equipmentDatatypeMapper;
+	private EquipmentDatatypeMapper equipmentDatatypeMapper;
 	@Autowired
 	private TbEquipmentMapper tbEquipmentMapper;
 	@Override
-	public void addDeviceType(equipmentDatatype equipmentDatatype) {
+	public void addDeviceType(EquipmentDatatype equipmentDatatype) {
 		if(equipmentDatatype.getEquipmentType()==null){
 			equipmentDatatypeMapper.insertSelective(equipmentDatatype);
 		}else{
@@ -31,8 +31,8 @@ public class DeviceServiceImpl implements IDeviceService{
 		}
 	}
 	@Override
-	public List<equipmentDatatype> selectAllDeviceType() {
-		equipmentDatatypeExample example=new equipmentDatatypeExample();
+	public List<EquipmentDatatype> selectAllDeviceType() {
+		EquipmentDatatypeExample example=new EquipmentDatatypeExample();
 		return equipmentDatatypeMapper.selectByExample(example);
 	}
 	@Override
@@ -48,10 +48,10 @@ public class DeviceServiceImpl implements IDeviceService{
 		return MapUtil.getSuccessJson();
 	}
 	@Override
-	public equipmentDatatype selectDeviceTypeId(Integer equipmentType) {
-		equipmentDatatypeExample example=new equipmentDatatypeExample();
+	public EquipmentDatatype selectDeviceTypeId(Integer equipmentType) {
+		EquipmentDatatypeExample example=new EquipmentDatatypeExample();
 		example.createCriteria().andEquipmentTypeEqualTo(equipmentType);
-		List<equipmentDatatype> ls= equipmentDatatypeMapper.selectByExample(example);
+		List<EquipmentDatatype> ls= equipmentDatatypeMapper.selectByExample(example);
 		return ls.get(0);
 	}
 	@Override
