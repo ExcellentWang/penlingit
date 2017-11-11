@@ -29,7 +29,7 @@
 
 	<!--mina配置 -->
 	<bean id="defaultLocalAddress" class="java.net.InetSocketAddress">
-		<constructor-arg index="0" value="10024"></constructor-arg>
+		<constructor-arg index="0" value="10026"></constructor-arg>
 	</bean>
 	<bean id="minaServerHandler" class="com.ontheroad.mysql.socketUtil.MinaServerHandler" />
 	<bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
