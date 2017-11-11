@@ -19,14 +19,14 @@ public class AdminLoginFilter implements HandlerInterceptor {
             return true;
         }else {
             //没有登陆，转向登陆界面
-        	 request.getRequestDispatcher("/admin/login").forward(request, response); 
+        	response.sendRedirect("/view/index.html");
             return false;
         }
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+    	 
     }
 
     @Override
