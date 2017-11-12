@@ -67,7 +67,7 @@
     </session-config>
     
    <welcome-file-list>
-		<welcome-file>/view/index.html</welcome-file>
+		<welcome-file>/loan/index.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

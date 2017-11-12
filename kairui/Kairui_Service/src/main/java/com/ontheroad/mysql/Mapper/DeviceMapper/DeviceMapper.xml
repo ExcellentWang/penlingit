@@ -72,7 +72,7 @@
         update tb_equipment_appointment SET
 		user_id = #{user_id}, effluent_speed = #{effluent_speed},time = #{time},
 		children_status = #{children_status},appointment_temperature = #{appointment_temperature},effluent_type = #{effluent_type},
-		effluent_amount = #{effluent_amount},effluent_time = #{effluent_time}, effluent_way = #{effluent_way}
+		effluent_amount = #{effluent_amount},effluent_time = #{effluent_time}, effluent_way = #{effluent_way},updated_at=NOW()
 		where equipment_id = #{equipment_id}
    </update>
     <update id="updateDevice" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

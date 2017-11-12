@@ -416,10 +416,10 @@ public class DeviceImpl implements DeviceService {
 		ArrayList<String> args = new ArrayList<>();
 		try {
 			TerminalDevice device = deviceMapper.getDeviceDetailById(d.getEquipment_id());
-			deviceSendInstruction(d.getInstructions());
+			deviceSendInstruction(d.getInstructions());//发送指令
 			d.setValid(true);
-			device.setWorkStatus(2);
-//			deviceMapper.updateDeviceWorkingStatus(device);
+			device.setWorkStatus(2);//更新设备状态
+			deviceMapper.updateDeviceWorkingStatus(device);
 			deviceMapper.deviceAppointment(d);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "预约成功");
