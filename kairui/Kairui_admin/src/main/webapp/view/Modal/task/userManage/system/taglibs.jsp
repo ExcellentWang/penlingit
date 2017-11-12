@@ -5,7 +5,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
 %>
-<c:set var="ctx" value="<%=basePath %>"/>
+<c:set var="ctx" value=""/>
 <c:set var="js" value="${ctx}/static/js"/>
 <c:set var="css" value="${ctx}/static/css"/>
 <c:set var="img" value="${ctx}/static/images"/>
@@ -48,26 +48,10 @@
 
 <script>
     ctx = '${ctx}';
-    console.log("<%=basePath %>");
     $("head").append([
         '<script src="${view}/view/common/js/URL.js"><\/script>',
         '<script src="${view}/view/common/js/iframeCommon.js"><\/script>'
       ].join(""));
-    //session 失效跳转
-   /*  $.ajaxSetup({
-        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-        cache: false,
-        dataType: "json",
-        complete: function (XHR, TS) {
-            var resText = XHR.responseText;
-            if (resText.indexOf("sessionState") != -1 && resText.indexOf("loginUrl") != -1) {
-                var resJson = $.parseJSON(resText);
-                if (resJson.sessionState == 0) {
-                    window.top.location.href = resJson.loginUrl;
-                }
-            }
-        }
-    }); */
 
 </script>
 
