@@ -24,7 +24,7 @@ public class UploadUtil {
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
-        String sImg= "http://"+"106.14.173.153"+":9999"+"/view/upload/"+fileName;
+        String sImg= "https://sec.ldzhn.com/view/upload/"+fileName;
 		return sImg;
 	}
 	public static String getRemoteHost(javax.servlet.http.HttpServletRequest request){

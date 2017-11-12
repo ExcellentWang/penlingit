@@ -25,7 +25,7 @@ public class TbNewsinformationServiceImpl implements TbNewsinformationService {
 		if(tbNewsinformation.getId()==null){
 			tbNewsinformation.setStatus(1);
 			tbNewsinformationMapper.insert(tbNewsinformation);
-			tbNewsinformation.setAddress("http://106.14.173.153:9999/view/Modal/newsmanager/newslist/show.html?id="+tbNewsinformation.getId());
+			tbNewsinformation.setAddress("https://sec.ldzhn.com/view/Modal/newsmanager/newslist/show.html?id="+tbNewsinformation.getId());
 			tbNewsinformationMapper.updateByPrimaryKey(tbNewsinformation);
 			//插入消息公用表数据
 			TbInformation info=new TbInformation();

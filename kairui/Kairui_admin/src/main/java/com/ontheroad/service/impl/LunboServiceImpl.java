@@ -19,7 +19,7 @@ public class LunboServiceImpl implements LunboService {
 		lunbo.setCtime(new Date());
 		if(lunbo.getId()==null){
 			lunboMapper.insert(lunbo);
-			lunbo.setAddress("http://106.14.173.153:9999/view/Modal/newsmanager/lunbomanager/show.html?id="+lunbo.getId());
+			lunbo.setAddress("https://sec.ldzhn.com/view/Modal/newsmanager/lunbomanager/show.html?id="+lunbo.getId());
 			lunboMapper.updateByPrimaryKey(lunbo);
 		}else{
 			lunboMapper.updateByPrimaryKey(lunbo);

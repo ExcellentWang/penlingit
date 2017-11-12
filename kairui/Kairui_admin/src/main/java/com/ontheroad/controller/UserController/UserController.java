@@ -114,7 +114,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/addOrUpdateEula")
 	public Map<Object, Object> addOrUpdateEula(HttpServletRequest request,TbEula eula){
-		eula.setAddress("http://106.14.173.153:9999/view/Modal/task/userManage/system/yhxy/show.html");
+		eula.setAddress("https://sec.ldzhn.com/view/Modal/task/userManage/system/yhxy/show.html");
 		appUserService.updateOrAddEula(eula);
 		return MapUtil.getSuccessJson();
 	}
