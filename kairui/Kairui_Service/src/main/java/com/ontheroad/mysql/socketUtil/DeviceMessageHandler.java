@@ -68,7 +68,6 @@ public class DeviceMessageHandler {
 	 */
     public void recv(IoSession session, String msg) {
     	//存设备日志
-    	logger.info("硬件上传的信息----------------------------------"+msg);
         DeviceMessage deviceMessage = new DeviceMessage(msg);
         DeviceLog deviceLog = new DeviceLog();
         deviceLog.setRaw(msg);

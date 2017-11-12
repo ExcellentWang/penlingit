@@ -44,7 +44,8 @@ public class TerminalDeviceVo  implements Serializable{
 
 	 private Date created_at;
 	 private Date binded_at;
-	 private String last_active_at;
+	 @DateTimeFormat(pattern="YYYY-MM-dd hh:mm:ss")
+	 private Date last_active_at;
 
 	 private String firm_version;
 	 
@@ -317,15 +318,14 @@ public class TerminalDeviceVo  implements Serializable{
 		this.binded_at = binded_at;
 	}
 
-	public String getLast_active_at() {
+	
+	public Date getLast_active_at() {
 		return last_active_at;
 	}
 
-	public void setLast_active_at(String last_active_at) {
+	public void setLast_active_at(Date last_active_at) {
 		this.last_active_at = last_active_at;
 	}
-
-	
 
 	public String getFirm_version() {
 		return firm_version;
