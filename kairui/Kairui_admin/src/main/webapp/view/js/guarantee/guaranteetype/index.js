@@ -17,7 +17,7 @@ tableEvent = {
 	"click .update" : function(e, a, item, index) {
 		$("#xintiao").modal("show")   	
 		$.ajax({
-   	 			url: "/selStaffById",
+   	 			url: "/selGuaranteeTypeById",
    	 			data: {
    	 				"id":item.id
    	 			},
@@ -92,6 +92,7 @@ $("#addDeviceType").click(function(){
    	 					content:item.msg
    	 				})
  				}else{
+ 					$("#table1").bootstrapTable("refresh", {url: "..."});
    	 				tip({
    	 					content:"添加成功！"
    	 				})

@@ -11,7 +11,7 @@ var handle,tableEvent;
 
 handle = function (value, row, index) {
 	var modifyMenu = "";
-	if(row.status==1){
+	if(row.status==2){
 		modifyMenu+="<li><a class='send'>审核</a></li>"
 	}
 	

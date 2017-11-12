@@ -138,7 +138,7 @@
 	ON tes.`equipment_id` = te.`equipment_id`
 	WHERE 1 = 1
 	<if test="equipmentNum!=null and equipmentNum!=''">
-		and te.equipmentNum = #{equipmentNum}
+		and te.equipmentNum like  concat('%',#{equipmentNum},'%')
 	</if> 
     <if test="phone!=null and phone!=''">
 		and tu.phone = #{phone}

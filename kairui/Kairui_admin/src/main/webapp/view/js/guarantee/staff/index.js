@@ -82,6 +82,12 @@ $("#btn-search").click(function () {
 $("#addDeviceType").click(function(){
 	$("#xintiao").modal("show")   	
 	$("#confirm").unbind("click").click(function () {
+		if($("[name='phone']").val().length!=11){
+			tip({
+					content:"请输入正确的手机号"
+				})
+			return;
+		}
 		$("#xintiao").modal('hide')
 		$.ajax({
 	 			url: "/addOrUpdateStaff",

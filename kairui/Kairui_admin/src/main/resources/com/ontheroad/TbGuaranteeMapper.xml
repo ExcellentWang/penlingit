@@ -393,10 +393,10 @@
        and tg.status = #{status,jdbcType=INTEGER}
       </if>
      <if test="equipmentNum != null and equipmentNum!=''">
-       and equipment_num = #{equipmentNum,jdbcType=VARCHAR}
+       and equipmentNum like  concat('%',#{equipmentNum},'%')
       </if>
       <if test="phone != null and phone!=''">
-       and phone = #{phone,jdbcType=VARCHAR}
+       and phone like  concat('%',#{phone},'%')
       </if>
   </select>
 </mapper>
