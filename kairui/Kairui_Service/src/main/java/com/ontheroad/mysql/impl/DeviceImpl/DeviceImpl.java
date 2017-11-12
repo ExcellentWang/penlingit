@@ -413,14 +413,10 @@ public class DeviceImpl implements DeviceService {
 	public Map<Object, Object> deviceAppointment(DeviceAppointment d) {
 		// 返回前端map
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-		ArrayList<String> args = new ArrayList<>();
 		try {
-			TerminalDevice device = deviceMapper.getDeviceDetailById(d.getEquipment_id());
 			deviceSendInstruction(d.getInstructions());//发送指令
 			d.setValid(true);
-			device.setWorkStatus(2);//更新设备状态
-			deviceMapper.updateDeviceWorkingStatus(device);
-			deviceMapper.deviceAppointment(d);
+			deviceMapper.deviceAppointment(d);//存参数
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "预约成功");
 			map.put("extra", null);

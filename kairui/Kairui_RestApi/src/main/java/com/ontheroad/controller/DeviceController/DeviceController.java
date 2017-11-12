@@ -239,6 +239,13 @@ public class DeviceController extends BaseConstant{
     public Map<Object,Object> deviceAppointment(DeviceAppointment d) {
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>(); 
+	    if(d.getUser_id()==0){
+			map.put("code", BaseConstant.appUserErrorStatus);
+    		map.put("msg", "user_id为空");
+    		map.put("extra",null);
+    		map.put("resultMap", null);
+            return map;
+		}
         try {	        	
         	return deviceService.deviceAppointment(d);
         } catch (Exception e) {

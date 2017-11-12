@@ -208,25 +208,6 @@ public class DeviceController extends BaseConstant{
 		}
 	}
 
-	/*
-	 * 预约设置
-	 * 
-	 */
-	@RequestMapping(value = "/deviceAppointment")
-    public Map<Object,Object> deviceAppointment(DeviceAppointment d) {
-		//返回前端map
-	    Map<Object,Object> map = new HashMap<Object,Object>(); 
-        try {	        	
-        	return deviceService.deviceAppointment(d);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", BaseConstant.appUserErrorStatus);
-    		map.put("msg", "服务器异常");
-    		map.put("extra",null);
-    		map.put("resultMap", null);
-            return map;
-        }
-    }
 	
 	
 	/*
