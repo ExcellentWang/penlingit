@@ -28,14 +28,23 @@
     <select id="getInformationList" resultType="com.ontheroad.pojo.Information.Information" parameterType="map">
         select i.*,d.information_name typeName from tb_information i
         LEFT JOIN information_datatype d on d.information_type = i.informationType
+        LEFT JOIN `information_user` iu 
+   	    ON iu.`information_id` = i.`id` 
         WHERE 1=1 
         and is_delete=0
         <if test="user_id !='' and user_id !=null ">
-         and i.user_id = #{user_id}
+		AND (
+		iu.`id` IS NULL
+		OR (
+		iu.`id` IS NOT NULL
+		AND iu.`user_id` != #{user_id}
+		)
+		)
          </if>
           <if test="informationType !='' and informationType !=null ">
          AND i.informationType = #{informationType} 
          </if>
+           GROUP BY i.id
     </select>
 
     <select id="getSlides" resultType="com.ontheroad.pojo.Information.Slideshow">
@@ -52,17 +61,9 @@
        WHERE informationType=#{informationType}  and user_id=#{user_id} ORDER BY id DESC LIMIT 1
    		
     </select>
-	<update id="clearInformations" parameterType="com.ontheroad.pojo.Information.Information">
-       update tb_information ti set is_delete = 1
-       where ti.user_id = #{user_id}
-        <if test="information_id !='' and information_id !=null ">
-        and ti.id=#{information_id}
-        </if>
-        <if test="informationType !='' and informationType !=null ">
-         and ti.informationType=#{informationType}
-        </if>
-         
-   </update>
+    <select id="getInformationByType" resultType="com.ontheroad.pojo.Information.userInformation">
+     select id as information_id,* from tb_information where informationType=#{type}
+    </select>
    
     <select id="allInformationsNum" parameterType="com.ontheroad.pojo.Information.Information" resultType="map">
        SELECT (SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =1)AS type1num,
@@ -71,12 +72,4 @@
 		(SELECT COUNT(*) FROM `tb_information` WHERE user_id=#{user_id} AND informationType =4)AS type4num
     </select>
     
-    <update id="setInformationIsRead" parameterType="com.ontheroad.pojo.Information.Information">
-       update tb_information ti set isNew = 0
-       where ti.user_id = #{user_id}
-        <if test="information_id !='' and information_id !=null ">
-        and ti.id=#{information_id}
-        </if>
-         
-   </update>
 </mapper>

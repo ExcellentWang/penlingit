@@ -1,8 +1,10 @@
 package com.ontheroad.mysql.impl.InformationImpl;
 
 import com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper;
+import com.ontheroad.mysql.dao.InformationUserMapper;
 import com.ontheroad.mysql.dao.LunboMapper;
 import com.ontheroad.mysql.dao.TbInformationMapper;
+import com.ontheroad.mysql.entity.InformationUser;
 import com.ontheroad.mysql.entity.Lunbo;
 import com.ontheroad.mysql.entity.LunboExample;
 import com.ontheroad.mysql.entity.TbInformation;
@@ -30,6 +32,8 @@ public class InformationImpl implements InformationService{
 	private TbInformationMapper tbInformationMapper;
 	@Autowired
 	private LunboMapper lunboMapper;
+	@Autowired
+	private InformationUserMapper informationUserMapper;
 	
 	
 	@Override
@@ -182,11 +186,17 @@ public class InformationImpl implements InformationService{
 	public Map<Object, Object> clearInformations(Integer user_id,Integer information_id,Integer informationType) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		try {
-		informationMapper.clearInformations(user_id, information_id,informationType);
-		map.put("code", BaseConstant.appUserSuccessStatus);
-		map.put("msg", "清空消息成功");
-		map.put("extra", null);
-		map.put("resultMap", null);
+			List<userInformation> ls=informationMapper.getInformationByType(informationType);
+			for (userInformation i : ls) {
+				InformationUser iu=new InformationUser();
+				iu.setId(Long.valueOf(user_id));
+				iu.setInformationId(Long.valueOf(i.getInformation_id()));
+				informationUserMapper.insert(iu);
+			}
+			map.put("code", BaseConstant.appUserSuccessStatus);
+			map.put("msg", "清空消息成功");
+			map.put("extra", null);
+			map.put("resultMap", null);
 		return map;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -201,7 +211,10 @@ public class InformationImpl implements InformationService{
 	@Override
 	public Map<Object, Object> setInformationIsRead(Integer user_id, Integer informationId) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		informationMapper.setInformationIsRead(user_id,informationId);
+		InformationUser iu=new InformationUser();
+		iu.setId(Long.valueOf(user_id));
+		iu.setInformationId(Long.valueOf(informationId));
+		informationUserMapper.insert(iu);
 		map.put("code", BaseConstant.appUserSuccessStatus);
 		map.put("msg", "成功");
 		map.put("extra", null);
