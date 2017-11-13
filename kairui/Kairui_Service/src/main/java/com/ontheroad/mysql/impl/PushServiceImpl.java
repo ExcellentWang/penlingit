@@ -32,6 +32,9 @@ public class PushServiceImpl implements PushService {
 		});
 	}
 		public static void main(String[] args) {
-//			new PushServiceImpl().pushInstallationId(13);
+			com.alibaba.fastjson.JSONObject js=new com.alibaba.fastjson.JSONObject();
+			js.put("test", "2");
+			js.put("alert", "推送给多多,android222！");
+			new PushServiceImpl().pushInstallationId(26,js);
 		}
 }
