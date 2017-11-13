@@ -32,6 +32,7 @@
 		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
 		left join equipment_datatype ed on t.type=ed.type
         where t.equipment_id = #{equipment_id}
+        group by t.equipment_id
    </select>
    
     <select id="findDeviceByNum" parameterType="java.lang.String"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">

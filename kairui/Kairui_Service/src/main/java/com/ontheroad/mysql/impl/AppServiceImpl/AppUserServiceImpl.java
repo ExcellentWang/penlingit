@@ -451,7 +451,9 @@ public class AppUserServiceImpl implements AppUserService{
 			for(Customerpicture p: picadds) {
 				pics.add(p.getPictureAddress());
 			}
-			c.setPictureAdd(pics);
+			if(pics.size()!=0){
+				c.setPictureAdd(pics);
+			}
 			//获取报修进度
 			TbCustomerservicedetailsExample example =new TbCustomerservicedetailsExample();
 			example.createCriteria().andCustomerIdEqualTo(Long.valueOf(customerservice.getCustomer_id()));
@@ -464,7 +466,9 @@ public class AppUserServiceImpl implements AppUserService{
 				d.setTime(t.getTime());
 				ds.add(d);
 			}
-			c.setServiceDetails(ds);
+			if(ds.size()!=0){
+				c.setServiceDetails(ds);
+			}
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");
 			map.put("extra",null);

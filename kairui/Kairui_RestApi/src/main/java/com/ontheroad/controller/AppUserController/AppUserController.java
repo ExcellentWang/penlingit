@@ -308,8 +308,8 @@ public class AppUserController extends BaseConstant{
 			Integer period=deviceService.getDeviceDetail(equipment_id).getPeriod();
 			tbGuarantee.setEquipmentId(equipment_id);
 			tbGuarantee.setUserId(user_id);
-			if(request.getParameter("buytime")!=null){
-				tbGuarantee.setBuytime(format.parse(request.getParameter("buytime")));
+			if(request.getParameter("buyTime")!=null){
+				tbGuarantee.setBuytime(format.parse(request.getParameter("buyTime")));
 			}
 			tbGuarantee.setInvoice(sImg);
 			tbGuarantee.setStatus(2);//审核中

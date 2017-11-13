@@ -23,6 +23,7 @@
 	LEFT JOIN `tb_user` tu
 	ON te.`user_id` = tu.`user_id`
 	left join equipment_datatype ed on ed.equipment_type=te.type
+	left join tb_equipmentstatus tes on tes.equipment_id=te.equipment_id
 	WHERE 1 = 1
 	
 	<if test="equipmentNum!=null and equipmentNum!=''">

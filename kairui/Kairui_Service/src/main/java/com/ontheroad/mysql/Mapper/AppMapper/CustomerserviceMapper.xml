@@ -4,7 +4,7 @@
 
     
    <select id="getCustomerList" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
-            select c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName from tb_customerservice c
+            select c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName,e.equipment_id,c.repairType,c.orderNum from tb_customerservice c
 			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
 			where c.user_id = #{user_id}
             ORDER BY c.createTime DESC

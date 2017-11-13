@@ -22,7 +22,7 @@ public class Customerservice implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int customer_id;  //保修ID
 	private int equipment_id;  //设备ID
-	private int user_id;   //用户ID
+	private Integer user_id;   //用户ID
 	private String equipmentNum;  //设备编号
 	private String repairType;  //报修类型
 	private String repairTypeText; // 报修类型 - 文字描述
@@ -59,10 +59,10 @@ public class Customerservice implements Serializable{
 	public void setEquipment_id(int equipment_id) {
 		this.equipment_id = equipment_id;
 	}
-	public int getUser_id() {
+	public Integer getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 	public String getEquipmentNum() {

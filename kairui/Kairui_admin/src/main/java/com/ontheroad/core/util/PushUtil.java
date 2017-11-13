@@ -19,7 +19,6 @@ public class PushUtil {
 	@Autowired
 	private TbNewsinformationMapper tbNewsinformationMapper;
 	public  void push(JSONObject json){
-//		json.put("prod", "dev");
 		AVOSCloud.initialize("EKDyDJR6JNNjJe2L9bwAbAIa-gzGzoHsz","Syi5KsGmQuLpXDxODzvQlhKk","1SOIwMs1CONX2GVybAyKoTsK");
 		AVOSCloud.setDebugLogEnabled(true);
 		AVPush push = new AVPush();

@@ -3,6 +3,8 @@ package com.ontheroad.mysql.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TbGuarantee implements Serializable{
     /**
      *
@@ -56,6 +58,7 @@ public class TbGuarantee implements Serializable{
      *
      * @mbggenerated Sun Oct 29 09:24:55 CST 2017
      */
+    @DateTimeFormat(pattern="YYYY-MM-DD")
     private Date buytime;
 
     /**

@@ -30,7 +30,7 @@ public class TbNewsinformation {
      *
      * @mbggenerated Thu Oct 19 17:04:00 CST 2017
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
     private Date createtime;
 
     /**

@@ -24,10 +24,21 @@ public class DeviceVo implements Serializable {
 	private Date updated_at;//绑定时间
 	private String errorEvent;//异常事件
 	private String equipment_name;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date binded_at_a;
-	
+	private String city;
 	 
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
 	public Date getBinded_at_a() {
 		return binded_at_a;
 	}
