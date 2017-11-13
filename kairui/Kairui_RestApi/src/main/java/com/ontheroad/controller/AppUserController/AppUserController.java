@@ -137,19 +137,16 @@ public class AppUserController extends BaseConstant{
 	        }
 			//生成token
 	        String newToken = StringUtilsCommon.getToken();
-	        
 	        EhcacheUtil.getInstance().put("token", newToken, u.getUser_id()+""); //绑定新token和id的关系
 	        EhcacheUtil.getInstance().put("token", u.getUser_id()+"",newToken); //绑定id和新token的关系
-	        
 	        appResultMap.put("user", u);
 	        appResultMap.put("token", newToken);
-	          
 	        map.put("code", BaseConstant.appUserSuccessStatus);
     		map.put("msg", "登陆成功");
     		map.put("extra",null);
     		map.put("resultMap", appResultMap);  
-	        
-	        
+	        //更新推送id
+    		appUserService.appUserUpdateData(u);
 			return 	map;
 			
 		} catch (Exception e) {

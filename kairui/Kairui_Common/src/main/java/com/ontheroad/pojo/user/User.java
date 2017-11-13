@@ -26,7 +26,15 @@ public class User implements Serializable{
 	private String phoneModel; //手机型号
 	private String appVersion; //app版本号
 	private String token; //权限标识
+	private String installationId;//推送id
+	
 
+	public String getInstallationId() {
+		return installationId;
+	}
+	public void setInstallationId(String installationId) {
+		this.installationId = installationId;
+	}
 	private Integer owned_devices_count;
 	
 	

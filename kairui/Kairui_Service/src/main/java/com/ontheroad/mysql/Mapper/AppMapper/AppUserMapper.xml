@@ -43,6 +43,7 @@
        <set>
            <if test="username != null">username = #{username},</if>
            <if test="sex != null">sex = #{sex},</if>
+           <if test="installationId != null">installationId = #{installationId},</if>
            <if test="headPortrait != null">headPortrait = #{headPortrait}</if>
        </set>
 	   where user_id = #{user_id} 
