@@ -168,6 +168,7 @@ public class RoleController extends BaseController {
 			String[] roleIds = ids.split(",");
 			sysRoleService.deleteRoleByIds(roleIds);
 		} catch (Exception e) {
+			e.printStackTrace();
 			msg = "系统发生异常！";
 			result = false;
 		}

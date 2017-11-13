@@ -226,6 +226,7 @@ public class UserManageController extends BaseController {
             String[] userIds = ids.split(",");
             sysUserService.deleteUserByIds(userIds);
         } catch (Exception e) {
+        	e.printStackTrace();
             msg = "系统发生异常！";
             result = false;
         }
