@@ -21,7 +21,7 @@
     
     
    <select id="getDeviceInformationList" resultType="com.ontheroad.pojo.Information.Deviceinformation">
-      select * from tb_deviceInformation where  is_delete=0
+      select * from tb_deviceInformation where  
       ORDER BY time DESC
    </select>
 
@@ -63,7 +63,6 @@
    	    LEFT JOIN `information_user_del` iud 
    	    ON iud.`information_id` = tb.`id` 
         WHERE 1=1 
-        and is_delete=0
         and informationType=#{informationType}
         <if test="user_id !='' and user_id !=null ">
         <!-- 获取未读的消息 -->
