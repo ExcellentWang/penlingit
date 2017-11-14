@@ -1,10 +1,12 @@
 package com.ontheroad.mysql.impl.InformationImpl;
 
 import com.ontheroad.mysql.Mapper.InformationMapper.InformationMapper;
+import com.ontheroad.mysql.dao.InformationUserDelMapper;
 import com.ontheroad.mysql.dao.InformationUserMapper;
 import com.ontheroad.mysql.dao.LunboMapper;
 import com.ontheroad.mysql.dao.TbInformationMapper;
 import com.ontheroad.mysql.entity.InformationUser;
+import com.ontheroad.mysql.entity.InformationUserDel;
 import com.ontheroad.mysql.entity.Lunbo;
 import com.ontheroad.mysql.entity.LunboExample;
 import com.ontheroad.mysql.entity.TbInformation;
@@ -34,6 +36,8 @@ public class InformationImpl implements InformationService{
 	private LunboMapper lunboMapper;
 	@Autowired
 	private InformationUserMapper informationUserMapper;
+	@Autowired
+	private InformationUserDelMapper informationUserDelMapper;
 	
 	
 	@Override
@@ -49,6 +53,7 @@ public class InformationImpl implements InformationService{
 				userInformation info11=new userInformation();
 				info11.setInformationType("1");
 				info11.setTypeName("资讯消息");
+				info11.setNew(false);
 				list.add(info11);
 			}
 			userInformation info2=informationMapper.getInformationIsNew(user_id,2);
@@ -58,6 +63,7 @@ public class InformationImpl implements InformationService{
 				userInformation info22=new userInformation();
 				info22.setInformationType("2");
 				info22.setTypeName("系统消息");
+				info22.setNew(false);
 				list.add(info22);
 			}
 			userInformation info3=informationMapper.getInformationIsNew(user_id,3);
@@ -67,6 +73,7 @@ public class InformationImpl implements InformationService{
 				userInformation info33=new userInformation();
 				info33.setInformationType("3");
 				info33.setTypeName("设备通知");
+				info33.setNew(false);
 				list.add(info33);
 			}
 			userInformation info4=informationMapper.getInformationIsNew(user_id,4);
@@ -76,6 +83,7 @@ public class InformationImpl implements InformationService{
 				userInformation info44=new userInformation();
 				info44.setInformationType("4");
 				info44.setTypeName("节水量通知");
+				info44.setNew(false);
 				list.add(info44);
 			}
 			map.put("code", BaseConstant.appUserSuccessStatus);
@@ -104,9 +112,14 @@ public class InformationImpl implements InformationService{
 
 		try {
 			List<NewsInformation> news = informationMapper.getNewsInformationList();
+			for (NewsInformation newsInformation : news) {
+				newsInformation.setContent(null);
+			}
 			LunboExample example=new LunboExample();
 			List<Lunbo> slides  = lunboMapper.selectByExampleWithBLOBs(example);
-
+			for (Lunbo lunbo : slides) {
+				lunbo.setContent(null);
+			}
 			resultMap.put("slides", slides);
 			resultMap.put("news", news);
 			map.put("code", BaseConstant.appUserSuccessStatus);
@@ -163,7 +176,11 @@ public class InformationImpl implements InformationService{
 			list = informationMapper.getInformationList(selectMap);
 			//获取过就把消息设置成已读
 			for(Information info: list) {
-				informationMapper.updateInformationStatus(info);
+				info.setContent(null);
+				InformationUser iu=new InformationUser();
+				iu.setUserId(Long.valueOf(user_id));
+				iu.setInformationId(Long.valueOf(info.getId()));
+				informationUserMapper.insert(iu);
 			}
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");
@@ -188,10 +205,10 @@ public class InformationImpl implements InformationService{
 		try {
 			List<userInformation> ls=informationMapper.getInformationByType(informationType);
 			for (userInformation i : ls) {
-				InformationUser iu=new InformationUser();
-				iu.setId(Long.valueOf(user_id));
+				InformationUserDel iu=new InformationUserDel();
+				iu.setUserId(Long.valueOf(user_id));
 				iu.setInformationId(Long.valueOf(i.getInformation_id()));
-				informationUserMapper.insert(iu);
+				informationUserDelMapper.insert(iu);
 			}
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "清空消息成功");
@@ -212,7 +229,7 @@ public class InformationImpl implements InformationService{
 	public Map<Object, Object> setInformationIsRead(Integer user_id, Integer informationId) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		InformationUser iu=new InformationUser();
-		iu.setId(Long.valueOf(user_id));
+		iu.setUserId(Long.valueOf(user_id));
 		iu.setInformationId(Long.valueOf(informationId));
 		informationUserMapper.insert(iu);
 		map.put("code", BaseConstant.appUserSuccessStatus);
