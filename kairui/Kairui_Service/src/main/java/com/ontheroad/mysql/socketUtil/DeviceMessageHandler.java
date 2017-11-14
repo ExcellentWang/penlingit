@@ -282,7 +282,7 @@ public class DeviceMessageHandler {
                     DeviceError err = new DeviceError();
                     Calendar time = Calendar.getInstance();
                     Object[] args =  deviceMessage.getArgs().toArray();
-                    if(!"0000".equals(args[0])) {
+                   /* if(!"0000".equals(args[0])) {
                         time.set(Integer.parseInt((String) args[0]),
                                 Integer.parseInt((String) args[1]),
                                 Integer.parseInt((String) args[2]),
@@ -293,7 +293,8 @@ public class DeviceMessageHandler {
                         err.setUpdated_at(time.getTime());
                     } else {
                         err.setUpdated_at(Calendar.getInstance().getTime());
-                    }
+                    }*/
+                    err.setUpdated_at(new Date());
                     err.setWater_tank(Integer.parseInt((String) args[6]));
                     err.setCold_water_in(Integer.parseInt((String) args[7]));
                     err.setHot_water_in(Integer.parseInt((String) args[8]));
