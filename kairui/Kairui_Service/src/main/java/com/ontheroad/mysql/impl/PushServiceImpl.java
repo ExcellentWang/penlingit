@@ -18,7 +18,7 @@ public class PushServiceImpl implements PushService {
 	public void pushInstallationId(Integer userId,com.alibaba.fastjson.JSONObject json) {
 		AVOSCloud.initialize("EKDyDJR6JNNjJe2L9bwAbAIa-gzGzoHsz","Syi5KsGmQuLpXDxODzvQlhKk","1SOIwMs1CONX2GVybAyKoTsK");
 		AVOSCloud.setDebugLogEnabled(true);
-		AVQuery pushQuery = new AVQuery("_Installation");
+	/*	AVQuery pushQuery = new AVQuery("_Installation");
 		pushQuery.whereEqualTo("userId", userId);
 		AVPush.sendMessageInBackground(json.toString(),  pushQuery, new SendCallback() {
 		    @Override
@@ -29,7 +29,16 @@ public class PushServiceImpl implements PushService {
 		    		logger.info("单个推送失败");
 		    	}
 		    }
-		});
+		});*/
+		AVPush push = new AVPush();
+		push.setData(json);
+	    push.setCloudQuery("select * from _Installation where userId =" + userId );
+	    push.sendInBackground(new SendCallback() {
+	      @Override
+	      public void done(AVException e) {
+	    	  
+	      }
+	    });
 	}
 		public static void main(String[] args) {
 			com.alibaba.fastjson.JSONObject js=new com.alibaba.fastjson.JSONObject();

@@ -23,7 +23,7 @@ public class FirmVersionController {
 	@ResponseBody
 	@RequestMapping("/addFirmVersion")
 	public String add(FirmVersion firmVersion,@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request) throws Exception{
-        String path=UploadUtil.save(file, request);
+        String path=UploadUtil.save2(file, request);
         firmVersion.setFirmUrl(path);
         firmVersionService.add(firmVersion);
 		return WebUtil.getSuccessJson();
