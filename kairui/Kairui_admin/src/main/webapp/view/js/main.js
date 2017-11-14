@@ -213,8 +213,17 @@ $(function() {
 			recordDocQuery(imgIds.join(",")); 
 		}
 	});
-
-
+	//获取用户信息
+	$.ajax({
+		url: interUrl.basic + "user/getUserInfo",
+		data: {
+		},
+		type: "POST",
+		success: function(data) {
+			$("#userName").html(data.data.userName)
+		}
+	});
+	//获取菜单
 	$.ajax({
 		url: interUrl.basic + "user/getMenuByUser",
 		data: {

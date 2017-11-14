@@ -129,4 +129,14 @@ public class UserController {
 		return MapUtil.getSuccessJson(appUserService.getEula());
 	}
 	
+	/**
+	 * 查询用户信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getUserInfo")
+	public Map<Object, Object> getUserInfo(HttpServletRequest request){
+		TsUser user=SessionUtil.getUser(request);
+		return MapUtil.getSuccessJson(user);
+	}
 }

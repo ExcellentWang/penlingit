@@ -279,7 +279,7 @@ public class DeviceImpl implements DeviceService {
 			t = deviceMapper.getDeviceDetailById(t.getEquipment_id());
 			//更换为字段，查询设备是否有正在进行中的售后
 			t.setProcessRepair(deviceMapper.repairStatus(t.getEquipment_id())>0?false:true);
-			t.setAppointment(deviceMapper.findAppointment(t));
+			t.setAppointment(deviceMapper.findAppointment(t));//预约
 			Map<Object,Object> fieldMap = new HashMap<Object,Object>();
 			fieldMap.put("equipment_id", t.getEquipment_id());
 			Guarantee g = guaranteeMapper.getGuaranteeDetail(fieldMap);

@@ -8,6 +8,7 @@ $(function(){
 		data:{"id":args['id']},
 		success: function(item){
 			$("#lunboForm").values(item.data)
+			$("#lst").attr("src",item.data)
 			ue.ready(function(){
 				ue.setContent(item.data.content);
 			});
