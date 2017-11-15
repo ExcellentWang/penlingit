@@ -323,7 +323,7 @@ public class DeviceImpl implements DeviceService {
 			DeviceRemind r = deviceMapper.findDeviceRemind(t);
 			resultMap.put("deviceRemind", r);
 			map.put("code", BaseConstant.appUserSuccessStatus);
-			map.put("msg", "修改成功");
+			map.put("msg", "获取成功");
 			map.put("extra", null);
 			map.put("resultMap", resultMap);
 			return map;
