@@ -4,11 +4,14 @@
 
     
    <select id="getCustomerList" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
-            select gt.type_name,c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName,e.equipment_id,c.repairType,c.orderNum from tb_customerservice c
-			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
-			left join guarantee_type gt on gt.id=c.repairType 
-			where c.user_id = #{user_id}
-            ORDER BY c.createTime DESC
+	select tus.remark as equipmentName,
+	gt.type_name,c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName,e.equipment_id,c.repairType,c.orderNum
+	from tb_customerservice c
+	LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+	left join guarantee_type gt on gt.id=c.repairType
+	left join tb_user_share tus on tus.share_user_id=c.user_id AND tus.`equipment_id`=e.equipment_id
+	where c.user_id = #{user_id}
+	ORDER BY c.createTime DESC
 
    </select>
 
@@ -22,10 +25,12 @@
    
    
    <select id="getCustomerDetail" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
-            select c.*,e.equipmentName,e.equipmentNum,e.type, gt.type_name as repairTypeText from tb_customerservice c
-			LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
-			left join guarantee_type gt on gt.id=c.repairType
-			where c.customer_id = #{customer_id} 
+	select tus.remark as equipmentName, c.*,e.equipmentName,e.equipmentNum,e.type, gt.type_name as
+	repairTypeText from tb_customerservice c
+	LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
+	left join guarantee_type gt on gt.id=c.repairType
+	left join tb_user_share tus on tus.share_user_id=c.user_id AND tus.`equipment_id`=e.equipment_id
+	where c.customer_id = #{customer_id} 
    </select>
 
     <select id="getPics" parameterType="Integer" resultType="com.ontheroad.pojo.user.Customerpicture">
