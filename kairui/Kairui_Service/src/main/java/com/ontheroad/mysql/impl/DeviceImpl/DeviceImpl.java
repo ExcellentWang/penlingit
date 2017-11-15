@@ -295,8 +295,9 @@ public class DeviceImpl implements DeviceService {
 			DeviceShare ds=new DeviceShare();
 			ds.setEquipment_id(t.getEquipment_id());
 			ds.setShare_user_id(user_id);
-			Integer status=deviceShareMapper.findUserDeviceStatus(ds);
-			t.setStatus(String.valueOf(status));
+			ds=deviceShareMapper.findUserDeviceStatus(ds);
+			t.setStatus(String.valueOf(ds.getStatus()));
+			t.setRemark(ds.getRemark());
 			resultMap.put("deviceDetail", t);
 			map.put("code", BaseConstant.appUserSuccessStatus);
 			map.put("msg", "获取成功");

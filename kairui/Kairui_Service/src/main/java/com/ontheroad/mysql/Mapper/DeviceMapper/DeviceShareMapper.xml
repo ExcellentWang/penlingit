@@ -82,8 +82,8 @@
         and   equipment_id = #{equipment_id}
         and status = 1
     </delete>
-	  <select id="findUserDeviceStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.Integer">
-        select status from tb_user_share s
+	  <select id="findUserDeviceStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
+        select * from tb_user_share s
         where s.share_user_id = #{share_user_id}
         and   equipment_id = #{equipment_id}
     </select>

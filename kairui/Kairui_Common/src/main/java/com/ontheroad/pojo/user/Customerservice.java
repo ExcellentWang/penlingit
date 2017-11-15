@@ -37,7 +37,15 @@ public class Customerservice implements Serializable{
 	private String equipmentName; //设备名称
 	private String type;    //设备类型
 	private List<String> pictureAdd; //图片
+	private String type_name;//报修类型文字
+	
 
+	public String getType_name() {
+		return type_name;
+	}
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
 	private List<ServiceDetail> serviceDetails;
 	
 
