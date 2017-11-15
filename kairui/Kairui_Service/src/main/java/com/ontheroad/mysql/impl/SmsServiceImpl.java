@@ -21,8 +21,8 @@ public class SmsServiceImpl implements SmsService {
     private static final String product = "Dysmsapi";
     private static final String domain = "dysmsapi.aliyuncs.com";
 
-    private static final String accessKeyId = "LTAIRxDkBiHoUeau";
-    private static final String accessKeySecret = "6ZtJx8Uf7xNfqPLzZiYlcA77oWP3vr";
+    private static final String accessKeyId = "LTAIaow50kTg1aqN";
+    private static final String accessKeySecret = "U0dbwM54L8NZw8eW3tkEEtTSdPMJz9";
 
     @Override
     public Map<Object, Object> sendVerificationCode(String phone, String code) {
@@ -34,8 +34,8 @@ public class SmsServiceImpl implements SmsService {
 
             SendSmsRequest request = new SendSmsRequest();
             request.setPhoneNumbers(phone);
-            request.setSignName("易寻厂房网");
-            request.setTemplateCode("SMS_85495017");
+            request.setSignName("北京凌顶科技");
+            request.setTemplateCode("SMS_110540017");
             request.setTemplateParam("{\"code\":\"" + code + "\"}");
 
             SendSmsResponse sendSmsResponse=null;

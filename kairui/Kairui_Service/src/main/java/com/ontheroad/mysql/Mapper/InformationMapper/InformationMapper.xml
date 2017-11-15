@@ -86,7 +86,7 @@
    		
     </select>
     <select id="getInformationByType" resultType="com.ontheroad.pojo.Information.userInformation">
-     select id as information_id,* from tb_information where informationType=#{type}
+     SELECT ti.id  information_id,ti.* FROM tb_information ti  where informationType=#{informationType}
     </select>
    
     <select id="allInformationsNum" parameterType="com.ontheroad.pojo.Information.Information" resultType="map">

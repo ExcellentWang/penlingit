@@ -32,5 +32,5 @@ public interface InformationMapper {
 	 */
 	userInformation getInformationIsNew(@Param(value = "user_id") Integer user_id,@Param(value = "informationType") Integer informationType);
 	
-	List<userInformation> getInformationByType(@Param(value = "type") Integer type);
+	List<userInformation> getInformationByType(@Param(value = "informationType") Integer informationType);
 }
