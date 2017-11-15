@@ -36,7 +36,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="information_user" domainObjectName="InformationUser">
+
+        <table tableName="information_user_del" domainObjectName="InformationUserDel">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>

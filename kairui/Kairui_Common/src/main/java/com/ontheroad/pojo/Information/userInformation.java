@@ -14,10 +14,16 @@ public class userInformation implements Serializable{
 	private String createTime;  //创建时间
 	private String creator;   //创建人
 	private String informationType;  //消息类型
-	private Integer isNew;    //是否最新 0最新 1没有
+	private boolean isNew;    //是否最新 true最新 false没有
 	private String typeName; //类型名称
 	
 	
+	public boolean isNew() {
+		return isNew;
+	}
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
 	public String getTypeName() {
 		return typeName;
 	}
@@ -54,12 +60,6 @@ public class userInformation implements Serializable{
 	}
 	public void setInformationType(String informationType) {
 		this.informationType = informationType;
-	}
-	public Integer getIsNew() {
-		return isNew;
-	}
-	public void setIsNew(Integer isNew) {
-		this.isNew = isNew;
 	}
 
 }

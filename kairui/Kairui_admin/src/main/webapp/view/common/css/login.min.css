@@ -41,7 +41,7 @@ input:-webkit-autofill:focus {
 	width: 100%;
 	top: 70px;
 	bottom: 0px;
-	background: url(../../images/login-background.jpg) no-repeat center fixed;
+	background: url(../../images/login-background.png) no-repeat center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
