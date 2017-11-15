@@ -104,9 +104,14 @@ public class InformationImpl implements InformationService{
 
 		try {
 			List<NewsInformation> news = informationMapper.getNewsInformationList();
+			for (NewsInformation newsInformation : news) {
+				newsInformation.setContent(null);
+			}
 			LunboExample example=new LunboExample();
 			List<Lunbo> slides  = lunboMapper.selectByExampleWithBLOBs(example);
-
+			for (Lunbo lunbo : slides) {
+				lunbo.setContent(null);
+			}
 			resultMap.put("slides", slides);
 			resultMap.put("news", news);
 			map.put("code", BaseConstant.appUserSuccessStatus);
