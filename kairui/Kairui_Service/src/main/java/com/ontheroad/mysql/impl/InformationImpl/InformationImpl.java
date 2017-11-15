@@ -53,7 +53,7 @@ public class InformationImpl implements InformationService{
 				userInformation info11=new userInformation();
 				info11.setInformationType("1");
 				info11.setTypeName("资讯消息");
-				info11.setNew(false);
+				info11.setIsNew(1);
 				list.add(info11);
 			}
 			userInformation info2=informationMapper.getInformationIsNew(user_id,2);
@@ -63,7 +63,7 @@ public class InformationImpl implements InformationService{
 				userInformation info22=new userInformation();
 				info22.setInformationType("2");
 				info22.setTypeName("系统消息");
-				info22.setNew(false);
+				info22.setIsNew(1);
 				list.add(info22);
 			}
 			userInformation info3=informationMapper.getInformationIsNew(user_id,3);
@@ -73,7 +73,7 @@ public class InformationImpl implements InformationService{
 				userInformation info33=new userInformation();
 				info33.setInformationType("3");
 				info33.setTypeName("设备通知");
-				info33.setNew(false);
+				info33.setIsNew(1);
 				list.add(info33);
 			}
 			userInformation info4=informationMapper.getInformationIsNew(user_id,4);
@@ -83,7 +83,7 @@ public class InformationImpl implements InformationService{
 				userInformation info44=new userInformation();
 				info44.setInformationType("4");
 				info44.setTypeName("节水量通知");
-				info44.setNew(false);
+				info44.setIsNew(1);
 				list.add(info44);
 			}
 			map.put("code", BaseConstant.appUserSuccessStatus);
