@@ -34,7 +34,7 @@ public class SmsServiceImpl implements SmsService {
 
             SendSmsRequest request = new SendSmsRequest();
             request.setPhoneNumbers(phone);
-            request.setSignName("易寻厂房网");
+            request.setSignName("北京凌顶科技");
             request.setTemplateCode("SMS_110540017");
             request.setTemplateParam("{\"code\":\"" + code + "\"}");
 
