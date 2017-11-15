@@ -30,7 +30,7 @@
 	from tb_information i
 	LEFT JOIN information_datatype d on d.information_type = i.informationType
 	LEFT JOIN `information_user_del` iud
-	ON iud.`information_id` = i.`id`
+	ON iud.`information_id` = i.`id` and iud.user_id=#{user_id}
 	WHERE 1=1
 	<if test="informationType !='' and informationType !=null ">
 		AND i.informationType = #{informationType}
@@ -59,9 +59,9 @@
        SELECT tb.id as information_id,tb.*,d.information_name as typeName FROM `tb_information`  tb 
         LEFT JOIN information_datatype d on tb.informationType = d.information_type 
         LEFT JOIN `information_user` iu 
-   	    ON iu.`information_id` = tb.`id`
+   	    ON iu.`information_id` = tb.`id` AND iu.`user_id`=#{user_id}
    	    LEFT JOIN `information_user_del` iud 
-   	    ON iud.`information_id` = tb.`id` 
+   	    ON iud.`information_id` = tb.`id`  and iud.user_id=#{user_id}
         WHERE 1=1 
         and informationType=#{informationType}
         <if test="user_id !='' and user_id !=null ">
