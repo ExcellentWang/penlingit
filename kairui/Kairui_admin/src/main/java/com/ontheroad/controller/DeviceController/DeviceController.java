@@ -611,4 +611,20 @@ public class DeviceController extends BaseConstant{
                     return writer.toString(); 
             else return null; 
     }
+    
+    @RequestMapping(value = "/deviceListExport")
+    public Map<Object,Object> deviceListExport(TerminalDeviceVo vo) {
+		//返回前端map
+	    Map<Object,Object> map = new HashMap<Object,Object>(); 
+        try {	 
+        	return deviceService.getDevicesByExample( vo);
+        } catch (Exception e) {	
+            e.printStackTrace();
+            map.put("code", BaseConstant.appUserErrorStatus);
+    		map.put("msg", "服务器异常");
+    		map.put("totalItem",null);
+    		map.put("data", null);
+            return map;
+        }
+    }
 }
