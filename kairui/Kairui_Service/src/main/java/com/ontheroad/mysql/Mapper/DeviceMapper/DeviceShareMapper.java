@@ -24,7 +24,7 @@ public interface DeviceShareMapper {
 
 	List<DeviceShare> findSharesOfDevice(Integer equipment_id);
 	
-	Integer findUserDeviceStatus(DeviceShare ds);
+	DeviceShare findUserDeviceStatus(DeviceShare ds);
 	
 	void updateShareDeviceRemark(DeviceShare ds);
 
