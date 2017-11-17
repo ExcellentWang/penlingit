@@ -470,11 +470,14 @@ public class DeviceImpl implements DeviceService {
 					if(writeFuture.isWritten()){
 						ReadFuture readFuture = session.read();
 						//等待消息响应
+						logger.info("mina开始等待同步消息---");
 						readFuture.awaitUninterruptibly();
+						logger.info("mina等待消息结束---");
 						//是否响应成功
 						if(readFuture.isRead()){
 							//获取消息
 							Object message = readFuture.getMessage();
+							logger.info("mina同步消息成功---"+message);
 							resultMap.put("instructions", message.toString());
 						}
 					}
