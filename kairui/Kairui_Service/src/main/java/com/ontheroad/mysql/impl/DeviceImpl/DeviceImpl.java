@@ -464,7 +464,6 @@ public class DeviceImpl implements DeviceService {
 				if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
 					session.getConfig().setUseReadOperation(true); 
 					WriteFuture writeFuture=session.write(msg.toString());//发指令
-					//1.发指令后等待两秒去查询大于当前时间的最新指令，如果能查到，表示指令发送成功
 					//2.同步返回
 					writeFuture.awaitUninterruptibly();
 					//判断消息是否发送完成
@@ -480,6 +479,9 @@ public class DeviceImpl implements DeviceService {
 							Object message = readFuture.getMessage();
 							logger.info("mina同步消息成功---"+message);
 							resultMap.put("instructions", message.toString());
+						}else {
+							map.put("code", BaseConstant.appUserErrorStatus);
+							map.put("msg", "指令发送失败！");
 						}
 					}
 					resultMap.put("instructions", msg.toString());
