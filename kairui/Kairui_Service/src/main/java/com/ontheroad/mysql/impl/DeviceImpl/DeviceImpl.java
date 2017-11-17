@@ -27,6 +27,8 @@ import com.ontheroad.service.DeviceService.DeviceService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.mina.core.future.ReadFuture;
+import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -460,7 +462,22 @@ public class DeviceImpl implements DeviceService {
 				}
 
 				if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
-					session.write(msg.toString());//发指令
+					WriteFuture writeFuture=session.write(msg.toString());//发指令
+					//1.发指令后等待两秒去查询大于当前时间的最新指令，如果能查到，表示指令发送成功
+					//2.同步返回
+					writeFuture.awaitUninterruptibly();
+					//判断消息是否发送完成
+					if(writeFuture.isWritten()){
+						ReadFuture readFuture = session.read();
+						//等待消息响应
+						readFuture.awaitUninterruptibly();
+						//是否响应成功
+						if(readFuture.isRead()){
+							//获取消息
+							Object message = readFuture.getMessage();
+							resultMap.put("instructions", message.toString());
+						}
+					}
 					resultMap.put("instructions", msg.toString());
 					resultMap.put("sentAt", DateFormat.getDateInstance().format(Calendar.getInstance().getTime()));
 					InetSocketAddress addr = (InetSocketAddress)session.getRemoteAddress();

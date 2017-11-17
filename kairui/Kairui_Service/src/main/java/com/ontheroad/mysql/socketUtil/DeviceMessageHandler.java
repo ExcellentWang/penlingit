@@ -420,7 +420,6 @@ public class DeviceMessageHandler {
                     logger.info("--------------------设定温度------- ");
                     break;
                 case "xtpc": //心跳
-                	val = deviceMessage.getArgs().get(0);
                 	if(device.getWorkStatus()==4){
                 		device.setWorkStatus(0);
                 	}
