@@ -6,6 +6,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +80,12 @@ public interface DeviceMapper {
 	 * @return
 	 */
 	String getzaixianlvByCity(@Param("province")String province);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	String updateAppointmenTime(@Param("time")Date time);
 	
 	
 }

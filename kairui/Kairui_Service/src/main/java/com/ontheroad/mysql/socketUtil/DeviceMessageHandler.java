@@ -156,6 +156,10 @@ public class DeviceMessageHandler {
                     logger.info("预约改变状态准备中"+device.getEquipmentNum()+"val: "+val);
                     device.setWorkStatus(1);
                     deviceMapper.updateDevice(device);
+                    //更新或者插入预约表time
+                    Date now = new Date();
+                    Integer x= Integer.valueOf(ls.get(5))*100000;
+                    deviceMapper.updateAppointmenTime(new Date(now .getTime() +x ));
                     break;
                 case "asoty": // 出水方式主动上报
                     rep = new DeviceMessage(
@@ -343,8 +347,8 @@ public class DeviceMessageHandler {
                     break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
-                	log.setUploadstatus(ls.get(6));
-                	log.setsWorkStatus(ls.get(7));
+                	log.setUploadstatus(ls.get(7));
+                	log.setsWorkStatus(ls.get(6));
                 	log.setUsetype(ls.get(8));
                 	log.setTimeType(ls.get(9));
                 	log.setSettemperature(ls.get(10));
@@ -360,7 +364,7 @@ public class DeviceMessageHandler {
                 	log.setEquipmentId(device.getEquipment_id());
                 	deviceUseLogMapper.insertSelective(log);
                 	//更新当前温度和设定温度,工作状态workStatus
-                	if(!"03".equals(ls.get(7))){
+                	if(!"03".equals(ls.get(6))){
                 		device.setWorkStatus(Integer.parseInt(ls.get(7))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
                 	}else{
                 		device.setWorkStatus(4);
