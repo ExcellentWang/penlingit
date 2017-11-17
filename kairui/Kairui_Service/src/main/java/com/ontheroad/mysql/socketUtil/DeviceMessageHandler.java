@@ -365,7 +365,7 @@ public class DeviceMessageHandler {
                 	deviceUseLogMapper.insertSelective(log);
                 	//更新当前温度和设定温度,工作状态workStatus
                 	if(!"03".equals(ls.get(6))){
-                		device.setWorkStatus(Integer.parseInt(ls.get(7))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
+                		device.setWorkStatus(Integer.parseInt(ls.get(6))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
                 	}else{
                 		device.setWorkStatus(4);
                 	}
