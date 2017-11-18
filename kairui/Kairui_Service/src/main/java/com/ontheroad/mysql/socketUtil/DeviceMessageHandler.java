@@ -361,8 +361,8 @@ public class DeviceMessageHandler {
                     }
                     json.put("errTime", new Date());
                     json.put("result", str);
-                    logger.info("设备消息推送 result: "+str);
                     for (Integer i : userIds) {
+                    		logger.info("设备消息推送 user"+i+" result: "+str);
                     		pushService.pushInstallationId(i, json);
 					}
                     break;
