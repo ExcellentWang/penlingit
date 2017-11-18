@@ -463,6 +463,7 @@ public class DeviceImpl implements DeviceService {
 
 				if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
 					session.getConfig().setUseReadOperation(true); 
+					session.getConfig().setReaderIdleTime(2000);
 					WriteFuture writeFuture=session.write(msg.toString());//发指令
 					//2.同步返回
 					writeFuture.awaitUninterruptibly();

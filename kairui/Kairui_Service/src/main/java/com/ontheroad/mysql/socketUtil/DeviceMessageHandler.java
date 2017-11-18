@@ -340,11 +340,18 @@ public class DeviceMessageHandler {
                     deviceMapper.updateDevice(device);
                     break;
                 case "verx": // 固件版本
+                	 rep = new DeviceMessage(
+                             deviceMessage.getDeviceType(),
+                             deviceMessage.getDeviceID(),
+                             "verx",
+                             new ArrayList<>(Arrays.asList("OK"))
+                     );
                 	String firmVersion=deviceMessage.getArgs().get(0);
                 	 device.setFirm_version(firmVersion);
                      deviceMapper.updateDevice(device);
                      logger.info("--------------------固件版本被更新------- "+firmVersion);
-                    break;
+                  
+                     break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
                 	log.setUploadstatus(ls.get(7));
