@@ -1,6 +1,8 @@
 package com.ontheroad.mysql.socketUtil;
 
 import java.net.InetSocketAddress;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -23,7 +25,6 @@ import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
 import com.ontheroad.mysql.entity.DeviceUseLog;
-import com.ontheroad.mysql.entity.DeviceUseLogExample;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
@@ -126,6 +127,7 @@ public class DeviceMessageHandler {
             String val;
             String val1;
             String val2;
+            //查询到设备信息
             TerminalDevice device = deviceMapper.findDeviceByNum(num);
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
@@ -138,6 +140,21 @@ public class DeviceMessageHandler {
             	deviceMapper.updateDevice(device);
             }
             List<String> ls=deviceMessage.getArgs();
+            //推送给设备关联的用户
+            List<Integer> userIds=deviceShareMapper.findDeviceUsers(device.getEquipment_id());
+            JSONObject json=new JSONObject();
+            //判断设备是否需要推送预约时间5分钟提醒
+            Date at= deviceMapper.findAppointment(device).getTime();
+            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5) {
+            		//预约成功推送
+                json.put("errTime", new Date());
+                json.put("result","您的预约时间马上就到了，请开始准备吧！");
+                json.put("type", 2);
+                for (Integer i : userIds) {
+                		logger.info("设备消息预约推送 user"+i+" result: ");
+                		pushService.pushInstallationId(i, json);
+				}
+            }
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
                     rep = new DeviceMessage(
@@ -166,7 +183,16 @@ public class DeviceMessageHandler {
                     //更新或者插入预约表time
                     Date now = new Date();
                     Integer x= Integer.valueOf(ls.get(5))*100000;
-                    deviceMapper.updateAppointmenTime(new Date(now .getTime() +x ));
+                    Date a=new Date(now .getTime() +x );
+                    deviceMapper.updateAppointmenTime(a);
+                    //预约成功推送
+                    json.put("errTime", new Date());
+                    json.put("result","您预约了"+a.getHours()+"点"+a.getMinutes()+"分沐浴，请随时关注预约状态！");
+                    json.put("type", 2);
+                    for (Integer i : userIds) {
+                    		logger.info("设备消息预约推送 user"+i+" result: ");
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "asoty": // 出水方式主动上报
                     rep = new DeviceMessage(
@@ -279,6 +305,20 @@ public class DeviceMessageHandler {
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
+                    json.put("errTime", new Date());
+                    String str2="";
+                    if("01".equals(ls.get(6))) {
+                    		str2="您设定的定量出水已经用完了，请注意洗澡用水量!";
+                    }
+                    if("02".equals(ls.get(6))) {
+                			str2="您设定的定时出水已经用完了，请注意洗澡用水量!";
+                    }
+                    json.put("result",str2);
+                    json.put("type", 2);
+                    for (Integer i : userIds) {
+                    		logger.info("设备消息定时定量推送 user"+i+" result: ");
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "scyc": // 上传异常
                 	logger.info("app上传异常------------");
@@ -306,9 +346,7 @@ public class DeviceMessageHandler {
                     //设备id
                     err.setEquipment_id(device.getEquipment_id());
                     deviceErrorMapper.setDeviceError(err);
-                    //推送给设备关联的用户
-                    List<Integer> userIds=deviceShareMapper.findDeviceUsers(device.getEquipment_id());
-                    JSONObject json=new JSONObject();
+                    
                     //拼接要推送的异常
                     	String str="";
                     	if("1".equals(ls.get(7))) {
@@ -425,6 +463,17 @@ public class DeviceMessageHandler {
                 	deviceUseLogMapper.insertSelective(log);
                 	//更新当前温度和设定温度,工作状态workStatus
                 	if(!"03".equals(ls.get(6))){
+                		//当使用记录上传2，而设备状态还是0或者1，推送预约
+                		if("02".equals(ls.get(6))&&device.getWorkStatus()!=2) {
+                			//准备洗浴推送
+                			json.put("errTime", new Date());
+                			json.put("result","您预约的热水已准备好了，可以开始沐浴了！");
+                			json.put("type", 3);
+                			for (Integer i : userIds) {
+                				logger.info("设备消息预约推送 user"+i+" result: ");
+                				pushService.pushInstallationId(i, json);
+                			}
+                		}
                 		device.setWorkStatus(Integer.parseInt(ls.get(6))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
                 	}else{
                 		device.setWorkStatus(4);
@@ -542,4 +591,17 @@ public class DeviceMessageHandler {
 			return null;
 		}
     }
+    /**
+     * 时间差-分
+     * @return
+     */
+	public Integer timeC(long from,long to ) {
+		try {
+		int minutes = (int) ((to - from) / (1000 * 60));
+		return minutes;
+		} catch (Exception e) {
+			logger.error("时间差计算出错",e);
+			return null;
+		}
+	}
 }
