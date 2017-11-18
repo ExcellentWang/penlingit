@@ -485,22 +485,34 @@ public class DeviceMessageHandler {
                     logger.info("--------------------上传实时数据------- "+JSON.toJSONString(log));
                     break;
                 case "scwt": //每次洗澡用水量节水量
-                	DeviceWater de=new DeviceWater();
-                	de.setDeviceId(Long.valueOf(device.getEquipment_id()));
-                	de.setUseWater(ls.get(6));
-                	de.setJieWater(ls.get(7));
-                	de.setBathTime(ls.get(8));
-                	de.setCreateTime(new Date());
-                	deviceWaterMapper.insertSelective(de) ;
-                	if(new Date().getDate()==1){//1号清空月用水量节水量
-                		device.setM_jie_water("0");
-                		device.setM_use_water("0");
-                	}
-                	device.setM_use_water(String.valueOf(Integer.parseInt(device.getM_use_water())+Integer.parseInt(ls.get(6))));
-                	device.setM_jie_water(String.valueOf(Integer.parseInt(device.getM_jie_water())+Integer.parseInt(ls.get(7))));
-                	deviceMapper.updateDevice(device);
-                    logger.info("--------------------上传每次洗澡用水量节水量------- ");
-                    break;
+				DeviceWater de = new DeviceWater();
+				de.setDeviceId(Long.valueOf(device.getEquipment_id()));
+				de.setUseWater(ls.get(6));
+				de.setJieWater(ls.get(7));
+				de.setBathTime(ls.get(8));
+				de.setCreateTime(new Date());
+				deviceWaterMapper.insertSelective(de);
+				if (new Date().getDate() == 1) {// 1号清空月用水量节水量
+					//推送月用水量和节水量
+					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L");//调用通用推送
+					device.setM_jie_water("0");
+					device.setM_use_water("0");
+				}
+				device.setM_use_water(
+						String.valueOf(Integer.parseInt(device.getM_use_water()) + Integer.parseInt(ls.get(6))));
+				device.setM_jie_water(
+						String.valueOf(Integer.parseInt(device.getM_jie_water()) + Integer.parseInt(ls.get(7))));
+				deviceMapper.updateDevice(device);
+				logger.info("--------------------上传每次洗澡用水量节水量------- ");
+				// 推送
+				json.put("errTime", new Date());
+				json.put("result", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
+				json.put("type", 3);
+				for (Integer i : userIds) {
+					logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
+					pushService.pushInstallationId(i, json);
+				}
+				break;
                 case "yyos": //语音播报开关，音量app设置
                 	val = deviceMessage.getArgs().get(0);
                 	device.setVoicebroadcast((Integer.parseInt(val)==0?"0":"1"));
@@ -602,6 +614,18 @@ public class DeviceMessageHandler {
 		} catch (Exception e) {
 			logger.error("时间差计算出错",e);
 			return null;
+		}
+	}
+	/**
+	 * 通用推送
+	 */
+	public void pushP(List<Integer> userIds,String msg) {
+		JSONObject json=new JSONObject();
+		json.put("errTime", new Date());
+		json.put("result", msg);
+		for (Integer i : userIds) {
+			logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
+			pushService.pushInstallationId(i, json);
 		}
 	}
 }
