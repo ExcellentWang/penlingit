@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
 import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
@@ -29,6 +30,7 @@ import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.service.PushService;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.utils.HttpUtil;
 
@@ -52,6 +54,11 @@ public class DeviceMessageHandler {
     private DeviceUseLogMapper deviceUseLogMapper;
     @Autowired
     private DeviceWaterMapper deviceWaterMapper;
+    @Autowired
+    private PushService pushService;
+    @Autowired
+    private DeviceShareMapper deviceShareMapper;
+    
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -284,20 +291,7 @@ public class DeviceMessageHandler {
                     reply(session, rep);
 
                     DeviceError err = new DeviceError();
-                    Calendar time = Calendar.getInstance();
                     Object[] args =  deviceMessage.getArgs().toArray();
-                   /* if(!"0000".equals(args[0])) {
-                        time.set(Integer.parseInt((String) args[0]),
-                                Integer.parseInt((String) args[1]),
-                                Integer.parseInt((String) args[2]),
-                                Integer.parseInt((String) args[3]),
-                                Integer.parseInt((String) args[4]),
-                                Integer.parseInt((String) args[5]));
-
-                        err.setUpdated_at(time.getTime());
-                    } else {
-                        err.setUpdated_at(Calendar.getInstance().getTime());
-                    }*/
                     err.setUpdated_at(new Date());
                     err.setWater_tank(Integer.parseInt((String) args[6]));
                     err.setCold_water_in(Integer.parseInt((String) args[7]));
@@ -312,6 +306,65 @@ public class DeviceMessageHandler {
                     //设备id
                     err.setEquipment_id(device.getEquipment_id());
                     deviceErrorMapper.setDeviceError(err);
+                    //推送给设备关联的用户
+                    List<Integer> userIds=deviceShareMapper.findDeviceUsers(device.getEquipment_id());
+                    JSONObject json=new JSONObject();
+                    //拼接要推送的异常
+                    	String str="";
+                    	if("1".equals(ls.get(7))) {
+                    		str+="进水冷水传感器故障"+";";
+                    	}
+                    	if("2".equals(ls.get(7))) {
+                    		str+="冷水温度高"+";";
+                    	}
+                    if("1".equals(ls.get(8))) {
+                    		str+="热水传感器故障"+";";
+                    	}
+                    if("2".equals(ls.get(8))) {
+                		str+="热水温度高"+";";
+                    }
+                    if("1".equals(ls.get(9))) {
+                		str+="混水阀温度故障"+";";
+                    }
+                    if("2".equals(ls.get(9))) {
+                		str+="混水温度高"+";";
+                    }
+                    if("1".equals(ls.get(10))) {
+                		str+="混水阀通讯故障"+";";
+                    }
+                    if("1".equals(ls.get(11))) {
+                		str+="缓冲进水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(11))) {
+                		str+="缓冲水温度高"+";";
+                    }
+                    if("1".equals(ls.get(12))) {
+                		str+="出水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(12))) {
+                		str+="出水温度高"+";";
+                    }
+                    if("1".equals(ls.get(13))) {
+                		str+="外接电源供电"+";";
+                    }
+                    if("0".equals(ls.get(13))) {
+                		str+="外接电源断掉，电池供电"+";";
+                    }
+                    if("1".equals(ls.get(14))) {
+                		str+="电池电压低"+";";
+                    }
+                    if("1".equals(ls.get(15))) {
+                		str+="电池电压高"+";";
+                    }
+                    if("1".equals(ls.get(16))) {
+                		str+="泵异常"+";";
+                    }
+                    json.put("errTime", new Date());
+                    json.put("result", str);
+                    logger.info("设备消息推送 result: "+str);
+                    for (Integer i : userIds) {
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "akgapp": // app禁用
                     rep = new DeviceMessage(

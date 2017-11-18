@@ -61,7 +61,10 @@
         and status = 0
         limit 1
     </select>
-
+	<select id="findDeviceUsers" parameterType="Integer" resultType="Integer">
+        SELECT share_user_id from tb_user_share
+        where equipment_id = #{equipment_id}
+    </select>
 
     <insert id="insertDeviceShare" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceShare">
         insert into tb_user_share(share_user_id,equipment_id,authority,remark,`status`)

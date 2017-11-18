@@ -296,8 +296,12 @@ public class DeviceController extends BaseConstant{
 			return map;
 		}
 	}
-
-
+	
+	/**
+	 * 设备异常列表
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping(value = "/getDeviceError")
 	public Map<Object, Object> getDeviceError(DeviceVo vo) {
 		//返回前端map
