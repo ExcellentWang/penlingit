@@ -85,7 +85,7 @@ public interface DeviceMapper {
 	 * 
 	 * @return
 	 */
-	String updateAppointmenTime(@Param("time")Date time,@Param("equipment_id") Integer eqiupment_id);
+	void updateAppointmenTime(@Param("time")Date time,@Param("equipment_id") Integer eqiupment_id);
 	
 	
 }
