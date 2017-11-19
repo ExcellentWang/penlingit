@@ -85,6 +85,9 @@ public class DeviceImpl implements DeviceService {
 		try {
 			int userId = user.getUser_id();
 			deviceList = deviceMapper.findUserListByUserId(userId);
+			for (TerminalDevice t : deviceList) {
+				t.setProcessRepair(deviceMapper.repairStatus(t.getEquipment_id())>0?true:false);
+			}
 			if (deviceList != null && deviceList.size() > 0) {
 				map.put("code", BaseConstant.appUserSuccessStatus);
 				map.put("msg", "获取设备列表成功");
@@ -280,7 +283,7 @@ public class DeviceImpl implements DeviceService {
 			Map<Object, Object> resultMap = new HashMap<Object, Object>();
 			t = deviceMapper.getDeviceDetailById(t.getEquipment_id());
 			//更换为字段，查询设备是否有正在进行中的售后
-			t.setProcessRepair(deviceMapper.repairStatus(t.getEquipment_id())>0?false:true);
+			t.setProcessRepair(deviceMapper.repairStatus(t.getEquipment_id())>0?true:false);
 			t.setAppointment(deviceMapper.findAppointment(t));//预约
 			Map<Object,Object> fieldMap = new HashMap<Object,Object>();
 			fieldMap.put("equipment_id", t.getEquipment_id());
