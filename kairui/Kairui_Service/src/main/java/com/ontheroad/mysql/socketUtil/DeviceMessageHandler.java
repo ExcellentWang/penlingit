@@ -95,6 +95,7 @@ public class DeviceMessageHandler {
         deviceLog.setDirection("RECV");
 
         deviceService.insertDeviceLog(deviceLog);
+       
         //处理设备上传内容
         handle(session, deviceMessage);
     }
@@ -154,6 +155,10 @@ public class DeviceMessageHandler {
                 		logger.info("设备消息预约推送 user"+i+" result: ");
                 		pushService.pushInstallationId(i, json);
 				}
+            }
+            //app拉取信息通用推送
+            if(deviceMessage.getCommandType().contains("as")) {
+            		pushP(userIds,"",1);
             }
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
@@ -494,7 +499,7 @@ public class DeviceMessageHandler {
 				deviceWaterMapper.insertSelective(de);
 				if (new Date().getDate() == 1) {// 1号清空月用水量节水量
 					//推送月用水量和节水量
-					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L");//调用通用推送
+					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L",0);//调用通用推送
 					device.setM_jie_water("0");
 					device.setM_use_water("0");
 				}
@@ -619,12 +624,13 @@ public class DeviceMessageHandler {
 	/**
 	 * 通用推送
 	 */
-	public void pushP(List<Integer> userIds,String msg) {
+	public void pushP(List<Integer> userIds,String msg,Integer pushType) {
 		JSONObject json=new JSONObject();
 		json.put("errTime", new Date());
 		json.put("result", msg);
+		json.put("pushType", pushType);
 		for (Integer i : userIds) {
-			logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
+			logger.info("设备消息推送 "+msg);
 			pushService.pushInstallationId(i, json);
 		}
 	}
