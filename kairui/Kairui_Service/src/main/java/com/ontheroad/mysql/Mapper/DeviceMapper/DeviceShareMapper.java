@@ -27,5 +27,11 @@ public interface DeviceShareMapper {
 	DeviceShare findUserDeviceStatus(DeviceShare ds);
 	
 	void updateShareDeviceRemark(DeviceShare ds);
+	/**
+	 * 设备关联用户
+	 * @param equipment_id
+	 * @return
+	 */
+	List<Integer> findDeviceUsers(Integer equipment_id);
 
 }

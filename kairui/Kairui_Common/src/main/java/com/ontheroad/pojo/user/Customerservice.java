@@ -38,8 +38,15 @@ public class Customerservice implements Serializable{
 	private String type;    //设备类型
 	private List<String> pictureAdd; //图片
 	private String type_name;//报修类型文字
+	private String remark;//设备别名
 	
 
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public String getType_name() {
 		return type_name;
 	}

@@ -1,6 +1,8 @@
 package com.ontheroad.mysql.socketUtil;
 
 import java.net.InetSocketAddress;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -18,17 +20,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceErrorMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
 import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
 import com.ontheroad.mysql.entity.DeviceUseLog;
-import com.ontheroad.mysql.entity.DeviceUseLogExample;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.service.PushService;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.utils.HttpUtil;
 
@@ -52,6 +55,11 @@ public class DeviceMessageHandler {
     private DeviceUseLogMapper deviceUseLogMapper;
     @Autowired
     private DeviceWaterMapper deviceWaterMapper;
+    @Autowired
+    private PushService pushService;
+    @Autowired
+    private DeviceShareMapper deviceShareMapper;
+    
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -87,6 +95,7 @@ public class DeviceMessageHandler {
         deviceLog.setDirection("RECV");
 
         deviceService.insertDeviceLog(deviceLog);
+       
         //处理设备上传内容
         handle(session, deviceMessage);
     }
@@ -119,6 +128,7 @@ public class DeviceMessageHandler {
             String val;
             String val1;
             String val2;
+            //查询到设备信息
             TerminalDevice device = deviceMapper.findDeviceByNum(num);
             InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
             device.setIp(addr.getAddress().getHostAddress());
@@ -128,9 +138,29 @@ public class DeviceMessageHandler {
             if(jsonr!=null){
             	device.setProvince(JSON.parseObject(jsonr).getString("province"));
             	device.setCity(JSON.parseObject(jsonr).getString("city"));
-            	deviceMapper.updateDevice(device);
             }
             List<String> ls=deviceMessage.getArgs();
+            //推送给设备关联的用户
+            List<Integer> userIds=deviceShareMapper.findDeviceUsers(device.getEquipment_id());
+            JSONObject json=new JSONObject();
+            //判断设备是否需要推送预约时间5分钟提醒
+            Date at= deviceMapper.findAppointment(device).getTime();
+            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5&&(device.getA_send_time()==null||timeC(new Date().getTime(),device.getA_send_time().getTime())>1)) {
+            		device.setA_send_time(new Date());
+            		//预约成功推送
+                json.put("errTime", new Date());
+                json.put("result","您的预约时间马上就到了，请开始准备吧！");
+                json.put("type", 2);
+                for (Integer i : userIds) {
+                		logger.info("设备消息预约推送 user"+i+" result: ");
+                		pushService.pushInstallationId(i, json);
+				}
+            }
+         	deviceMapper.updateDevice(device);
+            //app拉取信息通用推送
+            if(deviceMessage.getCommandType().contains("as")) {
+            		pushP(userIds,"",1);
+            }
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
                     rep = new DeviceMessage(
@@ -156,6 +186,19 @@ public class DeviceMessageHandler {
                     logger.info("预约改变状态准备中"+device.getEquipmentNum());
                     device.setWorkStatus(1);
                     deviceMapper.updateDevice(device);
+                    //更新或者插入预约表time
+                    Date now = new Date();
+                    Integer x= Integer.valueOf(ls.get(5))*100000;
+                    Date a=new Date(now .getTime() +x );
+                    deviceMapper.updateAppointmenTime(a);
+                    //预约成功推送
+                    json.put("errTime", new Date());
+                    json.put("result","您预约了"+a.getHours()+"点"+a.getMinutes()+"分沐浴，请随时关注预约状态！");
+                    json.put("type", 2);
+                    for (Integer i : userIds) {
+                    		logger.info("设备消息预约推送 user"+i+" result: ");
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "asoty": // 出水方式主动上报
                     rep = new DeviceMessage(
@@ -268,6 +311,20 @@ public class DeviceMessageHandler {
                             new ArrayList<>(Arrays.asList("OK"))
                     );
                     reply(session, rep);
+                    json.put("errTime", new Date());
+                    String str2="";
+                    if("01".equals(ls.get(6))) {
+                    		str2="您设定的定量出水已经用完了，请注意洗澡用水量!";
+                    }
+                    if("02".equals(ls.get(6))) {
+                			str2="您设定的定时出水已经用完了，请注意洗澡用水量!";
+                    }
+                    json.put("result",str2);
+                    json.put("type", 2);
+                    for (Integer i : userIds) {
+                    		logger.info("设备消息定时定量推送 user"+i+" result: ");
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "scyc": // 上传异常
                 	logger.info("app上传异常------------");
@@ -280,20 +337,7 @@ public class DeviceMessageHandler {
                     reply(session, rep);
 
                     DeviceError err = new DeviceError();
-                    Calendar time = Calendar.getInstance();
                     Object[] args =  deviceMessage.getArgs().toArray();
-                   /* if(!"0000".equals(args[0])) {
-                        time.set(Integer.parseInt((String) args[0]),
-                                Integer.parseInt((String) args[1]),
-                                Integer.parseInt((String) args[2]),
-                                Integer.parseInt((String) args[3]),
-                                Integer.parseInt((String) args[4]),
-                                Integer.parseInt((String) args[5]));
-
-                        err.setUpdated_at(time.getTime());
-                    } else {
-                        err.setUpdated_at(Calendar.getInstance().getTime());
-                    }*/
                     err.setUpdated_at(new Date());
                     err.setWater_tank(Integer.parseInt((String) args[6]));
                     err.setCold_water_in(Integer.parseInt((String) args[7]));
@@ -308,6 +352,63 @@ public class DeviceMessageHandler {
                     //设备id
                     err.setEquipment_id(device.getEquipment_id());
                     deviceErrorMapper.setDeviceError(err);
+                    
+                    //拼接要推送的异常
+                    	String str="";
+                    	if("1".equals(ls.get(7))) {
+                    		str+="进水冷水传感器故障"+";";
+                    	}
+                    	if("2".equals(ls.get(7))) {
+                    		str+="冷水温度高"+";";
+                    	}
+                    if("1".equals(ls.get(8))) {
+                    		str+="热水传感器故障"+";";
+                    	}
+                    if("2".equals(ls.get(8))) {
+                		str+="热水温度高"+";";
+                    }
+                    if("1".equals(ls.get(9))) {
+                		str+="混水阀温度故障"+";";
+                    }
+                    if("2".equals(ls.get(9))) {
+                		str+="混水温度高"+";";
+                    }
+                    if("1".equals(ls.get(10))) {
+                		str+="混水阀通讯故障"+";";
+                    }
+                    if("1".equals(ls.get(11))) {
+                		str+="缓冲进水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(11))) {
+                		str+="缓冲水温度高"+";";
+                    }
+                    if("1".equals(ls.get(12))) {
+                		str+="出水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(12))) {
+                		str+="出水温度高"+";";
+                    }
+                    if("1".equals(ls.get(13))) {
+                		str+="外接电源供电"+";";
+                    }
+                    if("0".equals(ls.get(13))) {
+                		str+="外接电源断掉，电池供电"+";";
+                    }
+                    if("1".equals(ls.get(14))) {
+                		str+="电池电压低"+";";
+                    }
+                    if("1".equals(ls.get(15))) {
+                		str+="电池电压高"+";";
+                    }
+                    if("1".equals(ls.get(16))) {
+                		str+="泵异常"+";";
+                    }
+                    json.put("errTime", new Date());
+                    json.put("result", str);
+                    for (Integer i : userIds) {
+                    		logger.info("设备消息推送 user"+i+" result: "+str);
+                    		pushService.pushInstallationId(i, json);
+					}
                     break;
                 case "akgapp": // app禁用
                     rep = new DeviceMessage(
@@ -336,15 +437,20 @@ public class DeviceMessageHandler {
                     deviceMapper.updateDevice(device);
                     break;
                 case "verx": // 固件版本
+                	 rep = new DeviceMessage(
+                             deviceMessage.getDeviceType(),
+                             deviceMessage.getDeviceID(),
+                             "verx",
+                             new ArrayList<>(Arrays.asList("OK"))
+                     );
                 	String firmVersion=deviceMessage.getArgs().get(0);
                 	 device.setFirm_version(firmVersion);
                      deviceMapper.updateDevice(device);
-                     logger.info("--------------------固件版本被更新------- "+firmVersion);
-                    break;
+                     break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
-                	log.setUploadstatus(ls.get(6));
-                	log.setsWorkStatus(ls.get(7));
+                	log.setUploadstatus(ls.get(7));
+                	log.setsWorkStatus(ls.get(6));
                 	log.setUsetype(ls.get(8));
                 	log.setTimeType(ls.get(9));
                 	log.setSettemperature(ls.get(10));
@@ -360,8 +466,19 @@ public class DeviceMessageHandler {
                 	log.setEquipmentId(device.getEquipment_id());
                 	deviceUseLogMapper.insertSelective(log);
                 	//更新当前温度和设定温度,工作状态workStatus
-                	if(!"03".equals(ls.get(7))){
-                		device.setWorkStatus(Integer.parseInt(ls.get(7))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
+                	if(!"03".equals(ls.get(6))){
+                		//当使用记录上传2，而设备状态还是0或者1，推送预约
+                		if("02".equals(ls.get(6))&&device.getWorkStatus()!=2) {
+                			//准备洗浴推送
+                			json.put("errTime", new Date());
+                			json.put("result","您预约的热水已准备好了，可以开始沐浴了！");
+                			json.put("type", 3);
+                			for (Integer i : userIds) {
+                				logger.info("设备消息预约推送 user"+i+" result: ");
+                				pushService.pushInstallationId(i, json);
+                			}
+                		}
+                		device.setWorkStatus(Integer.parseInt(ls.get(6))); //00：待机   01：准备中（包括预约倒计时） 02：使用中  03：离线
                 	}else{
                 		device.setWorkStatus(4);
                 	}
@@ -369,25 +486,38 @@ public class DeviceMessageHandler {
                 	device.setSettemperature(ls.get(11));
                 	device.setCurrent_temp(ls.get(12));
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------上传实时数据------- "+JSON.toJSONString(log));
                     break;
                 case "scwt": //每次洗澡用水量节水量
-                	DeviceWater de=new DeviceWater();
-                	de.setDeviceId(Long.valueOf(device.getEquipment_id()));
-                	de.setUseWater(ls.get(6));
-                	de.setJieWater(ls.get(7));
-                	de.setBathTime(ls.get(8));
-                	de.setCreateTime(new Date());
-                	deviceWaterMapper.insertSelective(de) ;
-                	if(new Date().getDate()==1){//1号清空月用水量节水量
-                		device.setM_jie_water("0");
-                		device.setM_use_water("0");
-                	}
-                	device.setM_use_water(String.valueOf(Integer.parseInt(device.getM_use_water())+Integer.parseInt(ls.get(6))));
-                	device.setM_jie_water(String.valueOf(Integer.parseInt(device.getM_jie_water())+Integer.parseInt(ls.get(7))));
-                	deviceMapper.updateDevice(device);
-                    logger.info("--------------------上传每次洗澡用水量节水量------- ");
-                    break;
+				DeviceWater de = new DeviceWater();
+				de.setDeviceId(Long.valueOf(device.getEquipment_id()));
+				de.setUseWater(ls.get(6));
+				de.setJieWater(ls.get(7));
+				de.setBathTime(ls.get(8));
+				de.setCreateTime(new Date());
+				deviceWaterMapper.insertSelective(de);
+				if (new Date().getDay() == 1&&(device.getM_send_time()==null||new Date().getMonth()!=device.getM_send_time().getMonth())) {// 1号清空月用水量节水量
+					//推送月用水量和节水量
+					device.setM_send_time(new Date());
+					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L",0);//调用通用推送
+					device.setM_jie_water("0");
+					device.setM_use_water("0");
+				}
+				device.setM_use_water(
+						String.valueOf(Integer.parseInt(device.getM_use_water()) + Integer.parseInt(ls.get(6))));
+				device.setM_jie_water(
+						String.valueOf(Integer.parseInt(device.getM_jie_water()) + Integer.parseInt(ls.get(7))));
+				logger.info("--------------------上传每次洗澡用水量节水量------- ");
+				// 推送
+				json.put("errTime", new Date());
+				json.put("result", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
+				json.put("type", 3);
+				
+				for (Integer i : userIds) {
+					logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
+					pushService.pushInstallationId(i, json);
+				}
+				deviceMapper.updateDevice(device);
+				break;
                 case "yyos": //语音播报开关，音量app设置
                 	val = deviceMessage.getArgs().get(0);
                 	device.setVoicebroadcast((Integer.parseInt(val)==0?"0":"1"));
@@ -416,12 +546,10 @@ public class DeviceMessageHandler {
                     logger.info("--------------------设定温度------- ");
                     break;
                 case "xtpc": //心跳
-                	val = deviceMessage.getArgs().get(0);
                 	if(device.getWorkStatus()==4){
                 		device.setWorkStatus(0);
                 	}
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------心跳------- ");
                     break;
                 case "daij": //待机
                 	device.setWorkStatus(0);
@@ -479,4 +607,30 @@ public class DeviceMessageHandler {
 			return null;
 		}
     }
+    /**
+     * 时间差-分
+     * @return
+     */
+	public Integer timeC(long from,long to ) {
+		try {
+		int minutes = (int) ((to - from) / (1000 * 60));
+		return minutes;
+		} catch (Exception e) {
+			logger.error("时间差计算出错",e);
+			return null;
+		}
+	}
+	/**
+	 * 通用推送
+	 */
+	public void pushP(List<Integer> userIds,String msg,Integer pushType) {
+		JSONObject json=new JSONObject();
+		json.put("errTime", new Date());
+		json.put("result", msg);
+		json.put("pushType", pushType);
+		for (Integer i : userIds) {
+			logger.info("设备消息推送 "+msg);
+			pushService.pushInstallationId(i, json);
+		}
+	}
 }

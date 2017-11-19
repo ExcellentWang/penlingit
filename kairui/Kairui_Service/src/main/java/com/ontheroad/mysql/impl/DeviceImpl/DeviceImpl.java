@@ -27,6 +27,8 @@ import com.ontheroad.service.DeviceService.DeviceService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.mina.core.future.ReadFuture;
+import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -460,7 +462,29 @@ public class DeviceImpl implements DeviceService {
 				}
 
 				if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
-					session.write(msg.toString());//发指令
+					session.getConfig().setUseReadOperation(true); 
+					session.getConfig().setReaderIdleTime(2000);
+					WriteFuture writeFuture=session.write(msg.toString());//发指令
+					//2.同步返回
+					writeFuture.awaitUninterruptibly();
+					//判断消息是否发送完成
+					if(writeFuture.isWritten()){
+						ReadFuture readFuture = session.read();
+						//等待消息响应
+						logger.info("mina开始等待同步消息---");
+						readFuture.awaitUninterruptibly();
+						logger.info("mina等待消息结束---");
+						//是否响应成功
+						if(readFuture.isRead()){
+							//获取消息
+							Object message = readFuture.getMessage();
+							logger.info("mina同步消息成功---"+message);
+							resultMap.put("instructions", message.toString());
+						}else {
+							map.put("code", BaseConstant.appUserErrorStatus);
+							map.put("msg", "指令发送失败！");
+						}
+					}
 					resultMap.put("instructions", msg.toString());
 					resultMap.put("sentAt", DateFormat.getDateInstance().format(Calendar.getInstance().getTime()));
 					InetSocketAddress addr = (InetSocketAddress)session.getRemoteAddress();

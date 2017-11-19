@@ -513,10 +513,19 @@ public class AppUserServiceImpl implements AppUserService{
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 		try {
+			//验证是否有进行中的售后
+			int id = customerservice.getCustomer_id();
+			List<Customerservice> css=customerserviceMapper.getCustomerListByDevice(customerservice.getEquipment_id());
+			for (Customerservice cs : css) {
+				if(!"2".equals(cs.getStatus())) {
+					map.put("code", BaseConstant.appUserFaileStatus);
+					map.put("msg", "此设备已经有进行中的售后");
+					return map;
+				}
+			}
 			customerservice.setStatus("0");
 			customerservice.setCreateTime(Calendar.getInstance().getTime());
 			customerserviceMapper.insertCustomer(customerservice);
-			int id = customerservice.getCustomer_id();
 			List<String> pics = customerservice.getPictureAdd();
 			for(String pic: pics) {
 				Customerpicture cp = new Customerpicture();

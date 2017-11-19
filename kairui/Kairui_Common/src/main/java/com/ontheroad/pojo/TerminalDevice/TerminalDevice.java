@@ -62,9 +62,26 @@ public class TerminalDevice implements Serializable{
 	 private String sur_water;//剩余水量
 	 private String sur_time;//剩余时间
 	 private String remark;//绑定备注
+	 private Date m_send_time;//上次月用水量和节水量推送时间
+	 private Date a_send_time;//上次预约倒计时推送时间
 	 
-	 
-	 public String getRemark() {
+	public Date getM_send_time() {
+		return m_send_time;
+	}
+
+	public void setM_send_time(Date m_send_time) {
+		this.m_send_time = m_send_time;
+	}
+
+	public Date getA_send_time() {
+		return a_send_time;
+	}
+
+	public void setA_send_time(Date a_send_time) {
+		this.a_send_time = a_send_time;
+	}
+
+	public String getRemark() {
 		return remark;
 	}
 
