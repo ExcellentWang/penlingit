@@ -149,7 +149,7 @@ public class DeviceMessageHandler {
             		device.setA_send_time(new Date());
             		//预约成功推送
                 json.put("errTime", new Date());
-                json.put("result","您的预约时间马上就到了，请开始准备吧！");
+                json.put("alert","您的预约时间马上就到了，请开始准备吧！");
                 json.put("type", 2);
                 for (Integer i : userIds) {
                 		logger.info("设备消息预约推送 user"+i+" result: ");
@@ -193,7 +193,7 @@ public class DeviceMessageHandler {
                     deviceMapper.updateAppointmenTime(a);
                     //预约成功推送
                     json.put("errTime", new Date());
-                    json.put("result","您预约了"+a.getHours()+"点"+a.getMinutes()+"分沐浴，请随时关注预约状态！");
+                    json.put("alert","您预约了"+a.getHours()+"点"+a.getMinutes()+"分沐浴，请随时关注预约状态！");
                     json.put("type", 2);
                     for (Integer i : userIds) {
                     		logger.info("设备消息预约推送 user"+i+" result: ");
@@ -319,7 +319,7 @@ public class DeviceMessageHandler {
                     if("02".equals(ls.get(6))) {
                 			str2="您设定的定时出水已经用完了，请注意洗澡用水量!";
                     }
-                    json.put("result",str2);
+                    json.put("alert",str2);
                     json.put("type", 2);
                     for (Integer i : userIds) {
                     		logger.info("设备消息定时定量推送 user"+i+" result: ");
@@ -404,7 +404,7 @@ public class DeviceMessageHandler {
                 		str+="泵异常"+";";
                     }
                     json.put("errTime", new Date());
-                    json.put("result", str);
+                    json.put("alert", str);
                     for (Integer i : userIds) {
                     		logger.info("设备消息推送 user"+i+" result: "+str);
                     		pushService.pushInstallationId(i, json);
@@ -471,7 +471,7 @@ public class DeviceMessageHandler {
                 		if("02".equals(ls.get(6))&&device.getWorkStatus()!=2) {
                 			//准备洗浴推送
                 			json.put("errTime", new Date());
-                			json.put("result","您预约的热水已准备好了，可以开始沐浴了！");
+                			json.put("alert","您预约的热水已准备好了，可以开始沐浴了！");
                 			json.put("type", 3);
                 			for (Integer i : userIds) {
                 				logger.info("设备消息预约推送 user"+i+" result: ");
@@ -509,7 +509,7 @@ public class DeviceMessageHandler {
 				logger.info("--------------------上传每次洗澡用水量节水量------- ");
 				// 推送
 				json.put("errTime", new Date());
-				json.put("result", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
+				json.put("alert", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
 				json.put("type", 3);
 				
 				for (Integer i : userIds) {
@@ -626,7 +626,7 @@ public class DeviceMessageHandler {
 	public void pushP(List<Integer> userIds,String msg,Integer pushType) {
 		JSONObject json=new JSONObject();
 		json.put("errTime", new Date());
-		json.put("result", msg);
+		json.put("alert", msg);
 		json.put("pushType", pushType);
 		for (Integer i : userIds) {
 			logger.info("设备消息推送 "+msg);

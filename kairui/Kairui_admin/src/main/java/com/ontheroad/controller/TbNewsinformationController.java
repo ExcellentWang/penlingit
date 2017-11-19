@@ -44,6 +44,7 @@ public class TbNewsinformationController {
         	tbNewsinformation.setContent(null);
         	JSONObject json=new JSONObject();
     		json.put("pdata", tbNewsinformation);
+    		json.put("alert", tbNewsinformation.getTitle());
         	if(timeSend==1){
         		pushUtil.push(json);
         	}else{//定时推送
@@ -55,6 +56,7 @@ public class TbNewsinformationController {
         	tbNewsinformation.setContent(null);
         	JSONObject json=new JSONObject();
     		json.put("pdata", tbNewsinformation);
+    		json.put("alert", tbNewsinformation.getTitle());
     		pushUtil.push(json);
         }
 		return MapUtil.getSuccessJson();
