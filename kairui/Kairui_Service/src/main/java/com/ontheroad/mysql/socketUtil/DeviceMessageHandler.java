@@ -138,7 +138,6 @@ public class DeviceMessageHandler {
             if(jsonr!=null){
             	device.setProvince(JSON.parseObject(jsonr).getString("province"));
             	device.setCity(JSON.parseObject(jsonr).getString("city"));
-            	deviceMapper.updateDevice(device);
             }
             List<String> ls=deviceMessage.getArgs();
             //推送给设备关联的用户
@@ -146,7 +145,8 @@ public class DeviceMessageHandler {
             JSONObject json=new JSONObject();
             //判断设备是否需要推送预约时间5分钟提醒
             Date at= deviceMapper.findAppointment(device).getTime();
-            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5) {
+            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5&&(timeC(new Date().getTime(),device.getA_send_time().getTime())>1||device.getA_send_time()==null)) {
+            		device.setA_send_time(new Date());
             		//预约成功推送
                 json.put("errTime", new Date());
                 json.put("result","您的预约时间马上就到了，请开始准备吧！");
@@ -156,6 +156,7 @@ public class DeviceMessageHandler {
                 		pushService.pushInstallationId(i, json);
 				}
             }
+         	deviceMapper.updateDevice(device);
             //app拉取信息通用推送
             if(deviceMessage.getCommandType().contains("as")) {
             		pushP(userIds,"",1);
@@ -494,8 +495,9 @@ public class DeviceMessageHandler {
 				de.setBathTime(ls.get(8));
 				de.setCreateTime(new Date());
 				deviceWaterMapper.insertSelective(de);
-				if (new Date().getDate() == 1) {// 1号清空月用水量节水量
+				if (new Date().getDay() == 1&&(device.getM_send_time()==null||new Date().getMonth()!=device.getM_send_time().getMonth())) {// 1号清空月用水量节水量
 					//推送月用水量和节水量
+					device.setM_send_time(new Date());
 					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L",0);//调用通用推送
 					device.setM_jie_water("0");
 					device.setM_use_water("0");
@@ -504,16 +506,17 @@ public class DeviceMessageHandler {
 						String.valueOf(Integer.parseInt(device.getM_use_water()) + Integer.parseInt(ls.get(6))));
 				device.setM_jie_water(
 						String.valueOf(Integer.parseInt(device.getM_jie_water()) + Integer.parseInt(ls.get(7))));
-				deviceMapper.updateDevice(device);
 				logger.info("--------------------上传每次洗澡用水量节水量------- ");
 				// 推送
 				json.put("errTime", new Date());
 				json.put("result", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
 				json.put("type", 3);
+				
 				for (Integer i : userIds) {
 					logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
 					pushService.pushInstallationId(i, json);
 				}
+				deviceMapper.updateDevice(device);
 				break;
                 case "yyos": //语音播报开关，音量app设置
                 	val = deviceMessage.getArgs().get(0);

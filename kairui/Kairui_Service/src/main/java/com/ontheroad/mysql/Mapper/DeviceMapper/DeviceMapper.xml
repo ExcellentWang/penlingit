@@ -106,7 +106,9 @@
                   tb_equipmentstatus.sur_water=#{sur_water},
                   tb_equipmentstatus.sur_time=#{sur_time},
                   tb_equipmentstatus.effluent_type2=#{effluent_type2},
-                  tb_equipmentstatus.current_flow_grade=#{current_flow_grade}
+                  tb_equipmentstatus.current_flow_grade=#{current_flow_grade},
+                  tb_equipmentstatus.a_send_time=#{a_send_time},
+                  tb_equipmentstatus.m_send_time=#{m_send_time}
         WHERE tb_equipment.equipment_id = #{equipment_id}
     </update>
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
