@@ -405,6 +405,7 @@ public class DeviceMessageHandler {
                     }
                     json.put("errTime", new Date());
                     json.put("alert", str);
+                    json.put("type", 2);
                     for (Integer i : userIds) {
                     		logger.info("设备消息推送 user"+i+" result: "+str);
                     		pushService.pushInstallationId(i, json);
@@ -472,7 +473,7 @@ public class DeviceMessageHandler {
                 			//准备洗浴推送
                 			json.put("errTime", new Date());
                 			json.put("alert","您预约的热水已准备好了，可以开始沐浴了！");
-                			json.put("type", 3);
+                			json.put("type", 2);
                 			for (Integer i : userIds) {
                 				logger.info("设备消息预约推送 user"+i+" result: ");
                 				pushService.pushInstallationId(i, json);
@@ -517,7 +518,7 @@ public class DeviceMessageHandler {
 				// 推送
 				json.put("errTime", new Date());
 				json.put("alert", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
-				json.put("type", 3);
+				json.put("type", 2);
 				
 				for (Integer i : userIds) {
 					logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
@@ -633,8 +634,10 @@ public class DeviceMessageHandler {
 	public void pushP(List<Integer> userIds,String msg,Integer pushType) {
 		JSONObject json=new JSONObject();
 		json.put("errTime", new Date());
-		json.put("alert", msg);
-		json.put("pushType", pushType);
+		if(pushType!=1){
+			json.put("alert", msg);
+		}
+		json.put("type", pushType);
 		for (Integer i : userIds) {
 			logger.info("设备消息推送 "+msg);
 			pushService.pushInstallationId(i, json);
