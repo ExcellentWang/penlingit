@@ -4,15 +4,21 @@
 
     
    <select id="getCustomerList" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
-	select tus.remark as equipmentName,
+	<!-- select tus.remark as equipmentName,
 	gt.type_name,c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,e.equipmentName,e.equipment_id,c.repairType,c.orderNum
 	from tb_customerservice c
 	LEFT JOIN tb_equipment e on c.equipment_id = e.equipment_id
 	left join guarantee_type gt on gt.id=c.repairType
 	left join tb_user_share tus on tus.share_user_id=c.user_id AND tus.`equipment_id`=e.equipment_id
 	where c.user_id = #{user_id}
+	ORDER BY c.createTime DESC -->
+	select tus.equipment_id, tus.remark as equipmentName,
+	gt.type_name,c.customer_id,c.status,c.phenomenon,c.appointmentTime,c.createTime,c.repairType,c.orderNum
+	from tb_user_share tus
+	left join tb_customerservice c   on tus.`equipment_id`=c.equipment_id
+	LEFT JOIN guarantee_type gt ON gt.id=c.repairType
+	where tus.share_user_id = #{user_id}
 	ORDER BY c.createTime DESC
-
    </select>
 
     <select id="getCustomerListByDevice" parameterType="java.lang.Integer" resultType="com.ontheroad.pojo.user.Customerservice">
