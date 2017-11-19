@@ -21,6 +21,7 @@ public class PushServiceImpl implements PushService {
 		AVPush push = new AVPush();
 		push.setData(json);
 	    push.setCloudQuery("select * from _Installation where userId =" + userId );
+	    push.setProductionMode(false);
 	    push.sendInBackground(new SendCallback() {
 	      @Override
 	      public void done(AVException e) {

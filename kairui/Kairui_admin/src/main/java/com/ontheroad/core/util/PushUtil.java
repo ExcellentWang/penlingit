@@ -25,7 +25,7 @@ public class PushUtil {
 		push.setPushToAndroid(true);
 		push.setPushToIOS(true);
 		push.setData(json);
-//		push.setProductionMode(false);
+		push.setProductionMode(false);
 		push.sendInBackground(new SendCallback() {
 		    @Override
 		    public void done(AVException e) {
