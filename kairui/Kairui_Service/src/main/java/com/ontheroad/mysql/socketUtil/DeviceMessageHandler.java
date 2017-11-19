@@ -145,7 +145,7 @@ public class DeviceMessageHandler {
             JSONObject json=new JSONObject();
             //判断设备是否需要推送预约时间5分钟提醒
             Date at= deviceMapper.findAppointment(device).getTime();
-            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5&&(timeC(new Date().getTime(),device.getA_send_time().getTime())>1||device.getA_send_time()==null)) {
+            if(at.getTime()>new Date().getTime()&&timeC(new Date().getTime(),at.getTime())==5&&(device.getA_send_time()==null||timeC(new Date().getTime(),device.getA_send_time().getTime())>1)) {
             		device.setA_send_time(new Date());
             		//预约成功推送
                 json.put("errTime", new Date());
