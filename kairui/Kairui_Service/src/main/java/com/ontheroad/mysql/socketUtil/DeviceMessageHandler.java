@@ -445,8 +445,6 @@ public class DeviceMessageHandler {
                 	String firmVersion=deviceMessage.getArgs().get(0);
                 	 device.setFirm_version(firmVersion);
                      deviceMapper.updateDevice(device);
-                     logger.info("--------------------固件版本被更新------- "+firmVersion);
-                  
                      break;
                 case "real": // 实时数据
                 	DeviceUseLog log=new DeviceUseLog();
@@ -487,7 +485,6 @@ public class DeviceMessageHandler {
                 	device.setSettemperature(ls.get(11));
                 	device.setCurrent_temp(ls.get(12));
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------上传实时数据------- "+JSON.toJSONString(log));
                     break;
                 case "scwt": //每次洗澡用水量节水量
 				DeviceWater de = new DeviceWater();
@@ -550,7 +547,6 @@ public class DeviceMessageHandler {
                 		device.setWorkStatus(0);
                 	}
                 	deviceMapper.updateDevice(device);
-                    logger.info("--------------------心跳------- ");
                     break;
                 case "daij": //待机
                 	device.setWorkStatus(0);
