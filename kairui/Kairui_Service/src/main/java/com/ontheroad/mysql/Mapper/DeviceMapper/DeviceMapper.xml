@@ -77,7 +77,7 @@
 		effluent_amount = #{effluent_amount},effluent_time = #{effluent_time}, effluent_way = #{effluent_way},updated_at=NOW()
 		where equipment_id = #{equipment_id}
    </update>
-    <update id="updateAppointmenTime" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+    <update id="updateAppointmenTime" resultType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
         update tb_equipment_appointment 
         SET time = #{time} ,updated_at=NOW()
 		where equipment_id = #{equipment_id}

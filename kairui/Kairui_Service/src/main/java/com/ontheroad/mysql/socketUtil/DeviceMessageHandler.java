@@ -183,7 +183,7 @@ public class DeviceMessageHandler {
                     break;
                 case "wyuy": // 预约改变状态准备中
                     val = deviceMessage.getArgs().get(0);
-                    logger.info("预约改变状态准备中"+device.getEquipmentNum());
+                    logger.info("预约改变状态准备中"+device.getEquipment_id());
                     device.setWorkStatus(1);
                     deviceMapper.updateDevice(device);
                     //更新或者插入预约表time
