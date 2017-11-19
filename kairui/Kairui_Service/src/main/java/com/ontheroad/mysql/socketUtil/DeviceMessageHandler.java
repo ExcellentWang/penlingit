@@ -190,7 +190,7 @@ public class DeviceMessageHandler {
                     Date now = new Date();
                     Integer x= Integer.valueOf(ls.get(5))*100000;
                     Date a=new Date(now .getTime() +x );
-                    deviceMapper.updateAppointmenTime(a);
+                    deviceMapper.updateAppointmenTime(a,device.getEquipment_id());
                     //预约成功推送
                     json.put("errTime", new Date());
                     json.put("alert","您预约了"+a.getHours()+"点"+a.getMinutes()+"分沐浴，请随时关注预约状态！");
