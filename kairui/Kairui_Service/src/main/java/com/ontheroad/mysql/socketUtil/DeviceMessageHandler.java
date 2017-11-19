@@ -152,6 +152,7 @@ public class DeviceMessageHandler {
                 json.put("alert","您的预约时间马上就到了，请开始准备吧！");
                 json.put("type", 2);
                 for (Integer i : userIds) {
+                	
                 		logger.info("设备消息预约推送 user"+i+" result: ");
                 		pushService.pushInstallationId(i, json);
 				}

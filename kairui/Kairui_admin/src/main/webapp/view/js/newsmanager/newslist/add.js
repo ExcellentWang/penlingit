@@ -61,10 +61,33 @@ $(function(){
 	
 		//预览
 $("#yulan").click(function(){
-	console.log(ue.getContent())
+	if(lenFor(ue.getContent())>2000){
+		tip({
+				content:"消息内容过多，浏览器不支持预览！"
+			})
+	}
 	comn.addTab({
 		title: '预览',
 		href: 'Modal/newsmanager/newslist/show.html?content='+ue.getContent()
 	});
 })
+function lenFor(str){
+		var byteLen=0,len=str.length;
+		if(str){
+			for(var i=0; i<len; i++){
+				if(str.charCodeAt(i)>255){
+					byteLen += 2;
+				}
+				else{
+					byteLen++;
+				}
+			}
+			return byteLen;
+		}
+		else{
+			return 0;
+		}
+	}
+	
 })
+

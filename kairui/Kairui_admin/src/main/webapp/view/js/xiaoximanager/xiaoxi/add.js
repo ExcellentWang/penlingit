@@ -59,6 +59,11 @@ $(function(){
 	
 	//预览
 $("#yulan").click(function(){
+	if(lenFor(ue.getContent())>2000){
+		tip({
+				content:"消息内容过多，浏览器不支持预览！"
+			})
+	}
 	comn.addTab({
 		title: '预览',
 		href: 'Modal/newsmanager/newslist/show.html?content='+ue.getContent()
