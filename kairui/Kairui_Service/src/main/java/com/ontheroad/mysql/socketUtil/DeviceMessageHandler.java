@@ -485,6 +485,13 @@ public class DeviceMessageHandler {
                 	device.setEffluent_type(ls.get(8));//出水模式更新
                 	device.setSettemperature(ls.get(11));
                 	device.setCurrent_temp(ls.get(12));
+                	//剩余时间，剩余水量
+                	 if(ls.get(9).equals("01")){
+                      	device.setSur_water(ls.get(20));//定量
+                      }
+                      if(ls.get(9).equals("02")){
+                      	device.setSur_time(ls.get(20));//定时
+                      }
                 	deviceMapper.updateDevice(device);
                     break;
                 case "scwt": //每次洗澡用水量节水量
