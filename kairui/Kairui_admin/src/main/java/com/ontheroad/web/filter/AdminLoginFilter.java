@@ -13,7 +13,7 @@ public class AdminLoginFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-    /*    TsUser user = (TsUser) session.getAttribute("user");
+        TsUser user = (TsUser) session.getAttribute("user");
         if(user!=null){
             //登陆成功的用户
             return true;
@@ -21,8 +21,8 @@ public class AdminLoginFilter implements HandlerInterceptor {
             //没有登陆，转向登陆界面
         	response.sendRedirect("/view/index.html");
             return false;
-        }*/
-        return true;
+        }
+//        return true;
     }
 
     @Override

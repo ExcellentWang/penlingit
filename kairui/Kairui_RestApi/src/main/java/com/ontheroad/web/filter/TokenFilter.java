@@ -21,39 +21,39 @@ public class TokenFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	//获取token  	
-//    	String token = request.getParameter("token"); 
-//    	
-//    	String isHasToken = (String) EhcacheUtil.getInstance().get("token",token);
-//  	
-//    	if (StringUtils.isNotBlank(isHasToken)) {
-//    		return true;
-//    	}else{
-//            Map<Object, Object> map = new HashMap<Object, Object>();
-//      		
-//    		map.put("code", "401");
-//    		map.put("msg", "没有权限");
-//    		map.put("extra",null);
-//    		map.put("resultMap", null);  
-//    		
-//        	String responseJSONObject = JSONObject.toJSONString(map);  
-//            response.setCharacterEncoding("UTF-8");  
-//            response.setContentType("application/json; charset=utf-8");  
-//            PrintWriter out = null;  
-//            try {  
-//                out = response.getWriter();  
-//                out.append(responseJSONObject);                 
-//            } catch (Exception e) {  
-//                e.printStackTrace();  
-//            } finally {  
-//                if (out != null) {  
-//                    out.close();  
-//                }  
-//            }  
-//            
-//            return false;
-//            
-//    	}
-          return true;
+    	String token = request.getParameter("token"); 
+    	
+    	String isHasToken = (String) EhcacheUtil.getInstance().get("token",token);
+  	
+    	if (StringUtils.isNotBlank(isHasToken)) {
+    		return true;
+    	}else{
+            Map<Object, Object> map = new HashMap<Object, Object>();
+      		
+    		map.put("code", "401");
+    		map.put("msg", "没有权限");
+    		map.put("extra",null);
+    		map.put("resultMap", null);  
+    		
+        	String responseJSONObject = JSONObject.toJSONString(map);  
+            response.setCharacterEncoding("UTF-8");  
+            response.setContentType("application/json; charset=utf-8");  
+            PrintWriter out = null;  
+            try {  
+                out = response.getWriter();  
+                out.append(responseJSONObject);                 
+            } catch (Exception e) {  
+                e.printStackTrace();  
+            } finally {  
+                if (out != null) {  
+                    out.close();  
+                }  
+            }  
+            
+            return false;
+            
+    	}
+//          return true;
     }
 
     @Override
