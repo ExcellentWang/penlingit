@@ -62,11 +62,13 @@
    </update>
    
    <update id="deviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
-         update tb_remind SET 
+         <!-- update tb_remind SET 
 	     warn_type = #{warn_type},water_warn_status = #{water_warn_status},water_under = #{water_under},
 	     under_temperature = #{under_temperature},under_times = #{under_times},water_hight = #{water_hight},
 		 hight_temperature = #{hight_temperature},hight_times = #{hight_times}
-		 where equipment_id = #{equipment_id}
+		 where equipment_id = #{equipment_id} -->
+		 replace into tb_remind (equipment_id,warn_type,water_warn_status,water_under,under_temperature,under_times,water_hight,hight_temperature,hight_times)
+		 values(#{equipment_id},#{warn_type}, #{water_warn_status},#{water_under},#{under_temperature},#{under_times},#{water_hight},#{hight_temperature}, #{hight_times})
    </update>
 
    <update id="deviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
@@ -126,7 +128,7 @@
 	<select id="repairStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="int">
         SELECT count(*) FROM tb_customerservice
         WHERE equipment_id = #{equipment_id} and status!=2
-        
+        limit 1
     </select>
     
     <update id="updateDeviceWorkingStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
