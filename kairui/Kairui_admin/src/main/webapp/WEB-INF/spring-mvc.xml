@@ -34,6 +34,7 @@
             <mvc:interceptor>
                 <mvc:mapping path="/**"/>  
                 <mvc:exclude-mapping path="/view/**" />
+                <mvc:exclude-mapping path="/getLunboId" />
                 <mvc:exclude-mapping path="/static/**" />
                 <mvc:exclude-mapping path="/user/login" />
                 <mvc:exclude-mapping path="/admin/login" />
