@@ -485,8 +485,8 @@ public class DeviceMessageHandler {
                 		device.setWorkStatus(4);
                 	}
                 	device.setEffluent_type(ls.get(8));//出水模式更新
-                	device.setSettemperature(ls.get(11));
-                	device.setCurrent_temp(ls.get(12));
+                	device.setSettemperature(ls.get(10));
+                	device.setCurrent_temp(ls.get(11));
                 	//剩余时间，剩余水量
                 	 if(ls.get(9).equals("01")){
                       	device.setSur_water(ls.get(20));//定量
