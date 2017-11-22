@@ -344,6 +344,7 @@ LEFT JOIN `t_s_role` r ON r.`role_id`=rm.`role_id`
 LEFT JOIN `t_s_role_user` ru ON ru.`role_id`=r.`role_id`
 LEFT JOIN `t_s_user` u ON u.`user_id`=ru.`user_id`
 WHERE u.user_id=#{userId} and menu_type=1 and menu_level=1
+GROUP BY m.menu_id
   </select>
    <!-- 根据主菜单id查询用户拥有的子菜单 -->
    <select id="getMenusUserByParentId"  resultMap="BaseResultMap">
@@ -353,5 +354,6 @@ LEFT JOIN `t_s_role` r ON r.`role_id`=rm.`role_id`
 LEFT JOIN `t_s_role_user` ru ON ru.`role_id`=r.`role_id`
 LEFT JOIN `t_s_user` u ON u.`user_id`=ru.`user_id`
 WHERE u.user_id=#{user_id} and  menu_pid=#{menu_id}
+GROUP BY m.menu_id
   </select>
 </mapper>

@@ -137,19 +137,8 @@ public class UserManageController extends BaseController {
 		returnMap.put("statusCombo", JSONUtils.toJson(JSONUtils.toCombo(statusMap)));
 		returnMap.put("sexMap", JSONUtils.toJson(sexMap));
 		returnMap.put("sexCombo", JSONUtils.toJson(JSONUtils.toCombo(sexMap)));
-        
-        //List<SysRole> roleList = sysRoleService.selectRolesByUserId(userId);
         Map<String, Object> condition = new HashMap<String, Object>();
-        //List<SysRole> roleList = sys
-        List<SysRole> roleList = sysRoleService.findModelsByCondition(condition);
         writeToPage(JSONUtils.toJson(sysManageUserService.getGridDataModelByCondition4UserRole(po)), response);
-       /* SysDictMapper sDictMapper = (SysDictMapper) SpringUtils.getBean(SysDictMapper.class);
-        
-        Integer totalCount = genericMapper.countByCondition(po.getCondition());
-        RowBounds rowBounds = new RowBounds(po.getOffset(), po.getPageSize());
-	    List results = sysUserMapper.findModelsByCondition4UserRole(po.getCondition(), rowBounds);
-        
-        writeToPage(JSONUtils.toJson(new GridDataModel(results, totalCount.intValue())), response);*/
     }
 
     @RequestMapping(value = "showAdd")
