@@ -48,5 +48,10 @@ public interface UserService {
 	 * @return
 	 */
 	TsUser updateUser(TsUser user);
-	
+	/**
+	 * 查询用户是否具有某资源权限
+	 * @param user
+	 * @return
+	 */
+	Integer getAccess(String menuName,Integer userId);
 }

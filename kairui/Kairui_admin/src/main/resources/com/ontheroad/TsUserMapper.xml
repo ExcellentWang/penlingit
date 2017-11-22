@@ -318,4 +318,19 @@
       SEX = #{sex,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  <select id="getAccess" resultType="java.lang.Integer">
+  	
+SELECT 
+  COUNT(*) 
+FROM
+  `t_s_user` u 
+  LEFT JOIN `t_s_role_user` r 
+    ON u.`user_id` = r.`user_id` 
+  LEFT JOIN `t_s_role_menu` mr 
+    ON mr.`role_id` = r.`role_id` 
+  LEFT JOIN `t_s_menu` m 
+    ON m.`menu_id` = mr.`menu_id` 
+WHERE u.`user_id` = #{userId}
+  AND m.`menu_name` =#{menuName}  
+  </select>
 </mapper>

@@ -11,15 +11,26 @@ var handle,tableEvent;
 
 handle = function (value, row, index) {
 	var modifyMenu = "<li><a class='del'>删除</a></li>";
-	if(row.status==1){
-		modifyMenu+="<li><a class='view'>审核</a></li>"
-	}
-	if(row.status==2){
-		modifyMenu+="<li><a class='cancelview'>取消审核</a></li><li><a class='send'>推送</a></li>"
-	}
-	if(row.status==3){
-		modifyMenu+="<li><a class='send'>再次推送</a></li>"
-	}
+	$.ajax({
+		url: "/user/getAccess",
+		data: {
+			"menuName":"资讯审核"
+		},
+		async: false,
+		success: function(item){
+			if(item.data>0){
+				if(row.status==1){
+					modifyMenu+="<li><a class='view'>审核</a></li>"
+				}
+				if(row.status==2){
+					modifyMenu+="<li><a class='cancelview'>取消审核</a></li><li><a class='send'>推送</a></li>"
+				}
+				if(row.status==3){
+					modifyMenu+="<li><a class='send'>再次推送</a></li>"
+				}
+			}
+		}
+	})
     return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='update'>修改</a></li>", modifyMenu, "</ul>", "</div>"].join("");
 };
 

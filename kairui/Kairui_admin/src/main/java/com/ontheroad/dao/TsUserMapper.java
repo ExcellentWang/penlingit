@@ -27,4 +27,10 @@ public interface TsUserMapper {
     int updateByPrimaryKeySelective(TsUser record);
 
     int updateByPrimaryKey(TsUser record);
+    /**
+	 * 查询用户是否具有某资源权限
+	 * @param user
+	 * @return
+	 */
+	Integer getAccess(@Param("menuName")String menuName,@Param("userId")Integer userId);
 }

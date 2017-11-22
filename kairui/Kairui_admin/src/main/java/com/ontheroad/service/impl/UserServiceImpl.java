@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
 		tsUserMapper.updateByPrimaryKeySelective(user);
 		return user;
 	}
+
+	@Override
+	public Integer getAccess(String menuName, Integer userId) {
+		return tsUserMapper.getAccess(menuName, userId);
+	}
 	
 	
 }

@@ -15,7 +15,7 @@
 	<div class="treeDiv" style="width:238px;border:1px solid #86a3c4;">
 			<button type="button"  onclick="treeChecked()">全选</button>
 		<button type="button"  onclick="treeUnAllChecked()">全不选</button>
-		<ul id="navtree" style="  overflow-y: scroll;"></ul>
+		<ul id="navtree" style="overflow-y: scroll;"></ul>
 
 	</div>
 	<form id="form1" action="bindMenu">

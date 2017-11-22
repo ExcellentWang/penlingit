@@ -12,10 +12,21 @@ var handle,tableEvent;
 handle = function (value, row, index) {
 	var modifyMenu = "";
 	if(row.status==2){
-		modifyMenu+="<li><a class='send'>审核</a></li>"
+		$.ajax({
+			url: "/user/getAccess",
+			data: {
+				"menuName":"保修卡审核"
+			},
+			async: false,
+			success: function(item){
+				if(item.data>0){
+					modifyMenu+="<li><a class='send'>审核</a></li>"
+				}
+			}
+		})
 	}
-	
-    return ["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='view'>查看详情</a></li>", modifyMenu, "</ul>", "</div>"].join("");
+	var a=["<div class='btn-group btn-group-xs'>", "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作", "<span class='caret'></span>", "<span class='sr-only'>下拉切换</span>", "</button>", "<ul class='dropdown-menu' role='menu'>", "<li><a class='view'>查看详情</a></li>", modifyMenu, "</ul>", "</div>"].join("");
+	return a;
 };
 
 tableEvent = {

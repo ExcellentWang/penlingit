@@ -66,6 +66,7 @@ public class UserController {
 		//将用户菜单拼接成前端需要的json
 		JSONArray result=new JSONArray();
 		for (TsMenu m : ls) {
+			if(m.getMenuType()==3)continue;
 			JSONObject json=new JSONObject();
 			json.put("menuName", m.getMenuName());
 			json.put("sysMenuList", userService.getMenusUserByParentId(user.getUserId(), m.getMenuId()));
@@ -138,5 +139,17 @@ public class UserController {
 	public Map<Object, Object> getUserInfo(HttpServletRequest request){
 		TsUser user=SessionUtil.getUser(request);
 		return MapUtil.getSuccessJson(user);
+	}
+	/**
+	 * 获取当前用户是否具有某审核权限
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getAccess")
+	public Map<Object, Object> getAccess(HttpServletRequest request,String menuName){
+		TsUser user=SessionUtil.getUser(request);
+		return MapUtil.getSuccessJson(userService.getAccess(menuName, user.getUserId()));
 	}
 }
