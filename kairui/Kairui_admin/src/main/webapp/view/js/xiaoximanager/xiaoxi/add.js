@@ -8,6 +8,7 @@ $(function(){
 		data:{"id":args['id']},
 		success: function(item){
 			$("#lunboForm").values(item.data)
+			$("#lst").attr("src",item.data.picture)
 			ue.ready(function(){
 				ue.setContent(item.data.content);
 			});
@@ -16,6 +17,7 @@ $(function(){
 	
 	$("[name='file']").change(function(){
 		isUpload=true;
+		previewFile();
 	})
 	//添加
 	$("#addlunbo").click(function(){
@@ -71,3 +73,17 @@ $("#yulan").click(function(){
 })
 })
 
+//图片预览
+function previewFile() {
+	var preview = document.querySelector('#lst');
+	var file  = document.querySelector('input[type=file]').files[0];
+	var reader = new FileReader();
+	reader.onloadend = function () {
+		preview.src = reader.result;
+	}
+	if (file) {
+		reader.readAsDataURL(file);
+	} else {
+		preview.src = "";
+	}
+}

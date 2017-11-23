@@ -122,4 +122,12 @@ public class TbNewsinformationController {
   
         return map;  
     } 
+    /**
+	 * 公用上传图片
+	 */
+	@ResponseBody
+	@RequestMapping("/uploadIMG")
+	public Map<Object, Object> uploadIMG(@RequestParam("file") CommonsMultipartFile file,HttpServletRequest request){
+		return MapUtil.getSuccessJson(UploadUtil.save(file, request));
+	}
 }
