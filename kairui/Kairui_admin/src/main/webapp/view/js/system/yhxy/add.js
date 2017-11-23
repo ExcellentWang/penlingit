@@ -34,4 +34,9 @@ $(function(){
 				}
 			});
 	})
+	//返回
+	$("#fanhui").click(function(){
+		alert(1)
+		comn.closeTab();
+	})
 })

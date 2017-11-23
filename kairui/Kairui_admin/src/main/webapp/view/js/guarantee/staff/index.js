@@ -27,6 +27,12 @@ tableEvent = {
 	 			}
 	 		});
 	$("#confirm").unbind("click").click(function () {
+		if($("#phon").val().length!=11){
+			tip({
+					content:"请输入正确的手机号"
+				})
+			return;
+		}
 		$("#xintiao").modal('hide')
 		$.ajax({
 	 			url: "/addOrUpdateStaff",
@@ -80,9 +86,10 @@ $("#btn-search").click(function () {
 });
 //添加
 $("#addDeviceType").click(function(){
+	$("#id").val("")
 	$("#xintiao").modal("show")   	
 	$("#confirm").unbind("click").click(function () {
-		if($("[name='phone']").val().length!=11){
+		if($("#phon").val().length!=11){
 			tip({
 					content:"请输入正确的手机号"
 				})

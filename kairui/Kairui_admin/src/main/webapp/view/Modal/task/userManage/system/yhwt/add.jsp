@@ -13,10 +13,15 @@
 		<input type="hidden" id="dictId" name="dictId" value="${dictId}">
 		<table class="editTable">
 		<tr>
-			<td><span class="required">*</span>问题名称：</td>
-			<td><input type="text" id="detailName" name="detailName"></td>
 			<td>问题编号：</td>
 			<td><input type="text" id="detailValue" name="detailValue"></td>
+		</tr>
+		<tr>
+			<td><span class="required">*</span>问题名称：</td>
+			<!-- <td><input type="text" id="detailName" name="detailName"></td> -->
+			<td colspan="3">
+			<textarea name="detailName" id="detailName" cols="58" rows="3" maxlength="256"></textarea>
+			</td>
 		</tr>
 		<tr>
 			<td>问题答案：</td>
@@ -37,7 +42,7 @@
 $(function(){
 	$('#detailName').validatebox({
 		required:true,
-		validType:['isExist["checkDetailName","detailName,dictId"]','maxLength[32]']  
+		validType:['isExist["checkDetailName","detailName,dictId"]']  
 	}); 
 	$('#btnSubmit').click(function(){
 		if($('#form1').form('validate')){

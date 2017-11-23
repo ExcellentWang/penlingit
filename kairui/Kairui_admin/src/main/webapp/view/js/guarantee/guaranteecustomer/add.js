@@ -30,7 +30,7 @@ $(function(){
 			if(item.data.status==1){
 				$("[id='status']").val("已受理")
 			}
-			if(item.data.status==0){
+			if(item.data.status==2){
 				$("[id='status']").val("维修完成")
 			}
 			$("[name=type]").val([null,"燃气热水器","储水式电热水器","空气能热水器","壁挂炉","太阳能"][args['type'].substring(1)])

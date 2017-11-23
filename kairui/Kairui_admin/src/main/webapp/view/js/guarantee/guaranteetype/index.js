@@ -80,6 +80,7 @@ $("#btn-search").click(function () {
 });
 //添加
 $("#addDeviceType").click(function(){
+	$("#modalForm").find("[name='id']").val("")
 	$("#xintiao").modal("show")  
 	$("#confirm").unbind("click").click(function () {
 		$("#xintiao").modal('hide')

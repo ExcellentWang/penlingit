@@ -14,10 +14,6 @@
 		<input type="hidden" id="dictId" name="dictId" value="${sDetail.dictId}">
 		<table class="editTable">
 		<tr>
-			<td><span class="required">*</span>问题名称：</td>
-			<td><input type="text" id="detailName" name="detailName" value="${sDetail.detailName}"></td>
-		</tr>
-		<tr>
 			<td><span class="required">*</span>问题编号：</td>
 			<td><input type="text" id="detailValue" name="detailValue" value="${sDetail.detailValue}"></td>
 			<td>问题状态：</td>
@@ -26,6 +22,15 @@
 				<option value="1" <c:if test="${1==sDetail.detailStatus}">selected="selected"</c:if>>启用</option>
 				<option value="2" <c:if test="${2==sDetail.detailStatus}">selected="selected"</c:if>>禁止</option>
 			</select>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="required">*</span>问题名称：</td>
+			<%-- <td><input type="text" id="detailName" name="detailName" value="${sDetail.detailName}"></td> --%>
+			<td colspan="3">
+			<textarea name="detailName" id="detailName" cols="58" rows="3" >
+				${sDetail.detailName}
+			</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -47,7 +52,7 @@
 $(function(){
 	$('#detailName').validatebox({
 		required:true,
-		validType:['isExist["checkDetailName","detailName,dictId,detailId"]','maxLength[32]']  
+		validType:['isExist["checkDetailName","detailName,dictId,detailId"]']  
 	}); 
 	$('#btnSubmit').click(function(){
 		if($('#form1').form('validate')){
