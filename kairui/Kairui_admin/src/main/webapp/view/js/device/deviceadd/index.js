@@ -1,4 +1,4 @@
-var table_1;
+var table_1;var isUpload=false;
 
 table_1 = function (params) {
 	tableData(params, $.extend($("#taskForm").values(), {
@@ -43,3 +43,53 @@ $("#addDevice").click(function(){
     })
 })
 
+$("#file").change(function(){
+		isUpload=true;
+	})
+//点确定按钮
+$("#confirmUpload").click(function(){
+	console.log(isUpload)
+	if(isUpload==false){
+		tip({
+			content:"请先上传设备编号文件!"
+		})
+		return;
+	}
+	var formData = new FormData();
+    formData.append("file", document.getElementById("file").files[0]);
+    $.ajax({
+		url: "/device/uploadDevices",
+		data:formData,
+		type: "POST",
+        contentType: false,
+        processData: false,
+		success: function(item){
+			if(item.code!=0){
+ 				tip({
+ 					content:item.msg
+ 				})
+			}else{
+ 				tip({
+ 					content:"成功！"
+ 				})
+			}
+			$("#addDeviceModal").modal('hide')
+		} ,beforeSend: function(){
+			 $("#qx").addClass("hide");
+			 $("#confirmUpload").html("请等待...")
+	    },
+	    complete: function(){
+	    	$("#qx").removeClass("hide");
+	    	 $("#confirmUpload").html("确定");
+	    }
+		
+	});
+})
+//下载文件模板
+$("#upmuban").click(function(){
+	 var $eleForm = $("<form method='get'></form>");
+     $eleForm.attr("action","/device/upmuban");
+     $(document.body).append($eleForm);
+     //提交表单，实现下载
+     $eleForm.submit();
+})

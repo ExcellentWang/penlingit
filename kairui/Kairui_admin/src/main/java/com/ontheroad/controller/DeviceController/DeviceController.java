@@ -8,20 +8,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.ontheroad.core.util.ExcelUtil;
 import com.ontheroad.entity.EquipmentDatatype;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.Constant.BaseConstant;
-import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.DeviceVo;
@@ -615,7 +624,11 @@ public class DeviceController extends BaseConstant{
                     return writer.toString(); 
             else return null; 
     }
-    
+    /**
+     * 导出excel
+     * @param vo
+     * @return
+     */
     @RequestMapping(value = "/deviceListExport")
     public Map<Object,Object> deviceListExport(TerminalDeviceVo vo) {
 		//返回前端map
@@ -631,4 +644,77 @@ public class DeviceController extends BaseConstant{
             return map;
         }
     }
+    /**
+     * 批量导入设备
+     */
+    @RequestMapping(value = "/uploadDevices")
+    public Map<Object, Object> uploadDevices(@RequestParam("file") CommonsMultipartFile file) {
+    	ArrayList<ArrayList<Object>> a=null;
+    	try {
+    		a = ExcelUtil.readExcel(multipartToFile(file));
+    		for (ArrayList<Object> arrayList : a) {
+    			for (Object object : arrayList) {
+    				String num=(String)object;
+    				//object就是单个设备编号
+    				TerminalDevice device=new TerminalDevice();
+    				TerminalDeviceVo vo=new TerminalDeviceVo();
+    				vo.setEquipmentNum(num);
+    				Map<Object, Object>  map=deviceService.getDevicesByExample(vo);
+    				List<TerminalDeviceVo> vos=(List<TerminalDeviceVo>)map.get("data");
+    				if(vos.size()>0){
+    					continue;
+    				}
+    				device.setEquipmentNum(num);
+    				device.setType(num.substring(4,6));
+    				device.setCreated_at(new Date());
+    				deviceService.insert(device);
+    			}
+    		}
+    	} catch (IOException e) {
+    		return MapUtil.getFailureJson("导入出错，请检查文件是否符合格式，或者文件太大导致服务器无法处理！");
+    	}
+    	return MapUtil.getSuccessJson();
+    }
+	/** 
+     * MultipartFile 转换成File 
+     *  
+     * @param multfile 原文件类型 
+     * @return File 
+     * @throws IOException 
+     */  
+    private File multipartToFile(MultipartFile multfile) throws IOException {  
+        CommonsMultipartFile cf = (CommonsMultipartFile)multfile;   
+        //这个myfile是MultipartFile的  
+        DiskFileItem fi = (DiskFileItem) cf.getFileItem();  
+        File file = fi.getStoreLocation();  
+        //手动创建临时文件  
+        if(file.length() < 10240000){  
+            File tmpFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +   
+                    file.getName());  
+            multfile.transferTo(tmpFile);  
+            return tmpFile;  
+        }  
+        return file;  
+    }  
+    
+    @RequestMapping(value = "/upmuban")
+    public void exportOneActivityToExcel(HttpServletRequest request  
+            , HttpServletResponse response){  
+        File outputFile = new File(request.getSession().getServletContext().getRealPath("/view/upload/demo.xls"));
+        //返回excel的文件流  
+        try {  
+            response.reset();// 清空输出流  
+            response.setHeader("Content-disposition", "attachment; filename=device_demo.xls");// 设定输出文件头  
+            response.setContentType("application/msexcel");// 定义输出类型  
+            // 读取文件并且输出  
+            FileInputStream fin = new FileInputStream(outputFile);  
+            byte[] tempBytes = new byte[2048];  
+            while (fin.read(tempBytes) != -1) {  
+                response.getOutputStream().write(tempBytes);  
+            }  
+            response.getOutputStream().close();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+    } 
 }

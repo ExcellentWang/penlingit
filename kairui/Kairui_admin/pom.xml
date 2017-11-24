@@ -203,6 +203,23 @@
             <artifactId>java-sdk</artifactId>
             <version>0.1.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>3.9</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
+<dependency>
+    <groupId>net.sourceforge.jexcelapi</groupId>
+    <artifactId>jxl</artifactId>
+    <version>2.6.10</version>
+</dependency>
+        <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>3.9</version>
+</dependency>
     </dependencies>
   <build>
     <finalName>Kairui_admin</finalName>

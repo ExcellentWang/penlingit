@@ -28,7 +28,6 @@ $(function(){
 			})
 			return;
 		}
-		console.log($("input[name='isSend']").is(':checked'))
 		var formData = new FormData();
         formData.append("file", document.getElementById("file").files[0]);
         formData.append("title", $("[name='title']").val());
