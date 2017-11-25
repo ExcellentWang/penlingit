@@ -24,11 +24,13 @@ import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
 import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
+import com.ontheroad.mysql.dao.TbInformationMapper;
 import com.ontheroad.mysql.dao.TbWcalMapper;
 import com.ontheroad.mysql.entity.DeviceUseLog;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
+import com.ontheroad.mysql.entity.TbInformation;
 import com.ontheroad.mysql.entity.TbWcal;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
@@ -64,6 +66,8 @@ public class DeviceMessageHandler {
     private DeviceShareMapper deviceShareMapper;
     @Autowired
     private TbWcalMapper tbWcalMapper;
+    @Autowired
+    private TbInformationMapper tbInformationMapper;
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -408,6 +412,15 @@ public class DeviceMessageHandler {
                     if("1".equals(ls.get(16))) {
                 		str+="泵异常"+";";
                     }
+                    //插入设备消息
+                    TbInformation information=new TbInformation();
+                    information.setCreatetime(new Date());
+                    information.setContent(str);
+                    information.setTitle(str);
+                    information.setEquipmentId(device.getEquipment_id());
+                    information.setInformationtype(3);
+                    tbInformationMapper.insert(information);
+                    //推送
                     json.put("errTime", new Date());
                     json.put("alert", str);
                     json.put("type", 4);
@@ -511,7 +524,16 @@ public class DeviceMessageHandler {
 				if (new Date().getDay() == 1&&(device.getM_send_time()==null||new Date().getMonth()!=device.getM_send_time().getMonth())) {// 1号清空月用水量节水量
 					//推送月用水量和节水量
 					device.setM_send_time(new Date());
-					pushP(userIds,"本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L",5);//调用通用推送
+					String msg="本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L";
+					pushP(userIds,msg,5);//调用通用推送
+					 //插入设备消息
+                    TbInformation information2=new TbInformation();
+                    information2.setCreatetime(new Date());
+                    information2.setContent(msg);
+                    information2.setTitle(msg);
+                    information2.setEquipmentId(device.getEquipment_id());
+                    information2.setInformationtype(4);
+                    tbInformationMapper.insert(information2);
 					device.setM_jie_water("0");
 					device.setM_use_water("0");
 				}
@@ -520,12 +542,21 @@ public class DeviceMessageHandler {
 				device.setM_jie_water(
 						String.valueOf(Integer.parseInt(device.getM_jie_water()) + Integer.parseInt(ls.get(7))));
 				logger.info("--------------------上传每次洗澡用水量节水量------- ");
+				String msg2="本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒";
+				 //插入设备消息
+                TbInformation information3=new TbInformation();
+                information3.setCreatetime(new Date());
+                information3.setContent(msg2);
+                information3.setTitle(msg2);
+                information3.setEquipmentId(device.getEquipment_id());
+                information3.setInformationtype(4);
+                tbInformationMapper.insert(information3);
 				//查询提醒设置
 				DeviceRemind r = deviceMapper.findDeviceRemind(device);
 				if(r.getWater_warn_status()==1){
 					// 推送
 					json.put("errTime", new Date());
-					json.put("alert", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
+					json.put("alert", msg2);
 					json.put("type", 5);
 					
 					for (Integer i : userIds) {

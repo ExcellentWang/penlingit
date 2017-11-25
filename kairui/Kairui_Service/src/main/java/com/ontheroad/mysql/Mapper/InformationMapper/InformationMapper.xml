@@ -25,27 +25,40 @@
       ORDER BY time DESC
    </select>
 
-    <select id="getInformationList" resultType="com.ontheroad.pojo.Information.Information" parameterType="map">
-	select i.*,d.information_name typeName
-	from tb_information i
-	LEFT JOIN information_datatype d on d.information_type = i.informationType
-	LEFT JOIN `information_user_del` iud
-	ON iud.`information_id` = i.`id` and iud.user_id=#{user_id}
-	WHERE 1=1
-	<if test="informationType !='' and informationType !=null ">
-		AND i.informationType = #{informationType}
-	</if>
-	<!-- 获取未被删除的消息 -->
-	AND (
-	iud.`id` IS NULL
-	OR (
-	iud.`id` IS NOT NULL
-	AND iud.`user_id` != #{user_id}
-	)
-	)
-	GROUP BY i.id
-	order by i.id desc
-    </select>
+	<select id="getInformationList" resultType="com.ontheroad.pojo.Information.Information"
+		parameterType="map">
+		select i.*,d.information_name typeName
+		from tb_information i
+		LEFT JOIN information_datatype d on d.information_type = i.informationType
+		LEFT JOIN `information_user_del` iud
+		ON iud.`information_id` = i.`id` and iud.user_id=#{user_id}
+		LEFT JOIN `tb_equipment` te
+		ON te.`equipment_id` = tb.`equipment_id`
+		LEFT JOIN `tb_user_share` tus
+		ON tus.`share_user_id` = #{user_id}
+		WHERE 1=1
+		<if test="informationType !='' and informationType !=null ">
+			AND i.informationType = #{informationType}
+		</if>
+		<!-- 获取未被删除的消息 -->
+		AND (
+		iud.`id` IS NULL
+		OR (
+		iud.`id` IS NOT NULL
+		AND iud.`user_id` != #{user_id}
+		)
+		)
+		<!-- 设备消息的话，只能获取用户拥有的 -->
+		AND (
+		(
+		tb.`equipment_id` IS NOT NULL AND tus.`share_user_id` IS NOT
+		NULL
+		)
+		OR tb.`equipment_id` IS NULL
+		)
+		GROUP BY i.id
+		order by i.id desc
+	</select>
 
     <select id="getSlides" resultType="com.ontheroad.pojo.Information.Slideshow">
         SELECT * FROM tb_slideshow ORDER BY createTime DESC
@@ -56,21 +69,32 @@
         WHERE id=#{news_id}
     </select>
 	<select id="getInformationIsNew" resultType="com.ontheroad.pojo.Information.userInformation">
-       SELECT tb.id as information_id,tb.*,d.information_name as typeName FROM `tb_information`  tb 
-        LEFT JOIN information_datatype d on tb.informationType = d.information_type 
-        LEFT JOIN `information_user` iu 
-   	    ON iu.`information_id` = tb.`id` AND iu.`user_id`=#{user_id}
-   	    LEFT JOIN `information_user_del` iud 
-   	    ON iud.`information_id` = tb.`id`  and iud.user_id=#{user_id}
-        WHERE 1=1 
-        and informationType=#{informationType}
-        <if test="user_id !='' and user_id !=null ">
-        <!-- 获取未读的消息 -->
+	SELECT tb.id as information_id,tb.*,d.information_name as typeName FROM
+	`tb_information` tb
+	LEFT JOIN information_datatype d on
+	tb.informationType = d.information_type
+	LEFT JOIN `information_user` iu
+	ON iu.`information_id` = tb.`id` AND iu.`user_id`=#{user_id}
+	LEFT JOIN
+	`information_user_del` iud
+	ON iud.`information_id` = tb.`id` and
+	iud.user_id=#{user_id}
+	LEFT JOIN `tb_equipment` te
+	ON te.`equipment_id` =
+	tb.`equipment_id`
+	LEFT JOIN `tb_user_share` tus
+	ON tus.`share_user_id` =
+	#{user_id}
+	WHERE 1=1
+	and informationType=#{informationType}
+	<if test="user_id !='' and user_id !=null ">
+		<!-- 获取未读的消息 -->
 		AND (
 		iu.`id` IS NULL
 		OR (
 		iu.`id` IS NOT NULL
-		AND iu.`user_id` != #{user_id}
+		AND iu.`user_id` !=
+		#{user_id}
 		)
 		)
 		<!-- 获取未被删除的消息 -->
@@ -78,11 +102,19 @@
 		iud.`id` IS NULL
 		OR (
 		iud.`id` IS NOT NULL
-		AND iud.`user_id` != #{user_id}
+		AND iud.`user_id` !=
+		#{user_id}
 		)
 		)
-         </if>
-     	ORDER BY id DESC LIMIT 1
+		<!-- 设备消息的话，只能获取用户拥有的 -->
+		AND (
+		(
+		tb.`equipment_id` IS NOT NULL AND tus.`share_user_id` IS NOT NULL
+		)
+		OR tb.`equipment_id` IS NULL
+		)
+	</if>
+	ORDER BY id DESC LIMIT 1
    		
     </select>
     <select id="getInformationByType" resultType="com.ontheroad.pojo.Information.userInformation">
