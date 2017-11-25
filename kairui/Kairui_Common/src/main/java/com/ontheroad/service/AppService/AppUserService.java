@@ -1,17 +1,19 @@
 package com.ontheroad.service.AppService;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.remoting.service.annotation.RemoteService;
+
 import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.mysql.entity.TbGuarantee;
+import com.ontheroad.mysql.entity.TbWcal;
 import com.ontheroad.mysql.entity.TsDetail;
 import com.ontheroad.pojo.user.Customerpicture;
 import com.ontheroad.pojo.user.Customerservice;
 import com.ontheroad.pojo.user.Feedback;
 import com.ontheroad.pojo.user.Guarantee;
 import com.ontheroad.pojo.user.User;
-import org.springframework.remoting.service.annotation.RemoteService;
-
-import java.util.List;
-import java.util.Map;
 
 @RemoteService
 public interface AppUserService {
@@ -82,5 +84,11 @@ public interface AppUserService {
 	 * @return
 	 */
 	List<TsDetail> getTsDetailS();
+	
+	/**
+	 * 获取流量校准参数
+	 * @return
+	 */
+	TbWcal getTbwcal(String deviceNo);
 	
 }

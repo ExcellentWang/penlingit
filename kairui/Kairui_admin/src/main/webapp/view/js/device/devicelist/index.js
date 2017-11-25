@@ -39,6 +39,30 @@ tableEvent = {
     //温度计，流量计校准
     "click .wendu": function (e, a, item, index) {
     	var instructions;
+    	//查询最新的一条记录
+    	$.ajax({
+			url:"/device/getTbwNew",
+			data:{
+				"deviceNum":item.equipmentNum
+			},
+			async:false,
+			success:function(item){
+				if(item.code==0){
+					if(item.data){
+						$("[name='re1']").val(item.data.hotWaterDe);
+						$("[name='re2']").val(item.data.codeWaterDe);
+						$("[name='re3']").val(item.data.cWaterDe);
+						$("[name='re4']").val(item.data.hWaterDe);
+						$("[name='re5']").val(item.data.mixingValve);
+						$("[name='re6']").val(item.data.dischargeCoefficient);
+					}
+				}else{
+					tip({
+						content:item.msg
+					})
+				}
+			}
+		})
     	$("#wendu").modal("show")   	
     	$("#con").unbind("click").click(function () {	
     		$("#wendu").modal('hide')

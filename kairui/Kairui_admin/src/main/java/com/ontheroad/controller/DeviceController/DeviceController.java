@@ -37,6 +37,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceVo;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import com.ontheroad.service.IDeviceService;
+import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.utils.MapUtil;
 
@@ -49,6 +50,8 @@ public class DeviceController extends BaseConstant{
 	
 	@Autowired
 	private IDeviceService iDeviceService;
+	@Autowired
+	private AppUserService appUserService;
 	/**
 	 * 
 	 * 获取用户设备列表  2017.7.19
@@ -716,5 +719,13 @@ public class DeviceController extends BaseConstant{
         } catch (IOException e) {  
             e.printStackTrace();  
         }  
+    } 
+    /**
+     * 获取最新的流量计校准参数
+     * @return
+     */
+    @RequestMapping(value = "/getTbwNew")
+    public Map<Object, Object> getTbwNew(String deviceNum){
+    	return MapUtil.getSuccessJson(appUserService.getTbwcal(deviceNum));
     } 
 }

@@ -24,10 +24,12 @@ import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceShareMapper;
 import com.ontheroad.mysql.dao.DeviceUseLogMapper;
 import com.ontheroad.mysql.dao.DeviceWaterMapper;
 import com.ontheroad.mysql.dao.TbEquipmentstatusMapper;
+import com.ontheroad.mysql.dao.TbWcalMapper;
 import com.ontheroad.mysql.entity.DeviceUseLog;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
+import com.ontheroad.mysql.entity.TbWcal;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
@@ -60,7 +62,8 @@ public class DeviceMessageHandler {
     private PushService pushService;
     @Autowired
     private DeviceShareMapper deviceShareMapper;
-    
+    @Autowired
+    private TbWcalMapper tbWcalMapper;
 
     private static final Logger logger = Logger.getLogger(DeviceMessageHandler.class);
 
@@ -600,6 +603,19 @@ public class DeviceMessageHandler {
                 	device.setApp_enabled(ls.get(9));
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------设备初始化------- ");
+                    break;
+                case "wcal": // 温度流量计校准
+                	TbWcal tbw=new TbWcal();
+                	tbw.setCreateTime(new Date());
+                	tbw.setHotWaterDe(ls.get(0));
+                	tbw.setCodeWaterDe(ls.get(1));
+                	tbw.setcWaterDe(ls.get(2));
+                	tbw.sethWaterDe(ls.get(3));
+                	tbw.setMixingValve(ls.get(4));
+                	tbw.setDischargeCoefficient(ls.get(5));
+                	tbw.setTemperatureBValue(ls.get(6));
+                	tbWcalMapper.insert(tbw);
+                    logger.info("--------------------温度流量计校准------- ");
                     break;
               
             }

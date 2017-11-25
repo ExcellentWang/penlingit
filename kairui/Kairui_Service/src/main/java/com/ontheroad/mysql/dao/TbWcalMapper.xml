@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ontheroad.mysql.dao.TbWcalMapper">
+  <resultMap id="BaseResultMap" type="com.ontheroad.mysql.entity.TbWcal">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="hot_water_de" jdbcType="VARCHAR" property="hotWaterDe" />
+    <result column="code_water_de" jdbcType="VARCHAR" property="codeWaterDe" />
+    <result column="c_water_de" jdbcType="VARCHAR" property="cWaterDe" />
+    <result column="h_water_de" jdbcType="VARCHAR" property="hWaterDe" />
+    <result column="mixing_valve" jdbcType="VARCHAR" property="mixingValve" />
+    <result column="discharge_coefficient" jdbcType="VARCHAR" property="dischargeCoefficient" />
+    <result column="temperature_b_value" jdbcType="VARCHAR" property="temperatureBValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, hot_water_de, code_water_de, c_water_de, h_water_de, mixing_valve, discharge_coefficient, 
+    temperature_b_value, create_time, device_no
+  </sql>
+  <select id="selectByExample" parameterType="com.ontheroad.mysql.entity.TbWcalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_wcal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_wcal
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_wcal
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ontheroad.mysql.entity.TbWcalExample">
+    delete from tb_wcal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ontheroad.mysql.entity.TbWcal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_wcal (hot_water_de, code_water_de, c_water_de, 
+      h_water_de, mixing_valve, discharge_coefficient, 
+      temperature_b_value, create_time, device_no
+      )
+    values (#{hotWaterDe,jdbcType=VARCHAR}, #{codeWaterDe,jdbcType=VARCHAR}, #{cWaterDe,jdbcType=VARCHAR}, 
+      #{hWaterDe,jdbcType=VARCHAR}, #{mixingValve,jdbcType=VARCHAR}, #{dischargeCoefficient,jdbcType=VARCHAR}, 
+      #{temperatureBValue,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deviceNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ontheroad.mysql.entity.TbWcal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_wcal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hotWaterDe != null">
+        hot_water_de,
+      </if>
+      <if test="codeWaterDe != null">
+        code_water_de,
+      </if>
+      <if test="cWaterDe != null">
+        c_water_de,
+      </if>
+      <if test="hWaterDe != null">
+        h_water_de,
+      </if>
+      <if test="mixingValve != null">
+        mixing_valve,
+      </if>
+      <if test="dischargeCoefficient != null">
+        discharge_coefficient,
+      </if>
+      <if test="temperatureBValue != null">
+        temperature_b_value,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="deviceNo != null">
+        device_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hotWaterDe != null">
+        #{hotWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="codeWaterDe != null">
+        #{codeWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="cWaterDe != null">
+        #{cWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="hWaterDe != null">
+        #{hWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="mixingValve != null">
+        #{mixingValve,jdbcType=VARCHAR},
+      </if>
+      <if test="dischargeCoefficient != null">
+        #{dischargeCoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="temperatureBValue != null">
+        #{temperatureBValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNo != null">
+        #{deviceNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ontheroad.mysql.entity.TbWcalExample" resultType="java.lang.Integer">
+    select count(*) from tb_wcal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_wcal
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.hotWaterDe != null">
+        hot_water_de = #{record.hotWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeWaterDe != null">
+        code_water_de = #{record.codeWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cWaterDe != null">
+        c_water_de = #{record.cWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hWaterDe != null">
+        h_water_de = #{record.hWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mixingValve != null">
+        mixing_valve = #{record.mixingValve,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dischargeCoefficient != null">
+        discharge_coefficient = #{record.dischargeCoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.temperatureBValue != null">
+        temperature_b_value = #{record.temperatureBValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceNo != null">
+        device_no = #{record.deviceNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_wcal
+    set id = #{record.id,jdbcType=BIGINT},
+      hot_water_de = #{record.hotWaterDe,jdbcType=VARCHAR},
+      code_water_de = #{record.codeWaterDe,jdbcType=VARCHAR},
+      c_water_de = #{record.cWaterDe,jdbcType=VARCHAR},
+      h_water_de = #{record.hWaterDe,jdbcType=VARCHAR},
+      mixing_valve = #{record.mixingValve,jdbcType=VARCHAR},
+      discharge_coefficient = #{record.dischargeCoefficient,jdbcType=VARCHAR},
+      temperature_b_value = #{record.temperatureBValue,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      device_no = #{record.deviceNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ontheroad.mysql.entity.TbWcal">
+    update tb_wcal
+    <set>
+      <if test="hotWaterDe != null">
+        hot_water_de = #{hotWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="codeWaterDe != null">
+        code_water_de = #{codeWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="cWaterDe != null">
+        c_water_de = #{cWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="hWaterDe != null">
+        h_water_de = #{hWaterDe,jdbcType=VARCHAR},
+      </if>
+      <if test="mixingValve != null">
+        mixing_valve = #{mixingValve,jdbcType=VARCHAR},
+      </if>
+      <if test="dischargeCoefficient != null">
+        discharge_coefficient = #{dischargeCoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="temperatureBValue != null">
+        temperature_b_value = #{temperatureBValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNo != null">
+        device_no = #{deviceNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ontheroad.mysql.entity.TbWcal">
+    update tb_wcal
+    set hot_water_de = #{hotWaterDe,jdbcType=VARCHAR},
+      code_water_de = #{codeWaterDe,jdbcType=VARCHAR},
+      c_water_de = #{cWaterDe,jdbcType=VARCHAR},
+      h_water_de = #{hWaterDe,jdbcType=VARCHAR},
+      mixing_valve = #{mixingValve,jdbcType=VARCHAR},
+      discharge_coefficient = #{dischargeCoefficient,jdbcType=VARCHAR},
+      temperature_b_value = #{temperatureBValue,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      device_no = #{deviceNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

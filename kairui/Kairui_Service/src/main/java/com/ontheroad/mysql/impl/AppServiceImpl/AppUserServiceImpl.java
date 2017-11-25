@@ -7,12 +7,15 @@ import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
 import com.ontheroad.mysql.dao.TbCustomerservicedetailsMapper;
 import com.ontheroad.mysql.dao.TbEulaMapper;
 import com.ontheroad.mysql.dao.TbGuaranteeMapper;
+import com.ontheroad.mysql.dao.TbWcalMapper;
 import com.ontheroad.mysql.dao.TsDetailMapper;
 import com.ontheroad.mysql.entity.TbCustomerservicedetails;
 import com.ontheroad.mysql.entity.TbCustomerservicedetailsExample;
 import com.ontheroad.mysql.entity.TbEula;
 import com.ontheroad.mysql.entity.TbEulaExample;
 import com.ontheroad.mysql.entity.TbGuarantee;
+import com.ontheroad.mysql.entity.TbWcal;
+import com.ontheroad.mysql.entity.TbWcalExample;
 import com.ontheroad.mysql.entity.TsDetail;
 import com.ontheroad.mysql.entity.TsDetailExample;
 import com.ontheroad.pojo.Constant.BaseConstant;
@@ -68,6 +71,8 @@ public class AppUserServiceImpl implements AppUserService{
 	private TbEulaMapper tbEulaMapper;
 	@Autowired
 	private TsDetailMapper tsDetailMapper;
+	@Autowired
+	private TbWcalMapper tbWcalMapper;
 	@Override
 	public Map<Object,Object> findUserByPhone(User user,String appCode) {								
 		List<User> list = new ArrayList<>();
@@ -678,6 +683,15 @@ public class AppUserServiceImpl implements AppUserService{
 		TsDetailExample example =new TsDetailExample();
 		example.createCriteria().andDictIdEqualTo(6);
 		return tsDetailMapper.selectByExample(example);
+	}
+
+	@Override
+	public TbWcal getTbwcal(String deviceNo) {
+		TbWcalExample example=new TbWcalExample();
+		example.createCriteria().andDeviceNoEqualTo(deviceNo);
+		List<TbWcal> ls=tbWcalMapper.selectByExample(example);
+		if(ls.size()==0)return null;
+		return ls.get(ls.size()-1);
 	}
 	
 }

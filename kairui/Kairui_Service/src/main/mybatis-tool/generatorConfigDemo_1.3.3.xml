@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-    <classPathEntry location="d:\mysql-connector-java-5.1.18.jar"/>
+    <classPathEntry location="e:\mysql-connector-java-5.1.18.jar"/>
     <context id="DB2Tables" defaultModelType="flat" targetRuntime="MyBatis3">
         <property name="javaFileEncoding" value="UTF-8"/>
         <commentGenerator type="org.mybatis.generator.internal.CGWCommentGenerator">
@@ -14,7 +14,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.93.246.108:3306/penlinsystem"
-                        userId="root" password="root">
+                        userId="root" password="likai1130...">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -37,7 +37,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="information_user_del" domainObjectName="InformationUserDel">
+          <table tableName="tb_wcal" domainObjectName="TbWcal">
             <!--自动生成主键，可以代替useGeneratedKeys，大家不用删-->
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
