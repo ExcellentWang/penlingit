@@ -268,6 +268,7 @@ public class DeviceMessageHandler {
                     reply(session, rep);
                     val = deviceMessage.getArgs().get(0);
                     device.setSettemperature(val);
+                    device.setCurrent_flow_grade(ls.get(1));
                     logger.info("更新设定温度"+device.getEquipment_id()+"val: "+val);
                     deviceMapper.updateDevice(device);
                     break;
@@ -598,6 +599,7 @@ public class DeviceMessageHandler {
                 case "wdft": //设定温度
                 	val = deviceMessage.getArgs().get(0);
                 	device.setCurrent_temp(val);
+                	device.setCurrent_flow_grade(ls.get(1));
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------设定温度------- ");
                     break;
