@@ -328,6 +328,14 @@ public class DeviceMessageHandler {
                     if("02".equals(ls.get(6))) {
                 			str2="您设定的定时出水已经用完了，请注意洗澡用水量!";
                     }
+                    //插入设备消息
+                    TbInformation information4=new TbInformation();
+                    information4.setCreatetime(new Date());
+                    information4.setContent(str2);
+                    information4.setTitle(str2);
+                    information4.setEquipmentId(device.getEquipment_id());
+                    information4.setInformationtype(3);
+                    tbInformationMapper.insert(information4);
                     json.put("alert",str2);
                     json.put("type", 4);
                     for (Integer i : userIds) {
