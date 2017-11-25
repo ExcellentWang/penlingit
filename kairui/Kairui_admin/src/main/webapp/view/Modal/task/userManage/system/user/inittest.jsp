@@ -89,11 +89,11 @@ $(function() {
 		toolbar : '#toolbar',
 	    columns : [[ {width : '50', field : 'ck',checkbox:true},
 	                 {width : '120',title : '系统登录名',field : 'user_name'},
-	                 /* {width : '100',title : '真实姓名',field : 'realName'}, */
-	                 /* {width : '150',title : '手机号码',field : 'mobile'}, */
+	                 /*  {width : '100',title : '真实姓名',field : 'realName'}, 
+	                 {width : '150',title : '手机号码',field : 'mobile'}, 
 	                 /* {width : '50',title : '姓别',field : 'sex',formatter:function(v,r){return JSON.parse('${sexMap}')[v]}}, */
-	                 /* {width : '150',title : '邮箱',field : 'email'}, */
-	                 {width : '80',title : '用户角色',field : 'role_name'},
+	                /* {width : '150',title : '邮箱',field : 'email'},  */
+	                 {title : '用户角色',field : 'role_name'},
 	                 {width : '80',title : '状态',field : 'user_status',formatter:function(v,r){ return JSON.parse(JSON.parse(jsonStr)["statusMap"])[v]}},
 	                /*  {width : '50',title : '排序',field : 'userOrder'}, */
 	                 {width : '150',title : '创建时间',field : 'create_time'},

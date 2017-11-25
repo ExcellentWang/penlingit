@@ -137,7 +137,6 @@ public class UserManageController extends BaseController {
 		returnMap.put("statusCombo", JSONUtils.toJson(JSONUtils.toCombo(statusMap)));
 		returnMap.put("sexMap", JSONUtils.toJson(sexMap));
 		returnMap.put("sexCombo", JSONUtils.toJson(JSONUtils.toCombo(sexMap)));
-        Map<String, Object> condition = new HashMap<String, Object>();
         writeToPage(JSONUtils.toJson(sysManageUserService.getGridDataModelByCondition4UserRole(po)), response);
     }
 

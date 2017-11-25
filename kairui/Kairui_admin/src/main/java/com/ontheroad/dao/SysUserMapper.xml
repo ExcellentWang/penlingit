@@ -23,7 +23,7 @@
 	t1.`MOBILE`,
 	t1.`SEX`,
 	t3.`role_id`,
-	t3.`role_name`,
+	GROUP_CONCAT(t3.`role_name`) role_name,
 	t3.`role_desc`,
 	t3.`role_order`,
 	t3.`role_type`,
@@ -78,7 +78,7 @@
 				AND t1.real_name like '%${realName}%'
 			</if>
 		</where>
-
+	group by t1.user_id
 </select>
     
     

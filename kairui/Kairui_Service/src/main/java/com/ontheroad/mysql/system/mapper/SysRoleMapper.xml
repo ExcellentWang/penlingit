@@ -45,7 +45,7 @@
 	
 	<select id="selectRolesByUserId" parameterType="Long" resultMap="result_ResultMap_SysRole">
 		select t1.ROLE_ID, t1.ROLE_NAME, t1.ROLE_DESC, t1.ROLE_ORDER, t1.ROLE_TYPE, t1.ROLE_STATUS 
-		   from T_S_ROLE t1, t_s_role_user t2
+		   from t_s_role t1, t_s_role_user t2
 		where  t1.role_status=1  and  t2.user_id = #{userId}
 		  and t1.role_id = t2.role_id	
 	</select>
