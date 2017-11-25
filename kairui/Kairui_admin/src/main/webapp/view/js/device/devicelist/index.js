@@ -140,7 +140,7 @@ handle = function (value, row, index) {
 };
 
 workStatus=function(value, row, index){
-	return ["在线","在线","在线","在线","离线"][value]
+	return ["离线","在线","在线","在线","离线"][value]
 }
 
 deviceType=function(value, row, index){
