@@ -387,7 +387,7 @@ public class DeviceMessageHandler {
                     if("2".equals(ls.get(8))) {//单独拿出来推送，根据app设定推送
                     	//判断上次推送时间是否小于设置的频次
                     	Integer timec=timeC(new Date().getTime(),device.getRw_send_time().getTime());
-                    	if(r.getWater_under()==1&&timec>=5){
+                    	if(r.getWater_under()==1&&timec>=Integer.valueOf(r.getHight_times())){
                     		pushP(userIds, "热水温度高", 4, r.getWarn_type());
                     		//更新推送时间
                     		device.setRw_send_time(new Date());
@@ -414,7 +414,7 @@ public class DeviceMessageHandler {
                     if("2".equals(ls.get(12))) {
                     	//判断上次推送时间是否小于设置的频次
                     	Integer timec2=timeC(new Date().getTime(),device.getCw_send_time().getTime());
-                    	if(r.getWater_hight()==1&&timec2>=5){
+                    	if(r.getWater_hight()==1&&timec2>=Integer.valueOf(r.getUnder_times())){
                     		pushP(userIds, "出水温度高", 4, r.getWarn_type());
                     		//更新推送时间
                     		device.setCw_send_time(new Date());
