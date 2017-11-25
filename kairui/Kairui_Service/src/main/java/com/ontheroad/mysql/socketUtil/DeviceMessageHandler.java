@@ -30,6 +30,7 @@ import com.ontheroad.mysql.entity.TbEquipmentstatus;
 import com.ontheroad.mysql.entity.TbEquipmentstatusExample;
 import com.ontheroad.pojo.TerminalDevice.DeviceError;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
+import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.service.PushService;
 import com.ontheroad.service.DeviceService.DeviceService;
@@ -516,14 +517,18 @@ public class DeviceMessageHandler {
 				device.setM_jie_water(
 						String.valueOf(Integer.parseInt(device.getM_jie_water()) + Integer.parseInt(ls.get(7))));
 				logger.info("--------------------上传每次洗澡用水量节水量------- ");
-				// 推送
-				json.put("errTime", new Date());
-				json.put("alert", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
-				json.put("type", 5);
-				
-				for (Integer i : userIds) {
-					logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
-					pushService.pushInstallationId(i, json);
+				//查询提醒设置
+				DeviceRemind r = deviceMapper.findDeviceRemind(device);
+				if(r.getWater_warn_status()==1){
+					// 推送
+					json.put("errTime", new Date());
+					json.put("alert", "本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒");
+					json.put("type", 5);
+					
+					for (Integer i : userIds) {
+						logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
+						pushService.pushInstallationId(i, json);
+					}
 				}
 				deviceMapper.updateDevice(device);
 				break;
