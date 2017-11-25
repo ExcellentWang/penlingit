@@ -612,7 +612,7 @@ public class DeviceMessageHandler {
                     break;
                 case "askazt": // 开始暂停主动上报
                 	val = deviceMessage.getArgs().get(0);
-                	device.setStarted("0".equals(val)?"2":"1");
+                	device.setStarted(val);
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------开始暂停控制------- "+("0".equals(val)?"2":"1"));
                     break;
