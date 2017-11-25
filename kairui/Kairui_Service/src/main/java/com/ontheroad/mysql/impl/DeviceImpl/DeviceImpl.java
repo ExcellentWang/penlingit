@@ -289,13 +289,13 @@ public class DeviceImpl implements DeviceService {
 			fieldMap.put("equipment_id", t.getEquipment_id());
 			Guarantee g = guaranteeMapper.getGuaranteeDetail(fieldMap);
 			t.setGuarantee(g);
-			//查询设备最新的使用记录
-			DeviceUseLogExample example=new DeviceUseLogExample();
+			//查询设备最新的使用记录,暂时不需要
+			/*DeviceUseLogExample example=new DeviceUseLogExample();
 			example.createCriteria().andEquipmentIdEqualTo( t.getEquipment_id());
 			List<DeviceUseLog> ls=deviceUseLogMapper.selectByExample(example);
 			if(ls.size()>0){
 				t.setDeviceUseLog(ls.get(ls.size()-1));
-			}
+			}*/
 			//设备分享还是绑定状态
 			DeviceShare ds=new DeviceShare();
 			ds.setEquipment_id(t.getEquipment_id());

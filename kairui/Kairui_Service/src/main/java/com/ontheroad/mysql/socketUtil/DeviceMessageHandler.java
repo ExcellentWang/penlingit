@@ -168,8 +168,10 @@ public class DeviceMessageHandler {
          	deviceMapper.updateDevice(device);
             //app拉取信息通用推送
             if(deviceMessage.getCommandType().contains("as")) {
-            		pushP(userIds,"",1);
+            		pushP(userIds,"",1,null);
             }
+          //查询提醒设置
+			DeviceRemind r = deviceMapper.findDeviceRemind(device);
             switch (deviceMessage.getCommandType()) {
                 case "asdev": // 设备类型
                     rep = new DeviceMessage(
@@ -231,7 +233,6 @@ public class DeviceMessageHandler {
                     	device.setSur_time(val2);//定时
                     }
                     logger.info("更新出水模式"+device.getEquipmentNum()+"val: "+val);
-                    device.setCurrent_flow_grade(ls.get(3));
                     device.setEffluent_type(val);
                     device.setEffluent_type2(val1);
                     deviceMapper.updateDevice(device);
@@ -274,6 +275,7 @@ public class DeviceMessageHandler {
                     break;
                 case "asbltr": // 背光
                     rep = new DeviceMessage(
+                    		
                             deviceMessage.getDeviceType(),
                             deviceMessage.getDeviceID(),
                             "asbltr",
@@ -372,18 +374,24 @@ public class DeviceMessageHandler {
                     deviceErrorMapper.setDeviceError(err);
                     
                     //拼接要推送的异常
-                    	String str="";
-                    	if("1".equals(ls.get(7))) {
-                    		str+="进水冷水传感器故障"+";";
-                    	}
-                    	if("2".equals(ls.get(7))) {
-                    		str+="冷水温度高"+";";
-                    	}
+                    String str="";
+                    if("1".equals(ls.get(7))) {
+                    	str+="进水冷水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(7))) {
+                    	str+="冷水温度高"+";";
+                    }
                     if("1".equals(ls.get(8))) {
-                    		str+="热水传感器故障"+";";
+                    	str+="热水传感器故障"+";";
+                    }
+                    if("2".equals(ls.get(8))) {//单独拿出来推送，根据app设定推送
+                    	//判断上次推送时间是否小于设置的频次
+                    	Integer timec=timeC(new Date().getTime(),device.getRw_send_time().getTime());
+                    	if(r.getWater_under()==1&&timec>=5){
+                    		pushP(userIds, "热水温度高", 4, r.getWarn_type());
+                    		//更新推送时间
+                    		device.setRw_send_time(new Date());
                     	}
-                    if("2".equals(ls.get(8))) {
-                		str+="热水温度高"+";";
                     }
                     if("1".equals(ls.get(9))) {
                 		str+="混水阀温度故障"+";";
@@ -404,7 +412,13 @@ public class DeviceMessageHandler {
                 		str+="出水传感器故障"+";";
                     }
                     if("2".equals(ls.get(12))) {
-                		str+="出水温度高"+";";
+                    	//判断上次推送时间是否小于设置的频次
+                    	Integer timec2=timeC(new Date().getTime(),device.getCw_send_time().getTime());
+                    	if(r.getWater_hight()==1&&timec2>=5){
+                    		pushP(userIds, "出水温度高", 4, r.getWarn_type());
+                    		//更新推送时间
+                    		device.setCw_send_time(new Date());
+                    	}
                     }
                     if("1".equals(ls.get(13))) {
                 		str+="外接电源供电"+";";
@@ -421,6 +435,8 @@ public class DeviceMessageHandler {
                     if("1".equals(ls.get(16))) {
                 		str+="泵异常"+";";
                     }
+                    //更新设备表
+                    deviceMapper.updateDevice(device);
                     //插入设备消息
                     TbInformation information=new TbInformation();
                     information.setCreatetime(new Date());
@@ -430,13 +446,16 @@ public class DeviceMessageHandler {
                     information.setInformationtype(3);
                     tbInformationMapper.insert(information);
                     //推送
-                    json.put("errTime", new Date());
-                    json.put("alert", str);
-                    json.put("type", 4);
-                    for (Integer i : userIds) {
+                    if(StringUtils.isNotBlank(str)){
+                    	json.put("errTime", new Date());
+                    	json.put("alert", str);
+                    	json.put("type", 4);
+                    	json.put("sound", r.getWarn_type());
+                    	for (Integer i : userIds) {
                     		logger.info("设备消息推送 user"+i+" result: "+str);
                     		pushService.pushInstallationId(i, json);
-					}
+                    	}
+                    }
                     break;
                 case "akgapp": // app禁用
                     rep = new DeviceMessage(
@@ -530,11 +549,11 @@ public class DeviceMessageHandler {
 				de.setBathTime(ls.get(8));
 				de.setCreateTime(new Date());
 				deviceWaterMapper.insertSelective(de);
-				if (new Date().getDay() == 1&&(device.getM_send_time()==null||new Date().getMonth()!=device.getM_send_time().getMonth())) {// 1号清空月用水量节水量
+				if (r.getWater_warn_status()==1&&new Date().getDay() == 1&&(device.getM_send_time()==null||new Date().getMonth()!=device.getM_send_time().getMonth())) {// 1号清空月用水量节水量
 					//推送月用水量和节水量
 					device.setM_send_time(new Date());
 					String msg="本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L";
-					pushP(userIds,msg,5);//调用通用推送
+					pushP(userIds,msg,5,r.getWarn_type());//调用通用推送
 					 //插入设备消息
                     TbInformation information2=new TbInformation();
                     information2.setCreatetime(new Date());
@@ -560,14 +579,12 @@ public class DeviceMessageHandler {
                 information3.setEquipmentId(device.getEquipment_id());
                 information3.setInformationtype(4);
                 tbInformationMapper.insert(information3);
-				//查询提醒设置
-				DeviceRemind r = deviceMapper.findDeviceRemind(device);
 				if(r.getWater_warn_status()==1){
 					// 推送
 					json.put("errTime", new Date());
 					json.put("alert", msg2);
 					json.put("type", 5);
-					
+					json.put("sound", r.getWarn_type());
 					for (Integer i : userIds) {
 						logger.info("设备消息推送本次用水量 本次节水量user" + i + " result: ");
 						pushService.pushInstallationId(i, json);
@@ -694,11 +711,14 @@ public class DeviceMessageHandler {
 	/**
 	 * 通用推送
 	 */
-	public void pushP(List<Integer> userIds,String msg,Integer pushType) {
+	public void pushP(List<Integer> userIds,String msg,Integer pushType,Integer sound) {
 		JSONObject json=new JSONObject();
 		json.put("errTime", new Date());
 		if(pushType!=1){
 			json.put("alert", msg);
+		}
+		if(pushType!=null){
+			json.put("sound", sound);
 		}
 		json.put("type", pushType);
 		for (Integer i : userIds) {

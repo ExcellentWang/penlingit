@@ -33,7 +33,7 @@ public class TerminalDevice implements Serializable{
 	 private String effluent_way = "0"; // 出水方式
 	 private String effluent_type; // 出水模式
 	 private String effluent_type2; // 出水模式定时定量普通
-	 private String current_flow_grade = "001";  // 当前流速等级
+	 private String current_flow_grade ;  //出水流速   1慢，2中，3快
 	 private String current_temp ;  // 当前温度
 	 private String settemperature;//设定温度
 	 private String started = "1";  // 开始/暂停: 0，暂停  1，开始  
@@ -64,7 +64,25 @@ public class TerminalDevice implements Serializable{
 	 private String remark;//绑定备注
 	 private Date m_send_time;//上次月用水量和节水量推送时间
 	 private Date a_send_time;//上次预约倒计时推送时间
+	 private Date rw_send_time;//热水温度高推送时间
+	 private Date cw_send_time;//热水温度高推送时间
 	 
+	public Date getRw_send_time() {
+		return rw_send_time;
+	}
+
+	public void setRw_send_time(Date rw_send_time) {
+		this.rw_send_time = rw_send_time;
+	}
+
+	public Date getCw_send_time() {
+		return cw_send_time;
+	}
+
+	public void setCw_send_time(Date cw_send_time) {
+		this.cw_send_time = cw_send_time;
+	}
+
 	public Date getM_send_time() {
 		return m_send_time;
 	}
