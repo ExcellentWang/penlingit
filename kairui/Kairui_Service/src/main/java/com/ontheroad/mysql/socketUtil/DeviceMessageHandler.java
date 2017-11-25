@@ -700,7 +700,6 @@ public class DeviceMessageHandler {
 		}
 		json.put("type", pushType);
 		for (Integer i : userIds) {
-			logger.info("设备消息推送 "+msg);
 			pushService.pushInstallationId(i, json);
 		}
 	}
