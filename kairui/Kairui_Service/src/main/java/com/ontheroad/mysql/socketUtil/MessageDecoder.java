@@ -11,7 +11,9 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
 	private final static Logger logger=LoggerFactory.getLogger(MessageDecoder.class);
     @Override  
     protected boolean doDecode(IoSession session, IoBuffer in,ProtocolDecoderOutput out) throws Exception {  
+    	logger.info("----------------消息进入MessageDecoder--------------------------------------");
     	if(in.remaining() < 4){//正常当长度小于4的时候说明断包了  
+    		logger.info("----------------处理一次断包--------------------------------------");
             return false;  
         }else{  
             in.mark();//标记当前位置  
@@ -20,6 +22,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
             int len = byteArrayToInt(bs);//调用方法将byte数组转换为int  
             if(len > in.remaining()){  
                 in.reset();//消息不够，断包处理  
+            	logger.info("----------------处理一次断包--------------------------------------");
                 return false;  
             }else{  
                 byte[] bytes = new byte[len];  
