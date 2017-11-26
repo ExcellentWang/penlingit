@@ -2,7 +2,6 @@ package com.ontheroad.mysql.socketUtil;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +19,6 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     	logger.info("----------------消息进入MessageDecoder--------------------------------------");
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
-    	logger.info("MessageDecoder==================raw"+raw);
     	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
     			+ "),(\\w{2})(?=>)");
     	Matcher matcher = pattern.matcher(raw);
@@ -29,10 +27,12 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     		out.write(raw);
     		return true;
     	}else{
+    		in.mark();//标记当前位置，以便reset 
+    		in.reset();   
     		logger.info("命令不符合要求，处理一次"+raw);
     		return false;
     	}
-    /*	if(raw.contains("<")&&raw.contains(">")){
+    	/*	if(raw.contains("<")&&raw.contains(">")){
     		logger.info("命令符合要求"+raw);
     		 out.write(raw);
     		return true;
