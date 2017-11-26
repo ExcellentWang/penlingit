@@ -3,6 +3,8 @@ package com.ontheroad.mysql.socketUtil;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
@@ -19,13 +21,24 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
     	logger.info("MessageDecoder==================raw"+raw);
-    	if(raw.contains("<")&&raw.contains(">")){
+    	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
+    			+ "),(\\w{2})(?=>)");
+    	Matcher matcher = pattern.matcher(raw);
+    	if(matcher.find()) {
+    		logger.info("命令符合要求"+raw);
+    		out.write(raw);
+    		return true;
+    	}else{
+    		logger.info("命令不符合要求，处理一次"+raw);
+    		return false;
+    	}
+    /*	if(raw.contains("<")&&raw.contains(">")){
     		logger.info("命令符合要求"+raw);
     		 out.write(raw);
     		return true;
     	}
     	logger.info("命令不符合要求，处理一次"+raw);
-    	return false;
+    	return false;*/
     	/*
     	if(in.remaining() < 4){//正常当长度小于4的时候说明断包了  
     		logger.info("----------------处理一次断包-----------in.remaining() < 4---------------------------");
