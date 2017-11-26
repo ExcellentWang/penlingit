@@ -17,6 +17,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     @Override  
     protected boolean doDecode(IoSession session, IoBuffer in,ProtocolDecoderOutput out) throws Exception {  
     	logger.info("----------------消息进入MessageDecoder--------------------------------------");
+    	session.getConfig().setMaxReadBufferSize(4000);
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
     	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
