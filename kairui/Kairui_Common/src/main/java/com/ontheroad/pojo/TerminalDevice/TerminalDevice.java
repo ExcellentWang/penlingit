@@ -66,7 +66,44 @@ public class TerminalDevice implements Serializable{
 	 private Date a_send_time;//上次预约倒计时推送时间
 	 private Date rw_send_time;//热水温度高推送时间
 	 private Date cw_send_time;//热水温度高推送时间
+	 /**
+	  * 实时流量
+	  */
+	 private String flowspeed;
+	 /**
+	  * 热水温度
+	  */
+	 private String hotWaterTemp;
+
+	 /**
+	  * 冷水温度
+	  */
+	 private String codeWaterTemp;
 	 
+	public String getFlowspeed() {
+		return flowspeed;
+	}
+
+	public void setFlowspeed(String flowspeed) {
+		this.flowspeed = flowspeed;
+	}
+
+	public String getHotWaterTemp() {
+		return hotWaterTemp;
+	}
+
+	public void setHotWaterTemp(String hotWaterTemp) {
+		this.hotWaterTemp = hotWaterTemp;
+	}
+
+	public String getCodeWaterTemp() {
+		return codeWaterTemp;
+	}
+
+	public void setCodeWaterTemp(String codeWaterTemp) {
+		this.codeWaterTemp = codeWaterTemp;
+	}
+
 	public Date getRw_send_time() {
 		return rw_send_time;
 	}
