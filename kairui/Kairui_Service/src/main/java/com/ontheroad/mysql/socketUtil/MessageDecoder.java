@@ -20,7 +20,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     	String raw=in.getString(charsetDecoder);
     	logger.info("MessageDecoder==================raw"+raw);
     	if(in.remaining() < 4){//正常当长度小于4的时候说明断包了  
-    		logger.info("----------------处理一次断包--------------------------------------");
+    		logger.info("----------------处理一次断包-----------in.remaining() < 4---------------------------");
     		return false;  
     	}else{  
     		in.mark();//标记当前位置  
@@ -29,7 +29,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     		int len = byteArrayToInt(bs);//调用方法将byte数组转换为int  
     		if(len > in.remaining()){  
     			in.reset();//消息不够，断包处理  
-    			logger.info("----------------处理一次断包--------------------------------------");
+    			logger.info("----------------处理一次断包-------------消息不够，断包处理-------------------------");
     			return false;  
     		}else{  
     			byte[] bytes = new byte[len];  
