@@ -19,6 +19,13 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
     	logger.info("MessageDecoder==================raw"+raw);
+    	if(raw.contains("<")&&raw.contains(">")){
+    		logger.info("命令符合要求"+raw);
+    		return true;
+    	}
+    	logger.info("命令不符合要求，处理一次"+raw);
+    	return false;
+    	/*
     	if(in.remaining() < 4){//正常当长度小于4的时候说明断包了  
     		logger.info("----------------处理一次断包-----------in.remaining() < 4---------------------------");
     		return false;  
@@ -44,7 +51,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     			return true;  
     		}  
     		return false;//处理成功，让父类进行接收下一个包  
-    	}  
+    	}  */
     } 
     //byte 数组与 int 的相互转换 
     public  int byteArrayToInt(byte[] b) { 
