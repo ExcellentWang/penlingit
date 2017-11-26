@@ -724,7 +724,7 @@ public class DeviceMessageHandler {
 		}
 		if(action){
 			json.put("action", "com.avos.UPDATE_STATUS");
-			json.put("alert", "通用推送,不出现在消息栏");
+//			json.put("alert", "通用推送,不出现在消息栏");
 		}
 		json.put("type", pushType);
 		for (Integer i : userIds) {

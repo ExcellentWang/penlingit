@@ -44,8 +44,8 @@ public class PushUtil {
 		}
 	public static void main(String[] args) {
 		JSONObject js=new JSONObject();
-		js.put("test", "2");
-		js.put("alert", "推送给ios3333,android222！");
+		js.put("alert", "推送安卓，出现在消息栏1");
+//		js.put("action", "com.avos.UPDATE_STATUS");
 		new PushUtil().push(js);
 	}
 }
