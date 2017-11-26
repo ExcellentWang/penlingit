@@ -339,12 +339,14 @@ public class DeviceMessageHandler {
                     information4.setEquipmentId(device.getEquipment_id());
                     information4.setInformationtype(3);
                     tbInformationMapper.insert(information4);
-                    json.put("alert",str2);
-                    json.put("type", 4);
-                    for (Integer i : userIds) {
+                    if(!"".equals(str2)){
+                    	json.put("alert",str2);
+                    	json.put("type", 4);
+                    	for (Integer i : userIds) {
                     		logger.info("设备消息定时定量推送 user"+i+" result: ");
                     		pushService.pushInstallationId(i, json);
-					}
+                    	}
+                    }
                     break;
                 case "scyc": // 上传异常
                 	logger.info("app上传异常------------");
@@ -374,7 +376,7 @@ public class DeviceMessageHandler {
                     deviceErrorMapper.setDeviceError(err);
                     
                     //拼接要推送的异常
-                    String str="";
+                    String str=null;
                     if("1".equals(ls.get(7))) {
                     	str+="进水冷水传感器故障"+";";
                     }
@@ -452,7 +454,7 @@ public class DeviceMessageHandler {
                     	json.put("type", 4);
                     	json.put("sound", r.getWarn_type());
                     	for (Integer i : userIds) {
-                    		logger.info("设备消息推送 user"+i+" result: "+str);
+                    		logger.info("设备异常推送 user"+i+" result: "+str);
                     		pushService.pushInstallationId(i, json);
                     	}
                     }
