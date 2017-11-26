@@ -168,7 +168,7 @@ public class DeviceMessageHandler {
          	deviceMapper.updateDevice(device);
             //app拉取信息通用推送
             if(deviceMessage.getCommandType().contains("as")) {
-            		pushP(userIds,"",1,null);
+            		pushP(userIds,"",1,null,true);
             }
           //查询提醒设置
 			DeviceRemind r = deviceMapper.findDeviceRemind(device);
@@ -388,7 +388,7 @@ public class DeviceMessageHandler {
                     	//判断上次推送时间是否小于设置的频次
                     	Integer timec=timeC(new Date().getTime(),device.getRw_send_time().getTime());
                     	if(r.getWater_under()==1&&timec>=Integer.valueOf(r.getHight_times())){
-                    		pushP(userIds, "热水温度高", 4, r.getWarn_type());
+                    		pushP(userIds, "热水温度高", 4, r.getWarn_type(),false);
                     		//更新推送时间
                     		device.setRw_send_time(new Date());
                     	}
@@ -415,7 +415,7 @@ public class DeviceMessageHandler {
                     	//判断上次推送时间是否小于设置的频次
                     	Integer timec2=timeC(new Date().getTime(),device.getCw_send_time().getTime());
                     	if(r.getWater_hight()==1&&timec2>=Integer.valueOf(r.getUnder_times())){
-                    		pushP(userIds, "出水温度高", 4, r.getWarn_type());
+                    		pushP(userIds, "出水温度高", 4, r.getWarn_type(),false);
                     		//更新推送时间
                     		device.setCw_send_time(new Date());
                     	}
@@ -553,7 +553,7 @@ public class DeviceMessageHandler {
 					//推送月用水量和节水量
 					device.setM_send_time(new Date());
 					String msg="本月用水量："+device.getM_use_water()+"L；本月节水量："+device.getM_jie_water()+"L";
-					pushP(userIds,msg,5,r.getWarn_type());//调用通用推送
+					pushP(userIds,msg,5,r.getWarn_type(),false);//调用通用推送
 					 //插入设备消息
                     TbInformation information2=new TbInformation();
                     information2.setCreatetime(new Date());
@@ -711,7 +711,7 @@ public class DeviceMessageHandler {
 	/**
 	 * 通用推送
 	 */
-	public void pushP(List<Integer> userIds,String msg,Integer pushType,Integer sound) {
+	public void pushP(List<Integer> userIds,String msg,Integer pushType,Integer sound,boolean action) {
 		JSONObject json=new JSONObject();
 		json.put("errTime", new Date());
 		if(pushType!=1){
@@ -719,6 +719,9 @@ public class DeviceMessageHandler {
 		}
 		if(pushType!=null){
 			json.put("sound", sound);
+		}
+		if(action){
+			json.put("action", "com.avos.UPDATE_STATUS");
 		}
 		json.put("type", pushType);
 		for (Integer i : userIds) {
