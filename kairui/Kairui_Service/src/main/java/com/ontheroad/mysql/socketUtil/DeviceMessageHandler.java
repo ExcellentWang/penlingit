@@ -717,7 +717,7 @@ public class DeviceMessageHandler {
 		if(pushType!=1){
 			json.put("alert", msg);
 		}
-		if(pushType!=null){
+		if(sound!=null){
 			json.put("sound", sound);
 		}
 		if(action){
