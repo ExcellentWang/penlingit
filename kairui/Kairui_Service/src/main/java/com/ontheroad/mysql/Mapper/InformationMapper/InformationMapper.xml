@@ -33,7 +33,7 @@
 		LEFT JOIN `information_user_del` iud
 		ON iud.`information_id` = i.`id` and iud.user_id=#{user_id}
 		LEFT JOIN `tb_equipment` te
-		ON te.`equipment_id` = tb.`equipment_id`
+		ON te.`equipment_id` = i.`equipment_id`
 		LEFT JOIN `tb_user_share` tus
 		ON tus.`share_user_id` = #{user_id}
 		WHERE 1=1
