@@ -16,21 +16,21 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
 	private final static Logger logger=LoggerFactory.getLogger(MessageDecoder.class);
     @Override  
     protected boolean doDecode(IoSession session, IoBuffer in,ProtocolDecoderOutput out) throws Exception {  
-    	logger.info("----------------消息进入MessageDecoder--------------------------------------");
-    	session.getConfig().setMaxReadBufferSize(4000);
+//    	logger.info("----------------消息进入MessageDecoder--------------------------------------");
+//    	session.getConfig().setMaxReadBufferSize(4000);
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
     	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
     			+ "),(\\w{2})(?=>)");
     	Matcher matcher = pattern.matcher(raw);
     	if(matcher.find()) {
-    		logger.info("命令符合要求"+raw);
+//    		logger.info("命令符合要求"+raw);
     		out.write(raw);
     		return true;
     	}else{
     		in.mark();//标记当前位置，以便reset 
     		in.reset();   
-    		logger.info("命令不符合要求，处理一次"+raw);
+//    		logger.info("命令不符合要求，处理一次"+raw);
     		return false;
     	}
     	/*	if(raw.contains("<")&&raw.contains(">")){
