@@ -21,6 +21,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     	logger.info("MessageDecoder==================raw"+raw);
     	if(raw.contains("<")&&raw.contains(">")){
     		logger.info("命令符合要求"+raw);
+    		 out.write(raw);
     		return true;
     	}
     	logger.info("命令不符合要求，处理一次"+raw);
