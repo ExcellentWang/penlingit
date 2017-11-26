@@ -51,10 +51,10 @@
 		<!-- 设备消息的话，只能获取用户拥有的 -->
 		AND (
 		(
-		tb.`equipment_id` IS NOT NULL AND tus.`share_user_id` IS NOT
+		i.`equipment_id` IS NOT NULL AND tus.`share_user_id` IS NOT
 		NULL
 		)
-		OR tb.`equipment_id` IS NULL
+		OR i.`equipment_id` IS NULL
 		)
 		GROUP BY i.id
 		order by i.id desc
