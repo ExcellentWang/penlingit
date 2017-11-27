@@ -66,7 +66,17 @@ public class TerminalDevice implements Serializable{
 	 private Date a_send_time;//上次预约倒计时推送时间
 	 private Date rw_send_time;//热水温度高推送时间
 	 private Date cw_send_time;//热水温度高推送时间
-	 /**
+	 private Date scyc_send_time;//异常推送时间
+	 
+	 public Date getScyc_send_time() {
+		return scyc_send_time;
+	}
+
+	public void setScyc_send_time(Date scyc_send_time) {
+		this.scyc_send_time = scyc_send_time;
+	}
+
+	/**
 	  * 实时流量
 	  */
 	 private String flowspeed;

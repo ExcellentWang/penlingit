@@ -437,8 +437,6 @@ public class DeviceMessageHandler {
                     if("1".equals(ls.get(16))) {
                 		str+="泵异常"+";";
                     }
-                    //更新设备表
-                    deviceMapper.updateDevice(device);
                     //插入设备消息
                     TbInformation information=new TbInformation();
                     information.setCreatetime(new Date());
@@ -449,15 +447,21 @@ public class DeviceMessageHandler {
                     tbInformationMapper.insert(information);
                     //推送
                     if(StringUtils.isNotBlank(str)){
-                    	json.put("errTime", new Date());
-                    	json.put("alert", str);
-                    	json.put("type", 4);
-                    	json.put("sound", r.getWarn_type());
-                    	for (Integer i : userIds) {
-                    		logger.info("设备异常推送 user"+i+" result: "+str);
-                    		pushService.pushInstallationId(i, json);
+                    	Integer timescyc=timeC(new Date().getTime(),device.getCw_send_time().getTime());
+                    	if(timescyc>15){
+                    		json.put("errTime", new Date());
+                    		json.put("alert", str);
+                    		json.put("type", 4);
+                    		json.put("sound", r.getWarn_type());
+                    		for (Integer i : userIds) {
+                    			logger.info("设备异常推送 user"+i+" result: "+str);
+                    			pushService.pushInstallationId(i, json);
+                    		}
+                    		device.setScyc_send_time(new Date());
                     	}
                     }
+                    //更新设备表
+                    deviceMapper.updateDevice(device);
                     break;
                 case "akgapp": // app禁用
                     rep = new DeviceMessage(
