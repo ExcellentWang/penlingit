@@ -176,7 +176,9 @@ public class InformationImpl implements InformationService{
 			list = informationMapper.getInformationList(selectMap);
 			//获取过就把消息设置成已读
 			for(Information info: list) {
-				info.setContent(null);
+				if(info.getInformationType()==1||info.getInformationType()==2){
+					info.setContent(null);
+				}
 				InformationUser iu=new InformationUser();
 				iu.setUserId(Long.valueOf(user_id));
 				iu.setInformationId(Long.valueOf(info.getId()));
