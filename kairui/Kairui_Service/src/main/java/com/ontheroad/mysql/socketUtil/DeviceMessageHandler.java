@@ -585,7 +585,7 @@ public class DeviceMessageHandler {
                 information3.setEquipmentId(device.getEquipment_id());
                 information3.setInformationtype(4);
                 tbInformationMapper.insert(information3);
-				if(r.getWater_warn_status()==1){
+				if(r.getWater_warn_status()==1&&Integer.parseInt(ls.get(6))>0){
 					// 推送
 					json.put("errTime", new Date());
 					json.put("alert", msg2);
