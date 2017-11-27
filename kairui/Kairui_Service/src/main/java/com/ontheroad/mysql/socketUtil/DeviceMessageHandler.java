@@ -331,15 +331,15 @@ public class DeviceMessageHandler {
                     if("02".equals(ls.get(6))) {
                 			str2="您设定的定时出水已经用完了，请注意洗澡用水量!";
                     }
-                    //插入设备消息
-                    TbInformation information4=new TbInformation();
-                    information4.setCreatetime(new Date());
-                    information4.setContent(str2);
-                    information4.setTitle(str2);
-                    information4.setEquipmentId(device.getEquipment_id());
-                    information4.setInformationtype(3);
-                    tbInformationMapper.insert(information4);
                     if(!"".equals(str2)){
+                    	 //插入设备消息
+                        TbInformation information4=new TbInformation();
+                        information4.setCreatetime(new Date());
+                        information4.setContent(str2);
+                        information4.setTitle(str2);
+                        information4.setEquipmentId(device.getEquipment_id());
+                        information4.setInformationtype(3);
+                        tbInformationMapper.insert(information4);
                     	json.put("alert",str2);
                     	json.put("type", 4);
                     	for (Integer i : userIds) {
@@ -437,16 +437,16 @@ public class DeviceMessageHandler {
                     if("1".equals(ls.get(16))) {
                 		str+="泵异常"+";";
                     }
-                    //插入设备消息
-                    TbInformation information=new TbInformation();
-                    information.setCreatetime(new Date());
-                    information.setContent(str);
-                    information.setTitle(str);
-                    information.setEquipmentId(device.getEquipment_id());
-                    information.setInformationtype(3);
-                    tbInformationMapper.insert(information);
                     //推送
                     if(StringUtils.isNotBlank(str)){
+                    	 //插入设备消息
+                        TbInformation information=new TbInformation();
+                        information.setCreatetime(new Date());
+                        information.setContent(str);
+                        information.setTitle(str);
+                        information.setEquipmentId(device.getEquipment_id());
+                        information.setInformationtype(3);
+                        tbInformationMapper.insert(information);
                     	Integer timescyc=timeC(new Date().getTime(),device.getCw_send_time().getTime());
                     	if(timescyc>15){
                     		json.put("errTime", new Date());
@@ -578,13 +578,15 @@ public class DeviceMessageHandler {
 				logger.info("--------------------上传每次洗澡用水量节水量------- ");
 				String msg2="本次用水量："+Integer.parseInt(ls.get(6))+"L，本次节水量："+Integer.parseInt(ls.get(7))+"L,本次洗澡时间:"+Integer.parseInt(ls.get(7))+"秒";
 				 //插入设备消息
-                TbInformation information3=new TbInformation();
-                information3.setCreatetime(new Date());
-                information3.setContent(msg2);
-                information3.setTitle(msg2);
-                information3.setEquipmentId(device.getEquipment_id());
-                information3.setInformationtype(4);
-                tbInformationMapper.insert(information3);
+				if(Integer.parseInt(ls.get(6))>0){
+					TbInformation information3=new TbInformation();
+					information3.setCreatetime(new Date());
+					information3.setContent(msg2);
+					information3.setTitle(msg2);
+					information3.setEquipmentId(device.getEquipment_id());
+					information3.setInformationtype(4);
+					tbInformationMapper.insert(information3);
+				}
 				if(r.getWater_warn_status()==1&&Integer.parseInt(ls.get(6))>0){
 					// 推送
 					json.put("errTime", new Date());
