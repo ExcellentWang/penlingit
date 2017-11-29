@@ -72,6 +72,7 @@ $("#confirmUpload").click(function(){
  				tip({
  					content:"成功！"
  				})
+ 				$("#table1").bootstrapTable("refresh", {url: "..."});
 			}
 			$("#addDeviceModal").modal('hide')
 		} ,beforeSend: function(){
