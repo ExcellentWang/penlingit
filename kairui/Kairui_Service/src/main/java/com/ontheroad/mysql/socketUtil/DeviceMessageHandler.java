@@ -536,7 +536,7 @@ public class DeviceMessageHandler {
                 		device.setWorkStatus(4);
                 	}
                 	device.setEffluent_type(ls.get(8));//出水模式更新
-                	device.setSettemperature(ls.get(10));
+//                	device.setSettemperature(ls.get(10));
                 	device.setCurrent_temp(ls.get(11));
                 	//剩余时间，剩余水量
                 	 if(ls.get(9).equals("01")){
@@ -623,7 +623,7 @@ public class DeviceMessageHandler {
                     break;
                 case "wdft": //设定温度
                 	val = deviceMessage.getArgs().get(0);
-                	device.setCurrent_temp(val);
+                	device.setSettemperature(val);
                 	device.setCurrent_flow_grade(ls.get(1));
                 	deviceMapper.updateDevice(device);
                     logger.info("--------------------设定温度------- ");
