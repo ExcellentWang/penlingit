@@ -655,7 +655,7 @@ public class DeviceController extends BaseConstant{
     	ArrayList<ArrayList<Object>> a=null;
     	try {
     		System.out.println("---"+file.getOriginalFilename().endsWith("xlsx"));
-    		a = ExcelUtil.readExcel(multipartToFile(file),file.getName().endsWith("xlsx")?1:2);
+    		a = ExcelUtil.readExcel(multipartToFile(file),file.getOriginalFilename().endsWith("xlsx")?1:2);
     		for (ArrayList<Object> arrayList : a) {
     			for (Object object : arrayList) {
     				String num=(String)object;
