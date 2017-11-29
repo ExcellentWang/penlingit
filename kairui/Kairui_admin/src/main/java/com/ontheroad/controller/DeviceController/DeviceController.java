@@ -654,7 +654,8 @@ public class DeviceController extends BaseConstant{
     public Map<Object, Object> uploadDevices(@RequestParam("file") CommonsMultipartFile file) {
     	ArrayList<ArrayList<Object>> a=null;
     	try {
-    		a = ExcelUtil.readExcel(multipartToFile(file));
+    		System.out.println("---"+file.getOriginalFilename().endsWith("xlsx"));
+    		a = ExcelUtil.readExcel(multipartToFile(file),file.getName().endsWith("xlsx")?1:2);
     		for (ArrayList<Object> arrayList : a) {
     			for (Object object : arrayList) {
     				String num=(String)object;
@@ -673,8 +674,8 @@ public class DeviceController extends BaseConstant{
     				deviceService.insert(device);
     			}
     		}
-    	} catch (IOException e) {
-    		return MapUtil.getFailureJson("导入出错，请检查文件是否符合格式，或者文件太大导致服务器无法处理！");
+    	} catch (Exception e) {
+    		return MapUtil.getFailureJson("导入出错，请检查文件是否符合格式，目前只支持xlsx,xls后缀的excel文件！");
     	}
     	return MapUtil.getSuccessJson();
     }
@@ -689,14 +690,15 @@ public class DeviceController extends BaseConstant{
         CommonsMultipartFile cf = (CommonsMultipartFile)multfile;   
         //这个myfile是MultipartFile的  
         DiskFileItem fi = (DiskFileItem) cf.getFileItem();  
-        File file = fi.getStoreLocation();  
+        File file = fi.getStoreLocation();
+        System.out.println(fi.getName());
         //手动创建临时文件  
         if(file.length() < 10240000){  
             File tmpFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +   
-                    file.getName());  
+            		fi.getName());  
             multfile.transferTo(tmpFile);  
             return tmpFile;  
-        }  
+        } 
         return file;  
     }  
     

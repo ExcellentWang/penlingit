@@ -35,11 +35,11 @@ public class ExcelUtil {
      * @param file
      * @return
      */
-    public static ArrayList<ArrayList<Object>> readExcel(File file){  
+    public static ArrayList<ArrayList<Object>> readExcel(File file,Integer type){  
         if(file == null){  
             return null;  
         }  
-        if(file.getName().endsWith("xlsx")){  
+        if(type==1){  
             //处理ecxel2007  
             return readExcel2007(file);  
         }else{  
@@ -251,8 +251,8 @@ public class ExcelUtil {
     }  
       
     public static void main(String[] args) {  
-        File file = new File("C:/Users/Administrator/Desktop/111.xls");  
-        ArrayList<ArrayList<Object>> result = ExcelUtil.readExcel(file);  
+        File file = new File("C:/Users/Administrator/Desktop/222.xlsx");  
+        ArrayList<ArrayList<Object>> result = ExcelUtil.readExcel(file,1);  
         for(int i = 0 ;i < result.size() ;i++){  
             for(int j = 0;j<result.get(i).size(); j++){  
                 System.out.println(i+"行 "+j+"列  "+ result.get(i).get(j).toString());  
