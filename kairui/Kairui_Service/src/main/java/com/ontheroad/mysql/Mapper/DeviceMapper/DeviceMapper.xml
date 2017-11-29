@@ -142,13 +142,21 @@
     
     <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo">
 	SELECT
-	*
+	(
+	CASE
+	WHEN (tes.workStatus IS NULL)
+	THEN '4'
+	ELSE tes.workStatus
+	END
+	) AS workStatus,
+	te.*,tu.*,tes.*
 	FROM
 	tb_equipment te
 	LEFT JOIN `tb_user` tu
 	ON te.`user_id` = tu.`user_id`
 	LEFT JOIN `tb_equipmentstatus` tes
-	ON tes.`equipment_id` = te.`equipment_id`
+	ON
+	tes.`equipment_id` = te.`equipment_id`
 	WHERE 1 = 1
 	<if test="equipmentNum!=null and equipmentNum!=''">
 		and te.equipmentNum like  concat('%',#{equipmentNum},'%')

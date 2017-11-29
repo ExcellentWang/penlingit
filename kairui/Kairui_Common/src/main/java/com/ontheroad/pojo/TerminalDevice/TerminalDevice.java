@@ -22,7 +22,7 @@ public class TerminalDevice implements Serializable{
 	 private String equipmentName; //设备名称
 	 private String type;    //设备类型
 	 private String equipmentPicture;  //设备图片地址
-	 private int workStatus;     //工作状态 0：待机   1：准备中（包括预约倒计时） 2：使用中  4：离线
+	 private Integer workStatus;     //工作状态 0：待机   1：准备中（包括预约倒计时） 2：使用中  4：离线
 	 private String voicebroadcast; //语音播报开关状态 0关 1开
 	 private String volume;  //语音播报音量
 	 private String backlight;  //背光值
@@ -318,11 +318,13 @@ public class TerminalDevice implements Serializable{
 		this.equipmentPicture = equipmentPicture;
 	}
 
-	public int getWorkStatus() {
+	
+
+	public Integer getWorkStatus() {
 		return workStatus;
 	}
 
-	public void setWorkStatus(int workStatus) {
+	public void setWorkStatus(Integer workStatus) {
 		this.workStatus = workStatus;
 	}
 

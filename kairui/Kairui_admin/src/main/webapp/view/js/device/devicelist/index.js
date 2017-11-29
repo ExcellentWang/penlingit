@@ -164,7 +164,8 @@ handle = function (value, row, index) {
 };
 
 workStatus=function(value, row, index){
-	return ["离线","在线","在线","在线","离线"][value]
+	console.log(value)
+	return ["在线","在线","在线","在线","离线"][value]
 }
 
 deviceType=function(value, row, index){
