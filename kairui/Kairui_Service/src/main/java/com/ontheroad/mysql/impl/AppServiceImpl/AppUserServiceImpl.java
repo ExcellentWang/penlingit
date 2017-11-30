@@ -1,5 +1,6 @@
 package com.ontheroad.mysql.impl.AppServiceImpl;
 
+import com.avos.avoscloud.LogUtil.log;
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.core.util.Md5Util;
 import com.ontheroad.mysql.Mapper.AppMapper.*;
@@ -24,6 +25,9 @@ import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.service.DeviceService.DeviceService;
 import com.ontheroad.service.SmsService;
 import com.ontheroad.utils.StringUtilsCommon;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +37,7 @@ import java.util.*;
 @Service
 @Transactional
 public class AppUserServiceImpl implements AppUserService{
+	public final static Logger logger=LoggerFactory.getLogger(AppUserServiceImpl.class);
 
 	private boolean DEBUG = false;
 
@@ -148,6 +153,7 @@ public class AppUserServiceImpl implements AppUserService{
 				Date expires = new Date(System.currentTimeMillis() + 10 * 60 * 1000);
 				// 短信发送成功，将验证放入缓存中，以手机号为key
 				memCachedClient.set(phone, verification, expires);
+				logger.info("存入缓存的验证码----------"+memCachedClient.get(phone).toString());
 				map.put("code", BaseConstant.appUserSuccessStatus);
 				map.put("msg", "获取验证码成功");
 				map.put("verification", verification);
