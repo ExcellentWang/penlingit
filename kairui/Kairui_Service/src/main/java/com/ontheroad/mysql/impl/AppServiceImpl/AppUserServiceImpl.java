@@ -274,7 +274,7 @@ public class AppUserServiceImpl implements AppUserService{
 			map.put("password", oldPass);	
 			list = appUserMapper.findUserByIdPassword(map);
 			if(list.size()>0){
-				map.put("phone", user.getPhone());
+				map.put("phone", list.get(0).getPhone());
 				map.put("password", newPass);				
 				appUserMapper.updatePassword(map);
 				
