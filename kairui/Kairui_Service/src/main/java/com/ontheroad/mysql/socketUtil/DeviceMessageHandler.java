@@ -196,7 +196,7 @@ public class DeviceMessageHandler {
                     val = deviceMessage.getArgs().get(0);
                     logger.info("预约改变状态准备中"+device.getEquipment_id());
                     device.setWorkStatus(1);
-                    device.setSettemperature(ls.get(1));
+                    device.setSettemperature(String.valueOf(Integer.parseInt(ls.get(0))));
                     deviceMapper.updateDevice(device);
                     //更新或者插入预约表time
                     Date now = new Date();
