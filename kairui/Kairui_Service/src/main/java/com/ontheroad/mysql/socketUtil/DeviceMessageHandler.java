@@ -197,6 +197,9 @@ public class DeviceMessageHandler {
                     logger.info("预约改变状态准备中"+device.getEquipment_id());
                     device.setWorkStatus(1);
                     device.setSettemperature(String.valueOf(Integer.parseInt(ls.get(0))));
+                    device.setCurrent_flow_grade(ls.get(1));
+                    device.setEffluent_type(ls.get(2));
+                    device.setEffluent_type2(ls.get(3));
                     deviceMapper.updateDevice(device);
                     //更新或者插入预约表time
                     Date now = new Date();
@@ -476,19 +479,6 @@ public class DeviceMessageHandler {
                     device.setApp_enabled(val);
                     deviceMapper.updateDevice(device);
                     logger.info("app禁用---------val:"+val);
-                    break;
-                case "scjl": // 上传使用记录 （APP要数或者间隔时间到自动上传）
-                    rep = new DeviceMessage(
-                            deviceMessage.getDeviceType(),
-                            deviceMessage.getDeviceID(),
-                            "scjl",
-                            new ArrayList<>(Arrays.asList("OK"))
-                    );
-                    reply(session, rep);
-                    val = deviceMessage.getArgs().get(7);
-                    logger.info("app上传使用记录---------val:"+val);
-                    device.setWorkStatus(val.equals("00")?0:3);
-                    deviceMapper.updateDevice(device);
                     break;
                 case "verx": // 固件版本
                 	 rep = new DeviceMessage(
