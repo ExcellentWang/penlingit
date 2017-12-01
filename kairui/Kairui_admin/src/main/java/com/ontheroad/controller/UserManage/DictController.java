@@ -107,6 +107,7 @@ public class DictController extends BaseController {
 				sysDictService.removeById(Long.valueOf(id));
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			msg = "系统发生异常！";
 			result = false;
 		}

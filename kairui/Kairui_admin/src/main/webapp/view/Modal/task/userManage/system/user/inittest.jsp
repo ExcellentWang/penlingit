@@ -98,7 +98,14 @@ $(function() {
 	                /*  {width : '50',title : '排序',field : 'userOrder'}, */
 	                 {width : '150',title : '创建时间',field : 'create_time'},
 					 {width : '150',title : '最后登录时间',field : 'update_time'},
-					 {width : '200',title : '操作',field : 'xx',formatter:function(v,r){ var userId = r.user_id;var userStatus = r.user_status; return '<a href="javascript:showEdit(\'/system/user/showEdit\',\'user_id\',600,270);" >修改</a>'+'&nbsp&nbsp'+'<a href="javascript:disableUser('+userId+','+userStatus+');" >用户停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'user_id\',\'/system/user/delete\');" >删除</a>'}}]
+					 {width : '150',title : '操作',field : 'xx',formatter:function(v,r){
+						 if(r.user_status==1){
+						 	return '<a href="javascript:disableUser('+r.user_id+',2);" >用户停用</a>';
+						 }else{
+							return '<a href="javascript:disableUser('+r.user_id+',1);" >用户启用</a>';
+						 }
+					 }}
+					 /* {width : '200',title : '操作',field : 'xx',formatter:function(v,r){ var userId = r.user_id;var userStatus = r.user_status; return '<a href="javascript:showEdit(\'/system/user/showEdit\',\'user_id\',600,270);" >修改</a>'+'&nbsp&nbsp'+'<a href="javascript:disableUser('+userId+','+userStatus+');" >用户停用</a>'+'&nbsp&nbsp'+'<a href="javascript:removeRow(\'user_id\',\'/system/user/delete\');" >删除</a>'}} */]
 	    		]
 	}); 
     $('#userStatus').combobox({  
@@ -142,7 +149,7 @@ function disableUser(roleId,roleStatus){
 			url : '/system/user/update',
 			data : {
 				userId : roleId,
-				userStatus : '2'
+				userStatus : roleStatus
 			},
 			success : function(msg1) {
 				//refreshGrid();

@@ -29,7 +29,8 @@ public class UserServiceImpl implements UserService {
 	public TsUser login(TsUser user) {
 		String password = Md5Util.makeMd5Sum(user.getUserPwd().getBytes()).toUpperCase();
 		TsUserExample example=new TsUserExample();
-		example.createCriteria().andUserNameEqualTo(user.getUserName()).andUserPwdEqualTo(password);
+		example.createCriteria().andUserNameEqualTo(user.getUserName()).andUserPwdEqualTo(password)
+		.andUserStatusEqualTo(1);
 		List<TsUser> ls=tsUserMapper.selectByExample(example);
 		if(ls.size()>0){
 			return ls.get(0);

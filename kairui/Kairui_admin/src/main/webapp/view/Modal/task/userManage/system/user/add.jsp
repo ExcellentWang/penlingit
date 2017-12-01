@@ -29,10 +29,10 @@
 			<td>姓别：</td>
 			<td><input id="sex" name="sex" type="combo"></td> 
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>排序：</td>
 			<td><input type="text" id="userOrder" name="userOrder"></td>
-		</tr>
+		</tr> -->
 	   </table>
 	   <div class="editBtn">
 			<button type="submit" class="button">&nbsp;保存&nbsp;</button>

@@ -33,8 +33,8 @@
 		<tr>
 			<td>角色：</td>
 			<td><input type="text" id="userRole" name="userRole" type="combo"></td>
-			<td>排序：</td>
-			<td><input type="text" id="userOrder" name="userOrder" value="${sUser.userOrder}"></td>
+			<%-- <td>排序：</td>
+			<td><input type="text" id="userOrder" name="userOrder" value="${sUser.userOrder}"></td> --%>
 		</tr>
 	   </table>
 	   <div class="editBtn">
