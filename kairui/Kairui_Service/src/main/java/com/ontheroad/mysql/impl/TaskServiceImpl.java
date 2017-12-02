@@ -90,7 +90,7 @@ public class TaskServiceImpl implements TaskService {
    /**
     * 天气下发，每半小时执行一次
     */
-    @Scheduled(cron="0 */1 * * * ?")
+    @Scheduled(cron="0 */30 * * * ?")
     @Override
     public void syncWeather() {
     	ArrayList<String> args = new ArrayList<>();
