@@ -2,6 +2,8 @@ package com.ontheroad.mysql.impl;
 
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceLogMapper;
 import com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper;
+import com.ontheroad.mysql.openapi.NowWeather;
+import com.ontheroad.mysql.openapi.WeatherUtil;
 import com.ontheroad.mysql.socketUtil.DeviceMessage;
 import com.ontheroad.mysql.socketUtil.MinaServerHandler;
 import com.ontheroad.pojo.TerminalDevice.DeviceLog;
@@ -88,15 +90,15 @@ public class TaskServiceImpl implements TaskService {
    /**
     * 天气下发，每半小时执行一次
     */
-    @Scheduled(cron="0 */30 * * * ?")
+    @Scheduled(cron="0 */1 * * * ?")
     @Override
     public void syncWeather() {
-    	
+    	sendOnline("wwea",null);
     }
     /**
      * 给在线设备发送指令
      */
-    public void sendOnline(String command,ArrayList<String> args,boolean isWeather){
+    public void sendOnline(String command,ArrayList<String> args){
     	for(IoSession session: MinaServerHandler.sessions) {
             // find device session
             String session_device_type = (String)session.getAttribute("device_type");
@@ -105,6 +107,16 @@ public class TaskServiceImpl implements TaskService {
             String ip=addr.getAddress().getHostAddress();
             if(StringUtils.isEmpty(session_device_id)) {
                 continue;
+            }
+            //天气拼接参数
+            if("wwea".equals(command)){
+            	 NowWeather now=WeatherUtil.send(ip);
+                 if(now.isSuccess()){
+                 	args.add(WeatherUtil.getSeason());//季節
+                 	args.add(WeatherUtil.getCode(Integer.parseInt(now.getWeather_code())));
+                 	args.add(now.getTemperature().contains("-")?now.getTemperature():"+"+now.getTemperature());
+                 	args.add(now.getSd().replace("%", ""));
+                 }
             }
             DeviceMessage msg = new DeviceMessage(session_device_type, session_device_id, command, args);
             session.write(msg.toString());
