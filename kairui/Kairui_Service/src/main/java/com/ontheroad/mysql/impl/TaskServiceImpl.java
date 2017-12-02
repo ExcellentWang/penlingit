@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,9 @@ public class TaskServiceImpl implements TaskService {
     private DeviceLogMapper deviceLogMapper;
     @Autowired
     private DeviceService deviceService;
-
+    /**
+     * 系统对时
+     */
     @Scheduled(cron = "0 0 3 * * *")
     @Override
     public void syncTime() {
@@ -59,7 +62,9 @@ public class TaskServiceImpl implements TaskService {
             session.write(msg.toString());
         }
     }
-
+    /**
+     * 判断离线
+     */
     @Scheduled(cron = "0 */3 * * * *")
     @Override
     public void checkOnline() {
@@ -80,10 +85,29 @@ public class TaskServiceImpl implements TaskService {
             
         }
     }
-
+   /**
+    * 天气下发，每半小时执行一次
+    */
+    @Scheduled(cron="0 */30 * * * ?")
     @Override
     public void syncWeather() {
     	
     }
-  
+    /**
+     * 给在线设备发送指令
+     */
+    public void sendOnline(String command,ArrayList<String> args,boolean isWeather){
+    	for(IoSession session: MinaServerHandler.sessions) {
+            // find device session
+            String session_device_type = (String)session.getAttribute("device_type");
+            String session_device_id = (String)session.getAttribute("device_id");
+            InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
+            String ip=addr.getAddress().getHostAddress();
+            if(StringUtils.isEmpty(session_device_id)) {
+                continue;
+            }
+            DeviceMessage msg = new DeviceMessage(session_device_type, session_device_id, command, args);
+            session.write(msg.toString());
+        }
+    }
 }
