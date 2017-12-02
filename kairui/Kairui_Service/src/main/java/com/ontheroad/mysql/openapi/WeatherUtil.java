@@ -57,7 +57,7 @@ public  class WeatherUtil {
 	 */
 	public static String getSeason(){
 		int seasonNumber = Calendar.getInstance().get(Calendar.MONTH);
-		return seasonNumber>=1&&seasonNumber<=3?"春天":seasonNumber>=4&&seasonNumber<=6?"夏天":seasonNumber>=7&&seasonNumber<=9?"秋天":seasonNumber>=10?"冬天":"冬天";
+		return seasonNumber>=1&&seasonNumber<=3?"01":seasonNumber>=4&&seasonNumber<=6?"02":seasonNumber>=7&&seasonNumber<=9?"03":seasonNumber>=10?"04":"04";
 	}
 	/**
 	 * 获取api对应设备协议的code
