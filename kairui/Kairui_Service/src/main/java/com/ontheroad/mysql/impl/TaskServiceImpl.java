@@ -93,7 +93,8 @@ public class TaskServiceImpl implements TaskService {
     @Scheduled(cron="0 */1 * * * ?")
     @Override
     public void syncWeather() {
-    	sendOnline("wwea",null);
+    	ArrayList<String> args = new ArrayList<>();
+    	sendOnline("wwea",args);
     }
     /**
      * 给在线设备发送指令
