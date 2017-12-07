@@ -3,12 +3,16 @@ package com.ontheroad.mysql.ymodem;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 import org.apache.mina.core.future.ReadFuture;
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class Modem {
-
+	public final Logger logger=LoggerFactory.getLogger(YModem.class);
     /* Protocol characters used */
     protected static  byte SOH = 0x01; /* Start Of Header */
     protected static final byte STX = 0x02; /* Start Of Text (used like SOH but means 1024 block size) */
@@ -48,6 +52,7 @@ class Modem {
                 if (character == NAK)
                     return false;
                 if (character == ST_C) {
+                	 logger.info("------------------------设备返回C-----------------");
                     return true;
                 }
             } catch (TimeoutException e) {
@@ -95,6 +100,7 @@ class Modem {
         	byteBuffer.putInt(~blockNumber);//反码
         	byteBuffer.put(block);//数据包
         	writeCRC(block, crc);//crc校验
+        	logger.info("------------------------封装的数据包"+Arrays.toString(byteBuffer.array())+"-----------------");
         	writeFuture=session.write(byteBuffer.array());//mina发送数据
         	byteBuffer.clear();//发送之后清空缓存区
             while (true) {
@@ -186,11 +192,13 @@ class Modem {
         while (errorCount < 10) {
 //            sendByte(EOT);
         	session.write(EOT);
+        	logger.info("------------------------发送结束信号-----------------");
             try {
                 character = readByte(timer.start(),writeFuture,session);//读取设备返回数据
                 if (character == ACK) {
                 	byte[] b0=new byte[133];
                 	session.write(b0);
+                	logger.info("------------------------发送发送全0数据包结束这次固件升级，固件升级成功-----------------");
                     return;
                 } else if (character == CAN) {
                     throw new IOException("Transmission terminated");

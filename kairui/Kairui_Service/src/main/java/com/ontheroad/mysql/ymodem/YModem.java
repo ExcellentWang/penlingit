@@ -9,9 +9,12 @@ import java.util.Arrays;
 
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class YModem {
+	public final Logger logger=LoggerFactory.getLogger(YModem.class);
     private Modem modem;
     
     public YModem() {
@@ -33,6 +36,7 @@ public class YModem {
         try (DataInputStream dataStream = new DataInputStream(Files.newInputStream(file))) {
             Timer timer = new Timer(Modem.WAIT_FOR_RECEIVER_TIMEOUT).start();
             session.write(instructions); //1.向设备发送信号，开启固件升级
+            logger.info("------------------------1.向设备发送信号，开启固件升级-----------------");
             boolean useCRC16 = modem.waitReceiverRequest(timer, writeFuture, session);//等待设备返回C
             CRC crc;
             if (useCRC16){
@@ -44,6 +48,7 @@ public class YModem {
             BasicFileAttributes readAttributes = Files.readAttributes(file, BasicFileAttributes.class);
             String fileNameString = file.getFileName().toString() + (char)0 + ((Long) Files.size(file)).toString()+" "+ Long.toOctalString(readAttributes.lastModifiedTime().toMillis() / 1000);
             byte[] fileNameBytes = Arrays.copyOf(fileNameString.getBytes(), 128);
+            logger.info("------------------------开始发送第一个包（告诉设备文件信息）-----------------");
             modem.sendBlock(0, Arrays.copyOf(fileNameBytes, 128), 128, crc,writeFuture,session);//2.发送第一个包（告诉设备文件信息）
             modem.waitReceiverRequest(timer,writeFuture,session);//等待设备返回C
             //发送数据
