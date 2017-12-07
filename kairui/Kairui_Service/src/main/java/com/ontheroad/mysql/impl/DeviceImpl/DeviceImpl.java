@@ -781,6 +781,7 @@ public class DeviceImpl implements DeviceService {
 	@Override
 	public void uoploadGu(String url, String instructions) throws IOException {
 		YModem ymodem=new YModem();
+		url=url.replace("https://sec.ldzhn.com", "");
 		ymodem.send(Paths.get(url), null, getSession(instructions),instructions);
 	}
 	/**
