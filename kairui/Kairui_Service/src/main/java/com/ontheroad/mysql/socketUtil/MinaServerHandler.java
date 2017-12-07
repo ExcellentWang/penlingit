@@ -37,7 +37,6 @@ public class MinaServerHandler extends IoHandlerAdapter {
         logUtil.info("服务端与客户端创建连接...");
         Long time = System.currentTimeMillis();
         session.setAttribute("id", time);
-        
         sessions.add(session);
     }
 

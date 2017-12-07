@@ -19,6 +19,7 @@ import com.ontheroad.mysql.entity.GuaranteeType;
 import com.ontheroad.mysql.entity.GuaranteeTypeExample;
 import com.ontheroad.mysql.socketUtil.DeviceMessage;
 import com.ontheroad.mysql.socketUtil.MinaServerHandler;
+import com.ontheroad.mysql.ymodem.YModem;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.*;
 import com.ontheroad.pojo.user.Guarantee;
@@ -34,7 +35,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.util.*;
 
@@ -471,6 +475,7 @@ public class DeviceImpl implements DeviceService {
 					session.getConfig().setUseReadOperation(true); 
 					session.getConfig().setReaderIdleTime(2000);
 					WriteFuture writeFuture=session.write(msg.toString());//发指令
+					
 					//2.同步返回
 					writeFuture.awaitUninterruptibly();
 					//判断消息是否发送完成
@@ -772,5 +777,33 @@ public class DeviceImpl implements DeviceService {
 		map.put("msg", "修改成功");
 		return map;
 	}
-	
+
+	@Override
+	public void uoploadGu(String url, String instructions) throws IOException {
+		YModem ymodem=new YModem();
+		ymodem.send(Paths.get(url), null, getSession(instructions),instructions);
+	}
+	/**
+	 * 根据指令获取session
+	 * @param msg
+	 * @return
+	 */
+	private IoSession getSession(String instructions){
+		DeviceMessage msg = new DeviceMessage(instructions);
+		if(msg == null || msg.getDeviceID() == null) {
+			return null;
+		}
+		for(IoSession session: MinaServerHandler.sessions) {
+			// find device session
+			String session_device_id = (String)session.getAttribute("device_id");
+			String session_device_type = (String)session.getAttribute("device_type");
+			if(StringUtils.isEmpty(session_device_id)) {
+				continue;
+			}
+			if(msg.getDeviceType().equals(session_device_type) && msg.getDeviceID().equals(session_device_id)) {
+				return session;
+			}
+		}
+		return null;
+	}
 }

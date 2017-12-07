@@ -6,6 +6,8 @@ import com.ontheroad.pojo.user.User;
 
 import org.springframework.remoting.service.annotation.RemoteService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -116,4 +118,11 @@ public interface DeviceService {
 	String getzaixianlvByCity(String province);
 	
 	Map<Object, Object> updateShareDeviceRemark(DeviceShare ds);
+	/**
+	 * 固件更新
+	 * @param file
+	 * @param instructions
+	 * @throws IOException 
+	 */
+	void uoploadGu(String url,String instructions) throws IOException;
 }

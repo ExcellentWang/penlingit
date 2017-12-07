@@ -29,6 +29,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.ontheroad.core.util.ExcelUtil;
 import com.ontheroad.entity.EquipmentDatatype;
+import com.ontheroad.entity.FirmVersion;
 import com.ontheroad.mysql.entity.DeviceWater;
 import com.ontheroad.pojo.Constant.BaseConstant;
 import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
@@ -36,6 +37,7 @@ import com.ontheroad.pojo.TerminalDevice.DeviceShare;
 import com.ontheroad.pojo.TerminalDevice.DeviceVo;
 import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
 import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
+import com.ontheroad.service.FirmVersionService;
 import com.ontheroad.service.IDeviceService;
 import com.ontheroad.service.AppService.AppUserService;
 import com.ontheroad.service.DeviceService.DeviceService;
@@ -52,6 +54,8 @@ public class DeviceController extends BaseConstant{
 	private IDeviceService iDeviceService;
 	@Autowired
 	private AppUserService appUserService;
+	@Autowired 
+	private FirmVersionService firmVersionService;
 	/**
 	 * 
 	 * 获取用户设备列表  2017.7.19
@@ -538,9 +542,14 @@ public class DeviceController extends BaseConstant{
 	 * @return
 	 */
 	@RequestMapping(value = "/upgu")
-	public Map<Object, Object> upgu(String deviceNum) {
-		File file=new File("");
-		file2String(file,null,deviceNum);
+	public Map<Object, Object> upgu(String instructions) {
+		try {
+			FirmVersion fv=new FirmVersion();
+			List<FirmVersion> ls=firmVersionService.selectByExample(fv);
+			deviceService.uoploadGu(ls.get(ls.size()-1).getFirmUrl(), instructions);
+		} catch (IOException e) {
+			return MapUtil.getFailureJson("下发失败！");
+		}
 		return MapUtil.getSuccessJson();
 	}
 	
@@ -575,58 +584,7 @@ public class DeviceController extends BaseConstant{
 		}
 	}
 	
-	   /** 
-     * 文本文件转换为指定编码的字符串 
-     * 
-     * @param file         文本文件 
-     * @param encoding 编码类型 
-     * @return 转换后的字符串 
-     * @throws IOException 
-     */ 
-    public  String file2String(File file, String encoding,String deviceNum) { 
-            InputStreamReader reader = null; 
-            StringWriter writer = new StringWriter(); 
-            try { 
-                    if (encoding == null || "".equals(encoding.trim())) { 
-                            reader = new InputStreamReader(new FileInputStream(file), encoding); 
-                    } else { 
-                            reader = new InputStreamReader(new FileInputStream(file)); 
-                    } 
-                    //将输入流写入输出流 
-                    char[] buffer = new char[100]; 
-                    int n = 0; 
-                    int a=0;
-                    while (-1 != (n = reader.read(buffer))) { 
-                            writer.write(buffer, 0, n); 
-                            String s=writer.toString();
-                            //发送指令
-                            String instructions="";
-            				if(a==0){
-            					instructions="<"+deviceNum+":load,039,00"+"121,OR>";
-            				}else if(a>0&&a<10){
-            					instructions="<"+deviceNum+":load,039,"+a+","+s+",OR>";
-            				}else{
-            					instructions="<"+deviceNum+":load,039,"+a+","+s+",OR>";
-            				}
-            					deviceService.deviceSendInstruction(getValidate(instructions)); 
-            				a++;  
-                    } 
-            } catch (Exception e) { 
-                    e.printStackTrace(); 
-                    return null; 
-            } finally { 
-                    if (reader != null) 
-                            try { 
-                                    reader.close(); 
-                            } catch (IOException e) { 
-                                    e.printStackTrace(); 
-                            } 
-            } 
-            //返回转换结果 
-            if (writer != null) 
-                    return writer.toString(); 
-            else return null; 
-    }
+
     /**
      * 导出excel
      * @param vo
