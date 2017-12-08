@@ -540,14 +540,17 @@ public class DeviceController extends BaseConstant{
 	/**
 	 * 固件更新
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/upgu")
-	public Map<Object, Object> upgu(String instructions) {
+	public Map<Object, Object> upgu(String instructions,HttpServletRequest request){
 		try {
 			FirmVersion fv=new FirmVersion();
 			List<FirmVersion> ls=firmVersionService.selectByExample(fv);
-			deviceService.uoploadGu(ls.get(ls.size()-1).getFirmUrl(), instructions);
-		} catch (IOException e) {
+			String path = request.getSession().getServletContext().getRealPath("view/upload");  
+			File file=new File(path+ls.get(ls.size()-1).getFirmUrl().replace("https://sec.ldzhn.com/view/upload", ""));
+			deviceService.uoploadGu(file, instructions);
+		} catch (Exception e) {
 			return MapUtil.getFailureJson("下发失败！");
 		}
 		return MapUtil.getSuccessJson();

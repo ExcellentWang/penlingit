@@ -1,5 +1,26 @@
 package com.ontheroad.mysql.impl.DeviceImpl;
 
+import java.io.File;
+import java.net.InetSocketAddress;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.mina.core.future.ReadFuture;
+import org.apache.mina.core.future.WriteFuture;
+import org.apache.mina.core.session.IoSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.danga.MemCached.MemCachedClient;
 import com.ontheroad.mysql.Mapper.AppMapper.AppUserMapper;
 import com.ontheroad.mysql.Mapper.AppMapper.CustomerserviceMapper;
@@ -19,28 +40,19 @@ import com.ontheroad.mysql.entity.GuaranteeType;
 import com.ontheroad.mysql.entity.GuaranteeTypeExample;
 import com.ontheroad.mysql.socketUtil.DeviceMessage;
 import com.ontheroad.mysql.socketUtil.MinaServerHandler;
-import com.ontheroad.mysql.ymodem.YModem;
+import com.ontheroad.mysql.ymodem.Modem;
 import com.ontheroad.pojo.Constant.BaseConstant;
-import com.ontheroad.pojo.TerminalDevice.*;
+import com.ontheroad.pojo.TerminalDevice.DeviceAppointment;
+import com.ontheroad.pojo.TerminalDevice.DeviceError;
+import com.ontheroad.pojo.TerminalDevice.DeviceLog;
+import com.ontheroad.pojo.TerminalDevice.DeviceRemind;
+import com.ontheroad.pojo.TerminalDevice.DeviceShare;
+import com.ontheroad.pojo.TerminalDevice.DeviceVo;
+import com.ontheroad.pojo.TerminalDevice.TerminalDevice;
+import com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo;
 import com.ontheroad.pojo.user.Guarantee;
 import com.ontheroad.pojo.user.User;
 import com.ontheroad.service.DeviceService.DeviceService;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.mina.core.future.ReadFuture;
-import org.apache.mina.core.future.WriteFuture;
-import org.apache.mina.core.session.IoSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.util.*;
 
 @Service
 @Transactional
@@ -779,10 +791,13 @@ public class DeviceImpl implements DeviceService {
 	}
 
 	@Override
-	public void uoploadGu(String url, String instructions) throws IOException {
-		YModem ymodem=new YModem();
-		url=url.replace("https://sec.ldzhn.com", "");
-		ymodem.send(Paths.get(url), null, getSession(instructions),instructions);
+	public void uoploadGu(File file, String instructions) throws Exception {
+		Modem ymodem=new Modem();
+		IoSession se=getSession(instructions);
+		if(se==null){
+			throw new RuntimeException("设备不在线！");
+		}
+		ymodem.send(file.toPath(), null, getSession(instructions),instructions);
 	}
 	/**
 	 * 根据指令获取session

@@ -124,5 +124,5 @@ public interface DeviceService {
 	 * @param instructions
 	 * @throws IOException 
 	 */
-	void uoploadGu(String url,String instructions) throws IOException;
+	void uoploadGu(File file,String instructions) throws Exception;
 }

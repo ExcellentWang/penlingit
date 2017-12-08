@@ -2,10 +2,14 @@ package com.ontheroad.mysql.ymodem;
 
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 
 import org.apache.mina.core.future.ReadFuture;
@@ -14,8 +18,8 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class Modem {
-	public final Logger logger=LoggerFactory.getLogger(YModem.class);
+public class Modem {
+	public final Logger logger=LoggerFactory.getLogger(Modem.class);
     /* Protocol characters used */
     protected static  byte SOH = 0x01; /* Start Of Header */
     protected static final byte STX = 0x02; /* Start Of Text (used like SOH but means 1024 block size) */
@@ -33,13 +37,45 @@ class Modem {
     protected static final int REQUEST_TIMEOUT = 3000;
     protected static final int WAIT_FOR_RECEIVER_TIMEOUT = 60_000;
     protected static final int SEND_BLOCK_TIMEOUT = 10_000;
+    public ByteBuffer byteBuffer=null;
 
-    private  ByteBuffer byteBuffer=ByteBuffer.allocate(133);
 
-    protected Modem() {
+    public Modem() {
     	super();
+    	byteBuffer=ByteBuffer.allocate(133);
     }
 
+    /**
+     * 固件下发调用
+     * @param file
+     * @throws IOException
+     */
+    public void send(Path file,WriteFuture writeFuture,IoSession session ,String instructions) throws IOException {
+        try (DataInputStream dataStream = new DataInputStream(Files.newInputStream(file))) {
+            Timer timer = new Timer(Modem.WAIT_FOR_RECEIVER_TIMEOUT).start();
+            logger.info("发送开始指令----------"+instructions);
+            session.write(instructions); //1.向设备发送信号，开启固件升级
+            logger.info("------------------------1.向设备发送信号，开启固件升级-----------------");
+            boolean useCRC16 = waitReceiverRequest(timer, writeFuture, session);//等待设备返回C
+            CRC crc;
+            if (useCRC16){
+            	crc = new CRC16();
+            }
+            else{
+            	crc = new CRC8();
+            }
+            BasicFileAttributes readAttributes = Files.readAttributes(file, BasicFileAttributes.class);
+            String fileNameString = file.getFileName().toString() + (char)0 + ((Long) Files.size(file)).toString()+" "+ Long.toOctalString(readAttributes.lastModifiedTime().toMillis() / 1000);
+            byte[] fileNameBytes = Arrays.copyOf(fileNameString.getBytes(), 128);
+            logger.info("------------------------开始发送第一个包（告诉设备文件信息）-----------------");
+            sendBlock(0, Arrays.copyOf(fileNameBytes, 128), 128, crc,writeFuture,session);//2.发送第一个包（告诉设备文件信息）
+            waitReceiverRequest(timer,writeFuture,session);//等待设备返回C
+            //发送数据
+            byte[] block = new byte[128];
+            sendDataBlocks(dataStream, 1, crc, block,writeFuture,session);
+           sendEOT(writeFuture,session);
+        }
+    }
 
    /**
     * 判断设备返回的数据是不是C
@@ -47,7 +83,7 @@ class Modem {
     * @return
     * @throws IOException
     */
-    protected boolean waitReceiverRequest(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException {
+    public boolean waitReceiverRequest(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException {
         int character;
         while (true) {
             try {
@@ -73,7 +109,7 @@ class Modem {
      * @param session
      * @throws IOException
      */
-    protected void sendDataBlocks(DataInputStream dataStream, int blockNumber, CRC crc, byte[] block,WriteFuture writeFuture,IoSession session) throws IOException {
+    public void sendDataBlocks(DataInputStream dataStream, int blockNumber, CRC crc, byte[] block,WriteFuture writeFuture,IoSession session) throws IOException {
         int dataLength;
         while ((dataLength = dataStream.read(block)) != -1) {
             sendBlock(blockNumber++, block, dataLength, crc, writeFuture, session);
@@ -88,7 +124,7 @@ class Modem {
      * @param crc crc校验方式
      * @throws IOException
      */
-    protected void sendBlock(int blockNumber, byte[] block, int dataLength, CRC crc,WriteFuture writeFuture,IoSession session) throws IOException {
+    public void sendBlock(int blockNumber, byte[] block, int dataLength, CRC crc,WriteFuture writeFuture,IoSession session) throws IOException {
         int errorCount;
         int character;
         Timer timer = new Timer(SEND_BLOCK_TIMEOUT);
@@ -98,14 +134,16 @@ class Modem {
         errorCount = 0;
         while (errorCount < MAXERRORS) {
         	timer.start();
-        	byteBuffer.put(STX);//包头
-        	byteBuffer.putInt(blockNumber);//序号
-        	byteBuffer.putInt(~blockNumber);//反码
+        	byteBuffer.put(SOH);//包头
+        	byteBuffer.put((byte)blockNumber);//序号
+        	byteBuffer.put((byte)~blockNumber);//反码
+        	System.out.println(byteBuffer.array().length);
         	byteBuffer.put(block);//数据包
-        	writeCRC(block, crc);//crc校验
-        	logger.info("------------------------封装的数据包"+Arrays.toString(byteBuffer.array())+"-----------------");
+        	writeCRC(block, crc, byteBuffer);//crc校验
+        	logger.info("------------------------封装的"+blockNumber+"数据包"+Arrays.toString(byteBuffer.array())+"-----------------");
         	writeFuture=session.write(byteBuffer.array());//mina发送数据
-        	byteBuffer.clear();//发送之后清空缓存区
+            // 从ByteBuffer中读取数据到byte数组中  
+        	 byteBuffer.clear();//发送之后清空缓存区
             while (true) {
                 try {
                     character = readByte(timer, writeFuture, session);
@@ -124,7 +162,6 @@ class Modem {
             }
 
         }
-
         throw new IOException("Too many errors caught, abandoning transfer");
     }
     /**
@@ -133,7 +170,7 @@ class Modem {
      * @param crc
      * @throws IOException
      */
-    private void writeCRC(byte[] block, CRC crc) throws IOException {
+    private void writeCRC(byte[] block, CRC crc,ByteBuffer byteBuffer) throws IOException {
         byte[] crcBytes = new byte[crc.getCRCLength()];
         long crcValue = crc.calcCRC(block);
         for (int i = 0; i < crc.getCRCLength(); i++) {
@@ -188,12 +225,11 @@ class Modem {
     * 给设备发送结束信号
     * @throws IOException
     */
-    protected void sendEOT(WriteFuture writeFuture,IoSession session) throws IOException {
+    public void sendEOT(WriteFuture writeFuture,IoSession session) throws IOException {
         int errorCount = 0;
         Timer timer = new Timer(BLOCK_TIMEOUT);
         int character;
         while (errorCount < 10) {
-//            sendByte(EOT);
         	session.write(EOT);
         	logger.info("------------------------发送结束信号-----------------");
             try {
@@ -211,6 +247,5 @@ class Modem {
             errorCount++;
         }
     }
-  
 }
 

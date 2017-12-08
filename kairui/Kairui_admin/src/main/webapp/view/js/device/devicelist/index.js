@@ -106,7 +106,7 @@ tableEvent = {
     "click .upgu": function (e, a, item, index) {
     	var instructions;
     	$("#upgu").modal("show")   	
-    	$("#confirm").unbind("click").click(function () {  	
+    	$("#confirmG").unbind("click").click(function () {  	
     		$("#upgu").modal("hide") 
     		instructions="<LDCT"+item.equipmentNum+":load,035,01,OR>";
     		$.ajax({
