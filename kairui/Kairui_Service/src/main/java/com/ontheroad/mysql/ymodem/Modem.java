@@ -1,25 +1,23 @@
 package com.ontheroad.mysql.ymodem;
 
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
 import org.apache.mina.core.future.ReadFuture;
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Modem {
-	public final Logger logger=LoggerFactory.getLogger(Modem.class);
+	 private static final Logger logger = Logger.getLogger(Modem.class);
     /* Protocol characters used */
     protected static  byte SOH = 0x01; /* Start Of Header */
     protected static final byte STX = 0x02; /* Start Of Text (used like SOH but means 1024 block size) */
