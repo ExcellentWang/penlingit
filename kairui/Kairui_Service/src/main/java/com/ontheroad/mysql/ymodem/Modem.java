@@ -52,7 +52,7 @@ public class Modem {
         try (DataInputStream dataStream = new DataInputStream(Files.newInputStream(file))) {
             Timer timer = new Timer(Modem.WAIT_FOR_RECEIVER_TIMEOUT).start();
             logger.info("发送开始指令----------"+instructions);
-            session.write(instructions); //1.向设备发送信号，开启固件升级
+            writeFuture=session.write(instructions); //1.向设备发送信号，开启固件升级
             logger.info("------------------------1.向设备发送信号，开启固件升级-----------------");
             boolean useCRC16 = waitReceiverRequest(timer, writeFuture, session);//等待设备返回C
             CRC crc;
