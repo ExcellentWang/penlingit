@@ -23,9 +23,11 @@ public class AdminLoginFilter implements HandlerInterceptor {
             //登陆成功的用户
             return true;
         }else {
-           /* //没有登陆，转向登陆界面
-        	response.sendRedirect("/view/index.html");
-            return false;*/
+        	if("/".equals(url)){
+        		 //没有登陆，转向登陆界面
+            	response.sendRedirect("/view/index.html");
+                return false;
+        	}
         	try {
                 response.setContentType("application/json; charset=utf-8");
                 response.getWriter().write(MapUtil.getFailureJson("SESSION超时", 30000));
