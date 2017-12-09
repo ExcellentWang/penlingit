@@ -13,23 +13,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MessageDecoder extends CumulativeProtocolDecoder {  
+    protected static final byte ACK = 0x06; /* ACKnowlege */
+    protected static final byte NAK = 0x15; /* Negative AcKnowlege */
+    protected static final byte CAN = 0x18; /* CANcel character */
+
+    protected static final byte CPMEOF = 0x1A;
+    protected static final byte ST_C = 'C';
     @Override  
     protected boolean doDecode(IoSession session, IoBuffer in,ProtocolDecoderOutput out) throws Exception {  
     	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
-    	/*Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
+    	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
     			+ "),(\\w{2})(?=>)");
     	Matcher matcher = pattern.matcher(raw);
-    	if(matcher.find()) {
+    	if(matcher.find()||in.remaining()==1) {
     		out.write(raw);
     		return true;
     	}else{
     		in.mark();//标记当前位置，以便reset 
     		in.reset();   
     		return false;
-    	}*/
-    	out.write(raw);
-    	return true;
+    	}
+//    	out.write(raw);
+//    	return true;
     } 
     //byte 数组与 int 的相互转换 
     public  int byteArrayToInt(byte[] b) { 
