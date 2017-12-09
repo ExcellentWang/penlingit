@@ -202,6 +202,7 @@
 	province
 	FROM
 	`tb_equipmentstatus` t2
+	where t2.province is not null
 	GROUP BY province 
 	ORDER BY lv DESC
     </select>
