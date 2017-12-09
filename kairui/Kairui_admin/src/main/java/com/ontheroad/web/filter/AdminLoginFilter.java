@@ -18,7 +18,6 @@ public class AdminLoginFilter implements HandlerInterceptor {
         HttpSession session = request.getSession();
         TsUser user = (TsUser) session.getAttribute("user");
         String url=request.getRequestURI();
-        System.out.println(url);
         if(user!=null){
             //登陆成功的用户
             return true;
