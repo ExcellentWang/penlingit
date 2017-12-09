@@ -7,13 +7,13 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 
 public class DeviceMessageCodecFactory implements ProtocolCodecFactory {
 
-//    private MessageDecoder decoder;
+    private MessageDecoder decoder;
     private DeviceMessageLineEncoder encoder;
-    private DeviceMessageLineDecoder decoder;
+//    private DeviceMessageLineDecoder decoder;
 
     public DeviceMessageCodecFactory() {
-        decoder = new DeviceMessageLineDecoder();
-//    	this.decoder=new MessageDecoder();
+//        decoder = new DeviceMessageLineDecoder();
+    	this.decoder=new MessageDecoder();
         encoder = new DeviceMessageLineEncoder();
     }
 
