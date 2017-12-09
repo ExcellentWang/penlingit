@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 public class MessageDecoder extends CumulativeProtocolDecoder {  
     @Override  
     protected boolean doDecode(IoSession session, IoBuffer in,ProtocolDecoderOutput out) throws Exception {  
-    	/*CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
+    	CharsetDecoder charsetDecoder = Charset.defaultCharset().newDecoder();
     	String raw=in.getString(charsetDecoder);
-    	Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
+    	/*Pattern pattern = Pattern.compile("(?<=LDCT)(\\d{2})(\\d{12}):(\\w+),(\\d{3})([,\\-\\+\\w\\.+]*"
     			+ "),(\\w{2})(?=>)");
     	Matcher matcher = pattern.matcher(raw);
     	if(matcher.find()) {
@@ -28,6 +28,7 @@ public class MessageDecoder extends CumulativeProtocolDecoder {
     		in.reset();   
     		return false;
     	}*/
+    	out.write(raw);
     	return true;
     } 
     //byte 数组与 int 的相互转换 
