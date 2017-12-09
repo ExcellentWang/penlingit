@@ -2,7 +2,6 @@ package com.ontheroad.mysql.impl.DeviceImpl;
 
 import java.io.File;
 import java.net.InetSocketAddress;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.mina.core.future.ReadFuture;
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.session.IoSession;
@@ -90,7 +88,7 @@ public class DeviceImpl implements DeviceService {
 	private GuaranteeTypeMapper guaranteeTypeMapper;
 	
 
-	private static final Logger logger = Logger.getLogger(DeviceImpl.class);
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DeviceImpl.class);
 
 	@Override
 	public Map<Object, Object> getUserDevice(User user) {
