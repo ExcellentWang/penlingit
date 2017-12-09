@@ -177,7 +177,20 @@
     </selectKey>
     insert into tb_equipment (equipmentNum,type,created_at,product)values(#{equipmentNum},#{type},#{created_at},#{product})
     </insert>
-	
+	<!-- 插入预约表 -->
+	 <insert id="insertDeviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+     <selectKey keyProperty="appointment_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_equipment_appointment (equipment_id)values(#{equipment_id})
+    </insert>
+    <!-- 插入设备状态表 -->
+     <insert id="insertEquipmentstatus" parameterType="java.lang.Integer">
+     <selectKey keyProperty="status_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_equipmentstatus (equipment_id)values(#{equipment_id})
+    </insert>
 	 <select id="getzaixianlv" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.util.Map">
 	SELECT
 	((SELECT

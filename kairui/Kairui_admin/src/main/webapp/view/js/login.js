@@ -27,7 +27,13 @@ $(function() {
 			type: "POST",
 			data: $("#loginForm").values(),
 			success: function(res) {
-				console.log(res.code)
+				var code = $('.check i').attr('index');
+				var userName = $("input[name=userName]").val();
+				if (code == 1) {
+					delCookie(userName);
+				} else if (code == 0) {
+					addCookie(userName);
+				};
 				if (res.code === 0) {
 					location.href = "main.html";
 				} else if (res.code === 2) {
@@ -36,16 +42,6 @@ $(function() {
 				}
 			}
 		});
-	});
-
-	$("#switch").click(function() { //登录二维码切换
-		$(this).toggleClass('code');
-		var code = $(this).attr('class');
-		if (code == 'code') {
-			$(".login_box").addClass('hide').next(".codeBox").removeClass('hide');
-		} else {
-			$(".login_box").removeClass('hide').next(".codeBox").addClass('hide');
-		}
 	});
 	$(".check i").click(function() {
 		var code = $(this).attr('class');

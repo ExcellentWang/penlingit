@@ -3,6 +3,7 @@ package com.ontheroad.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ontheroad.pojo.Constant.BaseConstant;
 
 public class MapUtil {
@@ -23,7 +24,18 @@ public class MapUtil {
  		map.put("msg", message);
  		return map;
     }
-    
+    /**
+     * 生成一个失败的对象带code
+     *
+     * @param message 失败消息
+     * @return String
+     */
+    public static String getFailureJson(String message, int code) {
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("msg", message);
+        resultJson.put("code", code);
+        return resultJson.toJSONString();
+    }
 
     /**
      * 生成一个成功的对象

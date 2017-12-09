@@ -200,6 +200,7 @@ public class DeviceMessageHandler {
                     device.setCurrent_flow_grade(ls.get(1));
                     device.setEffluent_type(ls.get(2));
                     device.setEffluent_type2(ls.get(3));
+                    device.setEffluent_way(ls.get(6));//出水方式
                     deviceMapper.updateDevice(device);
                     //更新或者插入预约表time
                     Date now = new Date();

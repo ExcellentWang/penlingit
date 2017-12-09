@@ -15,7 +15,7 @@
 			<td><span class="required">*</span>登录名：</td>
 			<td><input type="text" id="userName" name="userName"></td>
 			<td><span class="required">*</span>初始密码：</td>
-			<td><input type="text" id="userPwd" name="userPwd" value="${initPassword}" readonly="readonly"></td>
+			<td><input type="text" id="userPwd" name="userPwd" value="${initPassword}" ></td>
 		</tr>
 		<tr>
 			<td><span class="required">*</span>真实姓名：</td>

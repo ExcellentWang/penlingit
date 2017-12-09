@@ -23,8 +23,8 @@
 			<td><input type="text" id="roleOrder" name="roleOrder" value="${sRole.roleOrder}"></td>
 		</tr>
 		<tr>
-			<td>角色地区：</td>
-			<td><input id="province" name="province" type="combo"></td> 
+			<!-- <td>角色地区：</td>
+			<td><input id="province" name="province" type="combo"></td>  -->
 			<td>备注：</td>
 			<td><input type="text" id="bz" name="bz" value="${sRole.bz}"></td>
 		</tr>

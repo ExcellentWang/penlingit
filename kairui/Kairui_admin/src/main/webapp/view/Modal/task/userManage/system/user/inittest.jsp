@@ -100,7 +100,7 @@ $(function() {
 					 {width : '150',title : '最后登录时间',field : 'update_time'},
 					 {width : '150',title : '操作',field : 'xx',formatter:function(v,r){
 						 if(r.user_status==1){
-						 	return '<a href="javascript:disableUser('+r.user_id+',2);" >用户停用</a>';
+						 	return '<a href="javascript:disableUser('+r.user_id+',2);" style="color:red">用户停用</a>';
 						 }else{
 							return '<a href="javascript:disableUser('+r.user_id+',1);" >用户启用</a>';
 						 }

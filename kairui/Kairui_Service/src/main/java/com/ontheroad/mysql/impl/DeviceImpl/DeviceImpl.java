@@ -744,7 +744,12 @@ public class DeviceImpl implements DeviceService {
 	@Override
 	public void insert(TerminalDevice device) {
 		deviceMapper.insert(device);
-		
+		//添加设备状态表
+		DeviceAppointment da=new DeviceAppointment();
+		da.setEquipment_id(device.getEquipment_id());
+		deviceMapper.insertDeviceAppointment(da);
+		//添加预约表
+		deviceMapper.insertEquipmentstatus(device.getEquipment_id());
 	}
 
 	@Override

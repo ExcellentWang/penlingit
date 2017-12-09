@@ -86,6 +86,15 @@ public interface DeviceMapper {
 	 * @return
 	 */
 	void updateAppointmenTime(@Param("time")Date time,@Param("equipment_id") Integer eqiupment_id);
+	/**
+	 * 添加设备预约表
+	 * @param device
+	 */
+	void insertDeviceAppointment(DeviceAppointment device);
 	
-	
+	/**
+	 * 添加设备预约表
+	 * @param device
+	 */
+	void insertEquipmentstatus(@Param("equipment_id")Integer equipment_id);
 }
