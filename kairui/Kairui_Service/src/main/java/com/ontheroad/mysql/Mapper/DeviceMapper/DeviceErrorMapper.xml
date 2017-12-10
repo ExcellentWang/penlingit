@@ -20,8 +20,9 @@
      <select id="getDeviceErrorList" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceVo" resultType="com.ontheroad.pojo.TerminalDevice.DeviceVo">
 	SELECT * FROM tb_device_error tde
 	left join tb_equipment te on te.equipment_id=tde.equipment_id
+	left join tb_user_share tus on tus.equipment_id=te.`equipment_id` and tus.status=0
 	LEFT JOIN `tb_user` tu
-	ON te.`user_id` = tu.`user_id`
+	ON tus.`share_user_id` = tu.`user_id`
 	left join equipment_datatype ed on ed.equipment_type=te.type
 	left join tb_equipmentstatus tes on tes.equipment_id=te.equipment_id
 	WHERE 1 = 1
@@ -30,7 +31,7 @@
 		and te.equipmentNum = #{equipmentNum}
 	</if> 
     <if test="phone!=null and phone!=''">
-		and tu.phone = #{phone}
+		and tu.phone like  concat('%',#{phone},'%')
 	</if> 
 	<if test="type!=null and type!=''">
 		and te.type = #{type}

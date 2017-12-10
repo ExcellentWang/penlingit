@@ -152,17 +152,18 @@
 	te.*,tu.*,tes.*
 	FROM
 	tb_equipment te
-	LEFT JOIN `tb_user` tu
-	ON te.`user_id` = tu.`user_id`
 	LEFT JOIN `tb_equipmentstatus` tes
 	ON
 	tes.`equipment_id` = te.`equipment_id`
+	left join tb_user_share tus on tus.equipment_id=te.`equipment_id` and tus.status=0
+	LEFT JOIN `tb_user` tu
+	ON tus.`share_user_id` = tu.`user_id`
 	WHERE 1 = 1
 	<if test="equipmentNum!=null and equipmentNum!=''">
 		and te.equipmentNum like  concat('%',#{equipmentNum},'%')
 	</if> 
     <if test="phone!=null and phone!=''">
-		and tu.phone = #{phone}
+		and tu.phone like  concat('%',#{phone},'%')
 	</if> 
 	<if test="type!=null and type!=''">
 		and te.type = #{type}
@@ -170,6 +171,7 @@
 	<if test="binded_at_a!=null">
 		and date(te.binded_at) = date(#{binded_at_a,jdbcType=TIMESTAMP})  
 	</if> 
+	group by te.equipment_id
     </select>
     <insert id="insert" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
      <selectKey keyProperty="equipment_id" order="AFTER" resultType="java.lang.Integer">

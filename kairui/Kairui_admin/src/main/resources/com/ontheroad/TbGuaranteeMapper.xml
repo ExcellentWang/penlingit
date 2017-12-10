@@ -383,11 +383,13 @@
   </update>
     <!-- 保修卡列表 -->
     <select id="selectByExample2" parameterType="com.ontheroad.dto.TbGuranteeDto" resultMap="BaseResultMap2">
-    SELECT 
+    SELECT tu.phone as phone,
     tg.*,te.equipmentNum,te.type,te.product
     FROM tb_guarantee tg
     LEFT JOIN tb_equipment te ON tg.`equipment_id`=te.`equipment_id`
-   <!--  LEFT JOIN `tb_user` tu ON tu.`user_id`=te.`user_id` -->
+    left join tb_user_share tus on tus.equipment_id=te.`equipment_id` and tus.status=0
+	LEFT JOIN `tb_user` tu
+	ON tus.`share_user_id` = tu.`user_id`
     WHERE 1=1
     <if test="status != null and status!=''">
        and tg.status = #{status,jdbcType=INTEGER}
@@ -396,7 +398,7 @@
        and equipmentNum like  concat('%',#{equipmentNum},'%')
       </if>
       <if test="phone != null and phone!=''">
-       and phone like  concat('%',#{phone},'%')
+       and tu.phone like  concat('%',#{phone},'%')
       </if>
   </select>
 </mapper>
