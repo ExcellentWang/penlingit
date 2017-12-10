@@ -50,6 +50,8 @@ public class Modem {
      * @throws IOException
      */
     public void send(Path file,WriteFuture writeFuture,IoSession session ,String instructions) throws IOException {
+    	session.getConfig().setUseReadOperation(true); 
+		session.getConfig().setReaderIdleTime(2000);
         try (DataInputStream dataStream = new DataInputStream(Files.newInputStream(file))) {
             Timer timer = new Timer(Modem.WAIT_FOR_RECEIVER_TIMEOUT).start();
             logger.info("发送开始指令----------"+instructions);

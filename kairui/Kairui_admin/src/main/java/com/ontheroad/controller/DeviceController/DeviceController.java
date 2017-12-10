@@ -549,7 +549,7 @@ public class DeviceController extends BaseConstant{
 			List<FirmVersion> ls=firmVersionService.selectByExample(fv);
 			String path = request.getSession().getServletContext().getRealPath("view/upload");  
 			File file=new File(path+ls.get(ls.size()-1).getFirmUrl().replace("https://sec.ldzhn.com/view/upload", ""));
-			deviceService.uoploadGu(file, instructions);
+			deviceService.uoploadGu(file, getValidate(instructions));
 		} catch (Exception e) {
 			return MapUtil.getFailureJson("下发失败！");
 		}
