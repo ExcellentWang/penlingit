@@ -184,14 +184,21 @@
      <selectKey keyProperty="appointment_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_equipment_appointment (equipment_id)values(#{equipment_id})
+    insert into tb_equipment_appointment (equipment_id,time)values(#{equipment_id},now())
     </insert>
     <!-- 插入设备状态表 -->
      <insert id="insertEquipmentstatus" parameterType="java.lang.Integer">
      <selectKey keyProperty="status_id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_equipmentstatus (equipment_id)values(#{equipment_id})
+    insert into tb_equipmentstatus (equipment_id,workStatus)values(#{equipment_id},#{workStatus})
+    </insert>
+    <!-- 插入提醒表 -->
+     <insert id="insertRemind" parameterType="java.lang.Integer">
+     <selectKey keyProperty="remind_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_remind (equipment_id)values(#{equipment_id})
     </insert>
 	 <select id="getzaixianlv" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.util.Map">
 	SELECT

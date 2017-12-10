@@ -21,9 +21,15 @@ public interface DeviceMapper {
 	TerminalDevice getDeviceDetailById(Integer eqiupment_id);
 
 	void deviceBacklight(TerminalDevice t);
-
+	/**
+	 * 设定提醒方式
+	 * @param d
+	 */
 	void deviceRemind(DeviceRemind d);
-
+	/**
+	 * 更新预约表
+	 * @param d
+	 */
 	void deviceAppointment(DeviceAppointment d);
 
 	TerminalDevice findDeviceByNum(String equipmentNum);
@@ -31,7 +37,11 @@ public interface DeviceMapper {
 	void updateDevice(TerminalDevice t);
 
 	void updateDeviceName(TerminalDevice t);
-
+	/**
+	 * 查询预约表
+	 * @param t
+	 * @return
+	 */
 	DeviceAppointment findAppointment(TerminalDevice t);
 	/**
 	 * 
@@ -96,5 +106,11 @@ public interface DeviceMapper {
 	 * 添加设备预约表
 	 * @param device
 	 */
-	void insertEquipmentstatus(@Param("equipment_id")Integer equipment_id);
+	void insertEquipmentstatus(@Param("equipment_id")Integer equipment_id,@Param("workStatus")Integer workStatus);
+	
+	/**
+	 * 添加设备预约表
+	 * @param device
+	 */
+	void insertRemind(@Param("equipment_id")Integer equipment_id);
 }
