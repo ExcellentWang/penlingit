@@ -231,6 +231,7 @@ public class Modem {
  */
     private int readByte(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException, TimeoutException {
     	if(writeFuture.isWritten()){
+    		logger.info("进入固件升级同步等待");
 			ReadFuture readFuture = session.read();
 			//等待消息响应
 			readFuture.awaitUninterruptibly();
