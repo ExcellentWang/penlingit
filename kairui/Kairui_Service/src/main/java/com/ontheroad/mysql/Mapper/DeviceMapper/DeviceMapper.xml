@@ -149,7 +149,7 @@
 	ELSE tes.workStatus
 	END
 	) AS workStatus,
-	te.*,tu.*,tes.*
+	te.*,tu.*,tes.*,tus.*
 	FROM
 	tb_equipment te
 	LEFT JOIN `tb_equipmentstatus` tes

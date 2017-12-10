@@ -28,7 +28,7 @@ public class Modem {
 
     protected static final byte CPMEOF = 0x1A;
     protected static final byte ST_C = 'C';
-    protected static final byte YI = 0x31;
+    protected static final byte YI = 1;
 
     protected static final int MAXERRORS = 10;
 
@@ -241,6 +241,8 @@ public class Modem {
 				Object message = readFuture.getMessage();
 				logger.info("获取到设备返回消息------"+message);
 				return (int)message;
+			}else{
+				logger.info("设备无返回");
 			}
 		}
     	logger.info("未获取到设备返回消息------");
@@ -293,9 +295,10 @@ public class Modem {
         }
     }
     public static void main(String[] args) {
-		int a=1;
-		byte b=1;
-		System.out.println(a==b);
+    	   byte ST_C = 'C';
+    	   byte yi=0x31;
+    	   byte y=1;
+		System.out.println(y);
 	}
 }
 

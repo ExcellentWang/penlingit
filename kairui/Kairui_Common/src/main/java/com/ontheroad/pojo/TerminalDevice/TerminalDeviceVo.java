@@ -60,8 +60,18 @@ public class TerminalDeviceVo  implements Serializable{
 	 private String m_use_water;
 	 private String m_jie_water;
 	 private String city;
+	 @DateTimeFormat(pattern = "yyyy-MM-dd") 
+	 private Date share_time;
 	 
 	 
+	public Date getShare_time() {
+		return share_time;
+	}
+
+	public void setShare_time(Date share_time) {
+		this.share_time = share_time;
+	}
+
 	public String getCity() {
 		return city;
 	}
