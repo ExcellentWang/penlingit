@@ -90,9 +90,17 @@ public class Modem {
     */
     public boolean waitReceiverRequest(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException {
         int character;
-        while (true) {
+        int num=0;
+        while (num<3) {
             try {
+            	try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 character = readByte(timer, writeFuture, session);
+                num++;
                 if (character == NAK)
                     return false;
                 if (character == ST_C) {
@@ -103,6 +111,7 @@ public class Modem {
                 throw new IOException("Timeout waiting for receiver");
             }
         }
+        return false;
     }
     /**
      * 判断设备返回的数据是不是1
@@ -112,7 +121,14 @@ public class Modem {
      */
      public boolean wait1(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException {
          int character;
-         while (true) {
+         int num=0;
+         while (num<3) {
+        	 try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
              try {
                  character = readByte(timer, writeFuture, session);
                  if (character == YI) {
@@ -123,6 +139,7 @@ public class Modem {
                  throw new IOException("Timeout waiting for receiver");
              }
          }
+         return false;
      }
     /**
      * 循环发送数据包
