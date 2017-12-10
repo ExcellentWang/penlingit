@@ -115,7 +115,6 @@ public class Modem {
          while (true) {
              try {
                  character = readByte(timer, writeFuture, session);
-                 logger.info("------------------------判断设备返回1-----------------"+character);
                  if (character == YI) {
                  	 logger.info("------------------------设备返回1-----------------");
                      return true;
@@ -226,6 +225,7 @@ public class Modem {
 				return (int)message;
 			}
 		}
+    	logger.info("未获取到设备返回消息------");
     	return 0;
     }
     /** 
