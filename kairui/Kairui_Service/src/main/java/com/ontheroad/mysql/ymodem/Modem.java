@@ -194,6 +194,7 @@ public class Modem {
 			if(readFuture.isRead()){
 				//获取消息
 				Object message = readFuture.getMessage();
+				logger.info("获取到设备返回消息------"+message);
 				return (int)message;
 			}
 		}

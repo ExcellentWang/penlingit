@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -747,8 +748,10 @@ public class DeviceImpl implements DeviceService {
 		//添加设备状态表
 		DeviceAppointment da=new DeviceAppointment();
 		da.setEquipment_id(device.getEquipment_id());
+		da.setTime(new Date());
 		deviceMapper.insertDeviceAppointment(da);
 		//添加预约表
+		device.setWorkStatus(4);
 		deviceMapper.insertEquipmentstatus(device.getEquipment_id());
 	}
 
