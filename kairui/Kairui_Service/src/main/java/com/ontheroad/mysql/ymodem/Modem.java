@@ -28,6 +28,7 @@ public class Modem {
 
     protected static final byte CPMEOF = 0x1A;
     protected static final byte ST_C = 'C';
+    protected static final byte YI = 0x31;
 
     protected static final int MAXERRORS = 10;
 
@@ -53,25 +54,29 @@ public class Modem {
             Timer timer = new Timer(Modem.WAIT_FOR_RECEIVER_TIMEOUT).start();
             logger.info("发送开始指令----------"+instructions);
             writeFuture=session.write(instructions); //1.向设备发送信号，开启固件升级
-            logger.info("------------------------1.向设备发送信号，开启固件升级-----------------");
-            boolean useCRC16 = waitReceiverRequest(timer, writeFuture, session);//等待设备返回C
-            CRC crc;
-            if (useCRC16){
-            	crc = new CRC16();
+            boolean a1=wait1(timer, writeFuture, session);
+            if(a1){
+            	logger.info("------------------------1.向设备发送信号，开启固件升级-----------------");
+            	session.write(YI);//发送1
+            	boolean useCRC16 = waitReceiverRequest(timer, writeFuture, session);//等待设备返回C
+            	CRC crc;
+            	if (useCRC16){
+            		crc = new CRC16();
+            	}
+            	else{
+            		crc = new CRC8();
+            	}
+            	BasicFileAttributes readAttributes = Files.readAttributes(file, BasicFileAttributes.class);
+            	String fileNameString = file.getFileName().toString() + (char)0 + ((Long) Files.size(file)).toString()+" "+ Long.toOctalString(readAttributes.lastModifiedTime().toMillis() / 1000);
+            	byte[] fileNameBytes = Arrays.copyOf(fileNameString.getBytes(), 128);
+            	logger.info("------------------------开始发送第一个包（告诉设备文件信息）-----------------");
+            	sendBlock(0, Arrays.copyOf(fileNameBytes, 128), 128, crc,writeFuture,session);//2.发送第一个包（告诉设备文件信息）
+            	waitReceiverRequest(timer,writeFuture,session);//等待设备返回C
+            	//发送数据
+            	byte[] block = new byte[128];
+            	sendDataBlocks(dataStream, 1, crc, block,writeFuture,session);
+            	sendEOT(writeFuture,session);
             }
-            else{
-            	crc = new CRC8();
-            }
-            BasicFileAttributes readAttributes = Files.readAttributes(file, BasicFileAttributes.class);
-            String fileNameString = file.getFileName().toString() + (char)0 + ((Long) Files.size(file)).toString()+" "+ Long.toOctalString(readAttributes.lastModifiedTime().toMillis() / 1000);
-            byte[] fileNameBytes = Arrays.copyOf(fileNameString.getBytes(), 128);
-            logger.info("------------------------开始发送第一个包（告诉设备文件信息）-----------------");
-            sendBlock(0, Arrays.copyOf(fileNameBytes, 128), 128, crc,writeFuture,session);//2.发送第一个包（告诉设备文件信息）
-            waitReceiverRequest(timer,writeFuture,session);//等待设备返回C
-            //发送数据
-            byte[] block = new byte[128];
-            sendDataBlocks(dataStream, 1, crc, block,writeFuture,session);
-           sendEOT(writeFuture,session);
         }
     }
 
@@ -97,6 +102,27 @@ public class Modem {
             }
         }
     }
+    /**
+     * 判断设备返回的数据是不是1
+     * @param timer
+     * @return
+     * @throws IOException
+     */
+     public boolean wait1(Timer timer,WriteFuture writeFuture,IoSession session) throws IOException {
+         int character;
+         while (true) {
+             try {
+                 character = readByte(timer, writeFuture, session);
+                 logger.info("------------------------判断设备返回1-----------------"+character);
+                 if (character == YI) {
+                 	 logger.info("------------------------设备返回1-----------------");
+                     return true;
+                 }
+             } catch (TimeoutException e) {
+                 throw new IOException("Timeout waiting for receiver");
+             }
+         }
+     }
     /**
      * 循环发送数据包
      * @param dataStream
