@@ -93,12 +93,12 @@ public class Modem {
         int num=0;
         while (num<3) {
             try {
-            	try {
+            	/*try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
                 character = readByte(timer, writeFuture, session);
                 num++;
                 if (character == NAK)
@@ -123,12 +123,12 @@ public class Modem {
          int character;
          int num=0;
          while (num<3) {
-        	 try {
+        	/* try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
              try {
                  character = readByte(timer, writeFuture, session);
                  if (character == YI) {
