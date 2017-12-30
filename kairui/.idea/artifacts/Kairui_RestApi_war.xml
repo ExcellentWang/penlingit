@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Kairui_RestApi:war">
+    <output-path>$PROJECT_DIR$/Kairui_RestApi/target</output-path>
+    <root id="archive" name="ontheroad.war">
+      <element id="artifact" artifact-name="Kairui_RestApi:war exploded" />
+    </root>
+  </artifact>
+</component>

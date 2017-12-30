@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kairui</groupId>
@@ -12,8 +13,8 @@
         <module>Kairui_Common</module>
         <module>Kairui_RestApi</module>
         <module>Kairui_Service</module>
-    <module>Kairui_admin</module>
-  </modules>
+        <module>Kairui_admin</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,18 +31,18 @@
             <url>http://repo.spring.io/libs-release/</url>
         </repository>
         <!--<repository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Team Nexus Repository</name>-->
-            <!--<url>http://localhost:8081/nexus/content/groups/public</url>-->
+        <!--<id>nexus</id>-->
+        <!--<name>Team Nexus Repository</name>-->
+        <!--<url>http://localhost:8081/nexus/content/groups/public</url>-->
         <!--</repository>-->
     </repositories>
 
     <dependencies>
-	    <dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-core</artifactId>
-			<version>2.0.10</version>
-			</dependency>
+        <dependency>
+            <groupId>org.apache.mina</groupId>
+            <artifactId>mina-core</artifactId>
+            <version>2.0.10</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -191,12 +192,12 @@
             <scope>${jar.scope}</scope>
         </dependency>
 
-       <!--  <dependency>
-            <groupId>com.aliyun.api</groupId>
-            <artifactId>sms</artifactId>
-            <version>1.0</version>
-            <scope>${jar.scope}</scope>
-        </dependency> -->
+        <!--  <dependency>
+             <groupId>com.aliyun.api</groupId>
+             <artifactId>sms</artifactId>
+             <version>1.0</version>
+             <scope>${jar.scope}</scope>
+         </dependency> -->
 
         <dependency>
             <groupId>com.jiuwu.ccp</groupId>

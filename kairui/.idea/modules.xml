@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Kairui.iml" filepath="$PROJECT_DIR$/Kairui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kairui_Common/Kairui_Common.iml" filepath="$PROJECT_DIR$/Kairui_Common/Kairui_Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kairui_RestApi/Kairui_RestApi.iml" filepath="$PROJECT_DIR$/Kairui_RestApi/Kairui_RestApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kairui_Service/Kairui_Service.iml" filepath="$PROJECT_DIR$/Kairui_Service/Kairui_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kairui_admin/Kairui_admin.iml" filepath="$PROJECT_DIR$/Kairui_admin/Kairui_admin.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Kairui_admin:war">
+    <output-path>$PROJECT_DIR$/Kairui_admin/target</output-path>
+    <root id="archive" name="Kairui_admin.war">
+      <element id="artifact" artifact-name="Kairui_admin:war exploded" />
+    </root>
+  </artifact>
+</component>
