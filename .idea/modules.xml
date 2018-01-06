@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/kairui/Kairui.iml" filepath="$PROJECT_DIR$/kairui/Kairui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kairui/Kairui_Common/Kairui_Common.iml" filepath="$PROJECT_DIR$/kairui/Kairui_Common/Kairui_Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kairui/Kairui_RestApi/Kairui_RestApi.iml" filepath="$PROJECT_DIR$/kairui/Kairui_RestApi/Kairui_RestApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kairui/Kairui_Service/Kairui_Service.iml" filepath="$PROJECT_DIR$/kairui/Kairui_Service/Kairui_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kairui/Kairui_admin/Kairui_admin.iml" filepath="$PROJECT_DIR$/kairui/Kairui_admin/Kairui_admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/penlingit.iml" filepath="$PROJECT_DIR$/.idea/penlingit.iml" />
     </modules>
   </component>

@@ -25,7 +25,7 @@ public class ParmeterSolver {
     private Validator validator;
 
     public ParmeterSolver() {
-        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+//        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     /**
