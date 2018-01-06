@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysLogMapper">
+
+	<sql id="Model_Where_Clause" >
+		<where>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( logId )">
+				  AND log_id = #{logId}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( actionUrl )">
+				  AND action_url = #{actionUrl}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[log_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[log_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( userIp )">
+				  AND user_ip = #{userIp}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( userId )">
+				  AND user_id = #{userId}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( logDesc )">
+				  AND log_desc = #{logDesc}
+			</if>
+			<if  test="@org.mybatis.util.Ognl@isNotEmpty( userName )">
+				  AND user_name = #{userName}
+			</if>
+		</where>
+	</sql>
+</mapper>

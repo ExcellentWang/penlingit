@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Kairui_admin" />
+        <module name="Kairui_Common" />
+        <module name="Kairui_RestApi" />
+        <module name="Kairui_Service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Kairui" target="1.5" />
+      <module name="Kairui_admin" target="1.8" />
+      <module name="Kairui_Common" target="1.7" />
+      <module name="Kairui_RestApi" target="1.7" />
+      <module name="Kairui_Service" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="106.14.173.153">
+    <serverData>
+      <paths name="106.14.173.153">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/kairui/Kairui_RestApi" web="/smartshower" />
+            <mapping deploy="/" local="$PROJECT_DIR$/kairui/Kairui_Service" web="/service" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

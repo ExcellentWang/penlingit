@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ontheroad.dao.SysRoleMapper">
+
+	<sql id="Model_Where_Clause">
+		<where>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( notRoleId )">
+				AND ROLE_ID != #{notRoleId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleNameLike )">
+				AND ROLE_NAME like '%${roleNameLike}%'
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleId )">
+				AND role_id = #{roleId}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleName )">
+				AND role_name = #{roleName}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleDesc )">
+				AND role_desc = #{roleDesc}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleOrder )">
+				AND role_order = #{roleOrder}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleType )">
+				AND role_type = #{roleType}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( roleStatus )">
+				AND role_status = #{roleStatus}
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeStart )">
+				AND  <![CDATA[create_time >= date_format(#{createTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( createTimeEnd )">
+				AND  <![CDATA[create_time <= date_format(#{createTimeEnd}||'23:59:59' ,'%Y-%c-%d %H:%i:%S')   ]]>
+			</if>
+		 	<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeStart )">
+				AND  <![CDATA[update_time >= date_format(#{updateTimeStart},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if>
+			<if test="@org.mybatis.util.Ognl@isNotEmpty( updateTimeEnd )">
+				AND  <![CDATA[update_time <= date_format(#{updateTimeEnd},'%Y-%c-%d %H:%i:%S')    ]]>
+			</if> 
+		</where>
+	</sql>
+	
+	<select id="selectRolesByUserId" parameterType="Long" resultMap="result_ResultMap_SysRole">
+		select t1.role_id, t1.ROLE_NAME, t1.ROLE_DESC, t1.ROLE_ORDER, t1.ROLE_TYPE, t1.ROLE_STATUS 
+		   from t_s_role t1, t_s_role_user t2
+		where  t1.role_status=1  and  t2.user_id = #{userId}
+		  and t1.role_id = t2.role_id	
+	</select>
+	
+</mapper>
