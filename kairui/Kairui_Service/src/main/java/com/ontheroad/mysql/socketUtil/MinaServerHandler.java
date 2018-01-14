@@ -8,6 +8,12 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.util.ConcurrentHashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+/**
+ * @author wang 2018/1/10 上午10:19
+ * @param
+ * @return
+ *  这是一个服务处理器,类似于controller 的做用.
+**/
 
 @Component("MinaServerHandler")
 public class MinaServerHandler extends IoHandlerAdapter {
@@ -45,6 +51,13 @@ public class MinaServerHandler extends IoHandlerAdapter {
         logUtil.info("服务端与客户端连接打开...");
     }
 
+    /**
+     * @author wang 2018/1/10 下午12:04
+     * @param
+     * @return
+     * 接收上报信息
+     *
+    **/
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         String msg = message.toString();

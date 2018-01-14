@@ -139,6 +139,7 @@ public class AppUserServiceImpl implements AppUserService{
 		//返回前端map
 	    Map<Object,Object> map = new HashMap<Object,Object>();
 	    Map<Object,Object> resultMap = new HashMap<Object,Object>();
+		System.out.println("调到了.");
 		try {
 			String verification = StringUtilsCommon.getRandNum(6);
 

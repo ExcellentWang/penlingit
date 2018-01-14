@@ -1,5 +1,0 @@
-/*微信在浏览器中打开*/
-.tc{position: absolute;right: 0px;top: 0px;width:320px;display:block;height: 100%;z-index: 99999;}
-.tc-bg{position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;background: #000;opacity: 0.7;}
-.tc-con{position: absolute;right: 0px;top: 0px;width:320px;background: url(tcbg.png) no-repeat center 10px;background-size: 90%;}
-.tc-con p{color: #FFF;float: none;width: auto;text-align: center;font-family: "微软雅黑";font-size: 16px;padding-top: 62%;margin-top: 0;padding-bottom: 18%;}

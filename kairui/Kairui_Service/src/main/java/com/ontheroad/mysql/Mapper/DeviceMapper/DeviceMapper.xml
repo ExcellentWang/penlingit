@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ontheroad.mysql.Mapper.DeviceMapper.DeviceMapper">
-   
+
     <select id="getAllDevices" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
         SELECT e.*, u.phone AS userTelephone, es.workStatus, es.firmware_version, es.last_active_at FROM tb_equipment e
         LEFT JOIN tb_equipmentstatus es ON es.equipment_id = e.equipment_id
@@ -9,9 +9,10 @@
         LEFT JOIN tb_user u ON u.user_id = us.share_user_id
         WHERE us.status = 0
     </select>
- 
- 
-   <select id="findUserListByUserId" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+
+
+    <select id="findUserListByUserId" parameterType="java.lang.Integer"
+            resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
 		select *,s.workStatus,s.temperature as current_temp,o.appointment_temperature,h.status from tb_equipment t
 		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
 		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
@@ -20,48 +21,65 @@
 		 select equipment_id from tb_user_share
 		  where h.share_user_id = #{userId}
 		)
-        GROUP BY t.equipment_id		
+        GROUP BY t.equipment_id
    </select>
-   
-   
-    <select id="getDeviceDetailById" parameterType="java.lang.Integer"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-        select *,s.workStatus,s.temperature as current_temp, s.volume, s.backlight,s.app_enabled,o.appointment_temperature, g.status AS guaranteeStatus,ed.`period` 
-        from tb_equipment t
-		LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
-		LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
-		LEFT JOIN tb_equipment_appointment o on t.equipment_id = o.equipment_id
-		left join equipment_datatype ed on t.type=ed.type
-        where t.equipment_id = #{equipment_id}
-        group by t.equipment_id
-   </select>
-   
-    <select id="findDeviceByNum" parameterType="java.lang.String"  resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+
+    <select id="getDeviceDetailById" parameterType="java.lang.Integer"
+            resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+		SELECT
+			t.*,
+			s.workStatus,
+			s.temperature AS current_temp,
+			s.volume,
+			s.backlight,
+			s.app_enabled,
+			o.appointment_temperature,
+			g.status      AS guaranteeStatus,
+			ed.period
+		FROM tb_equipment t
+			LEFT JOIN tb_equipmentstatus s ON t.equipment_id = s.equipment_id
+			LEFT JOIN tb_guarantee g ON g.equipment_id = t.equipment_id
+			LEFT JOIN tb_equipment_appointment o ON t.equipment_id = o.equipment_id
+			LEFT JOIN equipment_datatype ed ON t.type = ed.type
+		WHERE t.equipment_id = #{equipment_id}
+		GROUP BY t.equipment_id
+	</select>
+
+    <select id="findDeviceByNum" parameterType="java.lang.String"
+            resultType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
         select *,tes.temperature as current_temp from tb_equipment te 
         left join tb_equipmentstatus tes
         on te.equipment_id=tes.equipment_id
         where equipmentNum = #{equipmentNum}
    </select>
+    <!--wang增加预约-->
+    <select id="findDeviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+		select ta."effluent_amount",ta."effluent_time" from tb_equipment_appointment ta
+		where ta.equipment_id = #{equipment_id};
+   </select>
 
-    <select id="findDeviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
+    <select id="findDeviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
         SELECT * FROM tb_remind
         WHERE equipment_id = #{equipment_id}
     </select>
-   
-   
-   <update id="deviceBroadcast" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+
+
+    <update id="deviceBroadcast" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
          update tb_equipmentstatus set 
          voicebroadcast = #{voicebroadcast},
          volume = #{volume} 
          where equipment_id = #{equipment_id}
    </update>
-   
-   <update id="deviceBacklight" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
+
+    <update id="deviceBacklight" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
          update tb_equipmentstatus set 
          backlight = #{backlight}
          where equipment_id = #{equipment_id}
    </update>
-   
-   <update id="deviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
+
+    <update id="deviceRemind" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceRemind">
          update tb_remind SET 
 	     warn_type = #{warn_type},water_warn_status = #{water_warn_status},water_under = #{water_under},
 	     under_temperature = #{under_temperature},under_times = #{under_times},water_hight = #{water_hight},
@@ -70,7 +88,7 @@
 		 
    </update>
 
-   <update id="deviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+    <update id="deviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
         update tb_equipment_appointment 
         SET
 		user_id = #{user_id}, effluent_speed = #{effluent_speed},time = #{time},
@@ -78,11 +96,13 @@
 		effluent_amount = #{effluent_amount},effluent_time = #{effluent_time}, effluent_way = #{effluent_way},updated_at=NOW()
 		where equipment_id = #{equipment_id}
    </update>
-    <update id="updateAppointmenTime" >
+
+    <update id="updateAppointmenTime">
         update tb_equipment_appointment 
         SET time = #{time} ,updated_at=NOW()
 		where equipment_id = #{equipment_id}
    </update>
+
     <update id="updateDevice" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
 	UPDATE tb_equipment
 	INNER JOIN tb_equipmentstatus ON tb_equipmentstatus.equipment_id =
@@ -116,91 +136,104 @@
 	tb_equipmentstatus.scyc_send_time=#{scyc_send_time}
 	WHERE tb_equipment.equipment_id = #{equipment_id}
 </update>
+
+    <update id="updateAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+                update tb_equipment_appointment
+        SET effluent_amount = #{effluent_amount},
+            effluent_time = #{effluent_time}
+        WHERE equipment_id = #{equipment_id};
+
+	</update>
+
     <update id="updateDeviceName" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
         UPDATE tb_equipment
         SET equipmentName = #{equipmentName}
         WHERE equipment_id = #{equipment_id}
     </update>
 
-    <select id="findAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+    <select id="findAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
         SELECT * FROM tb_equipment_appointment
         WHERE equipment_id = #{equipment_id}
         LIMIT 1
     </select>
-    
-	<select id="repairStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="int">
-        SELECT count(*) FROM tb_customerservice
+
+    <select id="repairStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="int">
+        SELECT count(0) FROM tb_customerservice
         WHERE equipment_id = #{equipment_id} and status!=2
         limit 1
     </select>
-    
+
     <update id="updateDeviceWorkingStatus" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
         UPDATE tb_equipmentstatus
         SET workStatus = #{workStatus}
         WHERE equipment_id = #{equipment_id}
     </update>
-    
-    <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo" resultType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo">
-	SELECT
-	(
-	CASE
-	WHEN (tes.workStatus IS NULL)
-	THEN '4'
-	ELSE tes.workStatus
-	END
-	) AS workStatus,
-	te.*,tu.*,tes.*,tus.*
-	FROM
-	tb_equipment te
-	LEFT JOIN `tb_equipmentstatus` tes
-	ON
-	tes.`equipment_id` = te.`equipment_id`
-	left join tb_user_share tus on tus.equipment_id=te.`equipment_id` and tus.status=0
-	LEFT JOIN `tb_user` tu
-	ON tus.`share_user_id` = tu.`user_id`
-	WHERE 1 = 1
-	<if test="equipmentNum!=null and equipmentNum!=''">
-		and te.equipmentNum like  concat('%',#{equipmentNum},'%')
-	</if> 
-    <if test="phone!=null and phone!=''">
-		and tu.phone like  concat('%',#{phone},'%')
-	</if> 
-	<if test="type!=null and type!=''">
-		and te.type = #{type}
-	</if> 
-	<if test="binded_at_a!=null">
-		and date(te.binded_at) = date(#{binded_at_a,jdbcType=TIMESTAMP})  
-	</if> 
-	group by te.equipment_id
+
+    <select id="getDevicesByExample" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo"
+            resultType="com.ontheroad.pojo.TerminalDevice.TerminalDeviceVo">
+        SELECT
+        (
+        CASE
+        WHEN (tes.workStatus IS NULL)
+        THEN '4'
+        ELSE tes.workStatus
+        END
+        ) AS workStatus,
+        te.*,tu.*,tes.*,tus.*
+        FROM
+        tb_equipment te
+        LEFT JOIN `tb_equipmentstatus` tes
+        ON
+        tes.`equipment_id` = te.`equipment_id`
+        left join tb_user_share tus on tus.equipment_id=te.`equipment_id` and tus.status=0
+        LEFT JOIN `tb_user` tu
+        ON tus.`share_user_id` = tu.`user_id`
+        WHERE 1 = 1
+        <if test="equipmentNum!=null and equipmentNum!=''">
+            and te.equipmentNum like concat('%',#{equipmentNum},'%')
+        </if>
+        <if test="phone!=null and phone!=''">
+            and tu.phone like concat('%',#{phone},'%')
+        </if>
+        <if test="type!=null and type!=''">
+            and te.type = #{type}
+        </if>
+        <if test="binded_at_a!=null">
+            and date(te.binded_at) = date(#{binded_at_a,jdbcType=TIMESTAMP})
+        </if>
+        group by te.equipment_id
     </select>
     <insert id="insert" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice">
-     <selectKey keyProperty="equipment_id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_equipment (equipmentNum,type,created_at,product)values(#{equipmentNum},#{type},#{created_at},#{product})
+        <selectKey keyProperty="equipment_id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_equipment
+        (equipmentNum,type,created_at,product)values(#{equipmentNum},#{type},#{created_at},#{product})
     </insert>
-	<!-- 插入预约表 -->
-	 <insert id="insertDeviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
-     <selectKey keyProperty="appointment_id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_equipment_appointment (equipment_id,time)values(#{equipment_id},now())
+    <!-- 插入预约表 -->
+    <insert id="insertDeviceAppointment" parameterType="com.ontheroad.pojo.TerminalDevice.DeviceAppointment">
+        <selectKey keyProperty="appointment_id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_equipment_appointment (equipment_id,time)values(#{equipment_id},now())
     </insert>
     <!-- 插入设备状态表 -->
-     <insert id="insertEquipmentstatus" parameterType="java.lang.Integer">
-     <selectKey keyProperty="status_id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_equipmentstatus (equipment_id,workStatus)values(#{equipment_id},#{workStatus})
+    <insert id="insertEquipmentstatus" parameterType="java.lang.Integer">
+        <selectKey keyProperty="status_id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_equipmentstatus (equipment_id,workStatus)values(#{equipment_id},#{workStatus})
     </insert>
     <!-- 插入提醒表 -->
-     <insert id="insertRemind" parameterType="java.lang.Integer">
-     <selectKey keyProperty="remind_id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_remind (equipment_id)values(#{equipment_id})
+    <insert id="insertRemind" parameterType="java.lang.Integer">
+        <selectKey keyProperty="remind_id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_remind (equipment_id)values(#{equipment_id})
     </insert>
-	 <select id="getzaixianlv" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.util.Map">
+    <select id="getzaixianlv" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="java.util.Map">
 	SELECT
 	((SELECT
 	COUNT(*)
@@ -215,27 +248,30 @@
 	GROUP BY province 
 	ORDER BY lv DESC
     </select>
-     <select id="OnlineSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.Integer">
-	SELECT
-	count(*)
-	FROM
-	`tb_equipmentstatus` t2
-	WHERE t2.workStatus != '4'
-	<if test="province!=null">
-		and province=#{province}
-	</if>
+    <select id="OnlineSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        `tb_equipmentstatus` t2
+        WHERE t2.workStatus != '4'
+        <if test="province!=null">
+            and province=#{province}
+        </if>
     </select>
-    <select id="allSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.Integer">
-	SELECT
-	count(*)
-	FROM
-	`tb_equipmentstatus` t2
-	WHERE 1=1
-	<if test="province!=null">
-		and province=#{province}
-	</if>
+    <select id="allSize" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        `tb_equipmentstatus` t2
+        WHERE 1=1
+        <if test="province!=null">
+            and province=#{province}
+        </if>
     </select>
-    <select id="getzaixianlvByCity" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice" resultType="java.lang.String">
+    <select id="getzaixianlvByCity" parameterType="com.ontheroad.pojo.TerminalDevice.TerminalDevice"
+            resultType="java.lang.String">
 	SELECT
 	((SELECT
 	COUNT(*)

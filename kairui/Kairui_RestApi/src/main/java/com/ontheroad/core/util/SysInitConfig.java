@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@SuppressWarnings("all")
 public class SysInitConfig {
     protected static final Logger logger = LoggerFactory.getLogger(SysInitConfig.class);
 
@@ -40,6 +40,7 @@ public class SysInitConfig {
 
     private void fillPropMap(Config config) {
         propMap.put(CfgProp.DABOO_REMOTESERVERURL, config.get("path/remoteServerUrl", ""));
+
         propMap.put(CfgProp.DABOO_DEFAULTPASSWORD, config.get("passwrod/defaultPassword", ""));
         propMap.put(CfgProp.DABOO_VERSION, config.get("version", ""));
         propMap.put(CfgProp.DABOO_HTTPCLIENTPOLICY_CONNECTIONTIMEOUT, config.get("webservice/httpClientPolicy/ConnectionTimeout", ""));

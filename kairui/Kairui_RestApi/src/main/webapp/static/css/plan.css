@@ -1,8 +1,0 @@
-@charset "utf-8";
-
-.plan_box{background: url(../images/main_bg.jpg);background-size: 100% auto;padding-top: 60px;}
-
-.img1{width: 86.71875%;margin: 0 auto;}
-.img2{width: 85%;margin: 0 auto;margin-top: 20px;}
-.img3{width: 67.96875%;margin: 0 auto;margin-top: 10px;}
-.img1 img,.img2 img,.img3 img{display: block;width: 100%;}

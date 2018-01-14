@@ -165,12 +165,13 @@
             <version>${slf4j.version}</version>
             <scope>${jar.scope}</scope>
         </dependency>
-        <dependency>
+        <!--mina 框架说这个和上面的那个,是不能同时使用-->
+        <!--<dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
             <scope>${jar.scope}</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>

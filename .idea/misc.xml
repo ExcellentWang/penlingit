@@ -4,6 +4,7 @@
     <file type="web" url="file://$PROJECT_DIR$/kairui/Kairui_admin" />
     <file type="web" url="file://$PROJECT_DIR$/kairui/Kairui_RestApi" />
     <file type="web" url="file://$PROJECT_DIR$/kairui/Kairui_Service" />
+    <type id="Spring" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

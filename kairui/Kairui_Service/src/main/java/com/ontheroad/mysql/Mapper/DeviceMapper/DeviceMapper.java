@@ -19,6 +19,7 @@ public interface DeviceMapper {
 	void deviceBroadcast(TerminalDevice t);
 
 	TerminalDevice getDeviceDetailById(Integer eqiupment_id);
+	TerminalDevice getDeviceAppointmentById(Integer eqiupment_id);
 
 	void deviceBacklight(TerminalDevice t);
 	/**
@@ -31,10 +32,19 @@ public interface DeviceMapper {
 	 * @param d
 	 */
 	void deviceAppointment(DeviceAppointment d);
-
 	TerminalDevice findDeviceByNum(String equipmentNum);
+	/**
+	 * @author wang 2018/1/13 上午10:19
+	 * @param
+	 * @return
+	 * 获取设备预约信息
+	**/
+
+	DeviceAppointment findDeviceAppointment(TerminalDevice terminalDevice);
 
 	void updateDevice(TerminalDevice t);
+
+	void updateAppointment(DeviceAppointment deviceAppointment);
 
 	void updateDeviceName(TerminalDevice t);
 	/**
